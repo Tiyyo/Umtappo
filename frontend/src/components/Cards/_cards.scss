@@ -1,0 +1,329 @@
+.movie-card  {
+    font-family: 'Merriweather', serif;
+    background-color: rgba(0, 0, 0, 0.15);
+    // box-shadow: 0 0 5px 1px rgba(190, 158, 116, 0.1);
+    border-radius: 9px;
+    min-width: 100px;
+    height: auto; 
+    overflow: hidden;
+    list-style-type: none;
+    position: relative;
+
+    &__header  {
+        display: flex;
+        justify-content: space-between;
+        background-color: transparent;
+        height: 0px;
+
+        &__like-icon {
+            border: 0;
+            background-color: transparent;
+            position: absolute;
+
+        }
+        &__rating  {
+            position: absolute;
+            z-index: 2;
+            top: -4px;
+            left: -4px;
+        }
+
+    }
+
+    &__image--container  {
+        position: relative;
+
+        &__type  {
+            position: absolute;
+            bottom: 2px;
+            left: 1px;
+            color: $white;
+            mix-blend-mode: difference;
+        }
+
+
+        &__default--image  {
+            height: auto;
+            width: 100%;
+            aspect-ratio: 2/3;
+            display: grid;
+            place-items: center;
+        }
+
+    }
+    &__title  {
+        color: $white;
+        font-size: 0.5rem;
+        font-weight: 700;
+        padding: 0.25rem;
+    }
+
+
+    img {
+        aspect-ratio: 2/3;
+        height: auto;
+        width: 100%;
+        object-fit: fill;
+        // box-shadow: 0px -40px 60px 0px rgba(255, 255, 255, 0.414);
+
+    }
+
+    &__infos  {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.3rem 0.3rem;
+    }
+
+    
+
+}
+
+
+.modal  {
+
+    &__close-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    img {
+        aspect-ratio: 2/3;
+        border-radius: 9px;
+      
+    }
+
+    &__title  {
+        font-family: 'Merriweather', serif;
+        font-weight: 700;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    &__synopsis  {
+        font-family: 'Lato', sans-serif;
+        font-weight: 400;
+        font-size: 0.9rem;
+    }
+    &__labels  {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 1rem;
+        width: 100%;
+
+    }
+
+    &__genre  {
+        flex: 2 1 25%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 7px;
+        flex-wrap: wrap;
+        align-content: center;
+    }
+    &__release--date  {
+        font-family: 'Lato', sans-serif;
+        font-weight: 700;
+        font-size: 0.7rem;
+        padding: 0.5rem;
+        display: flex;
+        flex: 1 1 25%;
+        border-radius: 21px;
+        height: fit-content;
+        justify-content: center;
+        background-color: $primary_dark;
+
+    }
+
+    &__rating {
+        flex: 4 1 50%;
+        display: flex;
+        justify-content: flex-end;
+        color: $white;
+        padding: 0.1rem 0.3rem 0.5rem 0.3rem;
+        font-size: 0.7rem;
+        align-items: baseline;
+
+        &__star-icon  {
+            svg {
+                fill: $yellow_star;
+                stroke: $yellow_star;
+                stroke-width: 1px;
+            }
+        }
+
+    }
+}
+
+.recommend-card  {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    img {
+        width: 100%;
+    }
+
+    p  {
+        position: absolute;
+        bottom: 10px;
+        padding-left: 5px;
+        font-size: 0.6rem;
+        color: $white;
+    }
+}
+
+.banner--card  {
+
+    &__image--container  {
+        position: relative;
+        aspect-ratio: 16/9;
+
+        &__image {
+            width: 100%;
+            display: block;
+            aspect-ratio: 16/9;
+            height: auto;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 18px;
+            padding: 0.35rem;
+        }
+        &__title {
+            position: absolute;
+            font-size: 0.7rem;
+            padding: 0.3rem;
+            color: $white;
+            top: 20px;
+            left: 10px;
+            mix-blend-mode: hard-light;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+
+        }
+
+
+    }
+}
+
+.progress-card {
+    display: flex;
+    padding: 5px 7px;
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+.progress-circle  {
+    position: relative;
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+    // background: conic-gradient(rgba(255,255,255,1) 0deg , rgba(98,245,12,1) 0deg, rgb(255 242 10) 90deg, rgb(215 106 26) 181deg,rgb(251 10 10) 270deg );
+    
+    // display: flex;
+    // align-items: center;
+    // justify-content: center; 
+}
+
+.progress-text  {
+    border: 1px solid black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $white;
+    background-color: rgb(0, 0, 0);
+    // background-color: rgba(91, 86, 86, 0.435);
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.5rem;
+
+}
+
+.promoted--card  {
+    position: relative;
+    box-shadow: 0px 0px 15px 2px rgba(104, 104, 104, 0.250);
+    height: 250px;
+    border-radius: 12px;
+    overflow: hidden;
+
+    &__banner {
+        position: relative;
+        z-index: 1;
+        height: 50%;
+        border-radius: 6px;
+        overflow: hidden;
+        img {
+            width: 100%;
+            object-fit: contain;
+            object-position : 0px -50px
+        }
+    }
+    &__poster {
+        height: fit-content;
+        width: fit-content;
+        position: absolute;
+        z-index: 3;
+        bottom: 40px;
+        left: 20px;
+        border-radius: 9px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    &__infos  {
+        position: absolute;
+        z-index: 2;
+        width: 70% ;
+        max-height: 50%;
+        padding: 5px 15px;
+        font-size: 0.7rem;
+        right: 0 ;
+        top: 50%;
+        // transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        overflow: hidden;
+        row-gap: 7px;
+
+        &--title {
+            font-size: 1rem;
+        }
+
+        &--synopsis {
+            max-height: 42px;
+            overflow: hidden;
+            line-height: 1.2;
+        }
+
+        &__details  {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 5px 0;
+
+            &--type  {
+                flex: 1 1 20%;
+                text-transform: uppercase;
+                padding: 0 5px;
+            }
+            &--year  {
+                flex: 6 1 60%;
+
+            }
+            &--score  {
+                flex:  1 1 10%;
+            }
+        }
+    }
+
+
+}

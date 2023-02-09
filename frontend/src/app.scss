@@ -1,0 +1,32 @@
+//---import abstracts folder
+@import './styles/variables';
+@import 'styles/function';
+@import 'styles/mixins';
+@import 'styles/placeholders';
+
+//---import vendors library 
+@import './../node_modules/video-react/styles/scss/video-react.scss';
+
+//---import base folder
+@import 'styles/base';
+@import 'styles/reset';
+@import 'styles/typography';
+
+//---import layout folder
+@import './pages/Login/login';
+@import './pages/Home/home';
+@import './pages/Likes/likes';
+@import './components/Logo/logo';
+@import './components/Navigation/navigation';
+@import 'components/SearchBar/search';
+@import './components/Cards/cards';
+@import './components/Container/list-container';
+@import './components/Cards/modal';
+@import './components//Authentification/authentifacation'
+
+
+//----import components folder
+
+//---import pages folder
+
+//---import theme folder

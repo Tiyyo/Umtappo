@@ -1,0 +1,190 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    // right: 0;
+    // bottom: 0;
+    z-index: 100;
+    height : 100vh;
+    width : 100vw;
+    font-family: 'Lato', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: $secondary;
+    color: $white;
+    line-height: 1.6;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+  }
+  .card {
+    width : 100%;
+    height :100%;
+    padding: 0 0.5rem;
+
+    &__header  {
+        display: flex;
+        justify-content : space-between;
+        padding : 1rem 1rem;
+
+        &__return-btn  {
+            border: 0;
+            background-color: transparent;
+            color: $white;
+        }
+
+
+    }
+
+    &__trailer-container {
+        display : grid;
+        place-items : center;
+        width : 100%;
+        
+        margin-bottom: 20px;
+
+        .player {
+            aspect-ratio: 16/9;
+            max-width: 1600px;
+        }
+
+        img {
+            aspect-ratio: 16/9;
+            max-width: 1600px;
+            width: 100%;
+            height: auto;
+        }
+    }
+    &__title  {
+
+        padding : 0.5rem 0.75rem;
+        font-size: 1.2rem;
+        color: $white;
+
+    }
+    &__infos  {
+        display : flex;
+        align-items: baseline;
+        padding : 0.25rem 0.75rem;
+        column-gap : 10px;
+
+
+        &__type  {
+            flex: 1 1 10%;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            font-weight: 700;
+
+        }
+        &__release-year  {
+            flex :1 1 10%;
+            font-size: 0.7rem;
+        }
+        &__genres  {
+            flex: 5 1 65%;
+            display : flex;
+            flex-wrap: wrap;
+            align-content: center;
+
+            .genre  {
+                font-size: 0.8rem;
+                background-color: $primary;
+                color: $white;
+                font-weight: 700;
+                padding: 0.2rem 0.6rem;
+                border-radius: 22px;
+                margin: 5px 5px;
+            }
+        }
+        &__rating  {
+            flex: 1 1 25%;
+            display: flex;
+            align-items: baseline;
+            font-size: 0.8rem;
+
+        }
+    }
+
+    &__synopsis  {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.75rem ;
+        width: 95%;
+        
+        span  {
+            display: inline;
+            font-style: italic;
+            font-size: 0.6rem;
+            padding: 0 0.2rem;
+            cursor: pointer;
+
+            span  {
+                text-decoration: underline;
+            }
+        }
+    }
+    &__synopsis--container  {
+        display: inline-block;
+        font-family: 'Lato', sans-serif;
+        color: rgb(192, 187, 183);
+        text-align: justify;
+        overflow: hidden;
+    }
+    &__casting {
+        display: flex;
+        flex-direction: column;
+        padding: 0.5rem;
+        margin-bottom: 20px;
+
+        .directors  {
+            font-size: 0.8rem;
+            color: $white;
+            .director  {
+                padding: 0 0.2rem;
+            }
+        }
+        .actors  {
+            font-size: 0.8rem;
+            color: $white;
+            .actor  {
+                padding: 0 0.2rem;
+            }
+        }
+    }
+    &__similar--content  {
+
+       .similar-content__wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        align-content:center;
+        overflow-x: scroll;
+        justify-content: space-evenly;
+        gap: 0.25rem;
+        padding: 0 0.25rem;
+        padding-bottom: 20px;
+
+        img {
+            aspect-ratio: 2/3;
+            width: 80px;
+            object-fit: contain;
+        }
+       }
+    }
+    &__call-to-action  {
+        width: 30%;
+        min-width: 150px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 auto;
+
+    }
+  }
+
+
+  .essai  {
+    background-color: white;
+    height: 100vh;
+    width: 100vw;
+  }

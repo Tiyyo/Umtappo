@@ -1,0 +1,38 @@
+@mixin respond-to ($breakpoint)  {
+    $raw-query: map-get($breakpoints, $breakpoint );
+
+    @if $raw-query{
+        $query: if(
+            type-of($raw-query) == 'string',
+            unquote($raw-query),
+            inspect($raw-query)
+        );
+
+        @media #{$query}  {
+            @content;
+        }
+    } @else {
+        @error 'No value found for `#{$breakpoint}`.'
+            + 'Please make sure it is defined in `$breakpoints` map.';
+    }
+}
+
+//---
+@mixin titleContainer {
+    font-family: 'Merriweather', serif;
+    letter-spacing: 1px;
+    color: $white;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+@mixin logBtn  {
+    height: 25px;
+    width: 50px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.7rem;
+    border-radius: 6px;
+    background-color: $primary;
+    border: none;
+}
