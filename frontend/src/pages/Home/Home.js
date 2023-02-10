@@ -1,25 +1,21 @@
-import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
-import Loader from "../../components/Loader/Loader";
+
 import LoaderUI from "../../components/Loader/LoaderUI";
 import Navigation from "../../components/Navigation/Navigation";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Trendings from "../../components/Container/Trendings";
 import DisplaySearchResult from "../../utils/DisplaySearchResult";
-import Recommendations from "../../components/Container/Recommendations";
 import ProfileBtn from "../../components/Navigation/ProfileBtn";
 import HonrizontalCarousel from "../../components/Container/HonrizontalCarousel";
-import useFetch from "../../utils/useFetch";
-import useSearch from "../../utils/useSearch";
+import useFetch from "../../utils/hooks/useFetch";
+import useSearch from "../../utils/hooks/useSearch";
 import HeaderHome from "../../components/Container/HeaderHome";
 import Spacer from "../../components/Container/Spacer";
 import Promoted from "../../components/Container/Promoted";
-import { CircularProgress } from "@mui/material";
 import FavoriteGenre from "../../components/Container/FavoriteGenre";
 import HomeContext, {
   HomeContextProvider,
 } from "../../utils/Context/HomeContextProvider";
-import { useContext } from "react";
 import { useCallback } from "react";
 
 const Home = () => {

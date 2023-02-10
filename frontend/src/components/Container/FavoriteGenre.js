@@ -30,16 +30,6 @@ const FavoriteGenre = (props) => {
     randomValues.current = indexes;
   };
 
-  // for (let i = 0; i < indexes; i++) {
-  //   let randomNumber = Math.floor(Math.random() * referenceGenre.length);
-  //   if (indexes.includes(randomNumber)) {
-  //     return;
-  //   } else {
-  //     indexes.push(randomNumber);
-  //   }
-  // }
-  // randomValues.current = indexes;
-
   const matchIndexes = (referenceGenre) => {
     let genre = [];
     randomValues.current.forEach((value) => {

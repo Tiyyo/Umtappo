@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useContext } from "react";
 import AppContext from "../../utils/Context/AppContextProvider";
 import HomeContext from "../../utils/Context/HomeContextProvider";
-import useWindowSize from "../../utils/useWindowSize";
+import useWindowSize from "../../utils/hooks/useWindowSize";
 
 const HeaderHome = (props) => {
   const { config } = useContext(AppContext);

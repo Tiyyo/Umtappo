@@ -13,13 +13,13 @@ const { createTokens } = require("./JWT");
 module.exports.createUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
-    res.status(400);
+    res.status(400).send("All fileds are required");
     throw new Error("All fields are required ! ");
   }
 
   const userAvailable = await Users.findOne({ email });
   if (userAvailable) {
-    res.status(400);
+    res.status(400).send("User already registered ! PLease Login");
     throw new Error("User already registered ! PLease Login");
   }
 
@@ -33,10 +33,13 @@ module.exports.createUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    res.status(201).json({ _id: user.id, email: user.email });
+    res
+      .status(201)
+      .json({ _id: user.id, email: user.email })
+      .send("User registerd");
     res.json({ message: "User registerd" });
   } else {
-    res.status(400);
+    res.status(400).send("User data is not valid");
     throw new Error("User data is not valid");
   }
 });
