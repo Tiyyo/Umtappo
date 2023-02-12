@@ -4,49 +4,65 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
 const Register = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [backendError, setBackendError] = useState("");
+  const userSchema = yup.object().shape({
+    username: yup.string().required("Please this filed is required"),
+    email: yup
+      .string()
+      .email("This is not an email !")
+      .required("An email is required"),
+    password: yup
+      .string()
+      .min(8, "Password must contain at least 8 characters")
+      .max(24, "Passsword can't exceded 24 characters")
+      .required("You need to type a password")
+      .matches(/\w*[a-z]\w*/, "Must contain one lowercase")
+      .matches(/\w*[A-Z]\w*/, "Must contain one uppercase")
+      .matches(/\d/, "Must contain one number")
+      .matches(
+        /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/,
+        "Must containe one special character"
+      ),
+    confirmedPassword: yup
+      .string()
+      .oneOf([yup.ref("password"), null], "Passwords must match")
+      .required("You need to retype your password to confirm"),
+  });
 
-  // const [username, setUsername] = useState(null);
-  // const [email, setEmail] = useState(null);
-  // const [password, setPassword] = useState(null);
-  // const [confirmedPassword, setConfirmedPassword] = useState(null);
-  // const [error, setError] = useState(null);
-  // const [errorUsername, setErrorUsername] = useState(null);
-  // const [errorEmail, setErrorMail] = useState(null);
-  // const [isValidate, setIsValidate] = useState(false);
+  const { register, handleSubmit, formState } = useForm({
+    resolver: yupResolver(userSchema),
+  });
+  const { isSubmitting, errors } = formState;
 
-  const { register, handleSubmit, formState } = useForm();
-  const { isSubmitting } = formState;
-
-  const onSubmit = (data) => {
-    console.log(data);
+  const submitUser = async (data) => {
+    console.log(
+      data.username,
+      data.email,
+      data.password,
+      data.confirmedPassword
+    );
+    await axios
+      .post("http://localhost:5000/user/register", {
+        username: data?.username,
+        email: data?.email,
+        password: data?.password,
+      })
+      .then((res) => {
+        console.log(res.status, res.data);
+        if (res.status === 200) {
+          alert("You are now registered");
+          navigate("/login");
+        }
+      })
+      .catch((err) => {
+        setBackendError(err?.response?.data);
+      });
   };
-
-  // const sendUserInfos = async (e) => {
-  //   e.preventDefault();
-  //   await axios
-  //     .post("http://localhost:5000/user/register", {
-  //       username: username?.toString(),
-  //       email: email?.toString(),
-  //       password: password?.toString(),
-  //     })
-  //     .then((res) => {
-  //       if (res.status === 201) {
-  //         alert("You are now registerd !");
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.response.data);
-  //       setError(err.response.data);
-  //       setIsValidate(false);
-  //     });
-  //   if (isValidate) {
-  //     navigate("/login");
-  //   } else {
-  //     console.log(error);
-  //   }
-  // };
 
   return (
     <div className="register-page">
@@ -55,17 +71,18 @@ const Register = () => {
           <h3>Sign Up for Free !</h3>
           <p>You'll get some special features designed just for you !</p>
         </div>
-        <form className="register-form" onSubmit={() => handleSubmit(onSubmit)}>
+        <form className="register-form" onSubmit={handleSubmit(submitUser)}>
           <div className="inputWrapper username">
             <input
               type="text"
               name="username"
               className="inputUsername"
               placeholder="Username"
-              required
               {...register("username")}
             />
-            <div className="error-container errorUsername"></div>
+            <div className="error-container errorUsername">
+              {errors?.username?.message}
+            </div>
           </div>
           <div className="inputWrapper email">
             <input
@@ -73,29 +90,43 @@ const Register = () => {
               name="email"
               className="email"
               placeholder="john.doe@gmail.com"
-              required
               {...register("email")}
             />
-            <div className="error-container errorEmail"></div>
+            <div className="error-container errorEmail">
+              {errors?.email?.message}
+            </div>
           </div>
           <div className="inputWrapper password">
             <input
               type="password"
               name="password"
               className="password"
-              required
               {...register("password")}
             />
-            <div className="error-container errorPassword"></div>
+            <div className="error-container errorPassword">
+              {errors?.password?.message}
+            </div>
           </div>
           <div className="inputWrapper confirmed-password">
-            <input type="password" className="confirmed-password" required />
-            <div className="error-container errorPassword"></div>
+            <input
+              type="password"
+              className="confirmed-password"
+              name="confirmedPassword"
+              {...register("confirmedPassword")}
+            />
+            <div className="error-container errorPassword">
+              {errors?.confirmedPassword?.message}
+            </div>
           </div>
-
-          <button type="submit" disabled={isSubmitting}>
-            Valid your Inscription
-          </button>
+          <input
+            type="submit"
+            className="submit_btn"
+            value="JOIN NOW"
+            disabled={isSubmitting}
+          />
+          <div className="error backend-error">
+            {backendError ? backendError : ""}
+          </div>
         </form>
       </div>
     </div>

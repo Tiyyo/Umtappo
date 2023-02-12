@@ -34,7 +34,8 @@ module.exports.createUser = asyncHandler(async (req, res) => {
 
   if (user) {
     res
-      .status(201)
+      .status(200)
+      .send("User registerd")
       .json({ _id: user.id, email: user.email })
       .send("User registerd");
     res.json({ message: "User registerd" });
@@ -51,16 +52,16 @@ module.exports.createUser = asyncHandler(async (req, res) => {
 module.exports.loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    res.status(400);
+    res.status(400).send("All fields are required");
     throw new Error("All fileds are required");
   }
   const user = await Users.findOne({ email });
 
   if (user && (await bcrypt.compare(password, user.password))) {
     const accessToken = createTokens(user);
-    res.status(200).json({ accessToken });
+    res.status(200).json({ accessToken }).send("User logged in");
   } else {
-    res.status(401);
+    res.status(401).send("Email or Password is not valid");
     throw new Error("Email or Password is not valid");
   }
 
