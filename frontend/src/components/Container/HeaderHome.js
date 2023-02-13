@@ -12,6 +12,8 @@ const HeaderHome = (props) => {
   const [posterToDisplay, setPosterToDisplay] = useState(1);
   const image = useRef();
   const windowSize = useWindowSize();
+  let numberOfContent = 19;
+  let delayBetweenContent = 7500;
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -22,8 +24,8 @@ const HeaderHome = (props) => {
 
   useEffect(() => {
     const changeImage = setInterval(() => {
-      setPosterToDisplay(Math.floor(Math.random() * 19));
-    }, 7500);
+      setPosterToDisplay(Math.floor(Math.random() * numberOfContent));
+    }, delayBetweenContent);
     return () => clearInterval(changeImage);
   }, []);
 

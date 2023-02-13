@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-const Register = () => {
+const SignUp = () => {
   const navigate = useNavigate();
   const [backendError, setBackendError] = useState("");
   const userSchema = yup.object().shape({
@@ -133,4 +133,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default SignUp;

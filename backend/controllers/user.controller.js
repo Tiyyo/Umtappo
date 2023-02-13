@@ -59,7 +59,7 @@ module.exports.loginUser = asyncHandler(async (req, res) => {
 
   if (user && (await bcrypt.compare(password, user.password))) {
     const accessToken = createTokens(user);
-    res.status(200).json({ accessToken }).send("User logged in");
+    res.status(200).json({ accessToken });
   } else {
     res.status(401).send("Email or Password is not valid");
     throw new Error("Email or Password is not valid");
@@ -73,5 +73,12 @@ module.exports.loginUser = asyncHandler(async (req, res) => {
 //@acees private
 
 module.exports.currentUser = asyncHandler(async (req, res) => {
-  res.json(req.user);
+  let email = req.user.email;
+  const user = await Users.findOne({ email });
+  res.json({
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    password: user.password,
+  });
 });
