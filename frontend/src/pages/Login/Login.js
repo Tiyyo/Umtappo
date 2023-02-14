@@ -46,9 +46,18 @@ export const Login = () => {
     <div className="login-page">
       <img className="bg_image" src={currentBackground} alt="" />
       <div className="content">
-        <div className="signin_btn">Sign In</div>
-        <p>Already a Member ?</p>
-        <div className="signup-btn">Sign Up</div>
+        <Outlet />
+        <Link to="SignIn">
+          <button type="button" className="signin_btn">
+            Sign In
+          </button>
+        </Link>
+        {/* <p>Already a Member ?</p> */}
+        <Link to="SignUp">
+          <button type="button" className="signup_btn">
+            Sign Up
+          </button>
+        </Link>
       </div>
 
       {/* <div className="login-registration">
