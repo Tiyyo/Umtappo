@@ -7,6 +7,7 @@
     align-items: center;
     justify-content: center;
 
+
     .bg_image {
         position: absolute;
         z-index: 0;
@@ -36,62 +37,62 @@
         opacity: 0;
         animation: logo 3s cubic-bezier(0.55, 0, 1, 0.45) 0.2s 1 normal forwards;
 
-        @keyframes logo {
-            0% {
-                top: 50%;
-                left: 50%;
-                animation-timing-function: ease;
-                opacity: 0;
-                transform: translate(-50%, -50%);
-            }
+        // @keyframes logo {
+        //     0% {
+        //         top: 50%;
+        //         left: 50%;
+        //         animation-timing-function: ease;
+        //         opacity: 0;
+        //         transform: translate(-50%, -50%);
+        //     }
 
-            60%{
-                animation-timing-function: ease;
-                opacity: 0.8;
-                transform: translate(-50%, -50%);
-                top: 50%;
-                left: 50%;
-            }
+        //     60%{
+        //         animation-timing-function: ease;
+        //         opacity: 0.8;
+        //         transform: translate(-50%, -50%);
+        //         top: 50%;
+        //         left: 50%;
+        //     }
         
-            82% {
-                animation-timing-function: ease;
-                transform: translate(-50% ,-7%) ;
-                top: 7%;
-                opacity: 1;
-            }
+        //     82% {
+        //         animation-timing-function: ease;
+        //         transform: translate(-50% ,-7%) ;
+        //         top: 7%;
+        //         opacity: 1;
+        //     }
         
-            87% {
-                animation-timing-function: ease-in;
-                transform: translate(-50% , -12px);
-                opacity: 1;
-            }
+        //     87% {
+        //         animation-timing-function: ease-in;
+        //         transform: translate(-50% , -12px);
+        //         opacity: 1;
+        //     }
         
-            92% {
-                animation-timing-function: ease-in;
-                transform: translate(-50%, -6px);
-            }
+        //     92% {
+        //         animation-timing-function: ease-in;
+        //         transform: translate(-50%, -6px);
+        //     }
         
-            96% {
-                animation-timing-function: ease-in;
-                transform: translate(-50%, -4px);
-            }
+        //     96% {
+        //         animation-timing-function: ease-in;
+        //         transform: translate(-50%, -4px);
+        //     }
         
-            // 25%,
-            // 55%,
-            // 75%,
-            94% {
-                animation-timing-function: ease-out;
-                transform: translate(-50%, 0px);
-            }
+        //     // 25%,
+        //     // 55%,
+        //     // 75%,
+        //     94% {
+        //         animation-timing-function: ease-out;
+        //         transform: translate(-50%, 0px);
+        //     }
         
-            100% {
-                animation-timing-function: ease-out;
-                opacity: 1;
-                transform: translate(-50%, 0px);
-                top: 7%;
-                left: 50%;
-            }
-        }
+        //     100% {
+        //         animation-timing-function: ease-out;
+        //         opacity: 1;
+        //         transform: translate(-50%, 0px);
+        //         top: 7%;
+        //         left: 50%;
+        //     }
+        // }
 
         img {
             width: 100%;
@@ -106,18 +107,20 @@
         opacity: 0;
         display: flex;
         flex-direction: column;
+        align-items: center;
         row-gap: 40px;
+        opacity: 1;
  
 
-        @keyframes intro {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        .signin_btn {
+        // @keyframes intro {
+        //     from {
+        //         opacity: 0;
+        //     }
+        //     to {
+        //         opacity: 1;
+        //     }
+        // }
+        .signup_btn {
             font-family: 'Lato', sans-serif;
             font-size: 0.9rem;
             font-weight: 700;
@@ -129,12 +132,9 @@
             height: 36px;
             width: 50vw;
             max-width: 250px;
-            text-transform: uppercase;     
+            text-transform: uppercase;   
         }
-        p  {
-            color: $white;
-        }
-        .signup_btn {
+        .signin_btn {
             position: relative;
             font-family: 'Lato', sans-serif;
             font-size: 0.9rem;

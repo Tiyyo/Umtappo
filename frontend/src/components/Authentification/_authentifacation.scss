@@ -89,3 +89,210 @@
     }
 }
 
+.signup  {
+    @include authpages ;
+
+    .back-icon {
+        @include backIcon;
+    }
+    .message-to-users {
+        @include messageToUsers;
+    }
+    .social-signup {
+        @include socialLogMethod;
+    }
+    .signup-form  {
+        @include form;
+        .username {
+            position: relative;
+            width: 100%;
+            
+            input  {
+                @include input;
+            }
+        }
+        .email {
+            position: relative;
+            width: 100%;
+
+            input {
+                @include input;
+            }
+
+            .valid-icon  {
+                @include validIcon;
+            }
+        }
+        .password  {
+            position: relative;
+            width: 100%;
+
+
+            input {
+                @include input;
+            }
+
+            .visibility-icons  {
+                border: none;
+                background-color: transparent;  
+                position: absolute;
+                top: 0;
+                right: 5px;
+
+                span  {
+                    position: absolute;
+                    top: 0;
+                    right: 10px;
+                    height: 42px;
+                    display: flex;
+                    align-items: center;         
+                }
+            }
+        }
+        .confirmed-password  {
+            position: relative;
+            width: 100%;
+
+
+            input {
+                @include input;
+            }
+
+            .visibility-icons  {
+                border: none;
+                background-color: transparent;                        
+                span  {
+                    position: absolute;
+                    top: 0;
+                    right: 10px;
+                    height: 42px;
+                    display: flex;
+                    align-items: center;         
+                }
+            }
+        }
+        .submit_btn  {
+            @include submitBtn;
+        }
+        .error-container  {
+            color: red;
+            font-size: 0.7rem;
+            padding: 0.5vh 2%;
+        }
+        .checkboxs  {
+            color : $white;
+            display: flex;
+            flex-direction: column;
+            font-size: 0.7rem;
+
+            .terms-and-privacy {
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: start;
+                align-items: center;
+                column-gap: 10px;
+                width: 100%;
+                
+                
+            }
+            
+            .newsletter-subscription  {
+                display: flex;
+                justify-content: start;
+                flex-direction: row-reverse;
+                align-items: center;
+                width: 100%;
+                column-gap: 10px;
+            }
+        }
+    }
+    .link-to-signin {
+        @include bottomLink;
+    }
+
+    .backend-error  {
+        color: red;
+        font-size: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+
+        span  {
+            text-align: center;
+        }
+    }
+
+
+
+}
+
+.signin {
+    @include authpages;
+
+
+    .back-icon  {
+        @include backIcon
+    }
+    .message-to-users  {
+        @include messageToUsers;
+       
+    }
+    .social-signin {
+        @include socialLogMethod;
+
+    }
+    .signin-form  {
+        @include form ;
+
+        .input-email  {
+            position: relative;
+            width: 100%;
+
+            input {
+                @include input ;           
+
+            }
+            .valid-icon  {
+                @include validIcon;
+            }
+
+        }
+        .input-password {
+            width: 100%;
+            position: relative;
+
+            input {
+                @include input;
+            }
+            .visibility-icons  {
+                border: none;
+                background-color: transparent;    
+                position: absolute;
+                top: 0;
+                right: 5px;                    
+                span  {
+                    position: absolute;
+                    top: 0;
+                    right: 10px;
+                    height: 42px;
+                    display: flex;
+                    align-items: center;         
+                }
+            }
+        }
+        .login_btn {
+            @include submitBtn;
+
+        }
+        .password-recuperation-link  {
+            font-size: 0.9rem;
+            color: $primary-dark;
+        }
+    }
+    .link-to-signup  {
+        @include bottomLink;
+    }
+
+
+}
+
