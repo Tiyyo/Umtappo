@@ -997,7 +997,6 @@ input {
 .login-page {
   min-height: 100vh;
   background-color: #0b0b0b;
-  padding: 20px 15px;
   position: relative;
   font-family: "Lato", serif;
 }
@@ -1068,8 +1067,18 @@ input {
   color: rgba(235, 230, 225, 0.944);
   text-align: center;
 }
+.login-page .bg_image {
+  position: absolute;
+  -o-object-fit: fill;
+     object-fit: fill;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 85%);
+          mask-image: linear-gradient(to bottom, black 0%, transparent 85%);
+}
 .login-page .logo {
-  max-width: 65vw;
+  max-width: 40vw;
   position: absolute;
   opacity: 0;
   animation: logo 3s cubic-bezier(0.55, 0, 1, 0.45) 0.2s 1 normal forwards;
@@ -1082,40 +1091,33 @@ input {
     opacity: 0;
     transform: translate(-50%, -50%);
   }
-  24% {
+  60% {
     animation-timing-function: ease;
-    opacity: 0.1;
+    opacity: 0.8;
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
   }
-  45% {
-    animation-timing-function: ease;
-    opacity: 0.4;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-  }
-  65% {
+  82% {
     animation-timing-function: ease;
     transform: translate(-50%, -7%);
     top: 7%;
-    opacity: 0.6;
+    opacity: 1;
   }
-  75% {
+  87% {
     animation-timing-function: ease-in;
     transform: translate(-50%, -12px);
     opacity: 1;
   }
-  82% {
+  92% {
     animation-timing-function: ease-in;
     transform: translate(-50%, -6px);
   }
-  93% {
+  96% {
     animation-timing-function: ease-in;
     transform: translate(-50%, -4px);
   }
-  25%, 55%, 75%, 87% {
+  94% {
     animation-timing-function: ease-out;
     transform: translate(-50%, 0px);
   }

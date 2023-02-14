@@ -1,75 +1,36 @@
 .login-page  {
     min-height: 100vh;
     background-color: $secondary;
-    padding: 20px 15px;
     position: relative;
     font-family: 'Lato', serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    .login-registration  {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        border: none;
-        
-        .sign-in  {
-            @include logBtn;
-        
-        }
-        .sign-up  {
-            @include logBtn;
-        }
-    }
-    .guest-session {
+    .bg_image {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
-        height: 100px;
-        width: 100px;
-        background-color: $primary-light;
-        transition: border 0.5s ease-in;
+        // object-fit: fill;
+        aspect-ratio: 1;
+        width: 100%; 
+        height: 100%; 
+        opacity: 0;
+        mask-image: linear-gradient(to bottom,black 0%,transparent 85%);
+        animation: bg 2s linear 0s 1 normal forwards;
+        
 
-        &:hover  {
-            border: 10px solid white;
-            animation:  4s ease-in  0.150s infinite scaleUp;
-
-            @keyframes scaleUp {
-
-                    0% {
-                        transform: scale(1), translate(-50%, -50%);
-                        
-                    }
-                    100% {
-                        transform: scale(2), translate(-50%, -50%);
-                        background-color: red;
-                    }
+        @keyframes bg {
+            from {
+                opacity: 0;
             }
-        }
-
-        .inner-circle  {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            height: 90px;
-            width : 90px;
-            background-color: $secondary;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            p  {
-                color: $white;
-                text-align: center;
-
+            to {
+                opacity: 0.3;
             }
+            
         }
     }
 
     .logo {  
-        max-width: 65vw;
+        max-width: 40vw;
         position: absolute;
         opacity: 0;
         animation: logo 3s cubic-bezier(0.55, 0, 1, 0.45) 0.2s 1 normal forwards;
@@ -82,50 +43,42 @@
                 opacity: 0;
                 transform: translate(-50%, -50%);
             }
-        
-            24% {
-                animation-timing-function: ease;
-                opacity: 0.1;
-                transform: translate(-50%, -50%);
-                top: 50%;
-                left: 50%;
-            }
 
-            45%{
+            60%{
                 animation-timing-function: ease;
-                opacity: 0.4;
+                opacity: 0.8;
                 transform: translate(-50%, -50%);
                 top: 50%;
                 left: 50%;
             }
         
-            65% {
+            82% {
                 animation-timing-function: ease;
                 transform: translate(-50% ,-7%) ;
                 top: 7%;
-                opacity: 0.6;
+                opacity: 1;
             }
         
-            75% {
+            87% {
                 animation-timing-function: ease-in;
                 transform: translate(-50% , -12px);
                 opacity: 1;
             }
         
-            82% {
+            92% {
                 animation-timing-function: ease-in;
                 transform: translate(-50%, -6px);
             }
         
-            93% {
+            96% {
                 animation-timing-function: ease-in;
                 transform: translate(-50%, -4px);
             }
         
-            25%,
-            55%,
-            75%,
-            87% {
+            // 25%,
+            // 55%,
+            // 75%,
+            94% {
                 animation-timing-function: ease-out;
                 transform: translate(-50%, 0px);
             }
@@ -147,6 +100,18 @@
     
         
     }
+    .content  {
+
+        .signin_btn {
+            background-color: rgb(233, 18, 18);
+            color: $white;
+            height: 36px;
+            width: 50vw;
+            max-width: 250px;
+        }
+    }
+
+
 }
 
 .loading  {
