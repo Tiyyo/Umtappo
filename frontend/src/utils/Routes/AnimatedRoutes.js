@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Route, Routes, useLocation, Navigate } from "react-router";
 import FirstPage from "../../components/Authentification/FirstPage";
 import SignIn from "../../components/Authentification/SignIn";
@@ -24,6 +24,7 @@ const AnimatedRoutes = () => {
     setIsLoggedIn,
     setUserID,
     setUserInfos,
+    setIsLoading,
   } = useContext(UserContext);
 
   const location = useLocation();
@@ -49,13 +50,22 @@ const AnimatedRoutes = () => {
       .catch((err) => console.log(err));
   };
 
+  const UsersRoute = (children, redirect) => {
+    return isAuth && isLoggedIn ? children : <Navigate to={redirect} replace />;
+  };
+
+  let loginPagePath = "/";
+
   useEffect(() => {
+    setIsLoading(true);
     if (window.localStorage.accesToken) {
       console.log(window.localStorage.accesToken);
       setIsLoggedIn(true);
       auth(window.localStorage.accesToken);
+      setIsLoading(false);
     } else {
       console.log("No token Avaiable");
+      setIsLoading(false);
     }
   }, []);
 
@@ -64,13 +74,14 @@ const AnimatedRoutes = () => {
       <Routes location={location} key={location.pathname}>
         <Route
           path={"/"}
-          element={isAuth && isLoggedIn ? <Home /> : <LoginLayout />}
+          element={
+            isAuth && isLoggedIn ? <Navigate to="/Home" /> : <LoginLayout />
+          }
         >
           <Route path={""} element={<FirstPage />} />
           <Route path="SignIn" element={<SignIn />} />
           <Route path="SignUp" element={<SignUp />} />
         </Route>
-        {/* <Route path={"/"} element={<LoginLayout />}></Route> */}
         <Route
           path={"*"}
           element={
@@ -83,10 +94,13 @@ const AnimatedRoutes = () => {
             isAuth && isLoggedIn ? <Home /> : <Navigate to="/" replace={true} />
           }
         />
-        <Route path="/Profile" element={<Profile />} />
-        <Route path="/Likes" element={<Likes />}></Route>
-        <Route path="/Films" element={<Films />}></Route>
-        <Route path="/TvShow" element={<TvShow />}></Route>
+        <Route
+          path="/Profile"
+          element={UsersRoute(<Profile />, loginPagePath)}
+        />
+        <Route path="/Likes" element={UsersRoute(<Likes />, loginPagePath)} />
+        <Route path="Films" element={UsersRoute(<Films />, loginPagePath)} />
+        <Route path="/TvShow" element={UsersRoute(<TvShow />, loginPagePath)} />
         <Route path={`/:id/:modalid`} element={<Modal />} />
         <Route path={"/:id/:id/add_to_playlist"} element={<AddToPlaylist />} />
       </Routes>

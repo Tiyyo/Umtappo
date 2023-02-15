@@ -90,6 +90,10 @@
 }
 
 .signup  {
+
+    a {
+        text-decoration: none;
+    }
     @include authpages ;
 
     .back-icon {

@@ -12,91 +12,29 @@
         position: absolute;
         z-index: 0;
         object-fit: cover;
-        // aspect-ratio: 1;
+        aspect-ratio: 1;
         width: 100%; 
         height: 100%; 
-        opacity: 0;
+        opacity: 0.3;
         mask-image: linear-gradient(to bottom,black 0%,transparent 90%);
-        animation: bg 2s linear 0s 1 normal forwards;
-        
-
-        @keyframes bg {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 0.3;
-            }
-            
-        }
+ 
     }
 
     .logo {  
         max-width: 40vw;
         position: absolute;
-        opacity: 0;
-        animation: logo 3s cubic-bezier(0.55, 0, 1, 0.45) 0.2s 1 normal forwards;
-
-        // @keyframes logo {
-        //     0% {
-        //         top: 50%;
-        //         left: 50%;
-        //         animation-timing-function: ease;
-        //         opacity: 0;
-        //         transform: translate(-50%, -50%);
-        //     }
-
-        //     60%{
-        //         animation-timing-function: ease;
-        //         opacity: 0.8;
-        //         transform: translate(-50%, -50%);
-        //         top: 50%;
-        //         left: 50%;
-        //     }
+        opacity: 1;
+        top: 6vh;
         
-        //     82% {
-        //         animation-timing-function: ease;
-        //         transform: translate(-50% ,-7%) ;
-        //         top: 7%;
-        //         opacity: 1;
-        //     }
-        
-        //     87% {
-        //         animation-timing-function: ease-in;
-        //         transform: translate(-50% , -12px);
-        //         opacity: 1;
-        //     }
-        
-        //     92% {
-        //         animation-timing-function: ease-in;
-        //         transform: translate(-50%, -6px);
-        //     }
-        
-        //     96% {
-        //         animation-timing-function: ease-in;
-        //         transform: translate(-50%, -4px);
-        //     }
-        
-        //     // 25%,
-        //     // 55%,
-        //     // 75%,
-        //     94% {
-        //         animation-timing-function: ease-out;
-        //         transform: translate(-50%, 0px);
-        //     }
-        
-        //     100% {
-        //         animation-timing-function: ease-out;
-        //         opacity: 1;
-        //         transform: translate(-50%, 0px);
-        //         top: 7%;
-        //         left: 50%;
-        //     }
-        // }
-
         img {
             width: 100%;
             aspect-ratio: 175/81;
+        }
+
+        h1 {
+            font-family: 'Black Ravens';
+            font-size: 5rem;
+            color: $primary;
         }
         
     }
@@ -104,7 +42,6 @@
         position: relative;
         z-index: 5;
         animation: intro 1s linear 2s 1 normal forwards ;
-        opacity: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -120,6 +57,7 @@
         //         opacity: 1;
         //     }
         // }
+
         .signup_btn {
             font-family: 'Lato', sans-serif;
             font-size: 0.9rem;

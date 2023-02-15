@@ -133,7 +133,7 @@
     width: 69vw;
     max-width: 650px;
     padding-top: 2vh;
-    row-gap: 2vh;
+    row-gap: 1vh;
 }
 
 @mixin validIcon {
@@ -166,8 +166,10 @@
     bottom: 4vh;
     color: $white;
     font-size: 0.9rem;
-
-     span {
+    
+    span {
+         text-decoration: none;
         color: $primary-dark;
+        text-decoration-color: $primary-dark;
      }
 }

@@ -172,6 +172,7 @@ function SignIn() {
               className="password"
               name="password"
               placeholder="Enter your password"
+              autoComplete="off"
               {...register("password")}
             />
             <button
@@ -206,13 +207,16 @@ function SignIn() {
             </button>
           </div>
           <input type="submit" className="login_btn" value=" Sign In" />
-          <Link>
+          <Link style={{ textDecoration: "none", cursor: "pointer" }}>
             <p className="password-recuperation-link">Forgot your password ?</p>
           </Link>
         </form>
         <p className="link-to-signup">
           Don't have an account ?{" "}
-          <Link to="/SignUp">
+          <Link
+            style={{ textDecoration: "none", cursor: "pointer" }}
+            to="/SignUp"
+          >
             <span>Join Us</span>
           </Link>
         </p>

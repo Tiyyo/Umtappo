@@ -1013,21 +1013,11 @@ input {
   opacity: 0;
   -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 90%);
           mask-image: linear-gradient(to bottom, black 0%, transparent 90%);
-  animation: bg 2s linear 0s 1 normal forwards;
-}
-@keyframes bg {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 0.3;
-  }
 }
 .login-page .logo {
   max-width: 40vw;
   position: absolute;
   opacity: 0;
-  animation: logo 3s cubic-bezier(0.55, 0, 1, 0.45) 0.2s 1 normal forwards;
 }
 .login-page .logo img {
   width: 100%;
@@ -2385,7 +2375,9 @@ h1 {
   font-size: 0.9rem;
 }
 .signup .link-to-signin span {
+  text-decoration: none;
   color: #c25e00;
+  text-decoration-color: #c25e00;
 }
 .signup .backend-error {
   color: red;
@@ -2572,7 +2564,9 @@ h1 {
   font-size: 0.9rem;
 }
 .signin .link-to-signup span {
+  text-decoration: none;
   color: #c25e00;
+  text-decoration-color: #c25e00;
 }
 
 .profile-page {

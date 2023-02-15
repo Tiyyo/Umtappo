@@ -186,6 +186,7 @@ const SignUp = () => {
               name="password"
               placeholder="Choose a Password"
               className="password"
+              autoComplete="off"
               {...register("password")}
             />
             <button
@@ -228,6 +229,7 @@ const SignUp = () => {
               className="confirmed-password"
               name="confirmedPassword"
               placeholder="Confirm your Password"
+              autoComplete="off"
               {...register("confirmedPassword")}
             />
             <div className="error-container errorPassword">
@@ -236,13 +238,13 @@ const SignUp = () => {
           </div>
           <div className="checkboxs">
             <div className="terms-and-privacy">
-              <label for="TermsAndPrivacy">
-                I agree with <e>Terms of Service & Privacy Policy</e>
+              <label htmlFor="TermsAndPrivacy">
+                I agree with Terms of Service & Privacy Policy
               </label>
               <input type="checkbox" name="Terms" id="TermsAndPrivacy" />
             </div>
             <div className="newsletter-subscription">
-              <label for="Newsletter">Subcribe to our Newsletter</label>
+              <label htmlFor="Newsletter">Subcribe to our Newsletter</label>
               <input type="checkbox" name="Terms" id="Newsletter" />
             </div>
           </div>
@@ -266,7 +268,10 @@ const SignUp = () => {
         </form>
         <p className="link-to-signin">
           Have an account ?{" "}
-          <Link to="/SignIn">
+          <Link
+            style={{ textDecoration: "none", cursor: "pointer" }}
+            to="/SignIn"
+          >
             <span>Log in</span>
           </Link>
         </p>
