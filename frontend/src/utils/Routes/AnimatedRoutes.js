@@ -5,7 +5,7 @@ import FirstPage from "../../components/Authentification/FirstPage";
 import SignIn from "../../components/Authentification/SignIn";
 import SignUp from "../../components/Authentification/SignUp";
 import Modal from "../../components/Cards/Modal";
-import Profile from "../../components/Profile/Profile";
+import Account from "../../components/Account/Account";
 import LoginLayout from "../../layout/LoginLayout";
 import Films from "../../pages/Films/Films";
 import Home from "../../pages/Home/Home";
@@ -15,6 +15,10 @@ import { Login } from "../../pages/Login/Login";
 import TvShow from "../../pages/TvShow/TvShow";
 import UserContext from "../Context/UserContextProvider";
 import { AnimatePresence } from "framer-motion";
+import Menu from "../../components/Account/Menu";
+import Profile from "../../components/Account/Profile";
+import Lists from "../../components/Account/Lists";
+import Preference from "../../components/Account/Preference";
 
 const AnimatedRoutes = () => {
   const {
@@ -94,10 +98,12 @@ const AnimatedRoutes = () => {
             isAuth && isLoggedIn ? <Home /> : <Navigate to="/" replace={true} />
           }
         />
-        <Route
-          path="/Profile"
-          element={UsersRoute(<Profile />, loginPagePath)}
-        />
+        <Route path="/Account" element={UsersRoute(<Account />, loginPagePath)}>
+          <Route path={""} element={<Menu />} />
+          <Route path="Profile" element={<Profile />} />
+          <Route path="Preference" element={<Preference />} />
+          <Route path="Lists" element={<Lists />} />
+        </Route>
         <Route path="/Likes" element={UsersRoute(<Likes />, loginPagePath)} />
         <Route path="Films" element={UsersRoute(<Films />, loginPagePath)} />
         <Route path="/TvShow" element={UsersRoute(<TvShow />, loginPagePath)} />

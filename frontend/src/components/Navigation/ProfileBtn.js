@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const ProfileBtn = () => {
   return (
     <div className="avatar">
-      <Link to="/Profile">
+      <Link to="/Account">
         <Avatar sx={{ color: "orange", backgroundColor: "transparent" }} />
       </Link>
     </div>
