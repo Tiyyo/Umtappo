@@ -181,26 +181,8 @@ const Home = () => {
 
   return (
     <HomeContextProvider>
-      <div
-        className="app"
-        ref={ref}
-        onClick={() => {
-          if (navIsOpen) {
-            setNavOpen(false);
-          }
-        }}
-      >
-        <div className="header">
-          <Navigation getNavState={pullNavState} parentNavState={navIsOpen} />
-          <SearchBar
-            getInputValue={pullInputValue}
-            getOpenState={pullSearchOpenState}
-          />
-          <ProfileBtn />
-        </div>
-        {searchIsActive === true ? (
-          <DisplaySearchResult search={search} getPageNumber={pullPageNumber} />
-        ) : loading ? (
+      <div className="app" ref={ref}>
+        {loading ? (
           <div className="main">
             <HeaderHome content={playingNowMovie} />
             <Spacer />

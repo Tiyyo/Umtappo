@@ -13,18 +13,7 @@ const Likes = () => {
   };
 
   return (
-    <div
-      className="app"
-      onClick={() => {
-        if (navIsOpen) {
-          setNavOpen(false);
-        }
-      }}
-    >
-      <div className="header">
-        <Navigation getNavState={pullNavState} parentNavState={navIsOpen} />
-        <ProfileBtn />
-      </div>
+    <div className="app">
       {loading ? (
         <LoaderUI />
       ) : (

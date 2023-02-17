@@ -6,6 +6,13 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const AddToPlaylist = () => {
   const navigate = useNavigate();
+
+  const createList = () => {
+    let list = {
+      name: "New List",
+      content: {},
+    };
+  };
   return (
     <div className="add-to-playlist">
       <Outlet />
@@ -16,7 +23,14 @@ const AddToPlaylist = () => {
         <h4 className="title">Add to a list </h4>
         <div className="avatar"></div>
       </header>
-      <button className="new-playlist">Create a new list</button>
+      <button
+        className="new-playlist"
+        onClick={() => {
+          createList();
+        }}
+      >
+        Create a new list
+      </button>
 
       <div className="playlists">
         <div className="playlist">

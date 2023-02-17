@@ -9,8 +9,9 @@ import ShareIcon from "@mui/icons-material/Share";
 import AddIcon from "@mui/icons-material/Add";
 import ReactPlayer from "react-player";
 import AppContext from "../../utils/Context/AppContextProvider";
+import SimilarContent from "../../components/MediaElement/SimilarContent";
 
-const Modal = () => {
+const MediaElement = () => {
   //--- Destructuring
   const location = useLocation();
   const { content } = location.state;
@@ -267,7 +268,11 @@ const Modal = () => {
             >
               <KeyboardBackspaceIcon sx={{ color: "#fb8c00" }} />
             </button>
-            <div className="card__header__avatar"></div>
+            <div className="card__header__avatar">
+              <Avatar
+                sx={{ color: "orange", backgroundColor: "transparent" }}
+              />
+            </div>
           </div>
           <div className="card__trailer-container">
             {ytKey ? (
@@ -343,13 +348,14 @@ const Modal = () => {
           </div>
 
           <div className="card__casting">{credits ? displayCasts() : ""}</div>
-          <div className="card__similar--content">
+          <SimilarContent similar={similars} />
+          {/* <div className="card__similar--content">
             {displaySimilarContent()}
-          </div>
+          </div> */}
         </main>
       </div>
     </>
   );
 };
 
-export default Modal;
+export default MediaElement;

@@ -33,23 +33,23 @@ const Navigation = (props) => {
     },
   });
 
-  const pullOpenState = (state) => {
-    state ? setOpenMenu(true) : setOpenMenu(false);
-  };
+  // const pullOpenState = (state) => {
+  //   state ? setOpenMenu(true) : setOpenMenu(false);
+  // };
 
-  useEffect(() => {
-    setOpenMenu(parentNavState);
-  }, [parentNavState]);
+  // useEffect(() => {
+  //   setOpenMenu(parentNavState);
+  // }, [parentNavState]);
 
-  useEffect(() => {
-    getNavState(openMenu);
-  }, [openMenu]);
+  // useEffect(() => {
+  //   getNavState(openMenu);
+  // }, [openMenu]);
 
   return (
     <div className="nav">
       <Hamburger
-        getOpenState={pullOpenState}
-        parentNavState={openMenu}
+      // getOpenState={pullOpenState}
+      // parentNavState={openMenu}
       ></Hamburger>
       <ul
         className="nav__links"

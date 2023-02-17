@@ -104,25 +104,8 @@ const Films = () => {
   const search = useSearchMovie(inputSearchValue, pageNumber);
 
   return (
-    <div
-      className="app"
-      onClick={() => {
-        if (navIsOpen) {
-          setNavOpen(false);
-        }
-      }}
-    >
-      <div className="header">
-        <Navigation getNavState={pullNavState} parentNavState={navIsOpen} />
-        <SearchBar
-          getInputValue={pullInputValue}
-          getOpenState={pullSearchOpenState}
-        />
-        <ProfileBtn />
-      </div>
-      {searchIsActive ? (
-        <DisplaySearchResult search={search} getPageNumber={pullPageNumber} />
-      ) : !loading ? (
+    <div className="app">
+      {!loading ? (
         <div className="loader--container">
           <LoaderUI />
         </div>
@@ -140,13 +123,6 @@ const Films = () => {
           <HorizontalCarousel content={popularMovies} title="Popular" />
           <FavoriteGenre dataToDisplay="Movie" />
           <Promoted content={promotedMovies} />
-
-          {/* <Recommendations content={recommendationsMovie} config={config}>
-            <MovieCard />
-          </Recommendations> */}
-          {/* {favoriteGenre.map((genre) => {
-            return <ListByGenre key={genre} />;
-          })} */}
         </div>
       )}
     </div>

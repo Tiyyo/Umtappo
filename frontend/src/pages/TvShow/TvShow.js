@@ -11,6 +11,7 @@ import Promoted from "../../components/Container/Promoted";
 import FavoriteGenre from "../../components/Container/FavoriteGenre";
 import { CircularProgress } from "@mui/material";
 import AppContext from "../../utils/Context/AppContextProvider";
+import LoaderUI from "../../components/Loader/LoaderUI";
 
 const TvShow = () => {
   let currentDate = new Date();
@@ -95,27 +96,10 @@ const TvShow = () => {
 
   const search = useSearchShow(inputSearchValue, pageNumber);
   return (
-    <div
-      className="app"
-      onClick={() => {
-        if (navIsOpen) {
-          setNavOpen(false);
-        }
-      }}
-    >
-      <div className="header">
-        <Navigation getNavState={pullNavState} parentNavState={navIsOpen} />
-        <SearchBar
-          getInputValue={pullInputValue}
-          getOpenState={pullSearchOpenState}
-        />
-        <ProfileBtn />
-      </div>
-      {searchIsActive ? (
-        <DisplaySearchResult search={search} getPageNumber={pullPageNumber} />
-      ) : !loading ? (
+    <div className="app">
+      {!loading ? (
         <div className="loading">
-          <CircularProgress sx={{ color: "#fb8c00" }} />
+          <LoaderUI />
         </div>
       ) : (
         <div className="main">

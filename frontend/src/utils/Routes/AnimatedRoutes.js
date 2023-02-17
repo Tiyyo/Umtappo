@@ -20,6 +20,8 @@ import Profile from "../../components/Account/Profile";
 import Lists from "../../components/Account/Lists";
 import Preference from "../../components/Account/Preference";
 import LoaderUI from "../../components/Loader/LoaderUI";
+import AppLayout from "../../layout/AppLayout";
+import MediaElement from "../../pages/Content/MediaElement";
 
 const AnimatedRoutes = () => {
   const {
@@ -74,39 +76,26 @@ const AnimatedRoutes = () => {
   return (
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
-        <Route
-          path={"/"}
-          element={
-            isAuth && isLoggedIn ? <Navigate to="/Home" /> : <LoginLayout />
-          }
-        >
+        <Route path={"/"} element={<AppLayout />}>
+          <Route path={""} element={<Navigate to="/Home" />} />
+          <Route path={"Home"} element={<Home />} />
+          <Route path="Likes" element={<Likes />} />
+          <Route path="Films" element={<Films />} />
+          <Route path="TvShow" element={<TvShow />} />
+          <Route path={`:id/:modalid`} element={<MediaElement />} />
+          <Route path={":id/:id/add_to_playlist"} element={<AddToPlaylist />} />
+          <Route path="/Account" element={<Account />}>
+            <Route path={""} element={<Menu />} />
+            <Route path="Profile" element={<Profile />} />
+            <Route path="Preference" element={<Preference />} />
+            <Route path="Lists" element={<Lists />} />
+          </Route>
+        </Route>
+        <Route path={"Authentification"} element={<LoginLayout />}>
           <Route path={""} element={<FirstPage />} />
           <Route path="SignIn" element={<SignIn />} />
           <Route path="SignUp" element={<SignUp />} />
         </Route>
-        <Route
-          path={"*"}
-          element={
-            isAuth && isLoggedIn ? <Home /> : <Navigate to="/" replace={true} />
-          }
-        />
-        <Route
-          path={"/Home"}
-          element={
-            isAuth && isLoggedIn ? <Home /> : <Navigate to="/" replace={true} />
-          }
-        />
-        <Route path="/Account" element={UsersRoute(<Account />, loginPagePath)}>
-          <Route path={""} element={<Menu />} />
-          <Route path="Profile" element={<Profile />} />
-          <Route path="Preference" element={<Preference />} />
-          <Route path="Lists" element={<Lists />} />
-        </Route>
-        <Route path="/Likes" element={UsersRoute(<Likes />, loginPagePath)} />
-        <Route path="Films" element={UsersRoute(<Films />, loginPagePath)} />
-        <Route path="/TvShow" element={UsersRoute(<TvShow />, loginPagePath)} />
-        <Route path={`/:id/:modalid`} element={<Modal />} />
-        <Route path={"/:id/:id/add_to_playlist"} element={<AddToPlaylist />} />
       </Routes>
     </AnimatePresence>
   );
