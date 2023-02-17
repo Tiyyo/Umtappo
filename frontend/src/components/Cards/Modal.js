@@ -7,7 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ShareIcon from "@mui/icons-material/Share";
 import AddIcon from "@mui/icons-material/Add";
-// import ReactPlayer from "react-player";
+import ReactPlayer from "react-player";
 import AppContext from "../../utils/Context/AppContextProvider";
 
 const Modal = () => {
@@ -275,15 +275,14 @@ const Modal = () => {
           </div>
           <div className="card__trailer-container">
             {ytKey ? (
-              <h1>hello</h1>
+              <ReactPlayer
+                url={"https://www.youtube.com/watch?v=" + ytKey}
+                controls
+                width="100%"
+                height="auto"
+                className="player"
+              ></ReactPlayer>
             ) : (
-              // <ReactPlayer
-              //   url={"https://www.youtube.com/watch?v=" + ytKey}
-              //   controls
-              //   width="100%"
-              //   height="auto"
-              //   className="player"
-              // ></ReactPlayer>
               <img
                 src={
                   config.base_url +

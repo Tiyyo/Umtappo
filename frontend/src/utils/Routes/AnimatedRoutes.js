@@ -19,6 +19,7 @@ import Menu from "../../components/Account/Menu";
 import Profile from "../../components/Account/Profile";
 import Lists from "../../components/Account/Lists";
 import Preference from "../../components/Account/Preference";
+import LoaderUI from "../../components/Loader/LoaderUI";
 
 const AnimatedRoutes = () => {
   const {
@@ -61,15 +62,12 @@ const AnimatedRoutes = () => {
   let loginPagePath = "/";
 
   useEffect(() => {
-    setIsLoading(true);
     if (window.localStorage.accesToken) {
       console.log(window.localStorage.accesToken);
       setIsLoggedIn(true);
       auth(window.localStorage.accesToken);
-      setIsLoading(false);
     } else {
       console.log("No token Avaiable");
-      setIsLoading(false);
     }
   }, []);
 

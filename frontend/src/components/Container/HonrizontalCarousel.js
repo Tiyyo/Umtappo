@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
-import Loader from "../Loader/Loader";
 import { motion } from "framer-motion";
 import MovieCard from "../Cards/MovieCard";
+import LoaderUI from "../Loader/LoaderUI";
 
 const HonrizontalCarousel = (props) => {
   const { content, title } = props;
@@ -37,7 +37,7 @@ const HonrizontalCarousel = (props) => {
           </motion.div>
         </motion.div>
       ) : (
-        <Loader />
+        <LoaderUI />
       )}
     </div>
   );

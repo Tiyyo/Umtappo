@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Trendings from "../../components/Container/Trendings";
 import Navigation from "../../components/Navigation/Navigation";
 import SearchBar from "../../components/SearchBar/SearchBar";
@@ -10,30 +10,27 @@ import useSearchShow from "../../utils/hooks/useSearchShow";
 import Promoted from "../../components/Container/Promoted";
 import FavoriteGenre from "../../components/Container/FavoriteGenre";
 import { CircularProgress } from "@mui/material";
+import AppContext from "../../utils/Context/AppContextProvider";
 
-const TvShow2 = () => {
+const TvShow = () => {
   let currentDate = new Date();
   const date = currentDate.setMonth(-1);
   let promotedElementPageNumber = 1;
+  const { languages } = useContext(AppContext);
 
   const trendingTvShowUrl =
     "https://api.themoviedb.org/3/trending/tv/week?api_key=3e2abd7e10753ed410ed7439f7e1f93f";
 
-  const lastReleaseTvShowUrl = `https://api.themoviedb.org/3/discover/tv?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=en-US&sort_by=popularity.desc&air_date.lte=${date}&page=1&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&with_status=0&with_type=0`;
+  const lastReleaseTvShowUrl = `https://api.themoviedb.org/3/discover/tv?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&sort_by=popularity.desc&air_date.lte=${date}&page=1&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&with_status=0&with_type=0`;
 
-  const recommendationsTvShowUrl =
-    "https://api.themoviedb.org/3/discover/tv?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=en-US&sort_by=vote_average.desc&page=1&vote_average.gte=6&vote_count.gte=100&include_null_first_air_dates=false&with_watch_providers=FR&with_watch_monetization_types=flatrate&with_status=0&with_type=0";
+  const recommendationsTvShowUrl = `https://api.themoviedb.org/3/discover/tv?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&sort_by=vote_average.desc&page=1&vote_average.gte=6&vote_count.gte=100&include_null_first_air_dates=false&with_watch_providers=FR&with_watch_monetization_types=flatrate&with_status=0&with_type=0`;
 
-  const tvShowOnAirUrl =
-    "https://api.themoviedb.org/3/tv/on_the_air?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=en-US&page=1";
+  const tvShowOnAirUrl = `https://api.themoviedb.org/3/tv/on_the_air?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&page=1`;
 
-  const promotedShowsUrl = `https://api.themoviedb.org/3/discover/tv?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=en-US&sort_by=vote_average.desc&page=${promotedElementPageNumber}&vote_average.gte=6&vote_count.gte=100&include_null_first_air_dates=false&with_watch_providers=FR&with_watch_monetization_types=flatrate&with_status=0&with_type=0`;
+  const promotedShowsUrl = `https://api.themoviedb.org/3/discover/tv?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&sort_by=vote_average.desc&page=${promotedElementPageNumber}&vote_average.gte=6&vote_count.gte=100&include_null_first_air_dates=false&with_watch_providers=FR&with_watch_monetization_types=flatrate&with_status=0&with_type=0`;
 
   const [searchIsActive, setSearchActive] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [config, setConfig] = useState([]);
-  const [genreListMovie, setGenreListMovie] = useState([]);
-  const [genreListTv, setGenreListTv] = useState([]);
   const [inputSearchValue, setInputSearchValue] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [navIsOpen, setNavOpen] = useState(false);
@@ -140,4 +137,4 @@ const TvShow2 = () => {
   );
 };
 
-export default TvShow2;
+export default TvShow;

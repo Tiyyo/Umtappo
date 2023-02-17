@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import Loader from "../Loader/Loader";
 import MovieCard from "../Cards/MovieCard";
 import { motion } from "framer-motion";
+import LoaderUI from "../Loader/LoaderUI";
 
 const InfiniteHorizontalCarousel = (props) => {
   const { genre } = props;
@@ -63,7 +63,7 @@ const InfiniteHorizontalCarousel = (props) => {
         {type} | {name}
       </h2>
       {loading ? (
-        <Loader />
+        <LoaderUI />
       ) : (
         <motion.div
           className="outer-cards-container"

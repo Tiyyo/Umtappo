@@ -6,8 +6,15 @@ export const AppContextProvider = ({ children }) => {
   const [config, setConfig] = useState(null);
   const [genreListMovie, setGenreListMovie] = useState([]);
   const [genreListTv, setGenreListTv] = useState([]);
+  const [languages, setLanguages] = useState("en-US");
 
-  const value = { config, genreListMovie, genreListTv };
+  const value = {
+    config,
+    genreListMovie,
+    genreListTv,
+    languages,
+    setLanguages,
+  };
 
   useEffect(() => {
     const fetchConfig = async () => {

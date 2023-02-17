@@ -8,9 +8,8 @@ export const UserContextProvider = ({ children }) => {
     email: "",
     password: "",
   });
-  const [isAuth, setIsAuth] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [authIsLoading, setIsLoading] = useState(true);
+  const [isAuth, setIsAuth] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
 
   const value = {
     userID,
@@ -21,8 +20,6 @@ export const UserContextProvider = ({ children }) => {
     setIsAuth,
     isLoggedIn,
     setIsLoggedIn,
-    authIsLoading,
-    setIsLoading,
   };
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

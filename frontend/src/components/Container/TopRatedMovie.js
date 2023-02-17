@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
-import Loader from "../Loader/Loader";
 import MovieCard from "../Cards/MovieCard";
 import { motion } from "framer-motion";
 import { useContext } from "react";
 import AppContext from "../../utils/Context/AppContextProvider";
+import LoaderUI from "../Loader/LoaderUI";
 
 const TopRatedMovie = ({ topMovies }) => {
   const { config } = useContext(AppContext);
@@ -48,7 +47,7 @@ const TopRatedMovie = ({ topMovies }) => {
           </motion.div>
         </motion.div>
       ) : (
-        <Loader />
+        <LoaderUI />
       )}
     </div>
   );

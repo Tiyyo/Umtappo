@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Loader from "../Loader/Loader";
 import "swiper/css";
 import "swiper/css/pagination";
 import { createTheme } from "@mui/material/styles";
@@ -7,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import BannerCard from "../Cards/BannerCard";
 import { Link } from "react-router-dom";
+import LoaderUI from "../Loader/LoaderUI";
 
 const Trendings = (props) => {
   const { content, title } = props;
@@ -34,7 +34,7 @@ const Trendings = (props) => {
               );
             })
         ) : (
-          <Loader />
+          <LoaderUI />
         )}
       </Swiper>
     </div>

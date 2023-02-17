@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import Trendings from "../../components/Container/Trendings";
 import HorizontalCarousel from "../../components/Container/HonrizontalCarousel";
-import Loader from "../../components/Loader/Loader";
 import Navigation from "../../components/Navigation/Navigation";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import ProfileBtn from "../../components/Navigation/ProfileBtn";
@@ -10,24 +9,24 @@ import useFetch from "../../utils/hooks/useFetch";
 import useSearchMovie from "../../utils/hooks/useSearchMovie";
 import FavoriteGenre from "../../components/Container/FavoriteGenre";
 import Promoted from "../../components/Container/Promoted";
+import AppContext from "../../utils/Context/AppContextProvider";
+import LoaderUI from "../../components/Loader/LoaderUI";
 
 const Films = () => {
   let currentDate = new Date();
   const date = currentDate.setMonth(-1);
   const promotedElementPageNumber = useRef();
+  const { languages } = useContext(AppContext);
 
-  const upcomingMovieUrl =
-    "https://api.themoviedb.org/3/movie/upcoming?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=en-US&page=1&region=FR";
+  const upcomingMovieUrl = `https://api.themoviedb.org/3/movie/upcoming?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&page=1&region=FR`;
 
-  const lastReleaseMoviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=en-US&region=FR&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.lte=${date}&watch_region=FR&with_watch_monetization_types=flatrate`;
+  const lastReleaseMoviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&region=FR&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.lte=${date}&watch_region=FR&with_watch_monetization_types=flatrate`;
 
-  const recommendationsMoviesUrl =
-    "https://api.themoviedb.org/3/discover/movie?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=en-US&sort_by=vote_average.desc&include_adult=false&include_video=false&page=1&vote_count.gte=5000&vote_average.gte=8&with_watch_monetization_types=flatrate";
+  const recommendationsMoviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&sort_by=vote_average.desc&include_adult=false&include_video=false&page=1&vote_count.gte=5000&vote_average.gte=8&with_watch_monetization_types=flatrate`;
 
-  const promotedMoviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=en-US&sort_by=vote_average.desc&include_adult=false&include_video=false&page=${promotedElementPageNumber.current}&vote_count.gte=5000&vote_average.gte=8&with_watch_monetization_types=flatrate`;
+  const promotedMoviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&sort_by=vote_average.desc&include_adult=false&include_video=false&page=${promotedElementPageNumber.current}&vote_count.gte=5000&vote_average.gte=8&with_watch_monetization_types=flatrate`;
 
-  const popularMoviesUrl =
-    "https://api.themoviedb.org/3/movie/popular?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=en-US&page=1&region=FR";
+  const popularMoviesUrl = `https://api.themoviedb.org/3/movie/popular?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&page=1&region=FR`;
 
   const [searchIsActive, setSearchActive] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -125,7 +124,7 @@ const Films = () => {
         <DisplaySearchResult search={search} getPageNumber={pullPageNumber} />
       ) : !loading ? (
         <div className="loader--container">
-          <Loader />
+          <LoaderUI />
         </div>
       ) : (
         <div className="main">

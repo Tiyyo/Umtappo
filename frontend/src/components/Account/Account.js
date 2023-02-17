@@ -39,7 +39,7 @@ const Account = () => {
   };
 
   const goBack = () => {
-    return navigate("/Account");
+    return navigate(-1);
   };
   return (
     <div className="account">

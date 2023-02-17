@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FavoriteList from "../../components/Favorites/FavoriteList";
-import Loader from "../../components/Loader/Loader";
+import LoaderUI from "../../components/Loader/LoaderUI";
 import Navigation from "../../components/Navigation/Navigation";
 import ProfileBtn from "../../components/Navigation/ProfileBtn";
 
@@ -26,7 +26,7 @@ const Likes = () => {
         <ProfileBtn />
       </div>
       {loading ? (
-        <Loader />
+        <LoaderUI />
       ) : (
         <div className="main">
           <FavoriteList />
