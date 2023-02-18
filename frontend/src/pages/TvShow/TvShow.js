@@ -1,15 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import Trendings from "../../components/Container/Trendings";
-import Navigation from "../../components/Navigation/Navigation";
-import SearchBar from "../../components/SearchBar/SearchBar";
 import HorizontalCarousel from "../../components/Container/HonrizontalCarousel";
 import useFetch from "../../utils/hooks/useFetch";
-import DisplaySearchResult from "../../utils/DisplaySearchResult";
-import ProfileBtn from "../../components/Navigation/ProfileBtn";
-import useSearchShow from "../../utils/hooks/useSearchShow";
 import Promoted from "../../components/Container/Promoted";
 import FavoriteGenre from "../../components/Container/FavoriteGenre";
-import { CircularProgress } from "@mui/material";
 import AppContext from "../../utils/Context/AppContextProvider";
 import LoaderUI from "../../components/Loader/LoaderUI";
 
@@ -30,36 +24,7 @@ const TvShow = () => {
 
   const promotedShowsUrl = `https://api.themoviedb.org/3/discover/tv?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&sort_by=vote_average.desc&page=${promotedElementPageNumber}&vote_average.gte=6&vote_count.gte=100&include_null_first_air_dates=false&with_watch_providers=FR&with_watch_monetization_types=flatrate&with_status=0&with_type=0`;
 
-  const [searchIsActive, setSearchActive] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [inputSearchValue, setInputSearchValue] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [navIsOpen, setNavOpen] = useState(false);
-
-  const pullInputValue = (inputValue) => {
-    setInputSearchValue(inputValue);
-    if (inputValue.length >= 1) {
-      setSearchActive(true);
-    } else {
-      setSearchActive(false);
-    }
-  };
-
-  const pullSearchOpenState = (state) => {
-    if (state === true) {
-      setSearchActive(true);
-    } else {
-      setSearchActive(false);
-    }
-  };
-
-  const pullPageNumber = (something) => {
-    setPageNumber((prevPageNumber) => prevPageNumber + 1);
-  };
-
-  const pullNavState = (something) => {
-    setNavOpen(something);
-  };
 
   const { content: trendingTvShows, loading: loadTrends } =
     useFetch(trendingTvShowUrl);
@@ -90,11 +55,6 @@ const TvShow = () => {
     updatelLoading();
   }, [loadsArray]);
 
-  useEffect(() => {
-    setPageNumber(1);
-  }, [inputSearchValue]);
-
-  const search = useSearchShow(inputSearchValue, pageNumber);
   return (
     <div className="app">
       {!loading ? (

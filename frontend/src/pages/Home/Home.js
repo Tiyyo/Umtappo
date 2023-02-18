@@ -1,21 +1,13 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
-
 import LoaderUI from "../../components/Loader/LoaderUI";
-import Navigation from "../../components/Navigation/Navigation";
-import SearchBar from "../../components/SearchBar/SearchBar";
 import Trendings from "../../components/Container/Trendings";
-import DisplaySearchResult from "../../utils/DisplaySearchResult";
-import ProfileBtn from "../../components/Navigation/ProfileBtn";
 import HonrizontalCarousel from "../../components/Container/HonrizontalCarousel";
 import useFetch from "../../utils/hooks/useFetch";
-import useSearch from "../../utils/hooks/useSearch";
 import HeaderHome from "../../components/Container/HeaderHome";
 import Spacer from "../../components/Container/Spacer";
 import Promoted from "../../components/Container/Promoted";
 import FavoriteGenre from "../../components/Container/FavoriteGenre";
-import HomeContext, {
-  HomeContextProvider,
-} from "../../utils/Context/HomeContextProvider";
+import { HomeContextProvider } from "../../utils/Context/HomeContextProvider";
 import { useCallback } from "react";
 import AppContext from "../../utils/Context/AppContextProvider";
 
@@ -54,12 +46,7 @@ const Home = () => {
 
   const popularTvShowsUrl = `https://api.themoviedb.org/3/tv/popular?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}S&page=1`;
 
-  const [searchIsActive, setSearchActive] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [inputSearchValue, setInputSearchValue] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [navIsOpen, setNavOpen] = useState(false);
-
   const ref = useRef();
 
   const handleScroll = useCallback(() => {
@@ -80,31 +67,6 @@ const Home = () => {
         "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzZTJhYmQ3ZTEwNzUzZWQ0MTBlZDc0MzlmN2UxZjkzZiIsInN1YiI6IjYzYWNhZjI2YmU0YjM2MDA4YTZjNzFlMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BMRrpkyDtkLPeFuYLeahtwVp_wU8c9Xo4ynqvH-KJhk",
       ContentType: "application/json;charset=utf-8",
     },
-  };
-
-  const pullInputValue = (inputValue) => {
-    setInputSearchValue(inputValue);
-    if (inputValue.length >= 1) {
-      setSearchActive(true);
-    } else {
-      setSearchActive(false);
-    }
-  };
-
-  const pullSearchOpenState = (state) => {
-    if (state === true) {
-      setSearchActive(true);
-    } else {
-      setSearchActive(false);
-    }
-  };
-
-  const pullPageNumber = (something) => {
-    setPageNumber((prevPageNumber) => prevPageNumber + 1);
-  };
-
-  const pullNavState = (something) => {
-    setNavOpen(something);
   };
 
   const { content: trendingAll, loading: loadTrends } =
@@ -148,10 +110,6 @@ const Home = () => {
     loading: loadPlayingNowMovie,
   } = useFetch(playingNowMovieUrl);
 
-  const searchUrl = `https://api.themoviedb.org/3/search/multi?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=fr-FR&query=${inputSearchValue}&page=${pageNumber}&include_adult=false`;
-
-  const search = useSearch(inputSearchValue, pageNumber);
-
   let loadsArray = [
     loadTrends,
     loadLastMovies,
@@ -174,10 +132,6 @@ const Home = () => {
     };
     updatelLoading();
   }, loadsArray);
-
-  useEffect(() => {
-    setPageNumber(1);
-  }, [inputSearchValue]);
 
   return (
     <HomeContextProvider>

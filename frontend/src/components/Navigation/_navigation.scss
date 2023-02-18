@@ -29,3 +29,40 @@
     left: 0;
     background-color: rgba(255, 255, 255, 0.227);
 }
+
+.app__container  {
+    .header  {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        position: fixed;
+        z-index: 5;
+        height: 50px;
+        background: $secondary-transparent;
+        .nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0.5rem;
+        }
+        .search__container  {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 3.5rem;
+
+        }
+        .avatar  {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0.5rem;
+            width: $avatar-size;
+            height: $avatar-size;
+            align-self: center;
+    
+        }
+    }
+  
+}

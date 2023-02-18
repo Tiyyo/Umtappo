@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import AppContext from "../../utils/Context/AppContextProvider";
 
 const SimilarContent = (props) => {
-  const { similars } = props;
+  const { similars, loading } = props;
   const { config } = useContext(AppContext);
-  const loading = true; // random value change in the future
+
   const displaySimilarContent = () => {
     if (loading) {
       return;

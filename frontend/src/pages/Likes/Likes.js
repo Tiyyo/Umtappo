@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import FavoriteList from "../../components/Favorites/FavoriteList";
 import LoaderUI from "../../components/Loader/LoaderUI";
 import Navigation from "../../components/Navigation/Navigation";
-import ProfileBtn from "../../components/Navigation/ProfileBtn";
+import ProfileBtn from "../../components/Navigation/AccountIcon";
 
 const Likes = () => {
   const [loading, setLoading] = useState(false);

@@ -4,7 +4,6 @@ import { Route, Routes, useLocation, Navigate } from "react-router";
 import FirstPage from "../../components/Authentification/FirstPage";
 import SignIn from "../../components/Authentification/SignIn";
 import SignUp from "../../components/Authentification/SignUp";
-import Modal from "../../components/Cards/Modal";
 import Account from "../../components/Account/Account";
 import LoginLayout from "../../layout/LoginLayout";
 import Films from "../../pages/Films/Films";
@@ -22,6 +21,7 @@ import Preference from "../../components/Account/Preference";
 import LoaderUI from "../../components/Loader/LoaderUI";
 import AppLayout from "../../layout/AppLayout";
 import MediaElement from "../../pages/Content/MediaElement";
+import SearchResult from "../../pages/SearchResult/SearchResult";
 
 const AnimatedRoutes = () => {
   const {
@@ -65,7 +65,6 @@ const AnimatedRoutes = () => {
 
   useEffect(() => {
     if (window.localStorage.accesToken) {
-      console.log(window.localStorage.accesToken);
       setIsLoggedIn(true);
       auth(window.localStorage.accesToken);
     } else {
@@ -82,9 +81,10 @@ const AnimatedRoutes = () => {
           <Route path="Likes" element={<Likes />} />
           <Route path="Films" element={<Films />} />
           <Route path="TvShow" element={<TvShow />} />
+          <Route path="Search" element={<SearchResult />} />
           <Route path={`:id/:modalid`} element={<MediaElement />} />
           <Route path={":id/:id/add_to_playlist"} element={<AddToPlaylist />} />
-          <Route path="/Account" element={<Account />}>
+          <Route path="Account" element={<Account />}>
             <Route path={""} element={<Menu />} />
             <Route path="Profile" element={<Profile />} />
             <Route path="Preference" element={<Preference />} />

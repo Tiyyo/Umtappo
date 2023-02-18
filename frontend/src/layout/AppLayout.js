@@ -1,27 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import Navigation from "../components/Navigation/Navigation";
 import SearchBar from "../components/SearchBar/SearchBar";
-import ProfileBtn from "../components/Navigation/ProfileBtn";
-import { Outlet, useLocation } from "react-router-dom";
+import ProfileBtn from "../components/Navigation/AccountIcon";
+import { Outlet, useLocation, Link } from "react-router-dom";
 
 const AppLayout = () => {
-  const location = useLocation();
+  const [inputSearchValue, setInputSearchValue] = useState("");
 
-  //   <DisplaySearchResult search={search} getPageNumber={pullPageNumber} />
+  const getInputValue = (value) => {
+    setInputSearchValue(value);
+  };
 
   return (
     <div className="app__container">
       <div className="header">
-        <Navigation
-        // getNavState={pullNavState} parentNavState={navIsOpen}
-        />
-        <SearchBar
-        //   getInputValue={pullInputValue}
-        //   getOpenState={pullSearchOpenState}
-        />
+        <Navigation />
+        <SearchBar getInputValue={getInputValue} />
         <ProfileBtn />
       </div>
-      <Outlet />
+      <Outlet context={inputSearchValue} />
     </div>
   );
 };

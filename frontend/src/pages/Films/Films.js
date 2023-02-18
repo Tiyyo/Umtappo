@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import Trendings from "../../components/Container/Trendings";
 import HorizontalCarousel from "../../components/Container/HonrizontalCarousel";
-import Navigation from "../../components/Navigation/Navigation";
-import SearchBar from "../../components/SearchBar/SearchBar";
-import ProfileBtn from "../../components/Navigation/ProfileBtn";
-import DisplaySearchResult from "../../utils/DisplaySearchResult";
 import useFetch from "../../utils/hooks/useFetch";
-import useSearchMovie from "../../utils/hooks/useSearchMovie";
 import FavoriteGenre from "../../components/Container/FavoriteGenre";
 import Promoted from "../../components/Container/Promoted";
 import AppContext from "../../utils/Context/AppContextProvider";
@@ -28,37 +23,7 @@ const Films = () => {
 
   const popularMoviesUrl = `https://api.themoviedb.org/3/movie/popular?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&page=1&region=FR`;
 
-  const [searchIsActive, setSearchActive] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [inputSearchValue, setInputSearchValue] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [navIsOpen, setNavOpen] = useState(false);
-
-  const pullInputValue = (inputValue) => {
-    setInputSearchValue(inputValue);
-    if (inputValue.length >= 1) {
-      setSearchActive(true);
-    } else {
-      setSearchActive(false);
-    }
-  };
-
-  const pullSearchOpenState = (state) => {
-    if (state === true) {
-      setSearchActive(true);
-    } else {
-      setSearchActive(false);
-    }
-  };
-
-  const pullPageNumber = (something) => {
-    console.log(something);
-    setPageNumber((prevPageNumber) => prevPageNumber + something);
-  };
-
-  const pullNavState = (something) => {
-    setNavOpen(something);
-  };
 
   const { content: upcomingMovies, loading: loadTrends } =
     useFetch(upcomingMovieUrl);
@@ -94,14 +59,8 @@ const Films = () => {
   }, [loadsArray]);
 
   useEffect(() => {
-    setPageNumber(1);
-  }, [inputSearchValue]);
-
-  useEffect(() => {
     promotedElementPageNumber.current = Math.floor(Math.random() * 6);
   }, []);
-
-  const search = useSearchMovie(inputSearchValue, pageNumber);
 
   return (
     <div className="app">
