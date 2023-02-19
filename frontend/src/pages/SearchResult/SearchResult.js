@@ -6,12 +6,11 @@ import useSearch from "../../utils/hooks/useSearch";
 
 const SearchResult = () => {
   const observer = useRef();
-  const { config, genre } = useContext(AppContext);
+  const { config } = useContext(AppContext);
   const inputSearchValue = useOutletContext();
   const [pageNumber, setPageNumber] = useState(1);
   const {
     content: elements,
-    error,
     loading,
     hasMore,
   } = useSearch(inputSearchValue, pageNumber);

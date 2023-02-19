@@ -18,7 +18,7 @@ const TvShow = () => {
 
   const lastReleaseTvShowUrl = `https://api.themoviedb.org/3/discover/tv?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&sort_by=popularity.desc&air_date.lte=${date}&page=1&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&with_status=0&with_type=0`;
 
-  const recommendationsTvShowUrl = `https://api.themoviedb.org/3/discover/tv?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&sort_by=vote_average.desc&page=1&vote_average.gte=6&vote_count.gte=100&include_null_first_air_dates=false&with_watch_providers=FR&with_watch_monetization_types=flatrate&with_status=0&with_type=0`;
+  // const recommendationsTvShowUrl = `https://api.themoviedb.org/3/discover/tv?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&sort_by=vote_average.desc&page=1&vote_average.gte=6&vote_count.gte=100&include_null_first_air_dates=false&with_watch_providers=FR&with_watch_monetization_types=flatrate&with_status=0&with_type=0`;
 
   const tvShowOnAirUrl = `https://api.themoviedb.org/3/tv/on_the_air?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&page=1`;
 
@@ -53,7 +53,7 @@ const TvShow = () => {
       return setLoading(loadsArray.every(isTrue));
     };
     updatelLoading();
-  }, [loadsArray]);
+  }, [loadTrends, loadLastTvShows, loadTvShowOnAir, loadPromotedShow]);
 
   return (
     <div className="app">

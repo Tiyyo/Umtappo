@@ -63,34 +63,23 @@ const FavoriteGenre = (props) => {
     favoriteGenre.current.forEach((genre) => (genre.type = tvShow));
   };
 
-  useEffect(
-    () => {
-      if (dataToDisplay === both) {
-        choseRandomValues(numberValues, flatGenreLists);
-        matchIndexes(flatGenreLists);
-        addTypeBoth();
-      }
-      if (dataToDisplay === movie) {
-        choseRandomValues(numberValues, genreMovieList);
-        matchIndexes(genreMovieList);
-        addMovieType();
-      }
-      if (dataToDisplay === tvShow) {
-        choseRandomValues(numberValues, genreTvList);
-        matchIndexes(genreTvList);
-        addTvShowType();
-      }
-    },
-    [
-      // tvShow,
-      // movie,
-      // both,
-      // genreTvList,
-      // genreMovieList,
-      // numberValues,
-      // flatGenreLists,
-    ]
-  );
+  useEffect(() => {
+    if (dataToDisplay === both) {
+      choseRandomValues(numberValues, flatGenreLists);
+      matchIndexes(flatGenreLists);
+      addTypeBoth();
+    }
+    if (dataToDisplay === movie) {
+      choseRandomValues(numberValues, genreMovieList);
+      matchIndexes(genreMovieList);
+      addMovieType();
+    }
+    if (dataToDisplay === tvShow) {
+      choseRandomValues(numberValues, genreTvList);
+      matchIndexes(genreTvList);
+      addTvShowType();
+    }
+  }, [dataToDisplay, numberValues]);
 
   return (
     <div className="favorite-genre">

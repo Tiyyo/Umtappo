@@ -5,6 +5,8 @@ import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import UserContext from "../../utils/Context/UserContextProvider";
+import { theme } from "../../theme/IconTheme";
+import { ThemeProvider } from "@mui/material";
 
 const Profile = () => {
   const { userInfos } = useContext(UserContext);
@@ -27,44 +29,46 @@ const Profile = () => {
   };
 
   return (
-    <div>
-      <div className="username">
-        <div className="username-icon">
-          <AccountCircleIcon />
+    <ThemeProvider theme={theme}>
+      <div className="profile">
+        <div className="aera username">
+          <div className="username-icon">
+            <AccountCircleIcon color="white" />
+          </div>
+          <input type="text" value={userInfos.username} />
+          <button type="button" onClick={toggleUsernameLock}>
+            <EditIcon sx={{ color: "white" }} />
+          </button>
+          <button type="button">
+            <DoneIcon sx={{ color: "white" }} />
+          </button>
         </div>
-        <input type="text" value={userInfos.username} />
-        <button type="button" onClick={toggleUsernameLock}>
-          <EditIcon />
-        </button>
-        <button type="button">
-          <DoneIcon />
-        </button>
-      </div>
-      <div className="email">
-        <div className="email-icon">
-          <EmailIcon />
+        <div className="aera email">
+          <div className="email-icon">
+            <EmailIcon color="white" />
+          </div>
+          <input type="email" readOnly value={userInfos.email} />
+          <button type="button" onClick={toggleUsernameLock}>
+            <EditIcon sx={{ color: "white" }} />
+          </button>
+          <button type="button">
+            <DoneIcon sx={{ color: "white" }} />
+          </button>
         </div>
-        <input type="email" readOnly value={userInfos.email} />
-        <button type="button" onClick={toggleEmailLock}>
-          <EditIcon />
-        </button>
-        <button type="button">
-          <DoneIcon />
-        </button>
-      </div>
-      <div className="password">
-        <div className="password">
-          <LockIcon />
+        <div className="aera password">
+          <div className="password">
+            <LockIcon color="white" />
+          </div>
+          <input type="password" readOnly value={"NotaPassword"} />
+          <button type="button" onClick={toggleUsernameLock}>
+            <EditIcon sx={{ color: "white" }} />
+          </button>
+          <button type="button">
+            <DoneIcon sx={{ color: "white" }} />
+          </button>
         </div>
-        <input type="password" readOnly value={"NotaPassword"} />
-        <button type="button" onClick={togglePasswordLock}>
-          <EditIcon />
-        </button>
-        <button type="button">
-          <DoneIcon />
-        </button>
       </div>
-    </div>
+    </ThemeProvider>
   );
 };
 

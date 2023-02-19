@@ -14,7 +14,6 @@ const MediaElement = () => {
   //--- Destructuring
   const location = useLocation();
   const { content } = location.state;
-  console.log(content);
   const { languages } = useContext(AppContext);
   const { id, type } = content;
 

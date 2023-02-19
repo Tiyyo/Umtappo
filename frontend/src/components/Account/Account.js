@@ -2,17 +2,11 @@ import React, { useContext } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import UserContext from "../../utils/Context/UserContextProvider";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { ThemeProvider } from "@mui/material";
+import { theme } from "../../theme/IconTheme";
 const Account = () => {
-  const {
-    userID,
-    setUserID,
-    userInfos,
-    setUserInfos,
-    isAuth,
-    setIsAuth,
-    isLoggedIn,
-    setIsLoggedIn,
-  } = useContext(UserContext);
+  const { setUserID, userInfos, setUserInfos, setIsAuth, setIsLoggedIn } =
+    useContext(UserContext);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,9 +38,11 @@ const Account = () => {
   return (
     <div className="account">
       <nav className="title">
-        <button type="button" className="back-icon" onClick={goBack}>
-          <ArrowBackIcon color="primary" size="extraLarge" />
-        </button>
+        <ThemeProvider theme={theme}>
+          <button type="button" className="back-icon" onClick={goBack}>
+            <ArrowBackIcon color="primary" size="extraLarge" />
+          </button>
+        </ThemeProvider>
         <h2 className="page-name">{locations[numberOfLocations - 1]}</h2>
       </nav>
       <div className="banner">

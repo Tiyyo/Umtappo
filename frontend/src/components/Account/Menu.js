@@ -1,13 +1,12 @@
 import React from "react";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import MenuLink from "./MenuLink";
 
 const Menu = () => {
   return (
     <ul className="menu">
-      <MenuLink path="Profile" />
-      <MenuLink path="Preference" />
-      <MenuLink path="Lists" />
+      <MenuLink path="Profile" icon={"PersonIcon"} />
+      <MenuLink path="Preference" icon={"SettingsIcon"} />
+      <MenuLink path="Lists" icon={"BookmarksIcon"} />
     </ul>
   );
 };

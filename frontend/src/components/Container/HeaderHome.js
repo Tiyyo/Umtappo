@@ -13,7 +13,7 @@ const HeaderHome = (props) => {
   const image = useRef();
   const windowSize = useWindowSize();
   let numberOfContent = 19;
-  let delayBetweenContent = 7500;
+  let delayBetweenContent = 7500; // time in ms
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -27,7 +27,7 @@ const HeaderHome = (props) => {
       setPosterToDisplay(Math.floor(Math.random() * numberOfContent));
     }, delayBetweenContent);
     return () => clearInterval(changeImage);
-  }, []);
+  }, [numberOfContent, delayBetweenContent]);
 
   return (
     <div className="home-image">

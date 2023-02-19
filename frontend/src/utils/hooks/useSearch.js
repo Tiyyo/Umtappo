@@ -41,7 +41,7 @@ const useSearch = (query, pageNumber) => {
         .finally(() => setLoading(false));
     };
     fetchData();
-  }, [query, pageNumber]);
+  }, [query, pageNumber, languages]);
   return { content, loading, error, hasMore };
 };
 

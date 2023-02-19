@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { createTheme } from "@mui/material/styles";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import BannerCard from "../Cards/BannerCard";

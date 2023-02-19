@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Route, Routes, useLocation, Navigate } from "react-router";
 import FirstPage from "../../components/Authentification/FirstPage";
 import SignIn from "../../components/Authentification/SignIn";
@@ -10,7 +10,6 @@ import Films from "../../pages/Films/Films";
 import Home from "../../pages/Home/Home";
 import AddToPlaylist from "../../pages/Favorites/AddToPlaylist";
 import Likes from "../../pages/Favorites/Favorites";
-import { Login } from "../../pages/Login/Login";
 import TvShow from "../../pages/TvShow/TvShow";
 import UserContext from "../Context/UserContextProvider";
 import { AnimatePresence } from "framer-motion";
@@ -18,7 +17,6 @@ import Menu from "../../components/Account/Menu";
 import Profile from "../../components/Account/Profile";
 import Lists from "../../components/Account/Lists";
 import Preference from "../../components/Account/Preference";
-import LoaderUI from "../../components/Loader/LoaderUI";
 import AppLayout from "../../layout/AppLayout";
 import MediaElement from "../../pages/Content/MediaElement";
 import SearchResult from "../../pages/SearchResult/SearchResult";
@@ -31,7 +29,6 @@ const AnimatedRoutes = () => {
     setIsLoggedIn,
     setUserID,
     setUserInfos,
-    setIsLoading,
   } = useContext(UserContext);
 
   const location = useLocation();
@@ -57,11 +54,9 @@ const AnimatedRoutes = () => {
       .catch((err) => console.log(err));
   };
 
-  const UsersRoute = (children, redirect) => {
-    return isAuth && isLoggedIn ? children : <Navigate to={redirect} replace />;
-  };
-
-  let loginPagePath = "/";
+  // const UsersRoute = (children, redirect) => {
+  //   return isAuth && isLoggedIn ? children : <Navigate to={redirect} replace />;
+  // };
 
   useEffect(() => {
     if (window.localStorage.accesToken) {

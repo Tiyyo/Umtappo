@@ -16,11 +16,7 @@ import { motion } from "framer-motion";
 
 function SignIn() {
   let accessToken;
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmiting, errors },
-  } = useForm();
+  const { register, handleSubmit, formState } = useForm();
 
   const theme = createTheme({
     palette: {
@@ -177,7 +173,7 @@ function SignIn() {
             />
             <button
               type="button"
-              role="show password"
+              aria-role="show password"
               className="visibility-icons"
             >
               <span
