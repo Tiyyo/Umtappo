@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import TvOutlinedIcon from "@mui/icons-material/TvOutlined";
 import TheatersOutlinedIcon from "@mui/icons-material/TheatersOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { createTheme, ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import { theme } from "../../theme/IconTheme";
 import { NavLink } from "react-router-dom";
 import Hamburger from "../hamburger/Hamburger";
@@ -20,7 +20,7 @@ const Navigation = (props) => {
       <Hamburger getHamburgerState={getHamburgerState}></Hamburger>
       <ul
         className="nav__links"
-        style={openMenu ? { left: "-0.5rem" } : { left: "-20vw" }}
+        style={openMenu ? { right: "-0.5rem" } : { right: "-20vw" }}
       >
         <ThemeProvider theme={theme}>
           <NavLink to="/home">
@@ -38,7 +38,7 @@ const Navigation = (props) => {
               <TvOutlinedIcon color="primary" />
             </li>
           </NavLink>
-          <NavLink to="/lists">
+          <NavLink to="/Favorite">
             <li>
               <FavoriteBorderOutlinedIcon color="primary" />
             </li>

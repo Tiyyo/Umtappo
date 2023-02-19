@@ -120,7 +120,7 @@ const SignUp = () => {
   };
 
   const goBack = () => {
-    return navigate("/*");
+    return navigate("/Login");
   };
 
   return (
@@ -270,7 +270,7 @@ const SignUp = () => {
           Have an account ?{" "}
           <Link
             style={{ textDecoration: "none", cursor: "pointer" }}
-            to="/SignIn"
+            to="Login/SignIn"
           >
             <span>Log in</span>
           </Link>

@@ -3,14 +3,36 @@
     color : $primary;
     min-height: 100vh;
     font-family: 'Merriweather', serif;
+    position: relative;
+    z-index: 5;
+    border: 5px solid green;
 
-    .header  {
+    .title  {
+        margin-top: $heightTopNav;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid pink;
+        height: 50px;
+
+        .back-icon  {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            background-color: transparent;
+            border: none;
+        }
+        
+    }
+
+    .banner  {
         height : 20vh;
         border-bottom : 2px solid $primary;
         display : flex; 
         justify-content : flex-start;
         align-items : center;
         padding : 0 15px;
+        border: 2px solid red;
 
         .avatar-wrapper  {
             flex : 1 1 20%;
@@ -42,6 +64,7 @@
     }
     .menu  {
         padding: 2vh 1vh 0 1vh;
+        border: 2px solid blue;
 
         .link  {
             display: flex;

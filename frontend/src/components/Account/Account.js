@@ -33,7 +33,7 @@ const Account = () => {
     setUserInfos("");
     setIsAuth(false);
     setIsLoggedIn(false);
-    navigate("/");
+    navigate("/Login");
 
     return alert("You are now logOut !");
   };
@@ -43,13 +43,13 @@ const Account = () => {
   };
   return (
     <div className="account">
-      <nav>
+      <nav className="title">
         <button type="button" className="back-icon" onClick={goBack}>
           <ArrowBackIcon color="primary" size="extraLarge" />
         </button>
-        <h2>{locations[numberOfLocations - 1]}</h2>
+        <h2 className="page-name">{locations[numberOfLocations - 1]}</h2>
       </nav>
-      <div className="header">
+      <div className="banner">
         <div className="avatar-wrapper">
           <div className="avatar">
             <img

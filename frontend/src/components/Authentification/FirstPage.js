@@ -13,12 +13,12 @@ function FirstPage() {
       animate={{ width: "100%" }}
       exit={{ x: -window.innerWidth, transition: { duration: 0.5 } }}
     >
-      <Link to="/SignUp">
+      <Link to="SignUp">
         <button type="button" className="signup_btn">
           Sign Up
         </button>
       </Link>
-      <Link to="/SignIn">
+      <Link to="SignIn">
         <button type="button" className="signin_btn">
           Sign In
         </button>

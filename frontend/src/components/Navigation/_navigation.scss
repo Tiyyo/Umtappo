@@ -3,7 +3,7 @@
     position: fixed;
     background-color: #0b0b0bea;
     top: 70px;
-    left: -15vw;
+    right: -15vw;
     height: 50vh;
     width: 17.5vw;
     display: flex;
@@ -11,13 +11,13 @@
     align-items: center;
     row-gap: 40px;
     padding-top: 25px;
-    transition: left 0.25s ease-in;
-    border-top-right-radius: 24px;
-    border-bottom-right-radius: 48px;
+    transition: right 0.25s ease-in;
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 48px;
 
     &.is-active  {
-        left: -0.5rem;
-        transition: left 0.3s ease-in;
+        right: -0.5rem;
+        transition: right 0.3s ease-in;
     }
 }
 
@@ -38,13 +38,15 @@
         width: 100%;
         position: fixed;
         z-index: 5;
-        height: 50px;
+        height: $heightTopNav;
         background: $secondary-transparent;
+
+
         .nav {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            left: 0.5rem;
+            right: 0.5rem;
         }
         .search__container  {
             position: absolute;
@@ -53,14 +55,14 @@
             left: 3.5rem;
 
         }
-        .avatar  {
+        .account-icon  {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            right: 0.5rem;
-            width: $avatar-size;
-            height: $avatar-size;
-            align-self: center;
+            left: 0.5rem;
+            // width: $avatar-size;
+            // height: $avatar-size;
+      
     
         }
     }

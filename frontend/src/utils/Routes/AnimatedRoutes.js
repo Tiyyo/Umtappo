@@ -8,8 +8,8 @@ import Account from "../../components/Account/Account";
 import LoginLayout from "../../layout/LoginLayout";
 import Films from "../../pages/Films/Films";
 import Home from "../../pages/Home/Home";
-import AddToPlaylist from "../../pages/Likes/AddToPlaylist";
-import Likes from "../../pages/Likes/Likes";
+import AddToPlaylist from "../../pages/Favorites/AddToPlaylist";
+import Likes from "../../pages/Favorites/Favorites";
 import { Login } from "../../pages/Login/Login";
 import TvShow from "../../pages/TvShow/TvShow";
 import UserContext from "../Context/UserContextProvider";
@@ -91,7 +91,7 @@ const AnimatedRoutes = () => {
             <Route path="Lists" element={<Lists />} />
           </Route>
         </Route>
-        <Route path={"Authentification"} element={<LoginLayout />}>
+        <Route path={"/Login"} element={<LoginLayout />}>
           <Route path={""} element={<FirstPage />} />
           <Route path="SignIn" element={<SignIn />} />
           <Route path="SignUp" element={<SignUp />} />

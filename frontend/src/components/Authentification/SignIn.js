@@ -121,7 +121,7 @@ function SignIn() {
   };
 
   const goBack = () => {
-    return navigate("/*");
+    return navigate("/Login");
   };
 
   return (
@@ -215,7 +215,7 @@ function SignIn() {
           Don't have an account ?{" "}
           <Link
             style={{ textDecoration: "none", cursor: "pointer" }}
-            to="/SignUp"
+            to="Login/SignUp"
           >
             <span>Join Us</span>
           </Link>

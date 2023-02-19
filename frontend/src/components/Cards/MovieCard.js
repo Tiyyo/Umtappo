@@ -11,14 +11,6 @@ const MovieCard = (props) => {
   const { content } = props;
   const { config, genreListMovie, genreListTv } = useContext(AppContext);
 
-  const handleConfigState = () => {
-    if (config.length === 0) {
-      return false;
-    } else {
-      return true;
-    }
-  };
-
   const displayTypeIcon = (entries) => {
     if (entries === "Movie") {
       return <TheatersOutlinedIcon sx={{ fontSize: "0.8rem" }} />;
@@ -56,7 +48,7 @@ const MovieCard = (props) => {
               {displayTypeIcon(content.type)}
             </p>
 
-            {handleConfigState() && content.poster_path ? (
+            {config && content.poster_path ? (
               <img
                 src={
                   config.base_url + config.poster_sizes[1] + content.poster_path

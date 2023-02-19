@@ -6,13 +6,13 @@ import { ThemeProvider } from "@mui/material";
 
 const AccountIcon = () => {
   return (
-    <div className="avatar">
+    <div className="account-icon">
       <Link to="/Account">
         <ThemeProvider theme={theme}>
           <PersonPinIcon
             color="primary"
             size="large"
-            sx={{ backgroundColor: "transparent" }}
+            sx={{ backgroundColor: "transparent", fontSize: "1.8rem" }}
           />
         </ThemeProvider>
       </Link>
