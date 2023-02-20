@@ -1,6 +1,6 @@
 .login-page  {
     min-height: 100vh;
-    background-color: $secondary;
+    background-color: var(--secondary);
     position: relative;
     font-family: 'Lato', serif;
     display: flex;
@@ -34,7 +34,7 @@
         h1 {
             font-family: 'Black Ravens';
             font-size: 5rem;
-            color: $primary;
+            color: var(--primary);
         }
         
     }
@@ -63,10 +63,10 @@
             font-size: 0.9rem;
             font-weight: 700;
             letter-spacing: 2px;
-            background-color: rgba(0, 0, 0, 0.805);
-            border: 2px solid $primary;
+            background-color: var(--input_bg);
+            border: 2px solid var(--primary);
             border-radius: 6px ;
-            color: $white;
+            color: var(--text);
             height: 36px;
             width: 50vw;
             max-width: 250px;
@@ -78,10 +78,10 @@
             font-size: 0.9rem;
             font-weight: 800;
             letter-spacing: 2px;
-            background-color: $primary;
-            border: 1px solid $secondary;
+            background-color: var(--primary);
+            border: 1px solid var(--secondary);
             border-radius: 6px ;
-            color: $secondary;
+            color: var(--secondary);
             height: 36px;
             width: 50vw;
             max-width: 250px;
@@ -96,7 +96,7 @@
                 width: 100%;
                 text-transform: none;
                 position: absolute;
-                color: $white;
+                color: var(--text);
                 top: -20px;
                 left: 50%;
                 transform: translateX(-50%);
@@ -108,7 +108,7 @@
 }
 
 .loading  {
-    background-color: $secondary;
+    background-color: var(--secondary);
     display: flex;
     align-items: center;
     justify-content: center;

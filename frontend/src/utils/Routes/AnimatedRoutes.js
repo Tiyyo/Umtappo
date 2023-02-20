@@ -41,7 +41,6 @@ const AnimatedRoutes = () => {
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log(res);
           setUserID(res?.data?.id);
           setUserInfos({
             username: res?.data.username,

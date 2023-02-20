@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import TvOutlinedIcon from "@mui/icons-material/TvOutlined";
 import TheatersOutlinedIcon from "@mui/icons-material/TheatersOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { ThemeProvider } from "@mui/material";
-import { theme } from "../../theme/IconTheme";
 import { NavLink } from "react-router-dom";
 import Hamburger from "../hamburger/Hamburger";
+import AppContext from "../../utils/Context/AppContextProvider";
 
 const Navigation = (props) => {
   const [openMenu, setOpenMenu] = useState(false);
+
+  const { iconTheme } = useContext(AppContext);
 
   const getHamburgerState = (state) => {
     state ? setOpenMenu(true) : setOpenMenu(false);
@@ -22,7 +24,7 @@ const Navigation = (props) => {
         className="nav__links"
         style={openMenu ? { right: "-0.5rem" } : { right: "-20vw" }}
       >
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={iconTheme}>
           <NavLink to="/home">
             <li>
               <HomeOutlinedIcon color="primary" size="extra-large" />

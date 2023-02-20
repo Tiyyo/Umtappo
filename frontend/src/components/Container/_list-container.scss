@@ -155,8 +155,8 @@
   width: 95%;
 
   font-family: 'Lato', serif;
-  background-color: $secondary;
-  color: $white;
+  background-color: transparent;
+  color: var(--text);
 }
 
 .genre-list  {

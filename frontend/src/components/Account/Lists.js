@@ -7,19 +7,19 @@ const Lists = () => {
   let numberOfLists = 7;
 
   return (
-    <div>
-      <div className="header">
-        <div>
+    <div className="lists">
+      <div className="lists__infos">
+        <div className="movies-liked">
           <span>{numberLikedMovies}</span> Movie Liked
         </div>
-        <div>
-          <span>{numberLikedTvshow}</span>Tv Show Liked
+        <div className="tvshows-liked">
+          <span>{numberLikedTvshow}</span> Tv Show Liked
         </div>
-        <div>
+        <div className="lists-created">
           You have <span>{numberOfLists}</span> Lists
         </div>
       </div>
-      <div className="lists-container">
+      <div className="lists__container">
         <Link>
           <div className="list">List 1</div>
         </Link>

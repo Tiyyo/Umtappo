@@ -12,8 +12,8 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: $secondary;
-    color: $white;
+    background-color: var(--secondary);
+    color: var(--text);
     line-height: 1.6;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -32,7 +32,7 @@
         &__return-btn  {
             border: 0;
             background-color: transparent;
-            color: $white;
+            color: var(--text);
         }
 
 
@@ -61,7 +61,7 @@
 
         padding : 0.5rem 0.75rem;
         font-size: 1.2rem;
-        color: $white;
+        color: var(--text);
 
     }
     &__infos  {
@@ -90,8 +90,8 @@
 
             .genre  {
                 font-size: 0.8rem;
-                background-color: $primary;
-                color: $white;
+                background-color: var(--primary_light);
+                color: var(--text);
                 font-weight: 700;
                 padding: 0.2rem 0.6rem;
                 border-radius: 22px;
@@ -139,14 +139,14 @@
 
         .directors  {
             font-size: 0.8rem;
-            color: $white;
+            color: var(--text);
             .director  {
                 padding: 0 0.2rem;
             }
         }
         .actors  {
             font-size: 0.8rem;
-            color: $white;
+            color: var(--text);
             .actor  {
                 padding: 0 0.2rem;
             }
@@ -183,8 +183,3 @@
   }
 
 
-  .essai  {
-    background-color: white;
-    height: 100vh;
-    width: 100vw;
-  }

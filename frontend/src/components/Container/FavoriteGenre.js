@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import InfiniteHorizontalCarousel from "./InfiniteHorizontalCarousel";
 import { useContext } from "react";
 import AppContext from "../../utils/Context/AppContextProvider";

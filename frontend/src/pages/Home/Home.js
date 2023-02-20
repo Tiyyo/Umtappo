@@ -49,18 +49,6 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const ref = useRef();
 
-  const handleScroll = useCallback(() => {
-    console.log("i'm scrolling");
-  }, []);
-
-  useEffect(() => {
-    const mainDiv = ref.current;
-    console.log(mainDiv);
-    mainDiv.addEventListener("scroll", () => {
-      handleScroll();
-    });
-  }, [handleScroll]);
-
   const token = {
     headers: {
       Authorizarion:

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import AppContext from "../../utils/Context/AppContextProvider";
 import SimilarContent from "../../components/MediaElement/SimilarContent";
 import Casts from "../../components/MediaElement/Casts";
@@ -36,7 +36,6 @@ const MediaElement = () => {
   let tvShowUrls = [tvVideoUrl, tvCreditsUrl, tvSimilarUrl];
 
   //--Others Hook
-  const navigate = useNavigate();
 
   //--- State Hook
   const [credits, setCredits] = useState([]);

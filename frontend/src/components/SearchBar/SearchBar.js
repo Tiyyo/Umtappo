@@ -1,21 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "../../theme/IconTheme";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import AppContext from "../../utils/Context/AppContextProvider";
 
 const SearchBar = (props) => {
   const { getInputValue } = props;
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [searchActive, setSearchActive] = useState(false);
+  const { iconTheme } = useContext(AppContext);
 
   const handleBackSpace = () => {
     const searchInput = document.querySelector(".search__input");
@@ -31,7 +32,7 @@ const SearchBar = (props) => {
   }, [pathname]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={iconTheme}>
       <div className="search__container">
         <Link to="/Search">
           <button className="search">
@@ -77,21 +78,6 @@ const SearchBar = (props) => {
             />
           </button>
         </Link>
-        {/* <div
-          className={
-            inputValue.length >= 1 && searchActive
-              ? "result isactive"
-              : "result"
-          }
-        >
-          {searchedMovie.slice(0, 5).map((movie) => {
-            return (
-              <ul>
-                <li key={movie.id}>{movie.title}</li>
-              </ul>
-            );
-          })}
-        </div> */}
       </div>
     </ThemeProvider>
   );

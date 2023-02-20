@@ -1,14 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import AppContext from "../../utils/Context/AppContextProvider";
 
 const PromotedCard = (props) => {
   const { content } = props;
   const { config } = useContext(AppContext);
-
-  useEffect(() => {
-    console.log("home fire i once");
-  }, []);
 
   return (
     <div className="promoted--card">

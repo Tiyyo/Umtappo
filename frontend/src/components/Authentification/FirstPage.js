@@ -1,11 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 function FirstPage() {
-  useEffect(() => {
-    console.log("first page fire once");
-  });
   return (
     <motion.div
       className="content"

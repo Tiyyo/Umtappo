@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { theme } from "../../theme/IconTheme";
 import { ThemeProvider } from "@mui/material";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ShareIcon from "@mui/icons-material/Share";
 import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
+import AppContext from "../../utils/Context/AppContextProvider";
 
 const CallToAction = (props) => {
   const { content } = props;
+  const { iconTheme } = useContext(AppContext);
   const addToFavorite = () => {
     return;
   };
 
   return (
     <div className="card__call-to-action">
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={iconTheme}>
         <div
           className="card__call-to-action__favorite"
           onClick={() => {

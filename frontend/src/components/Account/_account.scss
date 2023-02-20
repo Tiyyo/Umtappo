@@ -1,6 +1,6 @@
 .account  {
-    background-color: $secondary;
-    color : $white;
+    background-color: var(--secondary);
+    color : var(--text);
     min-height: 100vh;
     font-family: 'Merriweather', serif;
     position: relative;
@@ -43,7 +43,7 @@
             .avatar {
                 flex: 0 0 ;
                 border-radius : 50%;
-                border : 3px solid rgba(227, 112, 30, 0.19);
+                border : 3px solid rgba(227, 112, 30, 0.581);
                 height : 75px;
                 width : 75px; 
                 overflow: hidden;
@@ -70,6 +70,7 @@
         padding-top: 15px;
         padding-left : 45px;
         font-size: 1.4rem;
+        text-transform: capitalize;
         
     }
     .menu  {
@@ -85,8 +86,8 @@
             padding: 0.3rem 20px ;
             border: 2px solid rgba(227, 112, 30, 0.087);
             border-radius: 27px;
-            background-color: rgb(18, 17, 17);
-            color: white;
+            background-color: var(--menu_link);
+            color: var(--text);
             font-size: 0.9rem;
             letter-spacing: 1px;
             box-shadow: 3px 2px 5px 2px rgba(255,255,255,0.05) ;
@@ -95,6 +96,7 @@
                 cursor: pointer;
                 border: none;
                 background-color: transparent;
+                color: var(--text);
             }
         }
     }
@@ -126,29 +128,125 @@
 
 
         input {
-            background-color: black;
+            background-color: var(--input_bg);
             border: none;
             width: 100%;
             height: 42px;
-            border: 1px solid $secondary;
-            background-color: black;
+            border: 1px solid var(--secondary);
             border-radius:  8px;
             padding-left: 15px;
-            color: rgba(255, 255, 255, 0.5);
+            color: var(--input_lock_color);
             border: none;
         }
 
         button {
             background-color: transparent;
             border: none;
+            color : var(--text);
         }
     }
 }
 
+.preference  {
+    padding: 2rem 15px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2vh;
+    max-width: 450px;
+    color : var(--text);
+
+    .languages  {
+        display: flex;
+        align-items: center;
+        column-gap: 3px;
+        width: 100%;
+        padding: 5px 0;
+        background-color: var(--menu_link);
+        border-radius: 20px;
+
+        .language-icon {
+            flex : 1 1 7%;
+        }
+        
+        label {
+            flex : 1 1 48%;
+            font-size: 0.98em;
+            letter-spacing: 1px;
+        }
+
+        select {
+            flex : 1 2 55%;
+            height: 30px;
+            width: 50%;
+            border-radius: 9px;
+            background-color: var(--secondary);
+            color: var(--text);
+            padding-left: 6px;
+        }
+    }
+    .theme {
+        display: flex;
+        align-items: center;
+        column-gap: 3px;
+        width: 100%;
+        padding: 5px 0;
+        background-color: var(--menu_link);
+        border-radius: 20px;
+
+        .theme-choice__icon  {
+            flex : 1 1 7%;
+
+        }
+
+        p {
+            flex : 1 1 48%;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+         .choices {
+            flex : 1 2 55%;
+            display: flex;
+            column-gap: 7px;
+
+            button {
+                display: flex;
+                align-items: center;
+                column-gap: 3px;
+                height: 30px;
+                border-radius: 9px;
+                padding: 0 10px;
+                background-color: var(--secondary);
+                border: none;
+                cursor: pointer;
+            }
+        }
+
+    }
+}
+
+.lists  {
+    padding: 2rem 10px;
+
+    &__infos  {
+        padding-bottom: 1rem ;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        line-height: 1.7;
+        border-bottom : 2px solid rgba(234, 104, 11, 0.087);
+    }
+    &__container  {
+        padding: 1rem 10px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+        justify-items: center;
+        
+    }
+}
 
 .list {
     height: 100px;
-    width: 50px;
+    width:100px;
     border: 2px solid $primary;
     border-radius: 12px;
 }

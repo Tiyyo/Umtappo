@@ -7,9 +7,11 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import UserContext from "../../utils/Context/UserContextProvider";
 import { theme } from "../../theme/IconTheme";
 import { ThemeProvider } from "@mui/material";
+import AppContext from "../../utils/Context/AppContextProvider";
 
 const Profile = () => {
   const { userInfos } = useContext(UserContext);
+  const { iconTheme } = useContext(AppContext);
   const [usernameIsLocked, setUsernameLocker] = useState(true);
   const [emailIsLocked, setEmailLocker] = useState(true);
   const [passwordIsLocked, setPasswordLocker] = useState(true);
@@ -29,7 +31,7 @@ const Profile = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={iconTheme}>
       <div className="profile">
         <div className="aera username">
           <div className="username-icon">
@@ -37,10 +39,10 @@ const Profile = () => {
           </div>
           <input type="text" value={userInfos.username} />
           <button type="button" onClick={toggleUsernameLock}>
-            <EditIcon sx={{ color: "white" }} />
+            <EditIcon />
           </button>
           <button type="button">
-            <DoneIcon sx={{ color: "white" }} />
+            <DoneIcon />
           </button>
         </div>
         <div className="aera email">
@@ -49,10 +51,10 @@ const Profile = () => {
           </div>
           <input type="email" readOnly value={userInfos.email} />
           <button type="button" onClick={toggleUsernameLock}>
-            <EditIcon sx={{ color: "white" }} />
+            <EditIcon />
           </button>
           <button type="button">
-            <DoneIcon sx={{ color: "white" }} />
+            <DoneIcon />
           </button>
         </div>
         <div className="aera password">
@@ -61,10 +63,10 @@ const Profile = () => {
           </div>
           <input type="password" readOnly value={"NotaPassword"} />
           <button type="button" onClick={toggleUsernameLock}>
-            <EditIcon sx={{ color: "white" }} />
+            <EditIcon />
           </button>
           <button type="button">
-            <DoneIcon sx={{ color: "white" }} />
+            <DoneIcon />
           </button>
         </div>
       </div>

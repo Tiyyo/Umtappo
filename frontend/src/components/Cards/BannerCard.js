@@ -1,29 +1,13 @@
 import React from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import BrowserNotSupportedIcon from "@mui/icons-material/BrowserNotSupported";
 import { useContext } from "react";
 import AppContext from "../../utils/Context/AppContextProvider";
+import { theme } from "../../theme/IconTheme";
 
 const BannerCard = (props) => {
-  const { config } = useContext(AppContext);
+  const { config, iconTheme } = useContext(AppContext);
   const { element: el } = props;
-
-  const theme = createTheme({
-    palette: {
-      primary: {
-        light: "#ffbd45",
-        main: "#fb8c00",
-        dark: "#c25e00",
-        contrastText: "#000000",
-      },
-      secondary: {
-        light: "#484848",
-        main: "#121212",
-        dark: "#000000",
-        contrastText: "#ffffff",
-      },
-    },
-  });
 
   const imageFormatUrl = (el, number) => {
     return config.base_url + config.backdrop_sizes[number] + el.backdrop_path;
@@ -48,7 +32,7 @@ const BannerCard = (props) => {
           </h3>
         </div>
       ) : (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={iconTheme}>
           <p className="message-error-img">Image content not avaiable</p>
           <BrowserNotSupportedIcon
             className="not-avaiable-icon"

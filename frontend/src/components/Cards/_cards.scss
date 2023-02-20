@@ -80,83 +80,6 @@
 }
 
 
-.modal  {
-
-    &__close-icon {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-    }
-
-    img {
-        aspect-ratio: 2/3;
-        border-radius: 9px;
-      
-    }
-
-    &__title  {
-        font-family: 'Merriweather', serif;
-        font-weight: 700;
-        padding: 1rem;
-        text-align: center;
-    }
-
-    &__synopsis  {
-        font-family: 'Lato', sans-serif;
-        font-weight: 400;
-        font-size: 0.9rem;
-    }
-    &__labels  {
-        display: flex;
-        justify-content: flex-start;
-        margin-top: 1rem;
-        width: 100%;
-
-    }
-
-    &__genre  {
-        flex: 2 1 25%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 7px;
-        flex-wrap: wrap;
-        align-content: center;
-    }
-    &__release--date  {
-        font-family: 'Lato', sans-serif;
-        font-weight: 700;
-        font-size: 0.7rem;
-        padding: 0.5rem;
-        display: flex;
-        flex: 1 1 25%;
-        border-radius: 21px;
-        height: fit-content;
-        justify-content: center;
-        background-color: $primary_dark;
-
-    }
-
-    &__rating {
-        flex: 4 1 50%;
-        display: flex;
-        justify-content: flex-end;
-        color: $white;
-        padding: 0.1rem 0.3rem 0.5rem 0.3rem;
-        font-size: 0.7rem;
-        align-items: baseline;
-
-        &__star-icon  {
-            svg {
-                fill: $yellow_star;
-                stroke: $yellow_star;
-                stroke-width: 1px;
-            }
-        }
-
-    }
-}
-
 .recommend-card  {
     position: relative;
     border-radius: 15px;
@@ -194,11 +117,11 @@
             position: absolute;
             font-size: 0.7rem;
             padding: 0.3rem;
-            color: $white;
+            color: var(--text);
             top: 20px;
             left: 10px;
             mix-blend-mode: hard-light;
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: var(--transparent_bg);
             border-radius: 12px;
 
         }
@@ -254,6 +177,7 @@
     height: 250px;
     border-radius: 12px;
     overflow: hidden;
+    background-color: var(--secondary);
 
     &__banner {
         position: relative;

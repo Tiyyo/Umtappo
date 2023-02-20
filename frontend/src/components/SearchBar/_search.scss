@@ -16,7 +16,7 @@
 
 
         &__input  {
-            color: white;
+            color: var(--text);
             box-shadow: 0 0 10px 5px rgba(231, 155, 33, 0.129);
             border: none;
             border-radius: 50%;
@@ -35,7 +35,7 @@
                         
                         &::placeholder  {
                 padding-left: 0px;
-                color: white;
+                color: var(--text);
             }
             
             &.isactive {
@@ -43,7 +43,7 @@
                 max-width: 65vw;
                 width: 600px;
                 padding-left: 35px;
-                background-color: rgba(46, 35, 8, 0.656);
+                background-color: var(--transparent_bg);
             }
 
         }
@@ -88,11 +88,11 @@
 
         &.isactive {
         display: flex;
-        color: white;
+        color: var(--text);
         flex-direction: column;
         text-align: end;
         padding: 1rem 0.5rem 1rem 0;
-        background-color: $secondary_dark;
+        background-color: var(--secondary);
         
         li {
             display: flex;
@@ -122,13 +122,13 @@
     width: 90%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(113px, 1fr));
-    color: white;
+    color: var(--text);
     align-content: start; 
     justify-items: center;
     gap: 5px;
 
     a  {
-        color: $white;
+        color:var(--text);
         text-decoration: none;
         display:flex;
         align-items: center;
@@ -145,7 +145,7 @@
             border-radius: 6px;
             overflow: hidden;
             aspect-ratio: 2/3;
-            background-color: $secondary-dark;
+            background-color: var(--secondary);
             border: 1px solid rgba(255, 255, 255, 0.186);
             padding: 10px;
             width: 100%;

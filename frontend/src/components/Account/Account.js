@@ -1,13 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import UserContext from "../../utils/Context/UserContextProvider";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { ThemeProvider } from "@mui/material";
-import { theme } from "../../theme/IconTheme";
+import AppContext from "../../utils/Context/AppContextProvider";
 const Account = () => {
   const { setUserID, userInfos, setUserInfos, setIsAuth, setIsLoggedIn } =
     useContext(UserContext);
 
+  const { iconTheme } = useContext(AppContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -35,10 +36,11 @@ const Account = () => {
   const goBack = () => {
     return navigate(-1);
   };
+
   return (
     <div className="account">
       <nav className="title">
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={iconTheme}>
           <button type="button" className="back-icon" onClick={goBack}>
             <ArrowBackIcon color="primary" size="extraLarge" />
           </button>
