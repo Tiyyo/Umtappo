@@ -27,7 +27,7 @@ const CallToAction = (props) => {
         </div>
         <div className="card__call-to-action__add-to">
           <Link to="add_to_playlist" state={{ content }}>
-            <AddIcon sx={{ color: "white" }} />
+            <AddIcon />
           </Link>
         </div>
         <div className="card__call-to-action__share">

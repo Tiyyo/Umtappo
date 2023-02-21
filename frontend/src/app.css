@@ -1011,7 +1011,8 @@ body[data-theme=light] {
   --transparent_bg: rgba(255,255,255,0.2);
   --primary_light: #ffbd45;
   --nav_bg: rgba(233, 207, 191, 0.733);
-  --secondary-transparent: linear-gradient(180deg, #0b0b0b 0%, #0b0b0b60 30% #0b0b0b26 100%);
+  --secondary_gradient: linear-gradient(180deg, rgb(238, 228, 222, 1) 0%, rgb(238, 228, 222, 0.4) 30%, rgb(238, 228, 222, 0.15) 100%);
+  --nav_icon: black;
 }
 
 body[data-theme=dark] {
@@ -1019,13 +1020,14 @@ body[data-theme=dark] {
   --primary_light: #ffbd45;
   --primary_dark: #c25e00;
   --secondary: #0b0b0b;
-  --secondary-transparent: linear-gradient(180deg, #0b0b0b 0%, #0b0b0b60 30% #0b0b0b26 100%);
+  --secondary_gradient: linear-gradient(180deg, #0b0b0b 0%, #0b0b0b60 30%, #0b0b0b26 100%);
   --secondary_light: #484848;
   --secondary_dark: #000000;
   --error: rgba(196, 15, 15, 0.835);
   --red_icon: rgb(219, 30, 30);
   --yellow_star: rgb(234, 223, 14);
   --nav_bg: rgba(21, 20, 20, 0.903);
+  --nav_icon: rgba(208, 116, 19, 0.889);
   --title: rgba(143, 88, 2, 1);
   --blackbg: #121212;
   --main-primary: rgba(231, 154, 33, 1);
@@ -1186,17 +1188,19 @@ h1 {
 .add-to-playlist {
   font-family: "Lato", sans-serif;
   font-weight: 700;
-  background-color: #0b0b0b;
+  background-color: var(--secondary);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  z-index: 5;
 }
 .add-to-playlist header {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(235, 230, 225, 0.944);
+  color: var(--text);
   padding: 2vh 15px;
 }
 .add-to-playlist header .return-btn {
@@ -1211,7 +1215,7 @@ h1 {
   font-family: "Lato", sans-serif;
   font-weight: 700;
   font-size: 1rem;
-  color: #0b0b0b;
+  color: var(--secondary);
   background-image: linear-gradient(to right bottom, #f68c0c, #e3892f, #dc983f, #e1a74a, #da9c28);
   height: 45px;
   width: clamp(150px, 50%, 250px);
@@ -1236,7 +1240,7 @@ h1 {
   width: 100%;
 }
 .add-to-playlist .playlists .playlist .name {
-  color: rgba(235, 230, 225, 0.944);
+  color: var(--text);
   flex: 4 1 80%;
 }
 .add-to-playlist .playlists .playlist .add {
@@ -1261,6 +1265,19 @@ h1 {
   border-radius: 50%;
   height: 25px;
   width: 25px;
+}
+
+.name-modal {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  height: 15vh;
+  width: 80vw;
+  background-color: white;
+  border: 2px solid var(--text);
+  border-radius: 12px;
 }
 
 .logo {
@@ -1309,7 +1326,7 @@ h1 {
   position: fixed;
   z-index: 5;
   height: 50px;
-  background: linear-gradient(180deg, #0b0b0b 0%, rgba(11, 11, 11, 0.3764705882) 30% rgba(11, 11, 11, 0.1490196078) 100%);
+  background: var(--secondary_gradient);
 }
 .app__container .header .nav {
   position: absolute;

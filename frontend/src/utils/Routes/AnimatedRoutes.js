@@ -20,6 +20,7 @@ import Preference from "../../components/Account/Preference";
 import AppLayout from "../../layout/AppLayout";
 import MediaElement from "../../pages/Content/MediaElement";
 import SearchResult from "../../pages/SearchResult/SearchResult";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 const AnimatedRoutes = () => {
   const {
@@ -69,20 +70,25 @@ const AnimatedRoutes = () => {
   return (
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
-        <Route path={"/"} element={<AppLayout />}>
-          <Route path={""} element={<Navigate to="/Home" />} />
-          <Route path={"Home"} element={<Home />} />
-          <Route path="Likes" element={<Likes />} />
-          <Route path="Films" element={<Films />} />
-          <Route path="TvShow" element={<TvShow />} />
-          <Route path="Search" element={<SearchResult />} />
-          <Route path={`:id/:modalid`} element={<MediaElement />} />
-          <Route path={":id/:id/add_to_playlist"} element={<AddToPlaylist />} />
-          <Route path="Account" element={<Account />}>
-            <Route path={""} element={<Menu />} />
-            <Route path="Profile" element={<Profile />} />
-            <Route path="Preference" element={<Preference />} />
-            <Route path="Lists" element={<Lists />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path={"/"} element={<AppLayout />}>
+            <Route path={""} element={<Navigate to="/Home" />} />
+            <Route path={"Home"} element={<Home />} />
+            <Route path="Likes" element={<Likes />} />
+            <Route path="Films" element={<Films />} />
+            <Route path="TvShow" element={<TvShow />} />
+            <Route path="Search" element={<SearchResult />} />
+            <Route path={`:id/:modalid`} element={<MediaElement />} />
+            <Route
+              path={":id/:id/add_to_playlist"}
+              element={<AddToPlaylist />}
+            />
+            <Route path="Account" element={<Account />}>
+              <Route path={""} element={<Menu />} />
+              <Route path="Profile" element={<Profile />} />
+              <Route path="Preference" element={<Preference />} />
+              <Route path="Lists" element={<Lists />} />
+            </Route>
           </Route>
         </Route>
         <Route path={"/Login"} element={<LoginLayout />}>

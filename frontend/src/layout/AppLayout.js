@@ -10,7 +10,7 @@ const AppLayout = () => {
   const { pathname } = useLocation();
 
   const hideAccountIcon = () => {
-    if (pathname.includes("Account")) {
+    if (pathname.includes("Account") || pathname.includes("add_to_playlist")) {
       setShouldHide(true);
     }
   };

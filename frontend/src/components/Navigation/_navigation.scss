@@ -39,7 +39,7 @@
         position: fixed;
         z-index: 5;
         height: $heightTopNav;
-        background: $secondary-transparent;
+        background: var(--secondary_gradient);
 
 
         .nav {

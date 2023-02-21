@@ -11,7 +11,8 @@ body[data-theme="light"] {
     --transparent_bg : rgba(255,255,255,0.2);
     --primary_light : #ffbd45;
     --nav_bg : rgba(233, 207, 191, 0.733);
-    --secondary-transparent : linear-gradient(180deg, #0b0b0b 0%,  #0b0b0b60 30% #0b0b0b26  100%);
+    --secondary_gradient : linear-gradient(180deg, rgb(238, 228, 222, 1) 0%,  rgb(238, 228, 222, 0.4) 30%, rgb(238, 228, 222, 0.15)  100%);
+    --nav_icon : black;
 
 }
 
@@ -20,13 +21,14 @@ body[data-theme="dark"] {
     --primary_light : #ffbd45;
     --primary_dark : #c25e00;
     --secondary : #0b0b0b;
-    --secondary-transparent : linear-gradient(180deg, #0b0b0b 0%,  #0b0b0b60 30% #0b0b0b26  100%);
+    --secondary_gradient : linear-gradient(180deg, #0b0b0b 0%,  #0b0b0b60 30%, #0b0b0b26  100%);
     --secondary_light : #484848;
     --secondary_dark : #000000;
     --error : rgba(196, 15, 15, 0.835);
     --red_icon : rgb(219, 30, 30);
     --yellow_star: rgb(234, 223, 14);
     --nav_bg : rgba(21, 20, 20, 0.903);
+    --nav_icon : rgba(208, 116, 19, 0.889);
 
 
     --title : rgba(143, 88, 2, 1);

@@ -1,17 +1,19 @@
 .add-to-playlist  {
     font-family: 'Lato', sans-serif;
     font-weight: 700;
-    background-color: $secondary;
+    background-color: var(--secondary);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    z-index: 5;
 
     header  {
         display: flex;
         align-items: center;
         justify-content: center;
-        color: $white;
+        color: var(--text);
         padding: 2vh 15px;
 
         .return-btn {
@@ -30,7 +32,7 @@
         font-family: 'Lato', sans-serif;
         font-weight: 700;
         font-size: 1rem;
-        color: $secondary;
+        color: var(--secondary);
         background-image: linear-gradient(to right bottom, #f68c0c, #e3892f, #dc983f, #e1a74a, #da9c28);
         height: 45px;
         width: clamp(150px, 50% ,250px );
@@ -57,7 +59,7 @@
             width: 100%;
 
             .name  {
-                color: $white;
+                color: var(--text);
                 flex: 4 1 80%;
             }
             .add  {
@@ -87,4 +89,17 @@
             }
         }
     }
+}
+
+.name-modal {
+    position: absolute;
+    top : 150px;
+    left:50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    height: 15vh;
+    width: 80vw;
+    background-color: white;
+    border: 2px solid var(--text);
+    border-radius: 12px;
 }
