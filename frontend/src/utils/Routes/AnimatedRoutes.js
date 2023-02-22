@@ -51,7 +51,10 @@ const AnimatedRoutes = () => {
           setIsAuth(true);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setIsAuth(false);
+      });
   };
 
   // const UsersRoute = (children, redirect) => {
@@ -64,6 +67,8 @@ const AnimatedRoutes = () => {
       auth(window.localStorage.accesToken);
     } else {
       console.log("No token Avaiable");
+      setIsLoggedIn(false);
+      setIsAuth(false);
     }
   }, []);
 
