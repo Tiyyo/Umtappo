@@ -1,4 +1,5 @@
 const Users = require("../models/user.models");
+const List = require("../models/lists.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
@@ -81,4 +82,36 @@ module.exports.currentUser = asyncHandler(async (req, res) => {
     email: user.email,
     password: user.password,
   });
+});
+
+module.exports.createList = asyncHandler(async (req, res) => {
+  const { name, content, email } = req.body;
+
+  if (!name && !content) {
+    res.status(400).send("You need to send a name and one content");
+  }
+
+  try {
+    const list = await List.create({ name, content });
+    const user = await Users.findOneAndUpdate(
+      { email },
+      {
+        $push: {
+          lists: list,
+        },
+      }
+    );
+    console.log(user);
+    res.status(200).send({ user });
+  } catch (err) {
+    console.log(err);
+    res.status(400).send("No user found and failed to push data");
+  }
+});
+
+module.exports.getLists = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  const userLists = await Users.findOne({ email }).populate("list");
+
+  res.status(200).send({ userLists });
 });

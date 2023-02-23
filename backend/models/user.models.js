@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const List = require("./lists.model");
+
 const userSchema = mongoose.Schema(
   {
     username: {
@@ -21,10 +23,10 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       required: false,
     },
+    lists: [{ type: mongoose.SchemaTypes.ObjectId, ref: "list" }],
   },
   {
     timestamps: true,
   }
 );
-
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("Users", userSchema);
