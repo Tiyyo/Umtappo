@@ -1,38 +1,16 @@
 import React, { useContext, useId, useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import ListContext from "../../utils/Context/ListsContextProvider";
+import UserContext from "../../utils/Context/UserContextProvider";
+import axios from "axios";
 
 const NameListsModal = (props) => {
   const { isOpen, getCloseState, content, getLists } = props;
   const { lists, setLists } = useContext(ListContext);
+  const { userID } = useContext(UserContext);
   const id = useId();
 
-  const a = "a";
-  const b = "b";
-  const c = "c";
-
-  const contentOne = { a };
-  const contentTwo = { b };
-  const contentThree = { c };
-
-  const listOne = {
-    name: "liste 1",
-    content: [contentOne, contentTwo, contentThree],
-  };
-  const listTwo = {
-    name: "liste 1",
-    content: [contentOne, contentTwo, contentThree],
-  };
-
-  const listThree = {
-    name: "liste 1",
-    content: [contentOne, contentTwo, contentThree],
-  };
-
-  const Model = {
-    username: "username",
-    lists: [listOne, listOne, listThree],
-  };
+  console.log(userID);
 
   const createList = (nameList, content, id) => {
     let list = {
@@ -46,15 +24,20 @@ const NameListsModal = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let inputValue = e.target[0].value;
-    const list = createList(inputValue, content, id);
-    setLists((prevLists) => [...prevLists, list]);
-    getLists(lists);
+    axios
+      .post("http://localhost:5000/list", {
+        name: inputValue,
+        content: content,
+        user_id: userID,
+        email: "siteez971@live.fr",
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+    // const list = createList(inputValue, content, id);
+    // setLists((prevLists) => [...prevLists, list]);
+    // getLists(lists);
     e.target[0].value = "";
   };
-
-  useEffect(() => {
-    console.log(Model);
-  });
 
   return (
     <div

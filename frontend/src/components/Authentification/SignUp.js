@@ -101,7 +101,7 @@ const SignUp = () => {
             progress: 0,
             theme: "dark",
           });
-          navigate("/login");
+          navigate("/Login/SignIn");
         }
       })
       .catch((err) => {

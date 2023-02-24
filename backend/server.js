@@ -21,6 +21,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use("/user", require("./routes/user.routes"));
+app.use("/list", require("./routes/list.routes"));
 // app.use(express.static(path.join(__dirname, "client", "build")));
 app.get("/*", (req, res) => {
   res.sendFile(path.join("../public/index.html"));

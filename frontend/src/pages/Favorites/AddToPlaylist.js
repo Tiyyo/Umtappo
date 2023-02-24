@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
@@ -7,6 +7,8 @@ import NameListsModal from "../../components/Favorites/NameListsModal";
 import ListContext, {
   ListContextProvider,
 } from "../../utils/Context/ListsContextProvider";
+import UserContext from "../../utils/Context/UserContextProvider";
+import axios from "axios";
 
 const AddToPlaylist = () => {
   const navigate = useNavigate();
@@ -14,6 +16,7 @@ const AddToPlaylist = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { content } = location.state;
   const [myLists, setMyLists] = useState("");
+  const { userID } = useContext(UserContext);
 
   const getCloseState = (state) => {
     setIsOpen(state);
@@ -23,6 +26,18 @@ const AddToPlaylist = () => {
     setMyLists(state);
     console.log(myLists);
   };
+
+  useEffect(() => {
+    console.log(userID);
+    const fetchUserLists = async () => {
+      const result = await axios
+        .post("http://localhost:5000/list/get", {
+          user_id: userID,
+        })
+        .then((res) => setMyLists(res.data));
+    };
+    fetchUserLists();
+  }, [userID]);
 
   return (
     <ListContextProvider>
