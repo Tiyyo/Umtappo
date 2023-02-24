@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 
 const listSchema = mongoose.Schema(
   {
-    name: { type: String },
-    content: { type: Object },
+    _id: mongoose.SchemaTypes.ObjectId,
+    name: String,
+    content: Array,
   },
   {
     timestamps: true,

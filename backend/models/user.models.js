@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const List = require("./lists.model");
 
 const userSchema = mongoose.Schema(
   {
@@ -23,7 +22,7 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       required: false,
     },
-    lists: [{ type: mongoose.SchemaTypes.ObjectId, ref: "list" }],
+    lists: [{ type: mongoose.SchemaTypes.ObjectId, ref: "List" }],
   },
   {
     timestamps: true,

@@ -7,6 +7,7 @@ const userModels = require("../models/user.models");
 const dotenv = require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const { createTokens } = require("./JWT");
+const { default: mongoose } = require("mongoose");
 //@desc Register a User
 //@route POST /user/register
 //@acces public
@@ -90,28 +91,38 @@ module.exports.createList = asyncHandler(async (req, res) => {
   if (!name && !content) {
     res.status(400).send("You need to send a name and one content");
   }
+  const list = new List({
+    name: name,
+    content: content,
+    _id: new mongoose.Types.ObjectId(),
+  });
+  list.save();
 
-  try {
-    const list = await List.create({ name, content });
-    const user = await Users.findOneAndUpdate(
-      { email },
-      {
-        $push: {
-          lists: list,
-        },
-      }
-    );
-    console.log(user);
-    res.status(200).send({ user });
-  } catch (err) {
-    console.log(err);
-    res.status(400).send("No user found and failed to push data");
-  }
+  await Users.findOneAndUpdate(
+    { email },
+    {
+      $push: {
+        lists: list,
+      },
+    }
+  )
+    .exec()
+    .then((docs) => console.log(docs))
+    .catch((err) => console.log(err));
+
+  res.status(200).json({ list: list });
 });
 
 module.exports.getLists = asyncHandler(async (req, res) => {
   const { email } = req.body;
-  const userLists = await Users.findOne({ email }).populate("list");
+  const userLists = await Users.findOne({ email })
+    .populate("lists")
+    .exec()
+    .then((docs) =>
+      res.json({
+        lists: docs.lists,
+      })
+    );
 
   res.status(200).send({ userLists });
 });
