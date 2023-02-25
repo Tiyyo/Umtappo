@@ -68,8 +68,11 @@ const AddToPlaylist = () => {
                   <button className="add">
                     <AddIcon />
                   </button>
-                  <button className="delete">
-                    <CloseIcon />
+                  <button data-list-name={list.name} className="delete">
+                    <CloseIcon
+                      data-list-name={list.name}
+                      onClick={(e) => console.log(e)}
+                    />
                   </button>
                 </div>
               );
