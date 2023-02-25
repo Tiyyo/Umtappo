@@ -9,6 +9,7 @@ import ListContext, {
 } from "../../utils/Context/ListsContextProvider";
 import UserContext from "../../utils/Context/UserContextProvider";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const AddToPlaylist = () => {
   const navigate = useNavigate();
@@ -27,8 +28,33 @@ const AddToPlaylist = () => {
     console.log(myLists);
   };
 
+  const obtainListName = (e) => {
+    let name = e.target.dataset.listId;
+    return name;
+  };
+
+  const addContent = async (_id, content) => {
+    axios
+      .put("http://localhost:5000/list", { listId: _id, content: content })
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success("Successfully added");
+        }
+        if (res.status === 422) {
+          toast.info("Already added to this list");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const deleteList = async (_id) => {
+    console.log(_id);
+    await axios
+      .delete("http://localhost:5000/list/" + _id)
+      .then((res) => console.log(res));
+  };
+
   useEffect(() => {
-    console.log(userID);
     const fetchUserLists = async () => {
       const result = await axios
         .post("http://localhost:5000/list/get", {
@@ -63,16 +89,28 @@ const AddToPlaylist = () => {
           {myLists ? (
             myLists.map((list) => {
               return (
-                <div className="playlist">
+                <div className="playlist" key={list._id}>
                   <h4 className="name">{list.name}</h4>
-                  <button className="add">
+                  <button
+                    className="add"
+                    data-list-id={list._id}
+                    onClick={(e) => {
+                      const listID = obtainListName(e);
+                      addContent(listID, content);
+                    }}
+                  >
                     <AddIcon />
                   </button>
-                  <button data-list-name={list.name} className="delete">
-                    <CloseIcon
-                      data-list-name={list.name}
-                      onClick={(e) => console.log(e)}
-                    />
+                  <button
+                    data-list-id={list._id}
+                    className="delete"
+                    onClick={(e) => {
+                      const listID = obtainListName(e);
+                      console.log(listID);
+                      deleteList(listID);
+                    }}
+                  >
+                    <CloseIcon data-list-id={list._id} />
                   </button>
                 </div>
               );

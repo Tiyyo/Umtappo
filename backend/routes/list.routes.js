@@ -11,7 +11,7 @@ const router = express.Router();
 router.post("/", createList);
 router.post("/get", getLists);
 router.put("/", addContent);
-router.delete("/", deleteList);
+router.delete("/:id", deleteList);
 router.patch("/", deleteContent);
 
 module.exports = router;

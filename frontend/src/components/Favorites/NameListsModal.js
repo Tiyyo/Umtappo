@@ -10,8 +10,6 @@ const NameListsModal = (props) => {
   const { userID } = useContext(UserContext);
   const id = useId();
 
-  console.log(userID);
-
   const createList = (nameList, content, id) => {
     let list = {
       id,

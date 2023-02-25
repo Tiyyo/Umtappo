@@ -63,6 +63,7 @@
                 flex: 4 1 80%;
             }
             .add  {
+                cursor: pointer;
                 position: relative;
                 background-color: rgba(255, 255, 255, 0.051);
                 border: none;
@@ -74,18 +75,25 @@
 
                 svg {
                     position: absolute;
+                    z-index: -1;
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
                 }         
             }
             .delete  {
+              cursor: pointer;
               flex: 1 1 10%;
               background-color: transparent;
               border: none;
               border-radius: 50%;
               height: 25px;
               width: 25px;
+
+              svg {
+                position: relative;
+                z-index: -1;
+              }
             }
         }
     }
