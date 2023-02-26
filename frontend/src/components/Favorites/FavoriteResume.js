@@ -46,6 +46,7 @@ const FavoriteResume = () => {
               </div>
             );
           })}
+
           {/* <FavoriteList />
           <FavoriteList /> */}
         </div>

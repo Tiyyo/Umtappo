@@ -4,24 +4,25 @@ import "./index.css";
 import App from "./App";
 import { AppContextProvider } from "./utils/Context/AppContextProvider";
 import { UserContextProvider } from "./utils/Context/UserContextProvider";
-import { configureStore } from '@reduxjs/toolkit'
-import {provider} from "react-redux"
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
+import userListsReducer from "./features/UsersLists";
 
 const store = configureStore({
-  reducer : {
-    user : userListReducers,
-  }
-})
+  reducer: {
+    userLists: userListsReducer,
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
-  <Provider>
   <AppContextProvider>
     <UserContextProvider>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </UserContextProvider>
   </AppContextProvider>
-  </Provider>
   // </React.StrictMode>
 );
