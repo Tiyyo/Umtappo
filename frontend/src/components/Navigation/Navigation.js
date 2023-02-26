@@ -40,7 +40,7 @@ const Navigation = (props) => {
               <TvOutlinedIcon color="primary" />
             </li>
           </NavLink>
-          <NavLink to="/Favorite">
+          <NavLink to="/Favorites">
             <li>
               <FavoriteBorderOutlinedIcon color="primary" />
             </li>

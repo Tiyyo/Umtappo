@@ -25,7 +25,6 @@ const AddToPlaylist = () => {
 
   const getLists = (state) => {
     setMyLists(state);
-    console.log(myLists);
   };
 
   const obtainListName = (e) => {

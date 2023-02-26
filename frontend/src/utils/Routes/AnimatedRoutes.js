@@ -9,7 +9,7 @@ import LoginLayout from "../../layout/LoginLayout";
 import Films from "../../pages/Films/Films";
 import Home from "../../pages/Home/Home";
 import AddToPlaylist from "../../pages/Favorites/AddToPlaylist";
-import Likes from "../../pages/Favorites/Favorites";
+import Likes from "../../components/Favorites/FavoriteResume";
 import TvShow from "../../pages/TvShow/TvShow";
 import UserContext from "../Context/UserContextProvider";
 import { AnimatePresence } from "framer-motion";
@@ -21,6 +21,9 @@ import AppLayout from "../../layout/AppLayout";
 import MediaElement from "../../pages/Content/MediaElement";
 import SearchResult from "../../pages/SearchResult/SearchResult";
 import ProtectedRoutes from "./ProtectedRoutes";
+import FavoriteList from "../../components/Favorites/FavoriteList";
+import FavoriteResume from "../../components/Favorites/FavoriteResume";
+import Favorites from "../../pages/Favorites/Favorite";
 
 const AnimatedRoutes = () => {
   const {
@@ -78,11 +81,14 @@ const AnimatedRoutes = () => {
         <Route element={<ProtectedRoutes />}>
           <Route path={"/"} element={<AppLayout />}>
             <Route path={""} element={<Navigate to="/Home" />} />
-            <Route path={"Home"} element={<Home />} />
-            <Route path="Likes" element={<Likes />} />
-            <Route path="Films" element={<Films />} />
-            <Route path="TvShow" element={<TvShow />} />
-            <Route path="Search" element={<SearchResult />} />
+            <Route exact path={"Home"} element={<Home />} />
+            <Route exact path="Favorites" element={<Favorites />}>
+              <Route path={""} element={<FavoriteResume />} />
+              <Route path={":listName"} element={<FavoriteList />} />
+            </Route>
+            <Route exact path="Films" element={<Films />} />
+            <Route eaxct path="TvShow" element={<TvShow />} />
+            <Route exact path="Search" element={<SearchResult />} />
             <Route path={`:id/:modalid`} element={<MediaElement />} />
             <Route
               path={":id/:id/add_to_playlist"}

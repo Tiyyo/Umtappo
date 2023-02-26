@@ -1,14 +1,12 @@
-import React, { useContext, useId, useEffect } from "react";
+import React, { useContext } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import ListContext from "../../utils/Context/ListsContextProvider";
+
 import UserContext from "../../utils/Context/UserContextProvider";
 import axios from "axios";
 
 const NameListsModal = (props) => {
-  const { isOpen, getCloseState, content, getLists } = props;
-  const { lists, setLists } = useContext(ListContext);
+  const { isOpen, getCloseState, content } = props;
   const { userID } = useContext(UserContext);
-  const id = useId();
 
   const createList = (nameList, content, id) => {
     let list = {
@@ -30,11 +28,11 @@ const NameListsModal = (props) => {
         email: "siteez971@live.fr",
       })
       .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-    // const list = createList(inputValue, content, id);
-    // setLists((prevLists) => [...prevLists, list]);
-    // getLists(lists);
-    e.target[0].value = "";
+      .catch((err) => console.log(err))
+      .finally(() => {
+        e.target[0].value = "";
+        getCloseState(false);
+      });
   };
 
   return (
