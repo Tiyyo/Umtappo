@@ -20,7 +20,7 @@ const Hamburger = (props) => {
 
   return (
     <button
-      onClick={(e) => {
+      onClick={() => {
         btnState ? setBtnState(false) : setBtnState(true);
         handlebtnState();
       }}

@@ -3,31 +3,31 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import UserContext from "../../utils/Context/UserContextProvider";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { createList, getLists, getListsSucces } from "../../features/lists";
 
 const NameListsModal = (props) => {
   const { isOpen, getCloseState, content } = props;
   const { userID } = useContext(UserContext);
 
-  const createList = (nameList, content, id) => {
-    let list = {
-      id,
-      name: nameList,
-      content,
-    };
-    return list;
-  };
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     let inputValue = e.target[0].value;
+
+    let data = {
+      name: inputValue,
+      content: content,
+      user_id: userID,
+    };
+
     axios
-      .post("http://localhost:5000/list", {
-        name: inputValue,
-        content: content,
-        user_id: userID,
-        email: "siteez971@live.fr",
+      .post("http://localhost:5000/list", data)
+      .then((res) => {
+        dispatch(createList(data));
+        dispatch(getLists());
       })
-      .then((res) => console.log(res))
       .catch((err) => console.log(err))
       .finally(() => {
         e.target[0].value = "";

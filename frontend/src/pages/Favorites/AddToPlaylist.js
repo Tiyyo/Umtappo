@@ -10,21 +10,25 @@ import ListContext, {
 import UserContext from "../../utils/Context/UserContextProvider";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { getLists, deleteList } from "../../features/lists";
 
 const AddToPlaylist = () => {
   const navigate = useNavigate();
+
   const location = useLocation();
-  const [isOpen, setIsOpen] = useState(false);
   const { content } = location.state;
-  const [myLists, setMyLists] = useState("");
+  console.log(content);
+
+  const [isOpen, setIsOpen] = useState(false);
+
   const { userID } = useContext(UserContext);
+
+  const dispatch = useDispatch();
+  const { lists: myLists } = useSelector((state) => state.lists);
 
   const getCloseState = (state) => {
     setIsOpen(state);
-  };
-
-  const getLists = (state) => {
-    setMyLists(state);
   };
 
   const obtainListName = (e) => {
@@ -32,12 +36,15 @@ const AddToPlaylist = () => {
     return name;
   };
 
-  const addContent = async (_id, content) => {
+  const addContent = (_id, content) => {
+    let data = { listId: _id, content: content, content_id: content.id };
     axios
       .put("http://localhost:5000/list", { listId: _id, content: content })
       .then((res) => {
         if (res.status === 200) {
           toast.success("Successfully added");
+          dispatch(addContent(data));
+          dispatch(getLists());
         }
         if (res.status === 422) {
           toast.info("Already added to this list");
@@ -46,20 +53,17 @@ const AddToPlaylist = () => {
       .catch((err) => console.log(err));
   };
 
-  const deleteList = async (_id) => {
-    console.log(_id);
-    await axios
-      .delete("http://localhost:5000/list/" + _id)
-      .then((res) => console.log(res));
+  const removeList = (_id) => {
+    let objectID = { _id };
+    axios.delete("http://localhost:5000/list/" + _id);
+    dispatch(deleteList(objectID));
   };
 
   useEffect(() => {
     const fetchUserLists = async () => {
       const result = await axios
-        .post("http://localhost:5000/list/get", {
-          user_id: userID,
-        })
-        .then((res) => setMyLists(res.data));
+        .get("http://localhost:5000/list/" + userID)
+        .then((res) => dispatch(getLists(res.data)));
     };
     fetchUserLists();
   }, [userID]);
@@ -94,6 +98,7 @@ const AddToPlaylist = () => {
                     className="add"
                     data-list-id={list._id}
                     onClick={(e) => {
+                      console.log(e);
                       const listID = obtainListName(e);
                       addContent(listID, content);
                     }}
@@ -106,7 +111,7 @@ const AddToPlaylist = () => {
                     onClick={(e) => {
                       const listID = obtainListName(e);
                       console.log(listID);
-                      deleteList(listID);
+                      removeList(listID);
                     }}
                   >
                     <CloseIcon data-list-id={list._id} />
@@ -122,7 +127,6 @@ const AddToPlaylist = () => {
           isOpen={isOpen}
           getCloseState={getCloseState}
           content={content}
-          getLists={getLists}
         />
       </div>
     </ListContextProvider>

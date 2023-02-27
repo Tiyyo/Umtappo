@@ -4,7 +4,7 @@ const asyncHandler = require("express-async-handler");
 const { default: mongoose } = require("mongoose");
 
 module.exports.createList = asyncHandler(async (req, res) => {
-  const { name, content, email, user_id } = req.body;
+  const { name, content, user_id } = req.body;
 
   if (!name && !content) {
     res.status(400).send("You need to send a name and one content");
@@ -21,12 +21,13 @@ module.exports.createList = asyncHandler(async (req, res) => {
   });
   list.save();
 
-  console.log(user_id);
   const user = Users.findById(user_id);
-  console.log(user);
+  if (!user) {
+    res.status(404).send("User ID doesn't match wih any users");
+  }
 
   await Users.findOneAndUpdate(
-    { email },
+    { user_id },
     {
       $push: {
         lists: list,
@@ -41,14 +42,13 @@ module.exports.createList = asyncHandler(async (req, res) => {
 });
 
 module.exports.getLists = asyncHandler(async (req, res) => {
-  const { user_id } = req.body;
+  const user_id = req.params.id;
 
   if (!user_id) {
     res.status(400).send("No user_id is provided");
   }
 
   const user = await Users.findById(user_id);
-  console.log(user);
 
   const userLists = await Users.findById(user_id)
     .populate("lists", ["name", "content"])
@@ -82,7 +82,8 @@ module.exports.deleteList = asyncHandler(async (req, res) => {
 });
 
 module.exports.addContent = asyncHandler(async (req, res) => {
-  const { listId, content } = req.body;
+  const { listId, content, content_id } = req.body;
+
   if (!listId) {
     res.status(400).send("a List ID is mandatory");
   }
@@ -92,67 +93,113 @@ module.exports.addContent = asyncHandler(async (req, res) => {
       .status(400)
       .send("You are trying to add content but you aren't sending anything");
   }
+
   const list = await List.findById(listId);
   if (!list) {
     res.status(400).send("Wrong list id");
   }
-  const contents = list.content;
 
-  contents.forEach((element) => {
-    if (element.id === content.id) {
-      res.status(422).send("Already inclued in this list");
-    }
-  });
+  let matchId = parseInt(content_id);
 
-  list
-    .updateOne({ $push: { content: content } })
-    .exec()
-    .then((docs) => {
-      if (docs) {
-        res.status(200).send("Succesfully added");
-      } else {
-        res.status(400).send("Something went wrong");
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  const existent = await List.find(
+    { _id: listId },
+    { $elemMatch: { content: { id: matchId } } }
+  );
 
-  console.log(contents);
+  // if (existent) {
+  //   res.status(422).send("Already inclued in this list");
+  // }
+  // {
+  //   list
+  //     .updateOne({ $push: { content: content } })
+  //     .then((docs) => {
+  //       if (docs) {
+  //         res.status(200).send("Succesfully added");
+  //       } else {
+  //         res.status(400).send("Something went wrong");
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
 });
 
 module.exports.deleteContent = asyncHandler(async (req, res) => {
-  const { name, user_id, content } = req.body;
+  const { list_id, content_id } = req.body;
 
-  if (!user_id) {
-    res.status(400).send("An User ID is mandatory");
+  if (!list_id) {
+    res.status(400).send("A list ID is mandatory");
   }
-  if (!name) {
-    res.status(400).send("Name is required");
+
+  if (!content_id) {
+    res.status(400).send("content id is missing");
   }
-  if (!content) {
-    res
-      .status(400)
-      .send("You are trying to delete content but you aren't sending anything");
-  }
+
+  let matchId = parseInt(content_id);
 
   const list = await List.findOneAndUpdate(
-    { name, user_id },
+    { name: "allo" },
     {
       $pull: {
-        content: content,
+        content: {
+          id: matchId,
+        },
       },
     }
-  )
-    .exec()
-    .then((docs) => {
-      docs.content.forEach((el) => {
-        if (el === content) {
-          res.status(400).send("element is not deleted");
-        } else {
-          res.status(200).send("Succesfully remove");
-        }
-      });
-    })
-    .catch((err) => console.log(err));
+  );
+
+  // console.log(result);
+  const updateList = await List.findById(list_id);
+
+  if (list === updateList) {
+    res.status(400).send("Something goes wrong");
+  } else {
+    res.status(200).send("item removed");
+  }
+
+  // const list = await List.findById(list_id);
+  // if (list) {
+  //   res.send("list exist");
+  // } else {
+  //   res.send("there is no list matching this list_id");
+  // }
+
+  // let contents = list.content;
+
+  // not working
+  // contents.forEach((content) => {
+  //   console.log(content.id);
+  //   console.log(content_id);
+  //   if (content.id === content_id) {
+  //     content.remove();
+  //     res.send("content supressed");
+  //   }
+  // });
+
+  // const data = await List.findById(list_id);
+  // console.log(data.content);
+
+  // data.content.forEach((element) => {
+  //   console.log(element.id, content_id);
+  // });
+  // const list = await List.findOneAndUpdate(
+  //   { list_id },
+  //   {
+  //     $pull: {
+  //       content: { id: content_id },
+  //     },
+  //   }
+  // )
+  //   .exec()
+  //   // .then((docs) => {
+  //   //   docs.content.forEach((el) => {
+  //   //     if (el === content) {
+  //   //       res.status(400).send("element is not deleted");
+  //   //     } else {
+  //   //       res.status(200).send("Succesfully remove");
+  //   //     }
+  //   //   });
+  //   // })
+  //   .catch((err) => console.log(err));
 });

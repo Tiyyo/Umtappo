@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../utils/Context/UserContextProvider";
+import AppContext from "../../utils/Context/AppContextProvider";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -10,37 +11,25 @@ import DoneIcon from "@mui/icons-material/Done";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Link } from "react-router-dom";
-import { createTheme, ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { getCurrentUser } from "../../features/user";
 
 function SignIn() {
   let accessToken;
   const { register, handleSubmit, formState } = useForm();
 
-  const theme = createTheme({
-    palette: {
-      primary: {
-        light: "#ffbd45",
-        main: "#fb8c00",
-        dark: "#c25e00",
-        contrastText: "#000000",
-      },
-      secondary: {
-        light: "#484848",
-        main: "#121212",
-        dark: "#000000",
-        contrastText: "#ffffff",
-      },
-    },
-  });
-
   const navigate = useNavigate();
 
   const { setIsLoggedIn, setUserID, setUserInfos, setIsAuth } =
     useContext(UserContext);
+  const { iconTheme } = useContext(AppContext);
 
   const [isVisible, setIsVisible] = useState(false);
+
+  const dispatch = useDispatch();
 
   const showPassword = () => {
     setIsVisible(true);
@@ -97,7 +86,9 @@ function SignIn() {
             email: res?.data?.email,
             password: res?.data?.password,
           });
+
           setIsAuth(true);
+          dispatch(getCurrentUser(res.data.id));
           toast.success("Login Succesfully", {
             position: "top-center",
             autoClose: 1000,
@@ -121,7 +112,7 @@ function SignIn() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={iconTheme}>
       <motion.div
         className="signin"
         initial={{ width: 0 }}

@@ -111,3 +111,10 @@
   justify-content: center;
 
 }
+
+.top-list {
+    svg {
+        position: relative;
+        z-index: -1;
+    }
+}

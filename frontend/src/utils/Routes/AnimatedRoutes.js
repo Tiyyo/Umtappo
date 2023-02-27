@@ -24,6 +24,8 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import FavoriteList from "../../components/Favorites/FavoriteList";
 import FavoriteResume from "../../components/Favorites/FavoriteResume";
 import Favorites from "../../pages/Favorites/Favorite";
+import { getCurrentUser } from "../../features/user";
+import { useDispatch } from "react-redux";
 
 const AnimatedRoutes = () => {
   const {
@@ -36,6 +38,9 @@ const AnimatedRoutes = () => {
   } = useContext(UserContext);
 
   const location = useLocation();
+
+  const dispatch = useDispatch();
+
   const auth = async (token) => {
     await axios
       .get("http://localhost:5000/user/current", {
@@ -52,6 +57,7 @@ const AnimatedRoutes = () => {
             password: res?.data?.password,
           });
           setIsAuth(true);
+          dispatch(getCurrentUser(res.data.id));
         }
       })
       .catch((err) => {

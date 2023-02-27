@@ -9,7 +9,7 @@ const {
 } = require("../controllers/list.controller");
 const router = express.Router();
 router.post("/", createList);
-router.post("/get", getLists);
+router.get("/:id", getLists);
 router.put("/", addContent);
 router.delete("/:id", deleteList);
 router.patch("/", deleteContent);
