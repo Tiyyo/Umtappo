@@ -5,9 +5,9 @@ export const getLists = createAsyncThunk(
   "getLists",
   async (arg, { dispatch, getState }) => {
     const user_id = getState().user.user.id;
-    axios
-      .get("http://localhost:5000/list/" + user_id)
-      .then((res) => dispatch(getListsSucces(res.data)));
+    axios.get("http://localhost:5000/list/" + user_id).then((res) => {
+      dispatch(getListsSucces(res.data));
+    });
   }
 );
 
@@ -18,27 +18,29 @@ const ListSlice = createSlice({
     createList: (state, { payload }) => {
       state.lists.push(payload);
     },
-    getListsSucces: (state, { payload }) => {
-      state.lists = payload;
+    getListsSucces: (state, { payload: { lists } }) => {
+      state.lists = lists;
     },
     addContent: (state, { payload: { content, listId } }) => {
-      state.lists.forEach((list) => {
+      state.lists = state.lists.forEach((list) => {
         if (list._id === listId) {
           list.content.push(content);
         }
       });
     },
-    deleteContent: (state, { payload: { contentId, listID } }) => {
-      for (let i = 0; i < state.lists.length; i++) {
-        if (state.lists[i]._id == listID) {
-          state.lists[i].content = state.lists[i].content.filter(
-            (element) => element.id !== contentId
-          );
-        }
-      }
+    deleteContent: (state, { payload: { listID, contentId } }) => {
+      state.lists = state.lists.map((list) => {
+        return list._id != listID
+          ? list
+          : {
+              ...list,
+              content: list.content.filter((el) => el.id !== contentId),
+            };
+      });
     },
-    deleteList: (state, { payload }) => {
-      state.lists = state.lists.filter((list) => list._id !== payload);
+
+    deleteList: (state, { payload: { _id: id } }) => {
+      state.lists = state.lists.filter((list) => list._id !== id);
     },
   },
 });

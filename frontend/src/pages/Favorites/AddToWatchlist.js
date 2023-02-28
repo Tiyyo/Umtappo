@@ -3,7 +3,7 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import NameListsModal from "../../components/Favorites/NameListsModal";
+import NameListsModal from "../../components/Lists/NameListsModal";
 import ListContext, {
   ListContextProvider,
 } from "../../utils/Context/ListsContextProvider";
@@ -11,14 +11,16 @@ import UserContext from "../../utils/Context/UserContextProvider";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { getLists, deleteList } from "../../features/lists";
+import { getLists, deleteList } from "../../features/watchlists/Slice/lists";
+import { removeList } from "../../features/watchlists/function/watchlists.function";
 
 const AddToPlaylist = () => {
   const navigate = useNavigate();
 
-  const location = useLocation();
-  const { content } = location.state;
-  console.log(content);
+  const {
+    state: { content },
+  } = useLocation();
+  // const { content } = location.state;
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -37,9 +39,12 @@ const AddToPlaylist = () => {
   };
 
   const addContent = (_id, content) => {
-    let data = { listId: _id, content: content, content_id: content.id };
+    let contentId = content.id;
+
+    let data = { listId: _id, content: content, content_id: contentId };
+
     axios
-      .put("http://localhost:5000/list", { listId: _id, content: content })
+      .put("http://localhost:5000/list", data)
       .then((res) => {
         if (res.status === 200) {
           toast.success("Successfully added");
@@ -98,7 +103,6 @@ const AddToPlaylist = () => {
                     className="add"
                     data-list-id={list._id}
                     onClick={(e) => {
-                      console.log(e);
                       const listID = obtainListName(e);
                       addContent(listID, content);
                     }}
@@ -110,7 +114,6 @@ const AddToPlaylist = () => {
                     className="delete"
                     onClick={(e) => {
                       const listID = obtainListName(e);
-                      console.log(listID);
                       removeList(listID);
                     }}
                   >

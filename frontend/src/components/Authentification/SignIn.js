@@ -15,7 +15,7 @@ import { ThemeProvider } from "@mui/material";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
-import { getCurrentUser } from "../../features/user";
+import { getCurrentUser } from "../../features/user/slice/user";
 
 function SignIn() {
   let accessToken;

@@ -3,8 +3,8 @@ import { useLocation } from "react-router";
 import AppContext from "../../utils/Context/AppContextProvider";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { deleteContent } from "../../features/lists";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteContent } from "../../features/watchlists/Slice/lists";
 
 const FavoriteList = (props) => {
   const {
@@ -12,6 +12,13 @@ const FavoriteList = (props) => {
       list: { content: lists, name, _id: listID },
     },
   } = useLocation();
+
+  const contents = useSelector((state) => {
+    let data = state.lists.lists;
+    let index = data.findIndex((list) => list._id == listID);
+    return data[index].content;
+  });
+  console.log(contents);
 
   const { config } = useContext(AppContext);
 
@@ -37,8 +44,8 @@ const FavoriteList = (props) => {
         marginTop: "100px",
       }}
     >
-      {lists &&
-        lists.map((content) => {
+      {contents &&
+        contents.map((content) => {
           return (
             <div
               key={content.id}

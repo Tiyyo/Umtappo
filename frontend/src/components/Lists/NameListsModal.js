@@ -4,7 +4,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import UserContext from "../../utils/Context/UserContextProvider";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { createList, getLists, getListsSucces } from "../../features/lists";
+import {
+  createList,
+  getLists,
+  getListsSucces,
+} from "../../features/watchlists/Slice/lists";
 
 const NameListsModal = (props) => {
   const { isOpen, getCloseState, content } = props;

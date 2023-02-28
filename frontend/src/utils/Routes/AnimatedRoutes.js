@@ -8,8 +8,8 @@ import Account from "../../components/Account/Account";
 import LoginLayout from "../../layout/LoginLayout";
 import Films from "../../pages/Films/Films";
 import Home from "../../pages/Home/Home";
-import AddToPlaylist from "../../pages/Favorites/AddToPlaylist";
-import Likes from "../../components/Favorites/FavoriteResume";
+import AddToPlaylist from "../../pages/Favorites/AddToWatchlist";
+import Likes from "../../components/Lists/listsResume";
 import TvShow from "../../pages/TvShow/TvShow";
 import UserContext from "../Context/UserContextProvider";
 import { AnimatePresence } from "framer-motion";
@@ -21,11 +21,12 @@ import AppLayout from "../../layout/AppLayout";
 import MediaElement from "../../pages/Content/MediaElement";
 import SearchResult from "../../pages/SearchResult/SearchResult";
 import ProtectedRoutes from "./ProtectedRoutes";
-import FavoriteList from "../../components/Favorites/FavoriteList";
-import FavoriteResume from "../../components/Favorites/FavoriteResume";
-import Favorites from "../../pages/Favorites/Favorite";
-import { getCurrentUser } from "../../features/user";
+import FavoriteList from "../../pages/Favorites/Watchlist";
+import FavoriteResume from "../../components/Lists/listsResume";
+import Favorites from "../../pages/Favorites/PersonalLists";
+import { getCurrentUser } from "../../features/user/slice/user";
 import { useDispatch } from "react-redux";
+import Filter from "../../components/Lists/Filter";
 
 const AnimatedRoutes = () => {
   const {
@@ -113,6 +114,7 @@ const AnimatedRoutes = () => {
           <Route path="SignIn" element={<SignIn />} />
           <Route path="SignUp" element={<SignUp />} />
         </Route>
+        <Route path={"/Filter"} element={<Filter />} />
       </Routes>
     </AnimatePresence>
   );

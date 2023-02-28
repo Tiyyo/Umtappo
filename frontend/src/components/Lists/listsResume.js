@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
-import FavoriteList from "./FavoriteList";
+import FavoriteList from "../../pages/Favorites/Watchlist";
 import LoaderUI from "../Loader/LoaderUI";
 import axios from "axios";
 import UserContext from "../../utils/Context/UserContextProvider";
 import AppContext from "../../utils/Context/AppContextProvider";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getLists } from "../../features/lists";
+import { getLists } from "../../features/watchlists/Slice/lists";
 
 const FavoriteResume = () => {
   const [loading, setLoading] = useState(true);

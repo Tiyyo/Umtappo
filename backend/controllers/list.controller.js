@@ -27,7 +27,7 @@ module.exports.createList = asyncHandler(async (req, res) => {
   }
 
   await Users.findOneAndUpdate(
-    { user_id },
+    { _id: user_id },
     {
       $push: {
         lists: list,
@@ -54,11 +54,8 @@ module.exports.getLists = asyncHandler(async (req, res) => {
     .populate("lists", ["name", "content"])
     .exec()
     .then((docs) => {
-      console.log(docs);
-      res.json(docs.lists);
+      res.status(200).send({ lists: docs.lists });
     });
-
-  res.status(200).send({ userLists });
 });
 
 module.exports.deleteList = asyncHandler(async (req, res) => {
@@ -101,27 +98,26 @@ module.exports.addContent = asyncHandler(async (req, res) => {
 
   let matchId = parseInt(content_id);
 
-  const existent = await List.find(
-    { _id: listId },
-    { $elemMatch: { content: { id: matchId } } }
-  );
+  const condition = () => {
+    let existCondition = list.content.some((c) => c.id === matchId);
+    return existCondition;
+  };
 
-  // if (existent) {
-  //   res.status(422).send("Already inclued in this list");
-  // }
-  // {
-  //   list
-  //     .updateOne({ $push: { content: content } })
-  //     .then((docs) => {
-  //       if (docs) {
-  //         res.status(200).send("Succesfully added");
-  //       } else {
-  //         res.status(400).send("Something went wrong");
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
+  const isExist = condition();
+
+  if (isExist) {
+    res.status(422).send("Already added to this lists");
+  } else {
+    list
+      .updateOne({ $push: { content: content } })
+      .then((docs) => {
+        res.status(200).send("Succesfully added");
+      })
+
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   // }
 });
 
@@ -139,7 +135,7 @@ module.exports.deleteContent = asyncHandler(async (req, res) => {
   let matchId = parseInt(content_id);
 
   const list = await List.findOneAndUpdate(
-    { name: "allo" },
+    { _id: list_id },
     {
       $pull: {
         content: {
@@ -149,7 +145,6 @@ module.exports.deleteContent = asyncHandler(async (req, res) => {
     }
   );
 
-  // console.log(result);
   const updateList = await List.findById(list_id);
 
   if (list === updateList) {
@@ -157,49 +152,4 @@ module.exports.deleteContent = asyncHandler(async (req, res) => {
   } else {
     res.status(200).send("item removed");
   }
-
-  // const list = await List.findById(list_id);
-  // if (list) {
-  //   res.send("list exist");
-  // } else {
-  //   res.send("there is no list matching this list_id");
-  // }
-
-  // let contents = list.content;
-
-  // not working
-  // contents.forEach((content) => {
-  //   console.log(content.id);
-  //   console.log(content_id);
-  //   if (content.id === content_id) {
-  //     content.remove();
-  //     res.send("content supressed");
-  //   }
-  // });
-
-  // const data = await List.findById(list_id);
-  // console.log(data.content);
-
-  // data.content.forEach((element) => {
-  //   console.log(element.id, content_id);
-  // });
-  // const list = await List.findOneAndUpdate(
-  //   { list_id },
-  //   {
-  //     $pull: {
-  //       content: { id: content_id },
-  //     },
-  //   }
-  // )
-  //   .exec()
-  //   // .then((docs) => {
-  //   //   docs.content.forEach((el) => {
-  //   //     if (el === content) {
-  //   //       res.status(400).send("element is not deleted");
-  //   //     } else {
-  //   //       res.status(200).send("Succesfully remove");
-  //   //     }
-  //   //   });
-  //   // })
-  //   .catch((err) => console.log(err));
 });
