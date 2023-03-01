@@ -110,10 +110,9 @@ module.exports.addContent = asyncHandler(async (req, res) => {
   } else {
     list
       .updateOne({ $push: { content: content } })
-      .then((docs) => {
+      .then(() => {
         res.status(200).send("Succesfully added");
       })
-
       .catch((err) => {
         console.log(err);
       });
