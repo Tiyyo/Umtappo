@@ -9,9 +9,9 @@ const {
 
 const router = express.Router();
 
-router.post("/", likeMovie);
-router.patch("/", dislikeMovie);
-router.post("/", likeShow);
-router.patch("/", dislikeShow);
+router.post("/movie", likeMovie);
+router.patch("/movie", dislikeMovie);
+router.post("/show", likeShow);
+router.patch("/show", dislikeShow);
 
 module.exports = router;

@@ -8,11 +8,17 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import listsReducer from "./features/watchlists/Slice/lists";
 import userReducer from "./features/user/slice/user";
+import headerResumeReducer from "./features/watchlists/Slice/resume.header";
+import movieLikedReducer from "./features/movie liked/Slice/LikeMovie";
+import tvshowLikedReducer from "./features/tvshow liked/slice/LikeTvshow";
 
 const store = configureStore({
   reducer: {
     user: userReducer,
     lists: listsReducer,
+    header_resume: headerResumeReducer,
+    movieLiked: movieLikedReducer,
+    tvshowLiked: tvshowLikedReducer,
   },
 });
 

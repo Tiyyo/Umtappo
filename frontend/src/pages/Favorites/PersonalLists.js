@@ -3,8 +3,7 @@ import { Outlet } from "react-router-dom";
 
 const Favorites = () => {
   return (
-    <div className="app">
-      <h2>Bla Bla Bla</h2>
+    <div className="wrapper">
       <Outlet />
     </div>
   );

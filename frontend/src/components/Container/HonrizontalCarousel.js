@@ -17,7 +17,7 @@ const HonrizontalCarousel = (props) => {
   return (
     <div className="horizontal--single-x-card">
       <h2>{title}</h2>
-      {content.length > 1 ? (
+      {content ? (
         <motion.div
           className="outer-cards-container"
           ref={carousel}

@@ -3,6 +3,7 @@ body[data-theme="light"] {
     --secondary : rgb(238, 228, 222);
     --text : rgba(0,0,0,1);
     --menu_link : rgba(253, 184, 55, 0.2);
+    --menu_link_transparent : rgba(253, 184, 55, 0.1);
     --input_bg : rgba(255,255,255,1);
     --input_lock_color : rgba(0, 0, 0, 0.5);
     --error : rgba(196, 15, 15, 0.871);
@@ -13,6 +14,7 @@ body[data-theme="light"] {
     --nav_bg : rgba(233, 207, 191, 0.733);
     --secondary_gradient : linear-gradient(180deg, rgb(238, 228, 222, 1) 0%,  rgb(238, 228, 222, 0.4) 30%, rgb(238, 228, 222, 0.15)  100%);
     --nav_icon : black;
+    --secondary_light : rgb()
 
 }
 
@@ -34,9 +36,11 @@ body[data-theme="dark"] {
     --title : rgba(143, 88, 2, 1);
     --blackbg : #121212;
     --main-primary : rgba(231, 154, 33, 1);
+    --main-primary_light : rgba(231, 154, 33, 0.4);
     --white : rgba(235, 230, 225, 0.944);
     --text : rgba(255,255,255,1);
     --menu_link : rgba(18, 17, 17, 0.8);
+    --menu_link_transparent : rgba(18, 17, 17, 0.2);
     --input_bg : rgba(0,0,0,1);
     --input_lock_color : rgba(255, 255, 255, 0.5);
     --input_placeholder : rgba(218, 113, 21, 0.641);

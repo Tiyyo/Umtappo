@@ -1,1 +1,0 @@
-const LikesSlice = createSlice();

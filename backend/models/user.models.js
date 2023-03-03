@@ -23,7 +23,10 @@ const userSchema = mongoose.Schema(
       required: false,
     },
     lists: [{ type: mongoose.SchemaTypes.ObjectId, ref: "List" }],
-    movie_liked: [{ id: { type: String }, media_type: { type: String } }],
+    movie_liked: [
+      { type: Array },
+      { id: { type: String }, media_type: { type: String } },
+    ],
 
     tvshow_liked: [
       {
