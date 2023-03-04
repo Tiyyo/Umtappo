@@ -1,0 +1,133 @@
+// .essai  {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     min-height: 100vh;
+//     background-color: black;
+// }
+
+// button {
+//     position: relative;
+//     background-color: transparent;
+//     border: none;
+//     height: 75px;
+//     width: 75px;
+//     border-radius: 50%;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     overflow: hidden;
+// }
+// .gradient  {
+//     position: absolute;
+//     z-index: 1;
+//     opacity: 0;
+//     background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%,           rgba(0, 0, 0, 0.585) 100%);
+//     height: 150px;
+//     width: 150px;
+//     border-radius: 50%;
+//     animation: gradient 0.5s ease 0s 1 forwards ;
+
+//     @keyframes gradient {
+//         0% {
+//             height: 0px;
+//             width: 0px;
+//             opacity: 0;
+//         }
+//         80% {
+//             height: 75px;
+//             width: 75px;
+//             opacity: 0.8;
+//         }
+//         100% {
+//             height: 75px;
+//             width: 75px;
+//             opacity: 0;
+//         }
+
+//     }
+// }
+// .gradient-2  {
+//     position: absolute;
+//     z-index: 2;
+//     opacity: 0;
+//     background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%,           rgba(0, 0, 0, 0.585) 100%);
+//     height: 150px;
+//     width: 150px;
+//     border-radius: 50%;
+//     animation: gradient2 0.5s ease 175ms 1 forwards ;
+
+//     @keyframes gradient2 {
+//         0% {
+//             height: 0px;
+//             width: 0px;
+//             opacity: 0;
+//         }
+//         80% {
+//             height: 75px;
+//             width: 75px;
+//             opacity: 0.8;
+//         }
+//         100% {
+//             height: 75px;
+//             width: 75px;
+//             opacity: 0;
+//         }
+
+//     }
+// }
+// .gradient-3  {
+//     position: absolute;
+//     z-index: 3;
+//     opacity: 0;
+//     background: radial-gradient(circle, rgba(242, 188, 71, 0.531) 0%,           rgba(0, 0, 0, 0.585) 80%);
+//     height: 150px;
+//     width: 150px;
+//     border-radius: 50%;
+//     animation: gradient3 0.5s ease 350ms 1 forwards ;
+
+//     @keyframes gradient3 {
+//         0% {
+//             height: 0px;
+//             width: 0px;
+//             opacity: 0;
+//         }
+//         85% {
+//             height: 75px;
+//             width: 75px;
+//             opacity: 0.7;
+//         }
+//         100% {
+//             height: 75px;
+//             width: 75px;
+//             opacity: 0;
+//         }
+
+//     }
+// }
+
+// .top  {
+//     position: absolute;
+//     background-color: black;
+//     z-index: 5;
+//     height: 150px;
+//     width: 150px;
+//     border-radius: 50%;
+//     animation: top 0.5s ease-out 0.25s 1 forwards ;
+
+//     @keyframes top {
+//         0% {
+//             height: 0px;
+//             width: 0px;
+//         }
+//         80% {
+//             height: 55px;
+//             width: 55px;
+//         }
+//         100% {
+//             height: 75px;
+//             width: 75px;
+//         }
+
+//     }
+// }

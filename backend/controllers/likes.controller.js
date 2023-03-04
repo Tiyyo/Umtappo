@@ -2,6 +2,22 @@ const Users = require("../models/user.models");
 const asyncHandler = require("express-async-handler");
 const { default: mongoose } = require("mongoose");
 
+module.exports.getMoviesLiked = asyncHandler(async (req, res) => {
+  const user_id = req.params.id;
+
+  if (!user_id) {
+    res.status(400).send("user_id is mandatory");
+  }
+  const user = await Users.findById(user_id);
+  console.log(user);
+
+  if (user) {
+    res.status(200).send({ movie_liked: user.movie_liked });
+  } else {
+    res.status(400).send("no user found with this user_id");
+  }
+});
+
 module.exports.likeMovie = asyncHandler(async (req, res) => {
   const { user_id, media_type, content_id } = req.body;
 
@@ -70,8 +86,24 @@ module.exports.dislikeMovie = asyncHandler(async (req, res) => {
   );
 });
 
+module.exports.getTvshowsLiked = asyncHandler(async (req, res) => {
+  const user_id = req.params.id;
+
+  if (!user_id) {
+    res.status(400).send("user_id is mandatory");
+  }
+  const user = await Users.findById(user_id);
+
+  if (user) {
+    res.status(200).send({ tvshow_liked: user.tvshow_liked });
+  } else {
+    res.status(400).send("no user found with this user_id");
+  }
+});
+
 module.exports.likeShow = asyncHandler(async (req, res) => {
   const { user_id, media_type, content_id } = req.body;
+  console.log(typeof content_id);
 
   let data = { id: content_id, media_type };
 

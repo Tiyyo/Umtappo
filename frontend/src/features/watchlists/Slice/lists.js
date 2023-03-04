@@ -4,16 +4,25 @@ import axios from "axios";
 export const getLists = createAsyncThunk(
   "getLists",
   async (arg, { dispatch, getState }) => {
-    const user_id = getState().user.user.id;
-    axios.get("http://localhost:5000/list/" + user_id).then((res) => {
-      dispatch(getListsSucces(res.data));
-    });
+    // getState().lists.lists.loading = "failed";
+    const result = await axios
+      .get("http://localhost:5000/list/" + arg)
+      .then((res) => {
+        dispatch(getListsSucces(res.data));
+      });
+
+    return result.data;
   }
 );
 
+const initialState = {
+  lists: [],
+  loading: "idle", // idle pending succeeded failed,
+};
+
 const ListSlice = createSlice({
   name: "lists",
-  initialState: { lists: [] },
+  initialState,
   reducers: {
     createList: (state, { payload }) => {
       state.lists.push(payload);
@@ -30,7 +39,7 @@ const ListSlice = createSlice({
     },
     deleteContent: (state, { payload: { listID, contentId } }) => {
       state.lists = state.lists.map((list) => {
-        return list._id != listID
+        return list._id !== listID
           ? list
           : {
               ...list,
@@ -42,6 +51,12 @@ const ListSlice = createSlice({
     deleteList: (state, { payload: { _id: id } }) => {
       state.lists = state.lists.filter((list) => list._id !== id);
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getLists.fulfilled, (state, action) => {
+      console.log(action);
+      state.loading = "succeeded";
+    });
   },
 });
 

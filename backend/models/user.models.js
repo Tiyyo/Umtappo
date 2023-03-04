@@ -29,10 +29,8 @@ const userSchema = mongoose.Schema(
     ],
 
     tvshow_liked: [
-      {
-        id: { type: String },
-        media_type: { type: String },
-      },
+      { type: Array },
+      { id: { type: String }, media_type: { type: String } },
     ],
   },
   {

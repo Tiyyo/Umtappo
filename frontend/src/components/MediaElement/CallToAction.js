@@ -72,11 +72,11 @@ const CallToAction = (props) => {
 
   useEffect(() => {
     if (isLiked) {
-      content.type === movieType
+      content.type.toLowerCase() === movieType
         ? addToLikes(movieType)
         : addToLikes(tvshowType);
     } else {
-      content.type === tvshowType
+      content.type.toLowerCase() === tvshowType
         ? removeFromLikes(movieType)
         : removeFromLikes(tvshowType);
     }

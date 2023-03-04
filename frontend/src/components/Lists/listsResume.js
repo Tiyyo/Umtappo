@@ -1,41 +1,62 @@
-import React, { useContext, useState, useEffect } from "react";
-import FavoriteList from "../../pages/Favorites/Watchlist";
+import React, { useContext, useEffect, useState } from "react";
 import LoaderUI from "../Loader/LoaderUI";
 import axios from "axios";
-import UserContext from "../../utils/Context/UserContextProvider";
 import AppContext from "../../utils/Context/AppContextProvider";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getLists } from "../../features/watchlists/Slice/lists";
 
 const FavoriteResume = () => {
-  const [loading, setLoading] = useState(true);
-
-  const { config } = useContext(AppContext);
-  const { userID } = useContext(UserContext);
-
+  const { config, languages } = useContext(AppContext);
   const dispatch = useDispatch();
-  const myLists = useSelector((state) => state.lists.lists);
+
+  const { lists: myLists, loading: loadingListState } = useSelector(
+    (state) => state.lists
+  );
+  const { likes: movies_liked, loading: loadingMoviesState } = useSelector(
+    (state) => state.movieLiked
+  );
+
+  const [endpoints, setEndpoints] = useState(null);
+  const [moviesDisplayed, setMoviesDisplayed] = useState([]);
 
   const pathLogoImage = (content) => {
     return config.base_url + config.logo_sizes[0] + content?.poster_path;
   };
 
+  let tv = "tv";
+  let movie = "movie";
+
+  const queries = (arr, media) => {
+    const query = arr?.map((m) => {
+      let id;
+      m.map((el) => (id = el.id));
+      return `https://api.themoviedb.org/3/${media}/${id}?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}`;
+    });
+    return setEndpoints(query);
+  };
+
+  const getData = async (endpoints, media_type) => {
+    const result = await axios.all(
+      endpoints.map(async (q) => {
+        return axios.get(q).then((res) => {
+          res.data.type = media_type;
+          setMoviesDisplayed((prevState) => [...prevState, res.data]);
+        });
+      })
+    );
+  };
+
   useEffect(() => {
-    const fetchUserLists = async () => {
-      const result = await axios
-        .get("http://localhost:5000/list/" + userID, {
-          user_id: userID,
-        })
-        .then((res) => dispatch(getLists(res.data)))
-        .finally(() => setLoading(false));
-    };
-    fetchUserLists();
-  }, [userID]);
+    queries(movies_liked, movie);
+  }, [movies_liked, languages]);
+
+  useEffect(() => {
+    getData(endpoints, "movie");
+  }, [endpoints]);
 
   return (
     <div className="app">
-      {loading ? (
+      {loadingListState === "pending" ? (
         <LoaderUI />
       ) : (
         <div className="main">

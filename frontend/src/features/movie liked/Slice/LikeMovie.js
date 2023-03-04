@@ -2,12 +2,16 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const getMoviesLiked = createAsyncThunk(
-  "getMovieLiked",
+  "getMoviesLiked",
   async (arg, { dispatch, getState }) => {
-    const user_id = getState().user.user.id;
-    axios.get("http://localhost:5000/like/movie" + user_id).then((res) => {
-      dispatch(getMoviesLikedSuccess(res));
-    });
+    const result = await axios
+      .get("http://localhost:5000/like/movie/" + arg)
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch(getMoviesLikedSuccess(res.data.movie_liked));
+        }
+      })
+      .catch((err) => console.log(err));
   }
 );
 
@@ -16,13 +20,13 @@ const LikesSlice = createSlice({
   initialState: { likes: [] },
   reducers: {
     getMoviesLikedSuccess: (state, { payload }) => {
-      state.movie_liked = payload;
+      state.likes = payload;
     },
     likeMovie: (state, { payload }) => {
-      state.movie_liked.push(payload);
+      state.likes.push(payload);
     },
     dislikeMovie: (state, { payload }) => {
-      state.movie_liked = state.movie_liked.filter((m) => m.id !== payload.id);
+      state.likes = state.likes.filter((m) => m.id !== payload.id);
     },
   },
 });
