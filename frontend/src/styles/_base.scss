@@ -13,3 +13,7 @@ body::-webkit-scrollbar  {
         text-decoration: none;
     }
 }
+.wrapper  {
+    padding-top: $heightTopNav;
+    background-color: var(--secondary);
+}

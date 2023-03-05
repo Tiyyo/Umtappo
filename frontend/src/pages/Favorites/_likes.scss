@@ -124,7 +124,7 @@
 
 .list-container  {
     background-color: var(--secondary);
-    padding : 60px 2% 0 2%;
+    padding : 5% 2% 0 2%;
     color : var(--text);
     // background-image: url('../../assets/images/pexels-tobias-bjørkli-1819650.jpg');
     background-size: cover;
@@ -346,4 +346,12 @@
     border-radius: 50%;
     color: var(--text);
   }
+}
+
+.likes-watchlists  {
+ min-height: 100vh;
+
+ &__container {
+  border: 1px solid red;
+ }
 }

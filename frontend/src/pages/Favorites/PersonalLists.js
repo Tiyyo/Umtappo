@@ -12,7 +12,6 @@ const Favorites = () => {
   const dispatch = useDispatch();
 
   const { fetchMovies, fetchTvshows, loading } = useMediaId();
-  console.log(fetchMovies, fetchTvshows, loading);
 
   useEffect(() => {
     dispatch(getLists(userID));
