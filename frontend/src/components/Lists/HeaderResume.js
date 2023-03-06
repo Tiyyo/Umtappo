@@ -7,6 +7,8 @@ const HeaderResume = (props) => {
   const { content } = props;
   const { genreListMovie, genreListTv } = useContext(AppContext);
 
+  console.log(props);
+
   return (
     <div className="header-resume">
       <div className="title">{content.title || content.name}</div>

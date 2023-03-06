@@ -7,9 +7,12 @@ const ResumeHeaderSlice = createSlice({
     displayInfos: (state, { payload }) => {
       state.header_resume = payload;
     },
+    reset: (state, action) => {
+      state.header_resume = {};
+    },
   },
 });
 
 const { actions, reducer } = ResumeHeaderSlice;
-export const { displayInfos } = actions;
+export const { displayInfos, reset } = actions;
 export default reducer;

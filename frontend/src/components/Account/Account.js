@@ -4,6 +4,8 @@ import UserContext from "../../utils/Context/UserContextProvider";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { ThemeProvider } from "@mui/material";
 import AppContext from "../../utils/Context/AppContextProvider";
+import LogoutIcon from "@mui/icons-material/Logout";
+
 const Account = () => {
   const { setUserID, userInfos, setUserInfos, setIsAuth, setIsLoggedIn } =
     useContext(UserContext);
@@ -64,6 +66,7 @@ const Account = () => {
       <Outlet />
       <div className="logout" onClick={() => logOut()}>
         Sign Out
+        <LogoutIcon />
       </div>
     </div>
   );

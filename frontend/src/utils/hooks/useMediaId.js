@@ -47,7 +47,13 @@ const useMediaId = (arrIds, type) => {
     [arrIds, type]
   );
 
-  const essai = useRef();
+  const applyType = (arr, type) => {
+    if (type === "tv") {
+      return arr.map((el) => (el.type = "tvShow"));
+    } else {
+      return arr.map((el) => (el.type = "movie"));
+    }
+  };
 
   useEffect(() => {
     setLoading("pending");
@@ -69,6 +75,7 @@ const useMediaId = (arrIds, type) => {
                 return content.find((c) => c.id === id);
               });
               if (res && res.length > 0) {
+                applyType(uniqueContent, type);
                 return setFetchContent(uniqueContent), setLoading("idle");
               } else {
                 throw new Error("Nothing has fetched");

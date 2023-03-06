@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import AppContext from "../../utils/Context/AppContextProvider";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteContent } from "../../features/watchlists/Slice/lists";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ItemList from "../../components/Lists/ItemList";
 import HeaderResume from "../../components/Lists/HeaderResume";
 import { motion } from "framer-motion";
@@ -11,25 +12,28 @@ import { motion } from "framer-motion";
 const Watchlist = (props) => {
   const {
     state: {
-      list: { content: lists, name, _id: listID },
+      list: { content, name, _id: listID },
     },
+    typeList,
   } = useLocation();
 
-  const contents = useSelector((state) => {
-    let data = state.lists.lists;
-    let index = data.findIndex((list) => list._id == listID);
-    return data[index].content;
-  });
+  // const contents = useSelector((state) => {
+  //   let data = state.lists.lists;
+  //   let index = data.findIndex((list) => list._id == listID);
+  //   return data[index].content;
+  // });
 
   const { config } = useContext(AppContext);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { header_resume } = useSelector((state) => state.header_resume);
 
   const carousel = useRef();
 
   const [height, setHeight] = useState(0);
+  let firstContent = content[0];
 
   useEffect(() => {
     if (carousel?.current) {
@@ -37,22 +41,27 @@ const Watchlist = (props) => {
     }
   });
 
-  const pathImage = (content, int) => {
-    return header_resume
-      ? config.base_url + config.poster_sizes[int] + content.poster_path
-      : config.base_url + config.poster_sizes[int] + lists[0].poster_path;
+  const pathImage = (hoveredEl, int) => {
+    return !Object.keys(header_resume).length === 0
+      ? config.base_url + config.poster_sizes[int] + hoveredEl[0].poster_path
+      : config.base_url + config.poster_sizes[int] + content[0].poster_path;
   };
 
-  const removeContent = (contentId) => {
-    axios.patch("http://localhost:5000/list", {
-      list_id: listID,
-      content_id: contentId,
-    });
-    dispatch(deleteContent({ listID, contentId }));
+  const header = () => {
+    return Object.keys(header_resume).length === 0 ? (
+      <HeaderResume content={content[0]} />
+    ) : (
+      <HeaderResume content={header_resume} />
+    );
   };
 
+  console.log(firstContent);
   return (
     <div className="list-container">
+      <div className="list-container__back-icon" onClick={() => navigate(-1)}>
+        <ArrowBackIcon />
+      </div>
+
       <div className="list-container__header">
         <h2 className="list-container__header--list-name">{name}</h2>
         <div className="list-container__header--image">
@@ -63,11 +72,7 @@ const Watchlist = (props) => {
         </div>
         <div className="list-container__header__infos">
           <div className="list-container__header__infos--content">
-            {header_resume ? (
-              <HeaderResume content={header_resume} />
-            ) : (
-              <HeaderResume content={lists[0]} />
-            )}
+            {header()}
           </div>
         </div>
       </div>
@@ -82,8 +87,13 @@ const Watchlist = (props) => {
             drag="y"
             dragConstraints={{ top: 0, bottom: -height }}
           >
-            {contents?.map((content) => (
-              <ItemList key={content.id} content={content} listID={listID} />
+            {content?.map((content) => (
+              <ItemList
+                key={content.id}
+                content={content}
+                listID={listID}
+                typeList={typeList}
+              />
             ))}
           </motion.div>
         </motion.div>

@@ -349,9 +349,107 @@
 }
 
 .likes-watchlists  {
- min-height: 100vh;
+  min-height: 100vh;
+  font-family: 'Lato', sans-serif;
+  color: var(--text);
+  font-size: 1rem ;
+  padding: 0.5rem 0.9rem ;
 
- &__container {
-  border: 1px solid red;
- }
+     &__container {
+
+        &__likes   {
+
+          &--title {
+            padding: 1rem 0 ;
+            font-size: 125%;  
+            display: flex;
+            column-gap: 3%;
+          }
+
+          &--content  {
+            display: flex;
+  
+            gap: 1rem;
+            justify-content: flex-start;
+          }
+        }
+        &__watchlists {      
+                &--header  {
+                display: flex;
+                justify-content: space-between;
+
+                .watchlists-title  {
+                  display: flex;
+                  align-items: center;
+                  column-gap: 3%;
+                  width: 100%;
+
+                  h2  {
+                    padding: 1rem 0 ;
+                    font-size: 125%;
+    
+                  }
+                }
+
+
+                button {
+                  background-color: transparent;
+                  border: none;
+                }
+                
+                }
+
+                &--main{
+                  
+             
+
+                  &[data-view="grid"] {
+                    display: grid;
+                    grid-template-columns: repeat( auto-fit, minmax(90px, 2fr));
+                    gap: 1.5rem;
+                    height: 100%;
+                    transition : all ease-in 0.6s;
+               
+                  }
+                  &[data-view="list"] {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 1rem;
+                    transition : all ease-in 0.6s;
+                    flex-wrap: wrap;
+              
+                  }
+                }
+            }        
+      }
+}
+
+.small-card {
+  background-color: rgba(101, 66, 30, 0.05);
+  padding: 5px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 30px rgba(114, 114, 114, 0.1) ;
+  flex-shrink: 1;
+
+
+  &__poster  {
+    height: fit-content;
+    width: fit-content;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--main-primary_light);
+
+    img {
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      height: auto;
+    }
+  }
+  h3 {
+    font-size: 0.7rem;
+    padding: 5px 0 5px 5px;
+  }
 }

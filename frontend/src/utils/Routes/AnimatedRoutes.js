@@ -27,6 +27,7 @@ import Favorites from "../../pages/Favorites/PersonalLists";
 import { getCurrentUser } from "../../features/user/slice/user";
 import { useDispatch } from "react-redux";
 import Filter from "../../components/Lists/Filter";
+import { reset } from "../../features/watchlists/Slice/resume.header";
 
 const AnimatedRoutes = () => {
   const {
@@ -70,6 +71,11 @@ const AnimatedRoutes = () => {
   // const UsersRoute = (children, redirect) => {
   //   return isAuth && isLoggedIn ? children : <Navigate to={redirect} replace />;
   // };
+
+  useEffect(() => {
+    console.log("page changed");
+    dispatch(reset());
+  }, [location]);
 
   useEffect(() => {
     if (window.localStorage.accesToken) {
