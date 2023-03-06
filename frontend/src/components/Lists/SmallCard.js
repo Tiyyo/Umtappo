@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
 import AppContext from "../../utils/Context/AppContextProvider";
+import LoaderUI from "../Loader/LoaderUI";
 
 const SmallCard = (props) => {
   const {
     list: { content, name, id },
   } = props;
+  console.log(props);
 
   const { config } = useContext(AppContext);
 
@@ -24,9 +26,15 @@ const SmallCard = (props) => {
     );
   };
   return (
-    <div>
-      <img src={pathPosterImage(sizePoster, content)} />
-    </div>
+    <></>
+    // <div className="small-card">
+    //   {!content ? (
+    //     <LoaderUI />
+    //   ) : (
+    //     <img src={pathPosterImage(sizePoster, content)} />
+    //   )}
+    //   <h3>{name}</h3>
+    // </div>
   );
 };
 

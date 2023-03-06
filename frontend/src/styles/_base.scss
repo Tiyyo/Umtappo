@@ -16,4 +16,5 @@ body::-webkit-scrollbar  {
 .wrapper  {
     padding-top: $heightTopNav;
     background-color: var(--secondary);
+    min-height: 100vh;
 }
