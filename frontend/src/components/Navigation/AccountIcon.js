@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 import { Link } from "react-router-dom";
-import { theme } from "../../theme/IconTheme";
 import { ThemeProvider } from "@mui/material";
 import AppContext from "../../utils/Context/AppContextProvider";
 

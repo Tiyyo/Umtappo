@@ -1,10 +1,5 @@
 .search__container  {
     align-items: center;
-    // width: 100vw;
-    // display: flex;
-    // flex-wrap: wrap;
-    // align-content: flex-end;
-    // flex-direction: column;
 
     .search  {
         position: relative;
@@ -17,7 +12,7 @@
 
         &__input  {
             color: var(--text);
-            box-shadow: 0 0 10px 5px rgba(231, 155, 33, 0.129);
+            // box-shadow: 0 0 10px 5px rgba(231, 155, 33, 0.129);
             border: none;
             border-radius: 50%;
             padding: 0.5rem 0.5rem;

@@ -12,19 +12,20 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { getLists, deleteList } from "../../features/watchlists/Slice/lists";
+import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import { removeList } from "../../features/watchlists/function/watchlists.function";
+import { ThemeProvider } from "@mui/material";
+import AppContext from "../../utils/Context/AppContextProvider";
 
 const AddToPlaylist = () => {
-  const navigate = useNavigate();
-
   const {
     state: { content },
   } = useLocation();
-  // const { content } = location.state;
 
   const [isOpen, setIsOpen] = useState(false);
 
   const { userID } = useContext(UserContext);
+  const { iconTheme } = useContext(AppContext);
 
   const dispatch = useDispatch();
   const { lists: myLists } = useSelector((state) => state.lists);
@@ -65,73 +66,72 @@ const AddToPlaylist = () => {
   };
 
   useEffect(() => {
-    const fetchUserLists = async () => {
-      const result = await axios
-        .get("http://localhost:5000/list/" + userID)
-        .then((res) => dispatch(getLists(res.data)));
-    };
-    fetchUserLists();
+    dispatch(getLists(userID));
   }, [userID]);
+
+  console.log(myLists);
 
   return (
     <ListContextProvider>
-      <div className="add-to-playlist">
-        <Outlet />
-        <header>
-          <div className="return-btn" onClick={() => navigate(-1)}>
-            <KeyboardBackspaceIcon sx={{ color: "#fb8c00" }} />
-          </div>
-          <h4 className="title">Add to a list </h4>
-          <div className="avatar"></div>
-        </header>
-        <button
-          className="new-playlist"
-          onClick={() => {
-            setIsOpen(true);
-          }}
-        >
-          Create a new list
-        </button>
+      <ThemeProvider theme={iconTheme}>
+        <div className="add-to-playlist">
+          <Outlet />
+          <header>
+            <h4 className="title"> Watchlists </h4>
+          </header>
 
-        <div className="playlists">
-          {myLists ? (
-            myLists.map((list) => {
-              return (
-                <div className="playlist" key={list._id}>
-                  <h4 className="name">{list.name}</h4>
-                  <button
-                    className="add"
-                    data-list-id={list._id}
-                    onClick={(e) => {
-                      const listID = obtainListName(e);
-                      addContent(listID, content);
-                    }}
-                  >
-                    <AddIcon />
-                  </button>
-                  <button
-                    data-list-id={list._id}
-                    className="delete"
-                    onClick={(e) => {
-                      const listID = obtainListName(e);
-                      removeList(listID);
-                    }}
-                  >
-                    <CloseIcon data-list-id={list._id} />
-                  </button>
-                </div>
-              );
-            })
-          ) : (
-            <h4>You have never created any list yet</h4>
-          )}
+          <div className="playlists">
+            <button
+              className="new-playlist"
+              onClick={() => {
+                setIsOpen(true);
+              }}
+            >
+              <LibraryAddIcon />
+              Add New
+            </button>
+            <NameListsModal
+              isOpen={isOpen}
+              getCloseState={getCloseState}
+              content={content}
+            />
+            <div data-blur={isOpen ? "is-active" : ""} className="blur"></div>
+            {myLists ? (
+              myLists.map((list) => {
+                return (
+                  <div className="playlist" key={list._id}>
+                    <h4 className="name">{list.name}</h4>
+                    <button
+                      type="button"
+                      className="add"
+                      data-list-id={list._id}
+                      onClick={(e) => {
+                        const listID = obtainListName(e);
+                        addContent(listID, content);
+                      }}
+                    >
+                      <AddIcon />
+                    </button>
+                    <button
+                      type="button"
+                      data-list-id={list._id}
+                      className="delete"
+                      onClick={(e) => {
+                        const listID = obtainListName(e);
+                        removeList(listID);
+                      }}
+                    >
+                      <CloseIcon data-list-id={list._id} />
+                    </button>
+                  </div>
+                );
+              })
+            ) : (
+              <h4>You have never created any list yet</h4>
+            )}
+          </div>
         </div>
-        <NameListsModal
-          isOpen={isOpen}
-          getCloseState={getCloseState}
-          content={content}
-        />
-      </div>
+      </ThemeProvider>
     </ListContextProvider>
   );
 };

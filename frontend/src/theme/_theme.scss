@@ -14,6 +14,8 @@ body[data-theme="light"] {
     --nav_bg : rgba(233, 207, 191, 0.733);
     --secondary_gradient : linear-gradient(180deg, rgb(238, 228, 222, 1) 0%,  rgb(238, 228, 222, 0.4) 30%, rgb(238, 228, 222, 0.15)  100%);
     --nav_icon : black;
+    --text_light : rgb(80, 78, 77);
+    --border_list : rgba(54, 54, 54, 0.2);
     --secondary_light : rgb()
 
 }
@@ -45,5 +47,7 @@ body[data-theme="dark"] {
     --input_lock_color : rgba(255, 255, 255, 0.5);
     --input_placeholder : rgba(218, 113, 21, 0.641);
     --transparent_bg : rgba(0,0,0,0.2);
+    --text_light : rgb(192, 187, 183);
+    --border_list : rgba(255, 255, 255, 0.2);
 
 }

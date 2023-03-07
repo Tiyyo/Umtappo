@@ -3,6 +3,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import TvOutlinedIcon from "@mui/icons-material/TvOutlined";
 import TheatersOutlinedIcon from "@mui/icons-material/TheatersOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import PersonPinIcon from "@mui/icons-material/PersonPin";
 import { ThemeProvider } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import Hamburger from "../hamburger/Hamburger";
@@ -43,6 +44,15 @@ const Navigation = (props) => {
           <NavLink to="/Favorites">
             <li>
               <FavoriteBorderOutlinedIcon color="primary" />
+            </li>
+          </NavLink>
+          <NavLink to="/Account">
+            <li>
+              <PersonPinIcon
+                color="primary"
+                size="large"
+                sx={{ backgroundColor: "transparent", fontSize: "1.8rem" }}
+              />
             </li>
           </NavLink>
         </ThemeProvider>

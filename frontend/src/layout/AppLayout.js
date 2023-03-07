@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Navigation from "../components/Navigation/Navigation";
 import SearchBar from "../components/SearchBar/SearchBar";
-import { Outlet, useLocation, Link } from "react-router-dom";
-import AccountIcon from "../components/Navigation/AccountIcon";
+import { Outlet, useLocation } from "react-router-dom";
+import BackIcon from "../components/Navigation/BackIcon";
 
 const AppLayout = () => {
   const [inputSearchValue, setInputSearchValue] = useState("");
@@ -10,8 +10,19 @@ const AppLayout = () => {
   const { pathname } = useLocation();
 
   const hideAccountIcon = () => {
-    if (pathname.includes("Account") || pathname.includes("add_to_playlist")) {
-      setShouldHide(true);
+    switch (pathname) {
+      case "/home":
+        setShouldHide(true);
+        break;
+      case "/films":
+        setShouldHide(true);
+        break;
+      case "/tvshow":
+        setShouldHide(true);
+        break;
+      default:
+        setShouldHide(false);
+        break;
     }
   };
 
@@ -28,7 +39,7 @@ const AppLayout = () => {
       <div className="header">
         <Navigation />
         <SearchBar getInputValue={getInputValue} />
-        {shouldHide ? "" : <AccountIcon />}
+        {shouldHide ? "" : <BackIcon />}
       </div>
       <Outlet context={inputSearchValue} />
     </div>

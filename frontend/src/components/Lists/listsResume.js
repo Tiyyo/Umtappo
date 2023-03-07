@@ -40,13 +40,6 @@ const FavoriteResume = () => {
   const { fetchContent: tvshowsLiked, loading: loadingFetchTvLiked } =
     useMediaId(tvshow_liked_ids, mediaTypeTvv);
 
-  console.log(
-    moviesLiked,
-    tvshowsLiked,
-    loadingFetchMoviesLiked,
-    loadingFetchTvLiked
-  );
-
   const handleLoadingState = () => {
     let arr = [loadingFetchMoviesLiked, loadingFetchTvLiked];
     return arr.every((l) => l === "idle");

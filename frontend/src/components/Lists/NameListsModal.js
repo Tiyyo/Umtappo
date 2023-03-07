@@ -42,15 +42,18 @@ const NameListsModal = (props) => {
   return (
     <div
       className="name-modal"
-      style={isOpen ? { opacity: 1 } : { opacity: 0 }}
+      style={isOpen ? { top: "50%" } : { top: "-100vh" }}
     >
-      <div
-        className="close-icon"
-        onClick={() => {
-          getCloseState(false);
-        }}
-      >
-        <CloseIcon />
+      <div className="name-modal__header">
+        <h2>Name your watchlist</h2>
+        <div
+          className="close-icon"
+          onClick={() => {
+            getCloseState(false);
+          }}
+        >
+          <CloseIcon />
+        </div>
       </div>
       <form onSubmit={(e) => handleSubmit(e)}>
         <input type="text" />

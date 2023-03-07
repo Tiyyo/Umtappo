@@ -68,12 +68,7 @@ const AnimatedRoutes = () => {
       });
   };
 
-  // const UsersRoute = (children, redirect) => {
-  //   return isAuth && isLoggedIn ? children : <Navigate to={redirect} replace />;
-  // };
-
   useEffect(() => {
-    console.log("page changed");
     dispatch(reset());
   }, [location]);
 

@@ -39,10 +39,7 @@ const MovieCard = (props) => {
             />
           </button>
         </div>
-        <Link
-          to={idString}
-          state={{ content, config, genreListMovie, genreListTv }}
-        >
+        <Link to={idString} state={{ content }}>
           <div className="movie-card__image--container">
             <p className="movie-card__image--container__type">
               {displayTypeIcon(content.type)}

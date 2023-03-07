@@ -8,7 +8,6 @@ import Synopsis from "../../components/MediaElement/Synopsis";
 import Attributes from "../../components/MediaElement/Attributes";
 import CallToAction from "../../components/MediaElement/CallToAction";
 import Video from "../../components/MediaElement/Video";
-import Header from "../../components/MediaElement/Header";
 
 const MediaElement = () => {
   //--- Destructuring
@@ -72,7 +71,6 @@ const MediaElement = () => {
     <>
       <div className="media-element" style={{ display: "flex" }}>
         <main className="card">
-          <Header />
           <Video content={content} videos={videos} loading={loading} />
           <CallToAction content={content} />
           <div className="card__title">{content.title || content.name}</div>

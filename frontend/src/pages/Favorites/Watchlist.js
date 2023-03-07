@@ -9,7 +9,7 @@ import ItemList from "../../components/Lists/ItemList";
 import HeaderResume from "../../components/Lists/HeaderResume";
 import { motion } from "framer-motion";
 
-const Watchlist = (props) => {
+const Watchlist = () => {
   const {
     state: {
       list: { content, name, _id: listID },
@@ -26,14 +26,12 @@ const Watchlist = (props) => {
   const { config } = useContext(AppContext);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { header_resume } = useSelector((state) => state.header_resume);
 
   const carousel = useRef();
 
   const [height, setHeight] = useState(0);
-  let firstContent = content[0];
 
   useEffect(() => {
     if (carousel?.current) {
@@ -42,9 +40,9 @@ const Watchlist = (props) => {
   });
 
   const pathImage = (hoveredEl, int) => {
-    return !Object.keys(header_resume).length === 0
-      ? config.base_url + config.poster_sizes[int] + hoveredEl[0].poster_path
-      : config.base_url + config.poster_sizes[int] + content[0].poster_path;
+    return Object.keys(header_resume).length === 0
+      ? config.base_url + config.poster_sizes[int] + content[0].poster_path
+      : config.base_url + config.poster_sizes[int] + hoveredEl.poster_path;
   };
 
   const header = () => {
@@ -55,13 +53,8 @@ const Watchlist = (props) => {
     );
   };
 
-  console.log(firstContent);
   return (
     <div className="list-container">
-      <div className="list-container__back-icon" onClick={() => navigate(-1)}>
-        <ArrowBackIcon />
-      </div>
-
       <div className="list-container__header">
         <h2 className="list-container__header--list-name">{name}</h2>
         <div className="list-container__header--image">
