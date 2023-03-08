@@ -161,7 +161,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgb(14, 13, 13);
+  // background-color: rgb(14, 13, 13);
+  background-color: var(--secondary);
   border: 1px solid var(--border_list);
   transition: ease 0.15s;
 
@@ -495,15 +496,16 @@
                     grid-template-columns: repeat( auto-fit, minmax(90px, 2fr));
                     gap: 1.5rem;
                     height: 100%;
-                    transition : all ease-in 0.6s;
+                    transition : all ease 0.2s;
                
                   }
                   &[data-view="list"] {
                     display: flex;
                     flex-direction: row;
                     gap: 1rem;
-                    transition : all ease-in 0.6s;
-                    flex-wrap: wrap;
+                    transition : all ease 0.2s;
+                    flex-wrap: nowrap;
+                    overflow-x: scroll;
               
                   }
                 }
@@ -520,6 +522,17 @@
   border-radius: 0.5rem;
   box-shadow: 0 4px 30px rgba(114, 114, 114, 0.1) ;
   flex-shrink: 1;
+
+
+  &__close-icon  {
+    align-self: flex-end;
+    padding-bottom: 0.1rem;
+    svg {
+      font-size: 1.05rem;
+      color: var(--primary_dark);
+    }
+  }
+
 
 
   &__poster  {

@@ -40,7 +40,7 @@ const useMediaId = (arrIds, type) => {
   const queries = useCallback(
     async (arrIds, type) => {
       let query = arrIds?.map((m) => {
-        return `https://api.themoviedb.org/3/${type}/${m[0].id}?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}`;
+        return `https://api.themoviedb.org/3/${type}/${m.id}?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}`;
       });
       return query;
     },

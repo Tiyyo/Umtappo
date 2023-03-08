@@ -27,12 +27,9 @@ const FavoriteResume = () => {
   const { lists: myLists, loading: loadingListState } = useSelector(
     (state) => state.lists
   );
-  const { likes: movies_liked_ids, loading: loadingMoviesState } = useSelector(
-    (state) => state.movieLiked
-  );
-  const { likes: tvshow_liked_ids, loading: loadingTvshowState } = useSelector(
-    (state) => state.tvshowLiked
-  );
+  const { ids: movies_liked_ids } = useSelector((state) => state.movieLiked);
+
+  const { ids: tvshow_liked_ids } = useSelector((state) => state.tvshowLiked);
 
   const { fetchContent: moviesLiked, loading: loadingFetchMoviesLiked } =
     useMediaId(movies_liked_ids, mediaTypeMovie);
@@ -57,10 +54,9 @@ const FavoriteResume = () => {
     view === gridView ? setView(listView) : setView(gridView);
   };
 
-  useEffect(() => {
-    const bool = handleLoadingState();
-    setGlobalLoading(!bool);
-  }, [loadingFetchMoviesLiked, loadingFetchTvLiked]);
+  const removeList = () => {};
+
+  useEffect(() => {}, [loadingFetchMoviesLiked, loadingFetchTvLiked]);
 
   return (
     <ThemeProvider theme={iconTheme}>
@@ -75,37 +71,22 @@ const FavoriteResume = () => {
                 <h2>My Favorites</h2>
               </div>
               <div className="likes-watchlists__container__likes--content">
-                <Link
-                  to={"movies_liked"}
-                  state={{
-                    list: {
-                      content: moviesLiked,
-                      name: "Movies you Liked",
-                      _id: "1",
-                    },
-                    typeList: "like",
+                <SmallCard
+                  list={{
+                    content: moviesLiked,
+                    name: "Movie you Liked",
+                    _id: "1",
                   }}
-                >
-                  <SmallCard
-                    list={{ content: moviesLiked, name: "Movie you Liked" }}
-                  />
-                </Link>
-
-                <Link
-                  to={"tvshows_liked"}
-                  state={{
-                    list: {
-                      content: tvshowsLiked,
-                      name: "TvShow you Liked",
-                      _id: "2",
-                    },
-                    typeList: "like",
+                  typeList={"like"}
+                />
+                <SmallCard
+                  list={{
+                    content: tvshowsLiked,
+                    name: "TvShow you Liked",
+                    _id: "2",
                   }}
-                >
-                  <SmallCard
-                    list={{ content: tvshowsLiked, name: "TvShow you Liked" }}
-                  />
-                </Link>
+                  typeList={"like"}
+                />
               </div>
             </div>
             <div className="likes-watchlists__container__watchlists">
@@ -132,12 +113,7 @@ const FavoriteResume = () => {
                   myLists.map((list) => {
                     return (
                       <div key={list._id}>
-                        <Link
-                          to={list.name}
-                          state={{ list, typeList: "watchlist" }}
-                        >
-                          <SmallCard list={list} />
-                        </Link>
+                        <SmallCard list={list} typeList={"whatchlist"} />
                       </div>
                     );
                   })}

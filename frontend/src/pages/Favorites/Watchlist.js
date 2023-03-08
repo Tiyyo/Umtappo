@@ -1,10 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import AppContext from "../../utils/Context/AppContextProvider";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteContent } from "../../features/watchlists/Slice/lists";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ItemList from "../../components/Lists/ItemList";
 import HeaderResume from "../../components/Lists/HeaderResume";
 import { motion } from "framer-motion";

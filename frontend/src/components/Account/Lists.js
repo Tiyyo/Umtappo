@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getLists } from "../../features/watchlists/Slice/lists";
-import { getMoviesLiked } from "../../features/movie liked/Slice/LikeMovie";
-import { getTvshowsLiked } from "../../features/tvshow liked/slice/LikeTvshow";
+import { getIdsMoviesLiked } from "../../features/movie liked/Slice/LikeMovie";
+import { getIdsTvshowsLiked } from "../../features/tvshow liked/slice/LikeTvshow";
 import useMediaId from "../../utils/hooks/useMediaId";
 import LoaderUI from "../Loader/LoaderUI";
 
@@ -29,20 +29,16 @@ const Lists = () => {
     "tv"
   );
 
-  console.log(tvshowLiked);
-
   useEffect(() => {
     let arrLoading = [loadingMovieLiked, loadingTvshowLiked];
-    console.log(loadingMovieLiked, loadingTvshowLiked);
     const state = arrLoading.every((el) => el === "idle");
-    console.log(!state);
     setGlobalLoading(!state);
   }, [loadingMovieLiked, loadingTvshowLiked]);
 
   useEffect(() => {
     disaptch(getLists(user_id));
-    disaptch(getMoviesLiked(user_id));
-    disaptch(getTvshowsLiked(user_id));
+    disaptch(getIdsMoviesLiked(user_id));
+    disaptch(getIdsTvshowsLiked(user_id));
   }, []);
 
   let numberLikedMovies = moviesLiked?.length;

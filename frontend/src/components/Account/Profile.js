@@ -37,7 +37,11 @@ const Profile = () => {
           <div className="username-icon">
             <AccountCircleIcon color="white" />
           </div>
-          <input type="text" value={userInfos.username} />
+          <input
+            type="text"
+            disabled={usernameIsLocked}
+            value={userInfos.username}
+          />
           <button type="button" onClick={toggleUsernameLock}>
             <EditIcon />
           </button>
@@ -49,7 +53,7 @@ const Profile = () => {
           <div className="email-icon">
             <EmailIcon color="white" />
           </div>
-          <input type="email" readOnly value={userInfos.email} />
+          <input type="email" value={userInfos.email} />
           <button type="button" onClick={toggleUsernameLock}>
             <EditIcon />
           </button>

@@ -1,34 +1,45 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const getTvshowsLiked = createAsyncThunk(
+export const getIdsTvshowsLiked = createAsyncThunk(
   "getTvshowsLiked",
   async (arg, { dispatch, getState }) => {
     const result = await axios
       .get("http://localhost:5000/like/tvshow/" + arg)
       .then((res) => {
-        dispatch(getTvshowsLikedSucces(res.data.tvshow_liked));
+        let arr = [];
+        res.data.tvshow_liked.map((r) => {
+          return r.map((l) => arr.push(l));
+        });
+        dispatch(getIdsTvshowsLikedSucces(arr));
       });
   }
 );
 
 const LikesSlice = createSlice({
   name: "tvshow_liked",
-  initialState: { likes: [] },
+  initialState: { ids: [], fetchMedia: [] },
   reducers: {
-    getTvshowsLikedSucces: (state, { payload }) => {
-      state.likes = payload;
+    getIdsTvshowsLikedSucces: (state, { payload }) => {
+      state.ids = payload;
     },
     likeTvshow: (state, { payload }) => {
-      console.log(payload);
-      state.likes.push(payload);
+      state.ids.push(payload);
     },
     dislikeTvshow: (state, { payload }) => {
-      state.likes = state.likes.filter((m) => m.id !== payload.id);
+      state.ids = state.likes.filter((m) => m.id !== payload.id);
+    },
+    getFetchTvshowLiked: (state, { payload }) => {
+      state.fetchMedia = "Content goes here";
     },
   },
 });
 
 const { actions, reducer } = LikesSlice;
-export const { likeTvshow, dislikeTvshow, getTvshowsLikedSucces } = actions;
+export const {
+  likeTvshow,
+  dislikeTvshow,
+  getIdsTvshowsLikedSucces,
+  getFetchTvshowLiked,
+} = actions;
 export default reducer;
