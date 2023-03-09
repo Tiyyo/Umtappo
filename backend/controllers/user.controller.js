@@ -116,7 +116,7 @@ module.exports.patchUsername = asyncHandler(async (req, res) => {
   const matchPassword = await bcrypt.compare(password, user.password);
   const query = { _id: user_id };
   const update = { $set: { username: newUsername } };
-  const options = { new: true };
+  const options = { new: true, rawResult: true };
 
   if (matchPassword) {
     const result = await Users.findOneAndUpdate(query, update);
@@ -155,16 +155,54 @@ module.exports.patchEmail = asyncHandler(async (req, res) => {
 
   const query = { _id: user_id };
   const update = { $set: { email: newEmail } };
+  const options = { rawResult: true };
 
   if (matchPassword) {
-    const result = await Users.findOneAndUpdate(query, update).then((res) =>
-      console.log(res.email)
+    const result = await Users.findOneAndUpdate(query, update, options).then(
+      (e) => {
+        if (e.lastErrorObject.updatedExisting) {
+          res.status(200).send("Email has been updated");
+        } else {
+          res.status(400).send("Something goes wrong");
+        }
+      }
     );
-
-    //   result.email === newEmail
-    //     ? res.status(200).send("Email has been updated")
-    //     : res.status(400).send("Something goes wrong");
+  } else {
+    res.status(401).send("Passwords doesn't match");
   }
 });
 
-module.exports.patchPassword = asyncHandler(async (req, res) => {});
+module.exports.patchPassword = asyncHandler(async (req, res) => {
+  const { user_id, newPassword, password } = req.body;
+
+  if (!user_id || !newPassword || !password) {
+    res.status(400).send("User id, newPassword or password is missing");
+    throw new Error("User id, newPassword or password is missing");
+  }
+
+  const user = await Users.findById(user_id);
+
+  if (!user) {
+    res.status(400).send("User id not found in database");
+  }
+
+  const matchPassword = await bcrypt.compare(password, user.password);
+  const newHashedPassword = await bcrypt.hash(newPassword, newPassword);
+  const query = { _id: user_id };
+  const update = { $set: { password: newHashedPassword } };
+  const options = { rawResult: true };
+
+  if (matchPassword) {
+    const res = await Users.findOneAndUpdate(query, update, options).then(
+      (e) => {
+        if (e.lastErrorObject.updatedExisting) {
+          res.status(200).send("Password has been updated");
+        } else {
+          res.status(400).send("Something goes wrong");
+        }
+      }
+    );
+  } else {
+    res.status(401).send("Passwords doesn't match");
+  }
+});

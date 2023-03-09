@@ -5,21 +5,28 @@ import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import UserContext from "../../utils/Context/UserContextProvider";
-import { theme } from "../../theme/IconTheme";
 import { ThemeProvider } from "@mui/material";
 import AppContext from "../../utils/Context/AppContextProvider";
+import ModalConfirmInfos from "./ModalConfirmInfos";
 
 const Profile = () => {
   const { userInfos } = useContext(UserContext);
   const { iconTheme } = useContext(AppContext);
+
   const [usernameIsLocked, setUsernameLocker] = useState(true);
   const [emailIsLocked, setEmailLocker] = useState(true);
   const [passwordIsLocked, setPasswordLocker] = useState(true);
+
+  const [usernameInputValue, setUsernameValue] = useState("");
+  const [emailInputValue, setEmailValue] = useState("");
+
   const [defaultValue, setDefaultValue] = useState({
     username: userInfos.username,
     email: userInfos.email,
     password: "NotAPassword",
   });
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleUsernameLock = () => {
     return usernameIsLocked
@@ -33,6 +40,10 @@ const Profile = () => {
     return passwordIsLocked
       ? setPasswordLocker(false)
       : setPasswordLocker(true);
+  };
+
+  const getCloseState = (state) => {
+    setIsOpen(state);
   };
 
   const handleUsername = (e) => {
@@ -49,6 +60,8 @@ const Profile = () => {
   return (
     <ThemeProvider theme={iconTheme}>
       <div className="profile">
+        <ModalConfirmInfos isOpen={isOpen} getCloseState={getCloseState} />
+        <div data-blur={isOpen ? "is-active" : ""} className="blur"></div>
         <form
           method="POST"
           className="aera username"
@@ -61,11 +74,12 @@ const Profile = () => {
             type="text"
             disabled={usernameIsLocked}
             defaultValue={defaultValue.username}
+            onChange={(e) => setUsernameValue(e.target.value)}
           />
           <button type="button" onClick={toggleUsernameLock}>
             <EditIcon />
           </button>
-          <button type="submit">
+          <button type="submit" onClick={() => setIsOpen(true)}>
             <DoneIcon />
           </button>
         </form>
@@ -77,6 +91,7 @@ const Profile = () => {
             type="email"
             disabled={emailIsLocked}
             defaultValue={userInfos.email}
+            onChange={(e) => setEmailValue(e.target.value)}
           />
           <button type="button" onClick={toggleEmailLock}>
             <EditIcon />

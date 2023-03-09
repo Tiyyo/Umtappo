@@ -69,8 +69,6 @@ const AddToPlaylist = () => {
     dispatch(getLists(userID));
   }, [userID]);
 
-  console.log(myLists);
-
   return (
     <ListContextProvider>
       <ThemeProvider theme={iconTheme}>
