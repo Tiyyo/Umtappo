@@ -15,6 +15,11 @@ const Profile = () => {
   const [usernameIsLocked, setUsernameLocker] = useState(true);
   const [emailIsLocked, setEmailLocker] = useState(true);
   const [passwordIsLocked, setPasswordLocker] = useState(true);
+  const [defaultValue, setDefaultValue] = useState({
+    username: userInfos.username,
+    email: userInfos.email,
+    password: "NotAPassword",
+  });
 
   const toggleUsernameLock = () => {
     return usernameIsLocked
@@ -30,31 +35,50 @@ const Profile = () => {
       : setPasswordLocker(true);
   };
 
+  const handleUsername = (e) => {
+    e.preventDefault();
+    // openModal();
+  };
+  const handleEmail = (e) => {
+    e.preventDefault();
+  };
+  const handlePassword = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <ThemeProvider theme={iconTheme}>
       <div className="profile">
-        <div className="aera username">
+        <form
+          method="POST"
+          className="aera username"
+          onSubmit={(e) => handleUsername(e)}
+        >
           <div className="username-icon">
             <AccountCircleIcon color="white" />
           </div>
           <input
             type="text"
             disabled={usernameIsLocked}
-            value={userInfos.username}
+            defaultValue={defaultValue.username}
           />
           <button type="button" onClick={toggleUsernameLock}>
             <EditIcon />
           </button>
-          <button type="button">
+          <button type="submit">
             <DoneIcon />
           </button>
-        </div>
+        </form>
         <div className="aera email">
           <div className="email-icon">
             <EmailIcon color="white" />
           </div>
-          <input type="email" value={userInfos.email} />
-          <button type="button" onClick={toggleUsernameLock}>
+          <input
+            type="email"
+            disabled={emailIsLocked}
+            defaultValue={userInfos.email}
+          />
+          <button type="button" onClick={toggleEmailLock}>
             <EditIcon />
           </button>
           <button type="button">
@@ -65,8 +89,12 @@ const Profile = () => {
           <div className="password">
             <LockIcon color="white" />
           </div>
-          <input type="password" readOnly value={"NotaPassword"} />
-          <button type="button" onClick={toggleUsernameLock}>
+          <input
+            type="password"
+            disabled={passwordIsLocked}
+            defaultValue={"NotaPassword"}
+          />
+          <button type="button" onClick={togglePasswordLock}>
             <EditIcon />
           </button>
           <button type="button">

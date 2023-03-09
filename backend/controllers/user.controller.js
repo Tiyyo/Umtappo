@@ -84,3 +84,87 @@ module.exports.currentUser = asyncHandler(async (req, res) => {
     password: user.password,
   });
 });
+
+//@desc Current user info
+//@route PATCH user/username
+//@acees public
+module.exports.patchUsername = asyncHandler(async (req, res) => {
+  const { newUsername, user_id, password } = req.body;
+
+  if (!newUsername || !user_id || !password) {
+    res.status(400).send("a new username, an user id or a password is missing");
+    throw new Error("a new username, an user id or a password is missing");
+  }
+
+  if (newUsername.length < 4 || newUsername.length > 20) {
+    res
+      .status(400)
+      .send(
+        "New Username should be 4 characters minimum and 20 characters maximun"
+      );
+    throw new Error(
+      "New Username should be 4 characters minimum and 20 characters maximun"
+    );
+  }
+  const user = await Users.findById(user_id);
+
+  if (!user) {
+    res.status(400).send("No user found");
+    throw new Error('No user found"');
+  }
+
+  const matchPassword = await bcrypt.compare(password, user.password);
+  const query = { _id: user_id };
+  const update = { $set: { username: newUsername } };
+  const options = { new: true };
+
+  if (matchPassword) {
+    const result = await Users.findOneAndUpdate(query, update);
+    result.username === newUsername
+      ? res.status(200).send("Username has been changed")
+      : res.status(400).send("Something goes wrong");
+  } else {
+    res.status(401).send("Unauthorized Action");
+    throw new Error("Unauthorized Action");
+  }
+});
+
+module.exports.patchEmail = asyncHandler(async (req, res) => {
+  const { newEmail, user_id, password } = req.body;
+
+  if (!newEmail || !user_id || !password) {
+    res.status(400).send("New Email, user_id or password is missing");
+    throw new Error("New Email, user_id or password is missing");
+  }
+
+  const isExistEmail = await Users.findOne({ email: newEmail });
+
+  if (isExistEmail) {
+    res.status(401).send("This email is already taken");
+    throw new Error("This email is already taken");
+  }
+
+  const user = await Users.findById(user_id);
+
+  if (!user) {
+    res.status(400).send("No User found");
+    throw new Error("No User found");
+  }
+
+  const matchPassword = await bcrypt.compare(password, user.password);
+
+  const query = { _id: user_id };
+  const update = { $set: { email: newEmail } };
+
+  if (matchPassword) {
+    const result = await Users.findOneAndUpdate(query, update).then((res) =>
+      console.log(res.email)
+    );
+
+    //   result.email === newEmail
+    //     ? res.status(200).send("Email has been updated")
+    //     : res.status(400).send("Something goes wrong");
+  }
+});
+
+module.exports.patchPassword = asyncHandler(async (req, res) => {});
