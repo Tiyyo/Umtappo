@@ -168,6 +168,8 @@ module.exports.patchEmail = asyncHandler(async (req, res) => {
 module.exports.patchPassword = asyncHandler(async (req, res) => {
   const { user_id, newPassword, password } = req.body;
 
+  console.log(user_id, newPassword, password);
+
   if (!user_id || !newPassword || !password) {
     res.status(400).send("User id, newPassword or password is missing");
     throw new Error("User id, newPassword or password is missing");

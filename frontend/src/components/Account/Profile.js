@@ -112,10 +112,6 @@ const Profile = () => {
 
   let add = "essai@gmail.co";
 
-  const validemail = isValidEmail(add);
-
-  console.log(validemail);
-
   return (
     <ThemeProvider theme={iconTheme}>
       <div className="profile">
