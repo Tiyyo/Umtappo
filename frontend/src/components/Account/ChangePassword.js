@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 
-const ModalConfirmInfos = (props) => {
+const ChangePassword = (props) => {
   const { isOpen, getCloseState } = props;
 
   const handleSomething = () => {
@@ -24,10 +24,14 @@ const ModalConfirmInfos = (props) => {
           <CloseIcon />
         </div>
       </div>
-      <input type="password" className="confirm-modal__input" />
+      <input
+        type="password"
+        className="confirm-modal__input__current--password"
+      />
+      <input type="password" className="confirm-modal__input__new-password" />
       <button
         className="confirm-modal__btn"
-        type="button"
+        type="submit"
         onClick={handleSomething}
       >
         Confirm
@@ -36,4 +40,4 @@ const ModalConfirmInfos = (props) => {
   );
 };
 
-export default ModalConfirmInfos;
+export default ChangePassword;

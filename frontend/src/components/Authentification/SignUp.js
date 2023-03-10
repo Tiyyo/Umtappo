@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import { createTheme, ThemeProvider } from "@mui/system";
+import { ThemeProvider } from "@mui/system";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -17,11 +17,42 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Link } from "react-router-dom";
 import ReportIcon from "@mui/icons-material/Report";
 import { motion } from "framer-motion";
+import AppContext from "../../utils/Context/AppContextProvider";
+
+export const userSchema = yup.object().shape({
+  username: yup
+    .string()
+    .min(3, "Username must contain at least 3 characters")
+    .required("Please this filed is required"),
+  email: yup
+    .string()
+    .email("This is not an email !")
+    .required("An email is required"),
+  password: yup
+    .string()
+    .min(8, "Password must contain at least 8 characters")
+    .max(24, "Passsword can't exceded 24 characters")
+    .required("You need to type a password")
+    .matches(/\w*[a-z]\w*/, "Must contain one lowercase")
+    .matches(/\w*[A-Z]\w*/, "Must contain one uppercase")
+    .matches(/\d/, "Must contain one number")
+    .matches(
+      /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/,
+      "Must containe one special character"
+    ),
+  confirmedPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required("You need to coinfirm your password"),
+});
 
 const SignUp = () => {
   const navigate = useNavigate();
+
   const [backendError, setBackendError] = useState("");
   const [isVisible, setIsVisible] = useState(false);
+
+  const { iconTheme } = useContext(AppContext);
 
   const showPassword = () => {
     setIsVisible(true);
@@ -30,50 +61,6 @@ const SignUp = () => {
   const hidePassword = () => {
     setIsVisible(false);
   };
-
-  const userSchema = yup.object().shape({
-    username: yup
-      .string()
-      .min(3, "Username must contain at least 3 characters")
-      .required("Please this filed is required"),
-    email: yup
-      .string()
-      .email("This is not an email !")
-      .required("An email is required"),
-    password: yup
-      .string()
-      .min(8, "Password must contain at least 8 characters")
-      .max(24, "Passsword can't exceded 24 characters")
-      .required("You need to type a password")
-      .matches(/\w*[a-z]\w*/, "Must contain one lowercase")
-      .matches(/\w*[A-Z]\w*/, "Must contain one uppercase")
-      .matches(/\d/, "Must contain one number")
-      .matches(
-        /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/,
-        "Must containe one special character"
-      ),
-    confirmedPassword: yup
-      .string()
-      .oneOf([yup.ref("password"), null], "Passwords must match")
-      .required("You need to coinfirm your password"),
-  });
-
-  const theme = createTheme({
-    palette: {
-      primary: {
-        light: "#ffbd45",
-        main: "#fb8c00",
-        dark: "#c25e00",
-        contrastText: "#000000",
-      },
-      secondary: {
-        light: "#484848",
-        main: "#121212",
-        dark: "#000000",
-        contrastText: "#ffffff",
-      },
-    },
-  });
 
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(userSchema),
@@ -88,7 +75,6 @@ const SignUp = () => {
         password: data?.password,
       })
       .then((res) => {
-        console.log(res.status, res.data);
         if (res.status === 200) {
           alert("You are now registered");
           toast.success("You are now registered", {
@@ -124,7 +110,7 @@ const SignUp = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={iconTheme}>
       <motion.div
         initial={{ width: 0 }}
         animate={{ width: "100%", transition: { duration: 0.3 } }}
@@ -142,11 +128,11 @@ const SignUp = () => {
         </div>
         <div className="social-signup">
           <button type="button" className="gmail_btn">
-            <FacebookIcon color="primary" />
+            <GoogleIcon color="primary" />
             <span>Google</span>
           </button>
           <button type="button" className="facebook_btn">
-            <GoogleIcon color="primary" />
+            <FacebookIcon color="primary" />
             <span>Facebook</span>
           </button>
         </div>

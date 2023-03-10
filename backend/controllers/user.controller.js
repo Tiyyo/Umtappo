@@ -89,11 +89,11 @@ module.exports.currentUser = asyncHandler(async (req, res) => {
 //@route PATCH user/username
 //@acees public
 module.exports.patchUsername = asyncHandler(async (req, res) => {
-  const { newUsername, user_id, password } = req.body;
+  const { newUsername, user_id } = req.body;
 
-  if (!newUsername || !user_id || !password) {
-    res.status(400).send("a new username, an user id or a password is missing");
-    throw new Error("a new username, an user id or a password is missing");
+  if (!newUsername || !user_id) {
+    res.status(400).send("a new username or an user id is missing");
+    throw new Error("a new username or an user id is missing");
   }
 
   if (newUsername.length < 4 || newUsername.length > 20) {
@@ -107,34 +107,32 @@ module.exports.patchUsername = asyncHandler(async (req, res) => {
     );
   }
   const user = await Users.findById(user_id);
-
-  if (!user) {
-    res.status(400).send("No user found");
-    throw new Error('No user found"');
-  }
-
-  const matchPassword = await bcrypt.compare(password, user.password);
   const query = { _id: user_id };
   const update = { $set: { username: newUsername } };
   const options = { new: true, rawResult: true };
 
-  if (matchPassword) {
-    const result = await Users.findOneAndUpdate(query, update);
-    result.username === newUsername
-      ? res.status(200).send("Username has been changed")
-      : res.status(400).send("Something goes wrong");
+  if (!user) {
+    res.status(400).send("No user found");
+    throw new Error('No user found"');
   } else {
-    res.status(401).send("Unauthorized Action");
-    throw new Error("Unauthorized Action");
+    const result = await Users.findOneAndUpdate(query, update, options).then(
+      (e) => {
+        if (e.lastErrorObject.updatedExisting) {
+          res.status(200).send("Username has been updated");
+        } else {
+          res.status(400).send("Something goes wrong");
+        }
+      }
+    );
   }
 });
 
 module.exports.patchEmail = asyncHandler(async (req, res) => {
-  const { newEmail, user_id, password } = req.body;
+  const { newEmail, user_id } = req.body;
 
-  if (!newEmail || !user_id || !password) {
-    res.status(400).send("New Email, user_id or password is missing");
-    throw new Error("New Email, user_id or password is missing");
+  if (!newEmail || !user_id) {
+    res.status(400).send("New Email or user_id is missing");
+    throw new Error("New Email or user_id is missing");
   }
 
   const isExistEmail = await Users.findOne({ email: newEmail });
@@ -146,29 +144,24 @@ module.exports.patchEmail = asyncHandler(async (req, res) => {
 
   const user = await Users.findById(user_id);
 
-  if (!user) {
-    res.status(400).send("No User found");
-    throw new Error("No User found");
-  }
-
-  const matchPassword = await bcrypt.compare(password, user.password);
-
   const query = { _id: user_id };
   const update = { $set: { email: newEmail } };
   const options = { rawResult: true };
 
-  if (matchPassword) {
+  if (!user) {
+    res.status(400).send("No User found");
+    throw new Error("No User found");
+  } else {
     const result = await Users.findOneAndUpdate(query, update, options).then(
       (e) => {
         if (e.lastErrorObject.updatedExisting) {
           res.status(200).send("Email has been updated");
+          console.log(e);
         } else {
           res.status(400).send("Something goes wrong");
         }
       }
     );
-  } else {
-    res.status(401).send("Passwords doesn't match");
   }
 });
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Navigation from "../components/Navigation/Navigation";
 import SearchBar from "../components/SearchBar/SearchBar";
 import { Outlet, useLocation } from "react-router-dom";
@@ -34,8 +34,10 @@ const AppLayout = () => {
     hideAccountIcon();
   }, [pathname]);
 
+  const mainContainer = useRef();
+
   return (
-    <div className="app__container">
+    <div className="app__container" ref={mainContainer}>
       <div className="header">
         <Navigation />
         <SearchBar getInputValue={getInputValue} />
