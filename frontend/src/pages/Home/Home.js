@@ -10,6 +10,7 @@ import FavoriteGenre from "../../components/Container/FavoriteGenre";
 import { HomeContextProvider } from "../../utils/Context/HomeContextProvider";
 import { useCallback } from "react";
 import AppContext from "../../utils/Context/AppContextProvider";
+import { useOutletContext } from "react-router";
 
 const Home = () => {
   let currentDate = new Date();
@@ -121,13 +122,17 @@ const Home = () => {
     updatelLoading();
   }, loadsArray);
 
+  const { mainRef } = useOutletContext();
+
+  console.log(mainRef);
+
   return (
     <HomeContextProvider>
-      <div className="app" ref={ref}>
+      <HeaderHome content={playingNowMovie} />
+      <Spacer />
+      <div className="app">
         {loading ? (
-          <div className="main">
-            <HeaderHome content={playingNowMovie} />
-            <Spacer />
+          <div className="main" ref={mainRef}>
             <div>
               <HonrizontalCarousel
                 content={lastReleaseAll}

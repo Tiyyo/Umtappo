@@ -33,9 +33,9 @@ const HeaderHome = (props) => {
     <div className="home-image">
       <img
         src={
-          config.base_url +
-          config.poster_sizes[4] +
-          content[posterToDisplay].poster_path
+          config?.base_url +
+          config?.poster_sizes[4] +
+          content[posterToDisplay]?.poster_path
         }
         alt="poster"
         ref={image}

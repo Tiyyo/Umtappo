@@ -8,6 +8,18 @@ const AppLayout = () => {
   const [inputSearchValue, setInputSearchValue] = useState("");
   const [shouldHide, setShouldHide] = useState(false);
   const { pathname } = useLocation();
+  const main = document.querySelector(".main");
+
+  const options = {};
+
+  const observer = new IntersectionObserver(([entry]) => {
+    console.log(entry);
+  }, options);
+
+  const mainRef = useRef();
+  useEffect(() => {
+    // observer.observe(main);
+  }, []);
 
   const hideAccountIcon = () => {
     switch (pathname) {
@@ -35,15 +47,16 @@ const AppLayout = () => {
   }, [pathname]);
 
   const mainContainer = useRef();
+  console.log(mainRef);
 
   return (
-    <div className="app__container" ref={mainContainer}>
+    <div className="app__container">
       <div className="header">
         <Navigation />
         <SearchBar getInputValue={getInputValue} />
         {shouldHide ? "" : <BackIcon />}
       </div>
-      <Outlet context={inputSearchValue} />
+      <Outlet context={(inputSearchValue, mainRef)} />
     </div>
   );
 };

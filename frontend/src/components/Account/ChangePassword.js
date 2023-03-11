@@ -11,31 +11,35 @@ const ChangePassword = (props) => {
 
   const { userID } = useContext(UserContext);
 
-  const passwordSchema = yup.object().shape({
-    oldPassword: yup.string(),
-    newPassword: yup
-      .string()
-      .min(8, "Password must contain at least 8 characters")
-      .max(24, "Passsword can't exceded 24 characters")
-      .required("You need to type a password")
-      .matches(/\w*[a-z]\w*/, "Must contain one lowercase")
-      .matches(/\w*[A-Z]\w*/, "Must contain one uppercase")
-      .matches(/\d/, "Must contain one number")
-      .matches(
-        /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/,
-        "Must containe one special character"
-      ),
-  });
+  const passwordSchema = yup
+    .object()
+    .shape({
+      oldPassword: yup.string().required(),
+      newPassword: yup
+        .string()
+        .min(8, "Password must contain at least 8 characters")
+        .max(24, "Passsword can't exceded 24 characters")
+        .required("You need to type a password")
+        .matches(/\w*[a-z]\w*/, "Must contain one lowercase")
+        .matches(/\w*[A-Z]\w*/, "Must contain one uppercase")
+        .matches(/\d/, "Must contain one number")
+        .matches(
+          /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/,
+          "Must containe one special character"
+        ),
+    })
+    .required();
 
   const {
     register,
     handleSubmit,
-    formState: { error, isSubmitting },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(passwordSchema),
   });
 
   const submitNewPassword = async (data) => {
+    console.log(data);
     let body = {
       user_id: userID,
       newPassword: data?.newPassword,
@@ -44,11 +48,23 @@ const ChangePassword = (props) => {
 
     console.log("working ?");
 
-    axios
+    await axios
       .patch("http://localhost:5000/user/password" + body)
       .then((res) => console.log(res));
     //
   };
+
+  const submit = (d) => {
+    console.log(d);
+    console.log("working submit");
+  };
+
+  // resolver: async (data, context, options) => {
+  //   // you can debug your validation schema here
+  //   console.log('formData', data)
+  //   console.log('validation result', await anyResolver(schema)(data, context, options))
+  //   return anyResolver(schema)(data, context, options)
+  // },
 
   return (
     <div
@@ -69,9 +85,7 @@ const ChangePassword = (props) => {
 
       <form
         onSubmit={(e) => {
-          e.preventDefault();
-          console.log(e);
-          return handleSubmit(submitNewPassword);
+          //
         }}
       >
         <div className="old-password">
@@ -79,20 +93,26 @@ const ChangePassword = (props) => {
             type="password"
             className="confirm-modal__input__current--password"
             name="oldPassword"
-            {..."oldPasswword"}
+            autoComplete="false"
+            {...register("oldPassword")}
           />
         </div>
-        <div className="old-password__error"></div>
+        <div className="old-password__error">{errors.oldPassword}</div>
         <div className="new-password">
           <input
             type="password"
             className="confirm-modal__input__new-password"
             name="newPassword"
+            autoComplete="false"
             {...register("newPassword")}
           />
+          <div className="new-password__error">{errors.newPassword}</div>
         </div>
-        <div className="new-password__error"></div>
-        <button className="confirm-modal__btn" type="submit">
+        <button
+          className="confirm-modal__btn"
+          type="submit"
+          onSubmit={handleSubmit(submitNewPassword)}
+        >
           Confirm
         </button>
       </form>

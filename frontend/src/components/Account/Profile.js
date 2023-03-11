@@ -173,6 +173,7 @@ const Profile = () => {
             type="password"
             disabled={passwordIsLocked}
             defaultValue={"NotaPassword"}
+            autoComplete="false"
           />
           <button type="button" onClick={() => openModal()}>
             <EditIcon />

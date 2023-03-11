@@ -39,6 +39,7 @@ const FavoriteResume = () => {
 
   const handleLoadingState = () => {
     let arr = [loadingFetchMoviesLiked, loadingFetchTvLiked];
+    console.log(arr);
     return arr.every((l) => l === "idle");
   };
 
@@ -56,7 +57,14 @@ const FavoriteResume = () => {
 
   const removeList = () => {};
 
-  useEffect(() => {}, [loadingFetchMoviesLiked, loadingFetchTvLiked]);
+  useEffect(() => {
+    const bool = handleLoadingState();
+    if (bool) {
+      setGlobalLoading(true);
+    } else {
+      setGlobalLoading(false);
+    }
+  }, [loadingFetchMoviesLiked, loadingFetchTvLiked]);
 
   return (
     <ThemeProvider theme={iconTheme}>
