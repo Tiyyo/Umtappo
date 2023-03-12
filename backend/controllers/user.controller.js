@@ -168,7 +168,7 @@ module.exports.patchEmail = asyncHandler(async (req, res) => {
 module.exports.patchPassword = asyncHandler(async (req, res) => {
   const { user_id, newPassword, password } = req.body;
 
-  console.log(user_id, newPassword, password);
+  console.log(password, newPassword);
 
   if (!user_id || !newPassword || !password) {
     res.status(400).send("User id, newPassword or password is missing");
@@ -181,14 +181,19 @@ module.exports.patchPassword = asyncHandler(async (req, res) => {
     res.status(400).send("User id not found in database");
   }
 
+  console.log(user.password);
+
   const matchPassword = await bcrypt.compare(password, user.password);
-  const newHashedPassword = await bcrypt.hash(newPassword, newPassword);
+
+  console.log(matchPassword);
+
+  const newHashedPassword = await bcrypt.hash(newPassword, 10);
   const query = { _id: user_id };
   const update = { $set: { password: newHashedPassword } };
   const options = { rawResult: true };
 
   if (matchPassword) {
-    const res = await Users.findOneAndUpdate(query, update, options).then(
+    const result = await Users.findOneAndUpdate(query, update, options).then(
       (e) => {
         if (e.lastErrorObject.updatedExisting) {
           res.status(200).send("Password has been updated");

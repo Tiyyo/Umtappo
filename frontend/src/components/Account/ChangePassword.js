@@ -5,66 +5,60 @@ import { useForm } from "react-hook-form";
 import UserContext from "../../utils/Context/UserContextProvider";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const ChangePassword = (props) => {
   const { isOpen, getCloseState } = props;
 
   const { userID } = useContext(UserContext);
 
-  const passwordSchema = yup
-    .object()
-    .shape({
-      oldPassword: yup.string().required(),
-      newPassword: yup
-        .string()
-        .min(8, "Password must contain at least 8 characters")
-        .max(24, "Passsword can't exceded 24 characters")
-        .required("You need to type a password")
-        .matches(/\w*[a-z]\w*/, "Must contain one lowercase")
-        .matches(/\w*[A-Z]\w*/, "Must contain one uppercase")
-        .matches(/\d/, "Must contain one number")
-        .matches(
-          /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/,
-          "Must containe one special character"
-        ),
-    })
-    .required();
+  const passwordSchema = yup.object().shape({
+    password: yup.string().required(),
+    newPassowrd: yup
+      .string()
+      .min(8, "Password must contain at least 8 characters")
+      .max(24, "Passsword can't exceded 24 characters")
+      .required("You need to type a password")
+      .matches(/\w*[a-z]\w*/, "Must contain one lowercase")
+      .matches(/\w*[A-Z]\w*/, "Must contain one uppercase")
+      .matches(/\d/, "Must contain one number")
+      .matches(
+        /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/,
+        "Must containe one special character"
+      ),
+  });
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting, errors },
   } = useForm({
-    resolver: yupResolver(passwordSchema),
+    mode: "onSubmit",
+    resolvers: yupResolver(passwordSchema),
+    defaultValues: {
+      password: "",
+      newPassword: "",
+    },
   });
 
-  const submitNewPassword = async (data) => {
-    console.log(data);
+  const submitPasswords = async (data) => {
     let body = {
+      password: data.password,
+      newPassword: data.newPassword,
       user_id: userID,
-      newPassword: data?.newPassword,
-      password: data?.oldPassword,
     };
-
-    console.log("working ?");
-
     await axios
-      .patch("http://localhost:5000/user/password" + body)
-      .then((res) => console.log(res));
-    //
+      .patch("http://localhost:5000/user/password", body)
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success(res.data);
+          getCloseState(false);
+        }
+      })
+      .catch((err) => {
+        toast.error(err.response.data);
+      });
   };
-
-  const submit = (d) => {
-    console.log(d);
-    console.log("working submit");
-  };
-
-  // resolver: async (data, context, options) => {
-  //   // you can debug your validation schema here
-  //   console.log('formData', data)
-  //   console.log('validation result', await anyResolver(schema)(data, context, options))
-  //   return anyResolver(schema)(data, context, options)
-  // },
 
   return (
     <div
@@ -82,40 +76,37 @@ const ChangePassword = (props) => {
           <CloseIcon />
         </div>
       </div>
-
-      <form
-        onSubmit={(e) => {
-          //
-        }}
-      >
-        <div className="old-password">
+      <div className="change-password">
+        <form
+          onSubmit={handleSubmit(submitPasswords)}
+          className="change-password__form"
+        >
           <input
             type="password"
-            className="confirm-modal__input__current--password"
-            name="oldPassword"
-            autoComplete="false"
-            {...register("oldPassword")}
+            name="password"
+            className="change-password__form-input"
+            {...register("password")}
           />
-        </div>
-        <div className="old-password__error">{errors.oldPassword}</div>
-        <div className="new-password">
+          <div
+            style={{ height: "20px" }}
+            className="change-password__form-error"
+          >
+            {errors?.password}
+          </div>
           <input
             type="password"
-            className="confirm-modal__input__new-password"
-            name="newPassword"
-            autoComplete="false"
+            name="newPassowrd"
+            className="change-password__form-input"
             {...register("newPassword")}
           />
-          <div className="new-password__error">{errors.newPassword}</div>
-        </div>
-        <button
-          className="confirm-modal__btn"
-          type="submit"
-          onSubmit={handleSubmit(submitNewPassword)}
-        >
-          Confirm
-        </button>
-      </form>
+          <div className="change-password__form-error">
+            {errors?.newPassword}
+          </div>
+          <button type="submit" disabled={isSubmitting}>
+            Confirmer
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
