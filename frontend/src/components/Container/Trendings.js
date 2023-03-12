@@ -7,8 +7,8 @@ import BannerCard from "../Cards/BannerCard";
 import { Link } from "react-router-dom";
 import LoaderUI from "../Loader/LoaderUI";
 
-const Trendings = (props) => {
-  const { content, title } = props;
+const Trendings = ({content , title}) => {
+//   const { content, title } = props;
 
   return (
     <div className="banner--container">
