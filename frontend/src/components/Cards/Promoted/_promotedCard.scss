@@ -1,0 +1,83 @@
+.promoted-card  {
+    position: relative;
+    display: grid;
+    box-shadow: 0px 0px 15px 2px rgba(104, 104, 104, 0.250);
+    height: 250px;
+    width: fit-content;
+    min-width: 330px;
+    max-width: 455px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: var(--secondary);
+
+    &__banner {
+        position: relative;
+        z-index: 1;
+        border-radius: 6px;
+        overflow: hidden;
+        height: 57%;
+        img {
+            width: 100%;
+            object-fit: contain;
+            object-position : 0px -50px;
+        }
+    }
+    &__poster {
+        height: fit-content;
+        width: fit-content;
+        position: absolute;
+        z-index: 3;
+        bottom: 40px;
+        left: 20px;
+        border-radius: 9px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    &__infos  {
+        position: absolute;
+        z-index: 2;
+        width: 70% ;
+        height: 50%;
+        max-height: 50%;
+        padding: 5px 15px;
+        font-size: 0.7rem;
+        right: 0 ;
+        top: 51%;
+        // transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        overflow: hidden;
+        row-gap: 7px;
+
+        &--title {
+            font-size: 1rem;
+        }
+
+        &--synopsis {
+            max-height: 42px;
+            overflow: hidden;
+            line-height: 1.2;
+        }
+
+        &__details  {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 5px 0;
+
+            &--type  {
+                flex: 1 1 20%;
+                text-transform: uppercase;
+                padding: 0 5px;
+            }
+            &--year  {
+                flex: 6 1 60%;
+
+            }
+            &--score  {
+                flex:  1 1 10%;
+            }
+        }
+    }
+}

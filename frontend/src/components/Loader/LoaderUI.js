@@ -1,10 +1,13 @@
 import React from "react";
 import { CircularProgress } from "@mui/material";
+import Overlay from "../Overlay/Overlay";
 
-const LoaderUI = () => {
+const LoaderUI = ({ size }) => {
   return (
     <div className="loading">
-      <CircularProgress sx={{ color: "#fb8c00" }} />
+      <Overlay>
+        <CircularProgress size={size} sx={{ color: "#fb8c00" }} />
+      </Overlay>
     </div>
   );
 };

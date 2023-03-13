@@ -1,0 +1,24 @@
+.horizontal-carousel {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    overflow: hidden;
+    padding: 0 0 5px 0;
+
+    h2 {
+        @include titleContainer;
+        padding: 0.5rem;
+    }
+    &__outer {
+        cursor:grab;
+        overflow: hidden;
+        display: flex;
+
+    &__inner {
+        display: flex;
+        flex-wrap: nowrap;
+        column-gap: 15px;
+        padding: 1rem 1.5rem;
+        }
+    }
+}

@@ -1,0 +1,21 @@
+.log  {
+    font-family: 'Lato', serif;
+    min-height: 100vh;
+    background-color: var(--secondary);
+    position: relative;
+    @include center;
+
+    &__logo  {
+        max-width: 40vw;
+        position: absolute;
+        opacity: 1;
+        top: 6vh;
+
+        h1 {
+            font-family: 'Black Ravens';
+            font-size: 5rem;
+            color: var(--primary);
+        } 
+    }
+
+}

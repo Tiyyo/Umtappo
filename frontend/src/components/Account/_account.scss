@@ -73,33 +73,7 @@
         text-transform: capitalize;
         
     }
-    .menu  {
-        padding: 2vh 1vh 2vh 1vh;
-        display: flex;
-        flex-direction: column;
-        row-gap: 20px;
 
-        .link  {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.3rem 20px ;
-            border: 2px solid rgba(227, 112, 30, 0.087);
-            border-radius: 27px;
-            background-color: var(--menu_link);
-            color: var(--text);
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            box-shadow: 3px 2px 5px 2px rgba(255,255,255,0.05) ;
-
-            button {
-                cursor: pointer;
-                border: none;
-                background-color: transparent;
-                color: var(--text);
-            }
-        }
-    }
     .logout {
         display: flex;
         align-items: center;
@@ -167,60 +141,7 @@
       }
 }
 
-.confirm-modal { 
-    position: absolute;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    aspect-ratio: 2/1;
-    width: 60vw;
-    max-width: 250px;
-    border-radius: 0.7rem;
-    top: 10%;
-    left: 50%;
-    transform: translate( -50%, 0);
-    // background-color: rgb(14, 13, 13);
-    background-color: var(--secondary);
-    border: 1px solid var(--border_list);
-    transition: ease 0.15s;
-  
-    &__header  {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 2% 4% 4% 4%; 
-      border-bottom: 1px solid var(--border_list);
-  
-      h2  {
-        font-size: 0.8rem;
-        color: var(--text_light);
-      }
-      .close-icon  {
-        color: var(--primary_dark);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-  
-        svg {
-          font-size: 1.3rem;
-        }
-      }
-    }
-    
-        input  {
-          @include input;
-          width: 80%;
-        }
-  
-    form {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding-top: 15px;
-    }
-  
-  }
+
 
 .preference  {
     padding: 2rem 15px;

@@ -1,0 +1,39 @@
+.home-page  {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 40px;
+    opacity: 1;
+
+    &__btn--signin  {
+       @include baseButton;
+       width: 50vw;
+       background-color: var(--primary);
+       border: 1px solid var(--secondary);
+       color: var(--secondary);
+
+       &::before  {
+        content : "Already a Member ?";
+        font-size: 0.7rem;
+        font-weight: 400;
+        letter-spacing: 0;
+        width: 100%;
+        text-transform: none;
+        position: absolute;
+        color: var(--text);
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    }
+    &__btn--signup  {
+        @include baseButton;
+        background-color: var(--input_bg);
+        border: 2px solid var(--primary);
+        color: var(--text);
+        width: 50vw;
+    }
+
+}

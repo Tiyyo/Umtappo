@@ -55,7 +55,7 @@ const Video = (props) => {
 
   return (
     <div
-      className="card__trailer-container"
+      className="media-element__trailer-container"
       style={contentPresence ? { height: "fit-content" } : { height: "0" }}
     >
       {handleImageBehavior()}

@@ -1,0 +1,29 @@
+.signin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .back-icon  {
+        @include backIcon
+    }
+
+    .signin-form  {
+
+        @include form ;
+
+        .inputWrapper {
+            width: 100%;
+        }
+
+        .password-recuperation-link  {
+            font-size: 0.9rem;
+            color: var(--primary_dark);
+        }
+    }
+    .link-to-signup  {
+        @include bottomLink;
+    }
+
+
+}

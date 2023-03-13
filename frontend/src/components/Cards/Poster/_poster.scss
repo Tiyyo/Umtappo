@@ -1,0 +1,80 @@
+.movie-card  {
+    font-family: 'Merriweather', serif;
+    background-color: rgba(0, 0, 0, 0.15);
+    // box-shadow: 0 0 5px 1px rgba(190, 158, 116, 0.1);
+    border-radius: 9px;
+    min-width: 100px;
+    height: auto; 
+    overflow: hidden;
+    list-style-type: none;
+    position: relative;
+
+    &__header  {
+        display: flex;
+        justify-content: space-between;
+        background-color: transparent;
+        height: 0px;
+
+        &__like-icon {
+            border: 0;
+            background-color: transparent;
+            position: absolute;
+
+        }
+        &__rating  {
+            position: absolute;
+            z-index: 2;
+            top: -4px;
+            left: -4px;
+        }
+
+    }
+
+    &__image--container  {
+        position: relative;
+
+        &__type  {
+            position: absolute;
+            bottom: 2px;
+            left: 1px;
+            color: $white;
+            mix-blend-mode: difference;
+        }
+
+
+        &__default--image  {
+            height: auto;
+            width: 100%;
+            aspect-ratio: 2/3;
+            display: grid;
+            place-items: center;
+        }
+
+    }
+    &__title  {
+        color: $white;
+        font-size: 0.5rem;
+        font-weight: 700;
+        padding: 0.25rem;
+    }
+
+
+    img {
+        aspect-ratio: 2/3;
+        height: auto;
+        width: 100%;
+        object-fit: fill;
+        // box-shadow: 0px -40px 60px 0px rgba(255, 255, 255, 0.414);
+
+    }
+
+    &__infos  {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.3rem 0.3rem;
+    }
+
+    
+
+}

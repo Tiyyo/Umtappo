@@ -1,0 +1,52 @@
+.trends {
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+    padding: 2rem 0;
+    font-family: 'Merriweather', serif;
+    
+    h2 {
+      @include titleContainer;
+      padding: 1rem 0 1rem 0.5rem;
+    }
+    &__swiper {
+        width: 100vw;
+        height: auto;
+        font-size: 1.2rem;
+      }
+
+  }
+  .swiper-slide {
+    position: relative;
+    height: auto;
+    text-align: center;
+    font-size: 18px;
+    background: transparent;
+  
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    flex-direction: column;
+  
+    p {
+      padding: 3rem 2rem;
+      color: white;
+      flex: 1 1 10%;
+    }
+  
+    .not-avaiable-icon  {
+      flex: 2 1 80%;
+    }
+    
+  }
+  

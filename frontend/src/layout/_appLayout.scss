@@ -1,0 +1,51 @@
+.app  {
+    background-color: var(--secondary);
+    min-height: 100vh;
+    padding-bottom: 50px;
+
+
+
+    .main  {
+        padding-top: $heightheader;
+ 
+    }
+    
+}
+h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 3rem;
+
+}
+
+
+
+.genre-list  {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    overflow: hidden;
+    padding: 0 0 15px 0;
+    
+    h2 {
+        font-family: 'Merriweather', serif;
+        letter-spacing: 1px;
+        color: $white;
+        font-size: 1.8rem;
+        font-weight: 700;
+        padding: 0.5rem;
+    }
+
+    .outer-cards-container {
+        cursor:grab;
+        overflow: hidden;
+        display: flex;
+
+    .cards-container  {
+        display: flex;
+        flex-wrap: nowrap;
+        column-gap: 15px;
+        padding: 1rem 1.5rem;
+        }
+    }
+}
+

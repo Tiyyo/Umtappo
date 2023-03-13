@@ -64,7 +64,11 @@ const Casts = (props) => {
     );
   };
 
-  return <div className="card__casting">{credits ? displayCasts() : ""}</div>;
+  return (
+    <div className="media-element__casting">
+      {credits ? displayCasts() : ""}
+    </div>
+  );
 };
 
 export default Casts;

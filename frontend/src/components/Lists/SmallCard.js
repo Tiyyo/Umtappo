@@ -1,17 +1,11 @@
-import React, {
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-  useEffect,
-} from "react";
+import React, { useCallback, useContext, useState, useEffect } from "react";
 import AppContext from "../../utils/Context/AppContextProvider";
 import LoaderUI from "../Loader/LoaderUI";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { deleteList } from "../../features/watchlists/Slice/lists";
+import { deleteList } from "../../features/watchlists/Slice/lists.slice";
 
 const SmallCard = (props) => {
   const { list, typeList } = props;

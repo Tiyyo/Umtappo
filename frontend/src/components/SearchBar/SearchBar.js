@@ -11,8 +11,8 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import AppContext from "../../utils/Context/AppContextProvider";
 
-const SearchBar = (props) => {
-  const { getInputValue } = props;
+const SearchBar = ({ getInputValue }) => {
+  // const { getInputValue } = props;
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [searchActive, setSearchActive] = useState(false);

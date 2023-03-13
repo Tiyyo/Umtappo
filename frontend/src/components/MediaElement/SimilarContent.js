@@ -30,7 +30,9 @@ const SimilarContent = (props) => {
     }
   };
   return (
-    <div className="card__similar--content">{displaySimilarContent()}</div>
+    <div className="media-element__similar--content">
+      {displaySimilarContent()}
+    </div>
   );
 };
 

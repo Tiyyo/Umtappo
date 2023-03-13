@@ -9,17 +9,20 @@ import AppContext from "../../utils/Context/AppContextProvider";
 import {
   likeMovie,
   dislikeMovie,
-} from "../../features/movie liked/Slice/LikeMovie";
+} from "../../features/movie liked/Slice/likes.slice";
 import {
   likeTvshow,
   dislikeTvshow,
-} from "../../features/tvshow liked/slice/LikeTvshow";
+} from "../../features/tvshow liked/slice/like.slice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import useIsLiked from "./useIsLiked";
+import UserContext from "../../utils/Context/UserContextProvider";
 
 const CallToAction = (props) => {
   const { content } = props;
   const { iconTheme } = useContext(AppContext);
+  const { userID } = useContext(UserContext);
 
   const [isLiked, setIsLiked] = useState(false);
 
@@ -82,23 +85,29 @@ const CallToAction = (props) => {
     }
   }, [isLiked]);
 
+  const data = useIsLiked(content.type, userID, content.id);
+
+  useEffect(() => {
+    console.log(data);
+  }, []);
+
   return (
-    <div className="card__call-to-action">
+    <div className="media-element__call-to-action">
       <ThemeProvider theme={iconTheme}>
         <div
-          className="card__call-to-action__favorite"
+          className="media-element__call-to-action__favorite"
           onClick={() => {
             addToFavorite();
           }}
         >
           {isLiked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
         </div>
-        <div className="card__call-to-action__add-to">
+        <div className="media-element__call-to-action__add-to">
           <Link to="add_to_playlist" state={{ content }}>
             <AddIcon />
           </Link>
         </div>
-        <div className="card__call-to-action__share">
+        <div className="media-element__call-to-action__share">
           <ShareIcon />
         </div>
       </ThemeProvider>

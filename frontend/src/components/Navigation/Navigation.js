@@ -11,7 +11,6 @@ import AppContext from "../../utils/Context/AppContextProvider";
 
 const Navigation = (props) => {
   const [openMenu, setOpenMenu] = useState(false);
-
   const { iconTheme } = useContext(AppContext);
 
   const getHamburgerState = (state) => {

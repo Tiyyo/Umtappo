@@ -8,13 +8,13 @@ const AppLayout = () => {
   const [inputSearchValue, setInputSearchValue] = useState("");
   const [shouldHide, setShouldHide] = useState(false);
   const { pathname } = useLocation();
-  const main = document.querySelector(".main");
+  // const main = document.querySelector(".main");
 
-  const options = {};
+  // const options = {};
 
-  const observer = new IntersectionObserver(([entry]) => {
-    console.log(entry);
-  }, options);
+  // const observer = new IntersectionObserver(([entry]) => {
+  //   console.log(entry);
+  // }, options);
 
   const mainRef = useRef();
   useEffect(() => {
@@ -57,6 +57,7 @@ const AppLayout = () => {
         {shouldHide ? "" : <BackIcon />}
       </div>
       <Outlet context={(inputSearchValue, mainRef)} />
+      <footer className="footer">TMDB Logo goes here</footer>
     </div>
   );
 };

@@ -1,32 +1,37 @@
 import axios from "axios";
+
 import React, { useContext, useEffect } from "react";
+
 import { Route, Routes, useLocation, Navigate } from "react-router";
-import FirstPage from "../../components/Authentification/FirstPage";
-import SignIn from "../../components/Authentification/SignIn";
-import SignUp from "../../components/Authentification/SignUp";
-import Account from "../../components/Account/Account";
+
+import HomePage from "../../components/Authentification/Home/HomePage";
+import SignIn from "../../components/Authentification/SignIn/SignIn";
+import SignUp from "../../components/Authentification/SignUp/SignUp";
+import Account from "../../pages/Account/Account";
 import LoginLayout from "../../layout/LoginLayout";
 import Films from "../../pages/Films/Films";
 import Home from "../../pages/Home/Home";
-import AddToPlaylist from "../../pages/Favorites/AddToWatchlist";
-import Likes from "../../components/Lists/listsResume";
+import AddToWatchlist from "../../components/MediaElement/AddToWatchlist";
+import FavoritesResume from "../../components/Lists/FavoritesResume";
 import TvShow from "../../pages/TvShow/TvShow";
-import UserContext from "../Context/UserContextProvider";
-import { AnimatePresence } from "framer-motion";
-import Menu from "../../components/Account/Menu";
-import Profile from "../../components/Account/Profile";
-import Lists from "../../components/Account/Lists";
-import Preference from "../../components/Account/Preference";
+import Menu from "../../components/Account/Menu/Menu";
+import Profile from "../../components/Account/Profile/Profile";
+import Preference from "../../components/Account/Preference/Preference";
 import AppLayout from "../../layout/AppLayout";
-import MediaElement from "../../pages/Content/MediaElement";
-import SearchResult from "../../pages/SearchResult/SearchResult";
-import ProtectedRoutes from "./ProtectedRoutes";
-import FavoriteList from "../../pages/Favorites/Watchlist";
-import FavoriteResume from "../../components/Lists/listsResume";
-import Favorites from "../../pages/Favorites/PersonalLists";
-import { getCurrentUser } from "../../features/user/slice/user";
-import { useDispatch } from "react-redux";
+import AccountWatchlist from "../../components/Account/Watchlists/AccountWatchlist";
+import MediaElement from "../../components/MediaElement/MediaElement";
+import SearchResult from "../../components/SearchResult/SearchResult";
+import Watchlist from "../../components/Lists/Watchlist";
+import Favorites from "../../pages/Favorites/Favorites";
 import Filter from "../../components/Lists/Filter";
+
+import { AnimatePresence } from "framer-motion";
+
+import ProtectedRoutes from "./ProtectedRoutes";
+import UserContext from "../Context/UserContextProvider";
+
+import { getCurrentUser } from "../../features/user/slice/user.slice";
+import { useDispatch } from "react-redux";
 import { reset } from "../../features/watchlists/Slice/resume.header";
 
 const AnimatedRoutes = () => {
@@ -91,8 +96,8 @@ const AnimatedRoutes = () => {
             <Route path={""} element={<Navigate to="/Home" />} />
             <Route exact path={"Home"} element={<Home />} />
             <Route exact path="Favorites" element={<Favorites />}>
-              <Route path={""} element={<FavoriteResume />} />
-              <Route path={":listName"} element={<FavoriteList />} />
+              <Route path={""} element={<FavoritesResume />} />
+              <Route path={":listName"} element={<Watchlist />} />
             </Route>
             <Route exact path="Films" element={<Films />} />
             <Route eaxct path="TvShow" element={<TvShow />} />
@@ -100,18 +105,18 @@ const AnimatedRoutes = () => {
             <Route path={`:id/:modalid`} element={<MediaElement />} />
             <Route
               path={":id/:id/add_to_playlist"}
-              element={<AddToPlaylist />}
+              element={<AddToWatchlist />}
             />
             <Route path="Account" element={<Account />}>
               <Route path={""} element={<Menu />} />
               <Route path="Profile" element={<Profile />} />
               <Route path="Preference" element={<Preference />} />
-              <Route path="Lists" element={<Lists />} />
+              <Route path="Lists" element={<AccountWatchlist />} />
             </Route>
           </Route>
         </Route>
         <Route path={"/Login"} element={<LoginLayout />}>
-          <Route path={""} element={<FirstPage />} />
+          <Route path={""} element={<HomePage />} />
           <Route path="SignIn" element={<SignIn />} />
           <Route path="SignUp" element={<SignUp />} />
         </Route>

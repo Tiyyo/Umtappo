@@ -1,18 +1,19 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import TrendsBanner from "../../components/Container/Trends/TrendsBanner";
+import HorizontalCarousel from "../../components/Container/HorizontalCarousel/HorizontalCarousel";
+import Genre from "../../components/Container/Genre/Genre";
 import LoaderUI from "../../components/Loader/LoaderUI";
-import Trendings from "../../components/Container/Trendings";
-import HonrizontalCarousel from "../../components/Container/HonrizontalCarousel";
+import HeaderHome from "../../components/Container/HeaderHome/HeaderHome";
+import Promoted from "../../components/Container/Promoted/Promoted";
+import Spacer from "../../components/Container/HeaderHome/Spacer";
 import useFetch from "../../utils/hooks/useFetch";
-import HeaderHome from "../../components/Container/HeaderHome";
-import Spacer from "../../components/Container/Spacer";
-import Promoted from "../../components/Container/Promoted";
-import FavoriteGenre from "../../components/Container/FavoriteGenre";
 import { HomeContextProvider } from "../../utils/Context/HomeContextProvider";
-import { useCallback } from "react";
 import AppContext from "../../utils/Context/AppContextProvider";
 import { useOutletContext } from "react-router";
 
-const Home = () => {
+const Home = React.forwardRef((props, ref) => {
+  const data = useOutletContext();
+
   let currentDate = new Date();
   const date = currentDate.setMonth(-1);
   const { languages } = useContext(AppContext);
@@ -48,7 +49,7 @@ const Home = () => {
   const popularTvShowsUrl = `https://api.themoviedb.org/3/tv/popular?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}S&page=1`;
 
   const [loading, setLoading] = useState(false);
-  const ref = useRef();
+  // const ref = useRef();
 
   const token = {
     headers: {
@@ -124,8 +125,6 @@ const Home = () => {
 
   const { mainRef } = useOutletContext();
 
-  console.log(mainRef);
-
   return (
     <HomeContextProvider>
       <HeaderHome content={playingNowMovie} />
@@ -134,21 +133,24 @@ const Home = () => {
         {loading ? (
           <div className="main" ref={mainRef}>
             <div>
-              <HonrizontalCarousel
+              <HorizontalCarousel
                 content={lastReleaseAll}
                 title="What has been out lately "
               />
-              <Trendings content={trendingAll} title={"What is Trending now"} />
-              <HonrizontalCarousel
+              <TrendsBanner
+                content={trendingAll}
+                title={"What is Trending now"}
+              />
+              <HorizontalCarousel
                 content={popularElements}
                 title="You should look at it "
               />
-              <HonrizontalCarousel
+              <HorizontalCarousel
                 content={topRated}
                 title="What users like the most"
               />
               <Promoted content={promotedElements} />
-              <FavoriteGenre dataToDisplay="Both" />
+              <Genre dataToDisplay="Both" />
               <Promoted content={promotedElements} />
             </div>
           </div>
@@ -158,6 +160,6 @@ const Home = () => {
       </div>
     </HomeContextProvider>
   );
-};
+});
 
 export default Home;

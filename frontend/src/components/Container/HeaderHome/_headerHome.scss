@@ -1,0 +1,17 @@
+.header-home  {
+    height: 50vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    margin-bottom: 350px;
+  
+    // -webkit-mask-image: linear-gradient(to bottom,black 10%,transparent 80%);
+  
+    img  {
+      width: 100%;
+      aspect-ratio: 2/3;
+      height: auto;
+      mask-image: linear-gradient(to bottom,black 0%,transparent 90%);
+    }
+  }
+  

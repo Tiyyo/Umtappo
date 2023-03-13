@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import Trendings from "../../components/Container/Trendings";
-import HorizontalCarousel from "../../components/Container/HonrizontalCarousel";
-import useFetch from "../../utils/hooks/useFetch";
-import FavoriteGenre from "../../components/Container/FavoriteGenre";
-import Promoted from "../../components/Container/Promoted";
-import AppContext from "../../utils/Context/AppContextProvider";
+import TrendsBanner from "../../components/Container/Trends/TrendsBanner";
+import HorizontalCarousel from "../../components/Container/HorizontalCarousel/HorizontalCarousel";
+import Genre from "../../components/Container/Genre/Genre";
+import Promoted from "../../components/Container/Promoted/Promoted";
 import LoaderUI from "../../components/Loader/LoaderUI";
+
+import useFetch from "../../utils/hooks/useFetch";
+import AppContext from "../../utils/Context/AppContextProvider";
 
 const Films = () => {
   let currentDate = new Date();
@@ -70,7 +71,7 @@ const Films = () => {
         </div>
       ) : (
         <div className="main">
-          <Trendings
+          <TrendsBanner
             content={upcomingMovies}
             title={"What is coming soon next"}
           />
@@ -80,7 +81,7 @@ const Films = () => {
           />
           <Promoted content={promotedMovies} />
           <HorizontalCarousel content={popularMovies} title="Popular" />
-          <FavoriteGenre dataToDisplay="Movie" />
+          <Genre dataToDisplay="Movie" />
           <Promoted content={promotedMovies} />
         </div>
       )}

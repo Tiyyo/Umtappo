@@ -1,0 +1,53 @@
+.signup  {
+
+    a {
+        text-decoration: none;
+    }
+
+    @include authpages ;
+
+
+    .back-icon {
+        @include backIcon;
+    }
+
+    .signup-form  {
+        @include form;
+
+        .inputWrapper {
+            width: 100%;
+        }
+    
+
+        .checkboxs  {
+            color : var(--text);
+            display: flex;
+            flex-direction: column;
+            font-size: 0.7rem;
+            padding-bottom: 15px;
+
+            .terms-and-privacy {
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: start;
+                align-items: center;
+                column-gap: 10px;
+                width: 100%;
+               
+                
+            }
+            
+            .newsletter-subscription  {
+                display: flex;
+                justify-content: start;
+                flex-direction: row-reverse;
+                align-items: center;
+                width: 100%;
+                column-gap: 10px;
+            }
+        }
+    }
+    .link-to-signin {
+        @include bottomLink;
+    }
+}

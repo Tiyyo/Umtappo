@@ -18,13 +18,15 @@ const Attributes = (props) => {
     }
   };
   return (
-    <div className="card__infos">
-      <div className="card__infos__type">{content.type}</div>
-      <div className="card__infos__release-year">{displayReleaseYear()}</div>
-      <div className="card__infos__genres">
+    <div className="media-element__infos">
+      <div className="media-element__infos__type">{content.type}</div>
+      <div className="media-element__infos__release-year">
+        {displayReleaseYear()}
+      </div>
+      <div className="media-element__infos__genres">
         {displayGenre(genre_ids, type, genreListMovie, genreListTv)}
       </div>
-      <div className="card__infos__rating">
+      <div className="media-element__infos__rating">
         <StarOutline sx={{ color: "yellow" }} />
         {Math.round(content.vote_average * 10) / 10} / 10{" "}
       </div>

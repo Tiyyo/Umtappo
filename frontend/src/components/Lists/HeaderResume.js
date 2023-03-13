@@ -3,11 +3,9 @@ import React, { useContext } from "react";
 import AppContext from "../../utils/Context/AppContextProvider";
 import { displayGenre } from "../MediaElement/display.genre";
 
-const HeaderResume = (props) => {
-  const { content } = props;
+const HeaderResume = ({ content }) => {
+  // const { content } = props;
   const { genreListMovie, genreListTv } = useContext(AppContext);
-
-  console.log(props);
 
   return (
     <div className="header-resume">

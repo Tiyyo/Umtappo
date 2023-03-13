@@ -1,5 +1,5 @@
 import axios from "axios";
-import { deleteList } from "../Slice/lists";
+import { deleteList } from "../Slice/lists.slice";
 
 export const getLists = () => {};
 

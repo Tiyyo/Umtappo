@@ -16,17 +16,38 @@
 @import './theme/theme';
 
 //---import layout folder
-@import './pages/Login/login';
-@import './pages/Home/home';
-@import './pages/Favorites/likes';
+@import './layout/loginLayout';
+@import './components/Account/ChangePassword/changePassword';
+@import './components/Authentification/Home/homePage';
+@import './components//Authentification/SignIn/signin';
+@import './components/Authentification/SignUp/signup';
+@import './layout/appLayout';
+@import './pages/Favorites/favorites';
 @import './components/Logo/logo';
 @import './components/Navigation/navigation';
 @import 'components/SearchBar/search';
 @import './components/Cards/cards';
 @import './components/Container/list-container';
-@import './components/Cards/modal';
 @import './components//Authentification/authentifacation';
 @import './components/Account/account.scss';
+@import './components/Loader/loader';
+@import './components/Cards/Banner/banner';
+@import './components/Cards/Poster/poster';
+@import './components/Cards/Promoted/promotedCard';
+@import './components/Container/Genre/genre';
+@import './components/Container/HeaderHome/headerHome';
+@import './components/Container/HorizontalCarousel/horizontaleCarousel';
+@import './components/Container/InfiniteCarousel/infiniteCarousel';
+@import './components/Container/Promoted/promoted';
+@import './components/Container/Trends/trends';
+@import './components/MediaElement/mediaElement';
+@import './components/Account/account';
+@import './components/Lists/lists';
+@import './components/MediaElement/addWatchlist';
+@import './pages/Account/account';
+
+
+
 
 
 //----import components folder

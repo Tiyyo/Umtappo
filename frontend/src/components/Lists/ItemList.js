@@ -6,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { ThemeProvider } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { displayInfos } from "../../features/watchlists/Slice/resume.header";
-import { deleteContent } from "../../features/watchlists/Slice/lists";
+import { deleteContent } from "../../features/watchlists/Slice/lists.slice";
 import axios from "axios";
 
 const ItemList = (props) => {

@@ -1,7 +1,7 @@
 import React from "react";
 
-const Blur = () => {
-  return <div className="blur"></div>;
+const Blur = ({ children }) => {
+  return <div className="blur">{children}</div>;
 };
 
 export default Blur;

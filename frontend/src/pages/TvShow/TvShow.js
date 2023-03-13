@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import Trendings from "../../components/Container/Trendings";
-import HorizontalCarousel from "../../components/Container/HonrizontalCarousel";
+
+import TrendsBanner from "../../components/Container/Trends/TrendsBanner";
+import HorizontalCarousel from "../../components/Container/HorizontalCarousel/HorizontalCarousel";
+import Promoted from "../../components/Container/Promoted/Promoted";
+import Genre from "../../components/Container/Genre/Genre";
 import useFetch from "../../utils/hooks/useFetch";
-import Promoted from "../../components/Container/Promoted";
-import FavoriteGenre from "../../components/Container/FavoriteGenre";
 import AppContext from "../../utils/Context/AppContextProvider";
 import LoaderUI from "../../components/Loader/LoaderUI";
 
@@ -63,7 +64,7 @@ const TvShow = () => {
         </div>
       ) : (
         <div className="main">
-          <Trendings content={tvShowOnAir} title="On TV Today" />
+          <TrendsBanner content={tvShowOnAir} title="On TV Today" />
           <HorizontalCarousel
             content={lastReleaseTvShow}
             title="What has been out lately"
@@ -73,7 +74,7 @@ const TvShow = () => {
             title={"What is Trending now"}
           />
           <Promoted content={promotedTvShows} />
-          <FavoriteGenre dataToDisplay="TvShow" />
+          <Genre dataToDisplay="TvShow" />
           <Promoted content={promotedTvShows} />
         </div>
       )}
