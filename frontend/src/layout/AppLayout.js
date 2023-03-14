@@ -47,7 +47,6 @@ const AppLayout = () => {
   }, [pathname]);
 
   const mainContainer = useRef();
-  console.log(mainRef);
 
   return (
     <div className="app__container">
