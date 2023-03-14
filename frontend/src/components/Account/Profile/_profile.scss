@@ -1,0 +1,48 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2vh;
+    padding: 2rem 15px;
+    position: relative;
+
+    .aera {
+        display: flex;
+        align-items: center;
+        column-gap: 7px;
+
+
+        input {
+            background-color: var(--input_bg);
+            border: none;
+            width: 100%;
+            height: 42px;
+            border: 1px solid var(--secondary);
+            border-radius:  8px;
+            padding-left: 15px;
+            color: var(--input_lock_color);
+            border: none;
+        }
+
+        button {
+            background-color: transparent;
+            border: none;
+            color : var(--text);
+            cursor: pointer;
+        }
+    }
+    .blur {
+        transition: ease-in-out 0.2s;
+  
+        
+        &[data-blur="is-active"]{
+          position: fixed;
+          z-index: 2;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          backdrop-filter: blur(1px);
+        }
+  
+      }
+}

@@ -29,7 +29,6 @@
 @import './components/Cards/cards';
 @import './components/Container/list-container';
 @import './components//Authentification/authentifacation';
-@import './components/Account/account.scss';
 @import './components/Loader/loader';
 @import './components/Cards/Banner/banner';
 @import './components/Cards/Poster/poster';
@@ -41,10 +40,16 @@
 @import './components/Container/Promoted/promoted';
 @import './components/Container/Trends/trends';
 @import './components/MediaElement/mediaElement';
-@import './components/Account/account';
 @import './components/Lists/lists';
 @import './components/MediaElement/addWatchlist';
+@import './components/Lists/Likes/likesContainer';
+@import './components/Lists/Watchlist/watchlistContainer';
 @import './pages/Account/account';
+@import './components/Account/ChangePassword/changePassword';
+@import './components/Account/Menu/menu';
+@import './components/Account/Preference/preference';
+@import './components/Account/Profile/profile';
+@import './components/Account/Watchlists/accountWatchlist';
 
 
 

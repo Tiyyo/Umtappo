@@ -1,0 +1,16 @@
+.favorite-resume__container__likes   {
+  
+    &--title {
+      padding: 1rem 0 ;
+      font-size: 125%;  
+      display: flex;
+      column-gap: 3%;
+    }
+
+    &--content  {
+      display: flex;
+
+      gap: 1rem;
+      justify-content: flex-start;
+    }
+  }

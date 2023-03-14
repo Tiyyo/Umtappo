@@ -7,7 +7,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { passwordSchema } from "./useChangePassword";
-import { submitPasswords } from "./useChangePassword";
+import InputPassword from "../../Authentification/InputPassword";
+import InputSubmit from "../../Authentification/InputSubmit";
 
 const ChangePassword = ({ isOpen, getCloseState }) => {
   const { userID } = useContext(UserContext);
@@ -46,10 +47,10 @@ const ChangePassword = ({ isOpen, getCloseState }) => {
 
   return (
     <div
-      className="confirm-modal"
+      className="change-password"
       style={isOpen ? { top: "10%" } : { top: "-100vh" }}
     >
-      <div className="confirm-modal__header">
+      <div className="change-password__header">
         <h2>You need to enter your password to confirm</h2>
         <div
           className="close-icon"
@@ -60,37 +61,24 @@ const ChangePassword = ({ isOpen, getCloseState }) => {
           <CloseIcon />
         </div>
       </div>
-      <div className="change-password">
-        <form
-          onSubmit={handleSubmit(submitPasswords)}
-          className="change-password__form"
-        >
-          <input
-            type="password"
-            name="password"
-            className="change-password__form-input"
-            {...register("password")}
-          />
-          <div
-            style={{ height: "20px" }}
-            className="change-password__form-error"
-          >
-            {errors?.password}
-          </div>
-          <input
-            type="password"
-            name="newPassowrd"
-            className="change-password__form-input"
-            {...register("newPassword")}
-          />
-          <div className="change-password__form-error">
-            {errors?.newPassword}
-          </div>
-          <button type="submit" disabled={isSubmitting}>
-            Confirmer
-          </button>
-        </form>
-      </div>
+      <form
+        onSubmit={handleSubmit(submitPasswords)}
+        className="change-password__form"
+      >
+        <InputPassword
+          icon={true}
+          name="password"
+          errrorMessage={errors?.password}
+          register={register}
+        />
+        <InputPassword
+          icon={true}
+          name="newPassword"
+          errorMessage={errors?.newPassword}
+          register={register}
+        />
+        <InputSubmit value={"confirm"} isSubmitting={isSubmitting} />
+      </form>
     </div>
   );
 };

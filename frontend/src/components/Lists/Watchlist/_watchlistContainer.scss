@@ -1,0 +1,49 @@
+.favorite-resume__container__watchlists {      
+    &--header  {
+    display: flex;
+    justify-content: space-between;
+
+    .watchlists-title  {
+      display: flex;
+      align-items: center;
+      column-gap: 3%;
+      width: 100%;
+
+      h2  {
+        padding: 1rem 0 ;
+        font-size: 125%;
+
+      }
+    }
+
+
+    button {
+      background-color: transparent;
+      border: none;
+    }
+    
+    }
+
+    &--main{
+      
+ 
+
+      &[data-view="grid"] {
+        display: grid;
+        grid-template-columns: repeat( auto-fit, minmax(90px, 2fr));
+        gap: 1.5rem;
+        height: 100%;
+        transition : all ease 0.2s;
+   
+      }
+      &[data-view="list"] {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        transition : all ease 0.2s;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+  
+      }
+    }
+}      

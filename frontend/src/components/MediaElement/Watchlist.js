@@ -1,10 +1,9 @@
 import React from "react";
-import { removeList } from "../../features/watchlists/function/watchlists.function";
 import {
   getLists,
   deleteList,
 } from "../../features/watchlists/Slice/lists.slice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
@@ -12,6 +11,7 @@ import { toast } from "react-toastify";
 
 const Watchlist = ({ list, content }) => {
   const dispatch = useDispatch();
+
   const removeList = (_id) => {
     let objectID = { _id };
     axios.delete("http://localhost:5000/list/" + _id);

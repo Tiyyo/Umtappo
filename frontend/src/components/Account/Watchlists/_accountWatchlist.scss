@@ -1,0 +1,25 @@
+.lists  {
+    padding: 2rem 10px;
+
+    &__infos  {
+        padding-bottom: 1rem ;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        line-height: 1.7;
+        border-bottom : 2px solid rgba(234, 104, 11, 0.087);
+    }
+    &__container  {
+        padding: 1rem 10px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+        justify-items: center;
+        
+    }
+}
+
+.list {
+    height: 100px;
+    width:100px;
+    border: 2px solid $primary;
+    border-radius: 12px;
+}

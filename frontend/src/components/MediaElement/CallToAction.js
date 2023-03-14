@@ -88,8 +88,8 @@ const CallToAction = (props) => {
   const data = useIsLiked(content.type, userID, content.id);
 
   useEffect(() => {
-    console.log(data);
-  }, []);
+    setIsLiked(data);
+  }, [data]);
 
   return (
     <div className="media-element__call-to-action">

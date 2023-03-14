@@ -1,10 +1,8 @@
-import { CloseFullscreen } from "@mui/icons-material";
 import React, { useContext } from "react";
 import AppContext from "../../utils/Context/AppContextProvider";
 import { displayGenre } from "../MediaElement/display.genre";
 
 const HeaderResume = ({ content }) => {
-  // const { content } = props;
   const { genreListMovie, genreListTv } = useContext(AppContext);
 
   return (

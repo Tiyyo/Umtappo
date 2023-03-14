@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 import AppContext from "../../utils/Context/AppContextProvider";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ItemList from "./ItemList";
 import HeaderResume from "./HeaderResume";
 import { motion } from "framer-motion";
@@ -21,8 +21,6 @@ const Watchlist = () => {
   // });
 
   const { config } = useContext(AppContext);
-
-  const dispatch = useDispatch();
 
   const { header_resume } = useSelector((state) => state.header_resume);
 
