@@ -56,6 +56,8 @@ const AddToPlaylist = () => {
     dispatch(getLists(userID));
   }, [userID]);
 
+  console.log(myLists);
+
   return (
     <ThemeProvider theme={iconTheme}>
       <div className="add-to-watchlists">
@@ -80,7 +82,7 @@ const AddToPlaylist = () => {
             getCloseState={getCloseState}
           />
           <div data-blur={isOpen ? "is-active" : ""} className="blur"></div>
-          {myLists ? (
+          {!myLists?.length === 0 ? (
             myLists.map((list) => {
               return <Watchlist key={list._id} list={list} content={content} />;
             })

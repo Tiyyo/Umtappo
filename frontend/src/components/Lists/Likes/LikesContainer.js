@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from "react";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useMediaId from "../../../utils/hooks/useMediaId";
 import SmallCard from "../SmallCard";
 import LoaderUI from "../../Loader/LoaderUI";
+import { getFetchTvshowLiked } from "../../../features/tvshow liked/slice/like.slice";
+import { getFetchMovieLiked } from "../../../features/movie liked/Slice/likes.slice";
 
 const LikesContainer = () => {
   let mediaTypeTvv = "tv";
   let mediaTypeMovie = "movie";
 
+  const dispatch = useDispatch();
+
   const { ids: movies_liked_ids } = useSelector((state) => state.movieLiked);
 
   const { ids: tvshow_liked_ids } = useSelector((state) => state.tvshowLiked);
 
-  const { fetchContent: moviesLiked, loading: loadingFetchMoviesLiked } =
-    useMediaId(movies_liked_ids, mediaTypeMovie);
+  const { fetchContent: movies, loading: loadingFetchMoviesLiked } = useMediaId(
+    movies_liked_ids,
+    mediaTypeMovie
+  );
 
-  const { fetchContent: tvshowsLiked, loading: loadingFetchTvLiked } =
-    useMediaId(tvshow_liked_ids, mediaTypeTvv);
+  const { fetchContent: tvshows, loading: loadingFetchTvLiked } = useMediaId(
+    tvshow_liked_ids,
+    mediaTypeTvv
+  );
 
   const [isLoading, setLoading] = useState(true);
 
@@ -26,9 +34,18 @@ const LikesContainer = () => {
     return arr.every((l) => l === "idle");
   };
 
+  const moviesLiked = useSelector((state) => state.movieLiked.fetchMedia);
+
+  const tvshowsLiked = useSelector((state) => state.tvshowLiked.fetchMedia);
+
   useEffect(() => {
     setLoading(!handleLoadingState());
   }, [loadingFetchMoviesLiked, loadingFetchTvLiked]);
+
+  useEffect(() => {
+    dispatch(getFetchMovieLiked(movies));
+    dispatch(getFetchTvshowLiked(tvshows));
+  }, [movies, tvshows]);
 
   return (
     <>

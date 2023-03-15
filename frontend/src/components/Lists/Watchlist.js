@@ -10,8 +10,8 @@ const Watchlist = () => {
   const {
     state: {
       list: { content, name, _id: listID },
+      typeList,
     },
-    typeList,
   } = useLocation();
 
   // const contents = useSelector((state) => {

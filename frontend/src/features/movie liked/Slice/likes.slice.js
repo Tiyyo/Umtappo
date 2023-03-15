@@ -30,10 +30,14 @@ const likesSlice = createSlice({
       state.ids.push(payload);
     },
     dislikeMovie: (state, { payload }) => {
-      state.ids = state.likes.filter((m) => m.id !== payload.id);
+      console.log(payload.id);
+      state.ids = state.ids.filter((m) => m.id !== payload.id);
     },
-    getFetchCTvshowLiked: (state, { payload }) => {
-      state.fetchMedia = "Content goes here";
+    getFetchMovieLiked: (state, { payload }) => {
+      state.fetchMedia = payload;
+    },
+    deleteMovieFromFetch: (state, { payload }) => {
+      state.fetchMedia = state.fetchMedia.filter((m) => m.id !== payload.id);
     },
   },
 });
@@ -43,6 +47,7 @@ export const {
   likeMovie,
   dislikeMovie,
   getIdsMoviesLikedSuccess,
-  getFetchCTvshowLiked,
+  getFetchMovieLiked,
+  deleteMovieFromFetch,
 } = actions;
 export default reducer;

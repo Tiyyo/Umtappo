@@ -27,10 +27,13 @@ const likesSlice = createSlice({
       state.ids.push(payload);
     },
     dislikeTvshow: (state, { payload }) => {
-      state.ids = state.likes.filter((m) => m.id !== payload.id);
+      state.ids = state.ids.filter((m) => m.id !== payload.id);
     },
     getFetchTvshowLiked: (state, { payload }) => {
-      state.fetchMedia = "Content goes here";
+      state.fetchMedia = payload;
+    },
+    deleteTvshowFromFetch: (state, { payload }) => {
+      state.fetchMedia = state.fetchMedia.filter((m) => m.id !== payload.id);
     },
   },
 });
@@ -42,5 +45,6 @@ export const {
   dislikeTvshow,
   getIdsTvshowsLikedSucces,
   getFetchTvshowLiked,
+  deleteTvshowFromFetch,
 } = actions;
 export default reducer;
