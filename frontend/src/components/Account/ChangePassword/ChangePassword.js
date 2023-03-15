@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import UserContext from "../../../utils/Context/UserContextProvider";
 import { yupResolver } from "@hookform/resolvers/yup";

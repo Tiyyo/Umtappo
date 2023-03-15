@@ -11,10 +11,28 @@ import ChangePassword from "../ChangePassword/ChangePassword";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { isValidEmail } from "../Account.utils";
+import Input from "../../Authentification/Input";
+import { useForm } from "react-hook-form";
+import { userSchema } from "../../Authentification/SignUp/SignUp";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const Profile = () => {
   const { userInfos, userID } = useContext(UserContext);
   const { iconTheme } = useContext(AppContext);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onSubmit",
+    resolver: yupResolver(userSchema),
+    defaultValue: {
+      username: userInfos.username,
+      email: userInfos.email,
+      password: "NotAPassword",
+    },
+  });
 
   const [inputsLock, setInputsLock] = useState({
     username: true,
@@ -25,16 +43,6 @@ const Profile = () => {
   const [inputsValue, setInputsValue] = useState({ username: "", email: "" });
 
   const [inputsError, setInputsError] = useState({ username: "", email: "" });
-
-  // const [usernameIsLocked, setUsernameLocker] = useState(true);
-  // const [emailIsLocked, setEmailLocker] = useState(true);
-  // const [passwordIsLocked, setPasswordLocker] = useState(true);
-
-  // const [usernameInputValue, setUsernameValue] = useState("");
-  // const [emailInputValue, setEmailValue] = useState("");
-
-  // const [errUsername, setErrUsername] = useState("");
-  // const [errEmail, setErrEmail] = useState("");
 
   const [defaultValue, setDefaultValue] = useState({
     username: userInfos.username,
@@ -56,12 +64,6 @@ const Profile = () => {
       : setInputsLock((state) => (state.email = true));
   };
 
-  const toggleInput = (input) => {
-    return inputsLock.input
-      ? setInputsLock((state) => (state.input = false))
-      : setInputsLock((state) => (state.input = true));
-  };
-
   const openModal = () => {
     setIsOpen(true);
   };
@@ -70,11 +72,12 @@ const Profile = () => {
     setIsOpen(state);
   };
 
-  const handleUsername = (e) => {
-    e.preventDefault();
-    let data = { user_id: userID, newUsername: inputsValue.username };
+  const submitUsername = (value) => {
+    let data = { user_id: userID, newUsername: value.username };
 
-    if (inputsValue.username.length > 3) {
+    console.log("working");
+
+    if (value.username > 3) {
       axios
         .patch("http://localhost:5000/user/username", data)
         .then((res) => {
@@ -83,7 +86,6 @@ const Profile = () => {
             setDefaultValue((state) => {
               return (state.username = data.newUsername);
             });
-            setInputsValue((state) => (state.username = ""));
             toast.success("Username succesfully updated", {
               position: "top-right",
               autoClose: 1000,
@@ -104,6 +106,41 @@ const Profile = () => {
       );
     }
   };
+
+  //   const handleUsername = (e) => {
+  //     e.preventDefault();
+  //     let data = { user_id: userID, newUsername: inputsValue.username };
+
+  //     if (inputsValue.username.length > 3) {
+  //       axios
+  //         .patch("http://localhost:5000/user/username", data)
+  //         .then((res) => {
+  //           if (res.status === 200) {
+  //             setInputsError("");
+  //             setDefaultValue((state) => {
+  //               return (state.username = data.newUsername);
+  //             });
+  //             setInputsValue((state) => (state.username = ""));
+  //             toast.success("Username succesfully updated", {
+  //               position: "top-right",
+  //               autoClose: 1000,
+  //               hideProgressBar: false,
+  //               closeOnClick: true,
+  //               pauseOnHover: true,
+  //               draggable: true,
+  //               progress: undefined,
+  //               theme: "light",
+  //             });
+  //           }
+  //         })
+  //         .catch((err) => console.log(err));
+  //     } else {
+  //       setInputsError(
+  //         (state) =>
+  //           (state.username = "Username must be contain at least 3 characters")
+  //       );
+  //     }
+  //   };
 
   const handleEmail = (e) => {
     e.preventDefault();
@@ -133,29 +170,28 @@ const Profile = () => {
         <ChangePassword isOpen={isOpen} getCloseState={getCloseState} />
         <div data-blur={isOpen ? "is-active" : ""} className="blur"></div>
         <form
-          method="POST"
           className="aera username"
-          onSubmit={(e) => handleUsername(e)}
+          onSubmit={() => {
+            console.log("working");
+            return handleSubmit(submitUsername);
+          }}
         >
           <div className="username-icon">
             <AccountCircleIcon />
           </div>
-          <div>
-            <input
-              type="text"
-              disabled={inputsLock.username}
-              defaultValue={defaultValue.username}
-              onChange={(e) =>
-                setInputsValue((state) => (state.username = e.target.value))
-              }
-              name="username"
-            />
-            <div className="username-error">{inputsError.username}</div>
-          </div>
+
+          <Input
+            type={"text"}
+            name={"username"}
+            disabled={inputsLock.username}
+            defaultValue={defaultValue.username}
+            errorMessage={inputsError.username}
+            register={register}
+          />
           <button type="button" onClick={toggleUsernameLock}>
             <EditIcon />
           </button>
-          <button type="submit" disabled={inputsLock.username}>
+          <button type="submit">
             <DoneIcon />
           </button>
         </form>
@@ -164,18 +200,14 @@ const Profile = () => {
           <div className="email-icon">
             <EmailIcon />
           </div>
-          <div>
-            <input
-              type="email"
-              disabled={inputsLock.email}
-              defaultValue={userInfos.email}
-              name="email"
-              onChange={(e) =>
-                setInputsValue((state) => (state.email = e.target.value))
-              }
-            />
-            <div className="error-email">{inputsError.email}</div>
-          </div>
+          <Input
+            type="email"
+            disabled={inputsLock.email}
+            defaultValue={userInfos.email}
+            name="email"
+            errorMessage={inputsError.email}
+            register={register}
+          />
           <button type="button" onClick={toggleEmailLock}>
             <EditIcon />
           </button>
@@ -188,11 +220,12 @@ const Profile = () => {
           <div className="password">
             <LockIcon />
           </div>
-          <input
+          <Input
             type="password"
             disabled={inputsLock.password}
             defaultValue={"NotaPassword"}
-            autoComplete="false"
+            register={register}
+            name="password"
           />
           <button type="button" onClick={() => openModal()}>
             <EditIcon />

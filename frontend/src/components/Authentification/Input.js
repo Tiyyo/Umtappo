@@ -1,7 +1,15 @@
 import React from "react";
 import DoneIcon from "@mui/icons-material/Done";
 
-const Input = ({ type, name, placeholder, errorMessage, register }) => {
+const Input = ({
+  type,
+  name,
+  placeholder,
+  errorMessage,
+  register,
+  defaultValue,
+  disabled,
+}) => {
   return (
     <div className="inputWrapper">
       <input
@@ -9,6 +17,8 @@ const Input = ({ type, name, placeholder, errorMessage, register }) => {
         name={name}
         placeholder={placeholder}
         className="input"
+        defaultValue={defaultValue ? defaultValue : ""}
+        disabled={disabled ? true : false}
         {...register(name)}
       />
       <div className="inputError"> {errorMessage}</div>

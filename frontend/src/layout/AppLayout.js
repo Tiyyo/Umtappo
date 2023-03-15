@@ -5,6 +5,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import BackIcon from "../components/Navigation/BackIcon";
 import { ThemeProvider } from "@mui/material";
 import AppContext from "../utils/Context/AppContextProvider";
+import Footer from "../components/Footer/Footer";
 
 const AppLayout = () => {
   const [inputSearchValue, setInputSearchValue] = useState("");
@@ -46,7 +47,7 @@ const AppLayout = () => {
           {shouldHide ? "" : <BackIcon color="primary" />}
         </div>
         <Outlet context={inputSearchValue} />
-        <footer className="footer">TMDB Logo goes here</footer>
+        <Footer />
       </div>
     </ThemeProvider>
   );
