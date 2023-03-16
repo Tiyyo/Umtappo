@@ -1,16 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import AddNameNewList from "./AddNameNewList";
 import UserContext from "../../utils/Context/UserContextProvider";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getLists,
-  deleteList,
-} from "../../features/watchlists/Slice/lists.slice";
+import { getLists } from "../../features/watchlists/Slice/lists.slice";
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
-import { removeList } from "../../features/watchlists/function/watchlists.function";
+
 import { ThemeProvider } from "@mui/material";
 import AppContext from "../../utils/Context/AppContextProvider";
 import Watchlist from "./Watchlist";
@@ -56,8 +53,6 @@ const AddToPlaylist = () => {
     dispatch(getLists(userID));
   }, [userID]);
 
-  console.log(myLists);
-
   return (
     <ThemeProvider theme={iconTheme}>
       <div className="add-to-watchlists">
@@ -82,7 +77,7 @@ const AddToPlaylist = () => {
             getCloseState={getCloseState}
           />
           <div data-blur={isOpen ? "is-active" : ""} className="blur"></div>
-          {!myLists?.length === 0 ? (
+          {myLists.length !== 0 ? (
             myLists.map((list) => {
               return <Watchlist key={list._id} list={list} content={content} />;
             })

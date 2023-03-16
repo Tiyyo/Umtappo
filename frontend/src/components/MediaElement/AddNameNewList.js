@@ -9,7 +9,6 @@ import {
 } from "../../features/watchlists/Slice/lists.slice";
 
 const AddNameNewList = ({ isOpen, getCloseState, content }) => {
-  // const { isOpen, getCloseState, content } = props;
   const { userID } = useContext(UserContext);
 
   const dispatch = useDispatch();

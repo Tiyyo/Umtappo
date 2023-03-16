@@ -19,8 +19,6 @@ const WatchlistContainer = () => {
     view === gridView ? setView(listView) : setView(gridView);
   };
 
-  console.log(loadingListState);
-
   return (
     <>
       {!loadingListState === "idle" ? (

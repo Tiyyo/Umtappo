@@ -1,30 +1,39 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 import AppContext from "../../utils/Context/AppContextProvider";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ItemList from "./ItemList";
 import HeaderResume from "./HeaderResume";
 import { motion } from "framer-motion";
+import { getFetchTvshow } from "../../features/tvshow liked/slice/like.slice";
 
 const Watchlist = () => {
   const {
     state: {
-      list: { content, name, _id: listID },
+      list: { content: data, name, _id: listID },
       typeList,
     },
   } = useLocation();
 
-  // const contents = useSelector((state) => {
-  //   let data = state.lists.lists;
-  //   let index = data.findIndex((list) => list._id == listID);
-  //   return data[index].content;
-  // });
+  const content = useSelector((state) => {
+    if (typeList === "whatchlist") {
+      let data = state.lists.lists;
+      let index = data.findIndex((list) => list._id === listID);
+      return data[index].content;
+    } else if ((typeList === "like") & (listID === "1")) {
+      return state.movieLiked.fetchMedia;
+    } else if ((typeList === "like") & (listID === "2")) {
+      return state.tvshowLiked.fetchMedia;
+    }
+  });
 
   const { config } = useContext(AppContext);
 
   const { header_resume } = useSelector((state) => state.header_resume);
 
   const carousel = useRef();
+
+  const dispatch = useDispatch();
 
   const [height, setHeight] = useState(0);
 
@@ -36,15 +45,15 @@ const Watchlist = () => {
 
   const pathImage = (hoveredEl, int) => {
     return Object.keys(header_resume).length === 0
-      ? config.base_url + config.poster_sizes[int] + content[0].poster_path
-      : config.base_url + config.poster_sizes[int] + hoveredEl.poster_path;
+      ? config.base_url + config.poster_sizes[int] + content[0]?.poster_path
+      : config.base_url + config.poster_sizes[int] + hoveredEl?.poster_path;
   };
 
   const header = () => {
     return Object.keys(header_resume).length === 0 ? (
-      <HeaderResume content={content[0]} />
+      <HeaderResume content={content[0]} typeList={typeList} />
     ) : (
-      <HeaderResume content={header_resume} />
+      <HeaderResume content={header_resume} typeList={typeList} />
     );
   };
 

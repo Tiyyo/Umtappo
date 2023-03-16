@@ -7,12 +7,11 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { deleteList } from "../../features/watchlists/Slice/lists.slice";
 
-const SmallCard = (props) => {
-  const { list, typeList } = props;
-
+const SmallCard = ({ typeList, list }) => {
   const { content, name, _id } = list;
 
   const { config } = useContext(AppContext);
+
   const [isShow, setIsShow] = useState(false);
 
   const dispatch = useDispatch();
@@ -28,7 +27,7 @@ const SmallCard = (props) => {
       return (
         config.base_url +
         config.poster_sizes[sizePoster] +
-        content[randomNum].poster_path
+        content[randomNum]?.poster_path
       );
     },
     [content]
@@ -56,13 +55,8 @@ const SmallCard = (props) => {
 
   return (
     <div className="small-card">
-      {console.log(_id === "1")}
       {isShow ? (
-        <div
-          className="small-card__close-icon"
-          data-list-id={_id}
-          onClick={() => removeList(_id)}
-        >
+        <div className="small-card__close-icon" onClick={() => removeList(_id)}>
           <CloseIcon />
         </div>
       ) : (

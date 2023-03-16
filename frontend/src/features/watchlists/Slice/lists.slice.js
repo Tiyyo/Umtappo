@@ -5,7 +5,6 @@ export const getLists = createAsyncThunk(
   "getLists",
   async (arg, { dispatch, getState }) => {
     // getState().lists.lists.loading = "failed";
-    console.log(arg);
     const result = await axios
       .get("http://localhost:5000/list/" + arg)
       .then((res) => {
@@ -55,7 +54,6 @@ const listSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getLists.fulfilled, (state, action) => {
-      console.log(action);
       state.loading = "succeeded";
     });
   },

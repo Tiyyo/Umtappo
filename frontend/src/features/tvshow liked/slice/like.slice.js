@@ -1,9 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const getQueries = (arrIds, languages) => {
+  let query = arrIds.map((id) => {
+    return `https://api.themoviedb.org/3/tv/${id}?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}`;
+  });
+  return query;
+};
+
 export const getIdsTvshowsLiked = createAsyncThunk(
   "getTvshowsLiked",
   async (arg, { dispatch, getState }) => {
+    console.log("yeah");
     const result = await axios
       .get("http://localhost:5000/like/tvshow/" + arg)
       .then((res) => {
@@ -12,6 +20,33 @@ export const getIdsTvshowsLiked = createAsyncThunk(
           return r.map((l) => arr.push(l));
         });
         dispatch(getIdsTvshowsLikedSucces(arr));
+      });
+  }
+);
+
+export const getFetchTvshow = createAsyncThunk(
+  "getFetchTvshow",
+  async (languages, { dispatch, getState }) => {
+    const arrIds = getState().tvshowLiked.ids.map((m) => m.id);
+    const queries = getQueries(arrIds, languages);
+
+    const result = await axios
+      .all(
+        queries.map((query) => {
+          return axios.get(query);
+        })
+      )
+      .then((res) => {
+        let content = res.map((r) => r.data);
+
+        let uniqueContent = Array.from(new Set(content.map((c) => c.id))).map(
+          (id) => {
+            return content.find((c) => c.id === id);
+          }
+        );
+        uniqueContent.forEach((c) => (c.type = "Tvshow"));
+        dispatch(getFetchTvshowLiked(uniqueContent));
+        return uniqueContent;
       });
   }
 );

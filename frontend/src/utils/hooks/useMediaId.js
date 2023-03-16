@@ -74,6 +74,7 @@ const useMediaId = (arrIds, type) => {
               ).map((id) => {
                 return content.find((c) => c.id === id);
               });
+
               if (res && res.length > 0) {
                 applyType(uniqueContent, type);
                 return setFetchContent(uniqueContent), setLoading("idle");

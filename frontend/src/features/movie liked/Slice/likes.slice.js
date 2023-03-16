@@ -1,6 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const getQueries = (arrIds, languages) => {
+  let query = arrIds.map((id) => {
+    return `https://api.themoviedb.org/3/movie/${id}?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}`;
+  });
+  return query;
+};
+
 export const getIdsMoviesLiked = createAsyncThunk(
   "getMoviesLiked",
   async (arg, { dispatch, getState }) => {
@@ -19,6 +26,33 @@ export const getIdsMoviesLiked = createAsyncThunk(
   }
 );
 
+export const getFetchMovie = createAsyncThunk(
+  "getFetchMovie",
+  async (languages, { dispatch, getState }) => {
+    const arrIds = getState().movieLiked.ids.map((m) => m.id);
+    const queries = getQueries(arrIds, languages);
+
+    const result = await axios
+      .all(
+        queries.map((query) => {
+          return axios.get(query);
+        })
+      )
+      .then((res) => {
+        let content = res.map((r) => r.data);
+
+        let uniqueContent = Array.from(new Set(content.map((c) => c.id))).map(
+          (id) => {
+            return content.find((c) => c.id === id);
+          }
+        );
+        uniqueContent.forEach((c) => (c.type = "Movie"));
+        return uniqueContent;
+      });
+    dispatch(getFetchMovieLiked(result));
+  }
+);
+
 const likesSlice = createSlice({
   name: "movie_liked",
   initialState: { ids: "", fetchMedia: [] },
@@ -30,7 +64,6 @@ const likesSlice = createSlice({
       state.ids.push(payload);
     },
     dislikeMovie: (state, { payload }) => {
-      console.log(payload.id);
       state.ids = state.ids.filter((m) => m.id !== payload.id);
     },
     getFetchMovieLiked: (state, { payload }) => {
