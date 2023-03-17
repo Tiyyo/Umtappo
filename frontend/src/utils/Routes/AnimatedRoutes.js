@@ -33,6 +33,7 @@ import UserContext from "../Context/UserContextProvider";
 import { getCurrentUser } from "../../features/user/slice/user.slice";
 import { useDispatch } from "react-redux";
 import { reset } from "../../features/watchlists/Slice/resume.header";
+import ProfileTwo from "../../components/Account/Profile/ProfileTwo";
 
 const AnimatedRoutes = () => {
   const {
@@ -109,7 +110,7 @@ const AnimatedRoutes = () => {
             />
             <Route path="Account" element={<Account />}>
               <Route path={""} element={<Menu />} />
-              <Route path="Profile" element={<Profile />} />
+              <Route path="Profile" element={<ProfileTwo />} />
               <Route path="Preference" element={<Preference />} />
               <Route path="Lists" element={<AccountWatchlist />} />
             </Route>

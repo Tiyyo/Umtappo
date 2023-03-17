@@ -5,12 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import ItemList from "./ItemList";
 import HeaderResume from "./HeaderResume";
 import { motion } from "framer-motion";
-import { getFetchTvshow } from "../../features/tvshow liked/slice/like.slice";
 
 const Watchlist = () => {
   const {
     state: {
-      list: { content: data, name, _id: listID },
+      list: { name, _id: listID },
       typeList,
     },
   } = useLocation();

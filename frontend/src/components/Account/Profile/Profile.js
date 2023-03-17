@@ -5,7 +5,6 @@ import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import UserContext from "../../../utils/Context/UserContextProvider";
-import { ThemeProvider } from "@mui/material";
 import AppContext from "../../../utils/Context/AppContextProvider";
 import ChangePassword from "../ChangePassword/ChangePassword";
 import axios from "axios";
@@ -53,13 +52,15 @@ const Profile = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleUsernameLock = () => {
-    return inputsLock.username
-      ? setInputsLock((state) => (state.username = false))
-      : setInputsLock((state) => (state.username = true));
+    // if (inputsLock.username) {
+    //   setInputsLock((state) => (state.inputsLock.username = false));
+    // } else if (!inputsLock.username) {
+    //   setInputsLock((state) => (state.inputsLock.username = true));
+    // }
   };
 
   const toggleEmailLock = () => {
-    return inputsLock.email
+    return inputsLock.email === true
       ? setInputsLock((state) => (state.email = false))
       : setInputsLock((state) => (state.email = true));
   };
@@ -74,8 +75,6 @@ const Profile = () => {
 
   const submitUsername = (value) => {
     let data = { user_id: userID, newUsername: value.username };
-
-    console.log("working");
 
     if (value.username > 3) {
       axios
@@ -165,77 +164,75 @@ const Profile = () => {
   };
 
   return (
-    <ThemeProvider theme={iconTheme}>
-      <div className="profile">
-        <ChangePassword isOpen={isOpen} getCloseState={getCloseState} />
-        <div data-blur={isOpen ? "is-active" : ""} className="blur"></div>
-        <form
-          className="aera username"
-          onSubmit={() => {
-            console.log("working");
-            return handleSubmit(submitUsername);
-          }}
-        >
-          <div className="username-icon">
-            <AccountCircleIcon />
-          </div>
-
-          <Input
-            type={"text"}
-            name={"username"}
-            disabled={inputsLock.username}
-            defaultValue={defaultValue.username}
-            errorMessage={inputsError.username}
-            register={register}
-          />
-          <button type="button" onClick={toggleUsernameLock}>
-            <EditIcon />
-          </button>
-          <button type="submit">
-            <DoneIcon />
-          </button>
-        </form>
-
-        <form className="aera email" onClick={handleEmail}>
-          <div className="email-icon">
-            <EmailIcon />
-          </div>
-          <Input
-            type="email"
-            disabled={inputsLock.email}
-            defaultValue={userInfos.email}
-            name="email"
-            errorMessage={inputsError.email}
-            register={register}
-          />
-          <button type="button" onClick={toggleEmailLock}>
-            <EditIcon />
-          </button>
-          <button type="button" disabled={inputsLock.email}>
-            <DoneIcon />
-          </button>
-        </form>
-
-        <div className="aera password">
-          <div className="password">
-            <LockIcon />
-          </div>
-          <Input
-            type="password"
-            disabled={inputsLock.password}
-            defaultValue={"NotaPassword"}
-            register={register}
-            name="password"
-          />
-          <button type="button" onClick={() => openModal()}>
-            <EditIcon />
-          </button>
-          <button type="button">
-            <DoneIcon />
-          </button>
+    <div className="profile">
+      <ChangePassword isOpen={isOpen} getCloseState={getCloseState} />
+      <div data-blur={isOpen ? "is-active" : ""} className="blur"></div>
+      <form
+        className="aera username"
+        onSubmit={() => {
+          console.log("working");
+          return handleSubmit(submitUsername);
+        }}
+      >
+        <div className="username-icon">
+          <AccountCircleIcon />
         </div>
+
+        <Input
+          type={"text"}
+          name={"username"}
+          // disabled={inputsLock.username}
+          defaultValue={defaultValue.username}
+          errorMessage={inputsError.username}
+          register={register}
+        />
+        <button type="button" onClick={toggleUsernameLock}>
+          <EditIcon />
+        </button>
+        <button type="submit">
+          <DoneIcon />
+        </button>
+      </form>
+
+      <form className="aera email" onClick={handleEmail}>
+        <div className="email-icon">
+          <EmailIcon />
+        </div>
+        <Input
+          type="email"
+          // disabled={inputsLock.email}
+          defaultValue={userInfos.email}
+          name="email"
+          errorMessage={inputsError.email}
+          register={register}
+        />
+        <button type="button" onClick={toggleEmailLock}>
+          <EditIcon />
+        </button>
+        <button type="button" disabled={inputsLock.email}>
+          <DoneIcon />
+        </button>
+      </form>
+
+      <div className="aera password">
+        <div className="password">
+          <LockIcon />
+        </div>
+        <Input
+          type="password"
+          // disabled={inputsLock.password}
+          defaultValue={"NotaPassword"}
+          register={register}
+          name="password"
+        />
+        <button type="button" onClick={() => openModal()}>
+          <EditIcon />
+        </button>
+        <button type="button">
+          <DoneIcon />
+        </button>
       </div>
-    </ThemeProvider>
+    </div>
   );
 };
 

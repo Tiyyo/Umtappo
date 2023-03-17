@@ -51,11 +51,6 @@ const ItemList = ({ content, listID, typeList }) => {
     listID === "1" ? (type = "movie") : (type = "tvshow");
     let data = { user_id: userID, content_id: content.id, media_type: type };
 
-    // await axios
-    //   .patch(`http://localhost:5000/like/${type}/`, data)
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err));
-
     if (type === "movie") {
       pullIdFromDatabase(type, data);
       dispatch(dislikeMovie({ id: content.id, media_type: type }));

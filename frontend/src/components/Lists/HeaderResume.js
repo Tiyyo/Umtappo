@@ -4,12 +4,13 @@ import LoaderUI from "../Loader/LoaderUI";
 import { displayGenre } from "../MediaElement/display.genre";
 
 const HeaderResume = ({ content, typeList }) => {
-  console.log(typeList);
+  let like = "like";
+  let watchlist = "whatchlist";
 
   const { genreListMovie, genreListTv } = useContext(AppContext);
 
   const displayLikedMediaGenre = (typeList) => {
-    if (typeList === "like") {
+    if (typeList === like) {
       const genreName = content.genres.map((g) => g.name);
       return genreName.map((name, index) => {
         return (
@@ -18,7 +19,7 @@ const HeaderResume = ({ content, typeList }) => {
           </span>
         );
       });
-    } else if (typeList === "whatchlist") {
+    } else if (typeList === watchlist) {
       return displayGenre(
         content.genre_ids,
         content.type,
