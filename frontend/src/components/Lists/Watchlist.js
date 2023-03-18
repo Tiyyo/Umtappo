@@ -22,6 +22,7 @@ const Watchlist = () => {
     } else if ((typeList === "like") & (listID === "1")) {
       return state.movieLiked.fetchMedia;
     } else if ((typeList === "like") & (listID === "2")) {
+      console.log(state.tvshowLiked.loading);
       return state.tvshowLiked.fetchMedia;
     }
   });

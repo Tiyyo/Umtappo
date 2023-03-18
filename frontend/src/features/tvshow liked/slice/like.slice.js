@@ -9,9 +9,8 @@ const getQueries = (arrIds, languages) => {
 };
 
 export const getIdsTvshowsLiked = createAsyncThunk(
-  "getTvshowsLiked",
+  "getIdsTvshowsLiked",
   async (arg, { dispatch, getState }) => {
-    console.log("yeah");
     const result = await axios
       .get("http://localhost:5000/like/tvshow/" + arg)
       .then((res) => {
@@ -45,15 +44,15 @@ export const getFetchTvshow = createAsyncThunk(
           }
         );
         uniqueContent.forEach((c) => (c.type = "Tvshow"));
-        dispatch(getFetchTvshowLiked(uniqueContent));
         return uniqueContent;
       });
+    return result;
   }
 );
 
 const likesSlice = createSlice({
   name: "tvshow_liked",
-  initialState: { ids: [], fetchMedia: [] },
+  initialState: { ids: [], fetchMedia: [], loading: "idle" },
   reducers: {
     getIdsTvshowsLikedSucces: (state, { payload }) => {
       state.ids = payload;
@@ -64,12 +63,22 @@ const likesSlice = createSlice({
     dislikeTvshow: (state, { payload }) => {
       state.ids = state.ids.filter((m) => m.id !== payload.id);
     },
-    getFetchTvshowLiked: (state, { payload }) => {
-      state.fetchMedia = payload;
-    },
     deleteTvshowFromFetch: (state, { payload }) => {
       state.fetchMedia = state.fetchMedia.filter((m) => m.id !== payload.id);
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getFetchTvshow.fulfilled, (state, action) => {
+        state.fetchMedia = action.payload;
+        state.loading = "idle";
+      })
+      .addCase(getFetchTvshow.pending, (state, action) => {
+        state.loading = "pending";
+      })
+      .addCase(getFetchTvshow.rejected, (state, action) => {
+        state.loading = "failed";
+      });
   },
 });
 

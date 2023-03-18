@@ -5,7 +5,10 @@ import useMediaId from "../../../utils/hooks/useMediaId";
 import SmallCard from "../SmallCard";
 import LoaderUI from "../../Loader/LoaderUI";
 import { getFetchTvshow } from "../../../features/tvshow liked/slice/like.slice";
-import { getFetchMovie } from "../../../features/movie liked/Slice/likes.slice";
+import {
+  getFetchMovie,
+  getIdsMoviesLiked,
+} from "../../../features/movie liked/Slice/likes.slice";
 import AppContext from "../../../utils/Context/AppContextProvider";
 
 const LikesContainer = () => {
@@ -24,7 +27,6 @@ const LikesContainer = () => {
 
   useEffect(() => {
     dispatch(getFetchTvshow(languages));
-    dispatch(getFetchMovie(languages));
   }, [languages]);
 
   return (

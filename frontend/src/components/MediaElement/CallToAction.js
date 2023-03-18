@@ -19,18 +19,20 @@ import axios from "axios";
 import useIsLiked from "./useIsLiked";
 import UserContext from "../../utils/Context/UserContextProvider";
 
-const CallToAction = (props) => {
-  const { content } = props;
+const CallToAction = ({ content }) => {
   const { iconTheme } = useContext(AppContext);
   const { userID } = useContext(UserContext);
 
   const [isLiked, setIsLiked] = useState(false);
 
-  const {
-    user: { id: user_id },
-  } = useSelector((state) => state.user);
-
   const dispatch = useDispatch();
+  const isAlreadyLiked = useIsLiked(content.type, userID, content.id);
+
+  useEffect(() => {
+    if (isAlreadyLiked) {
+      setIsLiked(true);
+    }
+  }, [isAlreadyLiked]);
 
   let movieType = "movie";
   let tvshowType = "tvshow";
@@ -40,7 +42,7 @@ const CallToAction = (props) => {
   };
 
   const addToLikes = async (type) => {
-    const data = { user_id: user_id, content_id: content.id, media_type: type };
+    const data = { user_id: userID, content_id: content.id, media_type: type };
     const res = await axios
       .post(`http://localhost:5000/like/${type}`, data)
       .then((res) => {
@@ -56,7 +58,7 @@ const CallToAction = (props) => {
   };
 
   const removeFromLikes = async (type) => {
-    const data = { user_id: user_id, content_id: content.id, media_type: type };
+    const data = { user_id: userID, content_id: content.id, media_type: type };
     const res = await axios
       .patch(`http://localhost:5000/like/${type}`, data)
       .then((res) => {
@@ -85,11 +87,9 @@ const CallToAction = (props) => {
     }
   }, [isLiked]);
 
-  const data = useIsLiked(content.type, userID, content.id);
-
-  useEffect(() => {
-    setIsLiked(data);
-  }, [data]);
+  // useEffect(() => {
+  //   setIsLiked(data);
+  // }, [data]);
 
   return (
     <div className="media-element__call-to-action">

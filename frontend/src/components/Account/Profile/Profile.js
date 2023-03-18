@@ -1,68 +1,90 @@
 import React, { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import Input from "../../Authentification/Input";
+import ChangePassword from "../ChangePassword/ChangePassword";
 import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
-import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import EmailIcon from "@mui/icons-material/Email";
 import UserContext from "../../../utils/Context/UserContextProvider";
-import AppContext from "../../../utils/Context/AppContextProvider";
-import ChangePassword from "../ChangePassword/ChangePassword";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { isValidEmail } from "../Account.utils";
-import Input from "../../Authentification/Input";
-import { useForm } from "react-hook-form";
-import { userSchema } from "../../Authentification/SignUp/SignUp";
-import { yupResolver } from "@hookform/resolvers/yup";
+
+export const userSchema = yup.object().shape({
+  username: yup
+    .string()
+    .min(3, "Username must contain at least 3 characters")
+    .required("Please this filed is required"),
+  email: yup
+    .string()
+    .email("This is not an email !")
+    .required("An email is required"),
+});
 
 const Profile = () => {
   const { userInfos, userID } = useContext(UserContext);
-  const { iconTheme } = useContext(AppContext);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    mode: "onSubmit",
-    resolver: yupResolver(userSchema),
-    defaultValue: {
-      username: userInfos.username,
-      email: userInfos.email,
-      password: "NotAPassword",
-    },
-  });
-
-  const [inputsLock, setInputsLock] = useState({
-    username: true,
-    email: true,
-    password: true,
-  });
-
-  const [inputsValue, setInputsValue] = useState({ username: "", email: "" });
-
-  const [inputsError, setInputsError] = useState({ username: "", email: "" });
-
+  const [isOpen, setIsOpen] = useState(false);
   const [defaultValue, setDefaultValue] = useState({
     username: userInfos.username,
     email: userInfos.email,
     password: "NotAPassword",
   });
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [usernameIsLock, setUsernameIsLock] = useState(true);
+  const [emailIsLock, setEmailIsLock] = useState(true);
 
-  const toggleUsernameLock = () => {
-    // if (inputsLock.username) {
-    //   setInputsLock((state) => (state.inputsLock.username = false));
-    // } else if (!inputsLock.username) {
-    //   setInputsLock((state) => (state.inputsLock.username = true));
-    // }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({ resolver: yupResolver(userSchema) });
+
+  const submitUsername = async (value) => {
+    console.log(value);
+    let data = { user_id: userID, newUsername: value.username };
+
+    await axios
+      .patch("http://localhost:5000/user/username", data)
+      .then((res) => {
+        if (res.status === 200) {
+          setDefaultValue((state) => {
+            return (state.username = data.newUsername);
+          });
+          toast.success("Username succesfully updated", {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
-  const toggleEmailLock = () => {
-    return inputsLock.email === true
-      ? setInputsLock((state) => (state.email = false))
-      : setInputsLock((state) => (state.email = true));
+  const submitEmail = async (value) => {
+    console.log(value);
+
+    let data = { user_id: userID, newEmail: value.email };
+
+    await axios
+      .patch("http://localhost:5000/user/email", data)
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success("Email has been succesfull updated");
+          setDefaultValue((state) => {
+            return (state.email = data.newEmail);
+          });
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const openModal = () => {
@@ -73,94 +95,12 @@ const Profile = () => {
     setIsOpen(state);
   };
 
-  const submitUsername = (value) => {
-    let data = { user_id: userID, newUsername: value.username };
-
-    if (value.username > 3) {
-      axios
-        .patch("http://localhost:5000/user/username", data)
-        .then((res) => {
-          if (res.status === 200) {
-            setInputsError("");
-            setDefaultValue((state) => {
-              return (state.username = data.newUsername);
-            });
-            toast.success("Username succesfully updated", {
-              position: "top-right",
-              autoClose: 1000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          }
-        })
-        .catch((err) => console.log(err));
-    } else {
-      setInputsError(
-        (state) =>
-          (state.username = "Username must be contain at least 3 characters")
-      );
-    }
+  const toggleEditUsername = () => {
+    usernameIsLock ? setUsernameIsLock(false) : setUsernameIsLock(true);
   };
 
-  //   const handleUsername = (e) => {
-  //     e.preventDefault();
-  //     let data = { user_id: userID, newUsername: inputsValue.username };
-
-  //     if (inputsValue.username.length > 3) {
-  //       axios
-  //         .patch("http://localhost:5000/user/username", data)
-  //         .then((res) => {
-  //           if (res.status === 200) {
-  //             setInputsError("");
-  //             setDefaultValue((state) => {
-  //               return (state.username = data.newUsername);
-  //             });
-  //             setInputsValue((state) => (state.username = ""));
-  //             toast.success("Username succesfully updated", {
-  //               position: "top-right",
-  //               autoClose: 1000,
-  //               hideProgressBar: false,
-  //               closeOnClick: true,
-  //               pauseOnHover: true,
-  //               draggable: true,
-  //               progress: undefined,
-  //               theme: "light",
-  //             });
-  //           }
-  //         })
-  //         .catch((err) => console.log(err));
-  //     } else {
-  //       setInputsError(
-  //         (state) =>
-  //           (state.username = "Username must be contain at least 3 characters")
-  //       );
-  //     }
-  //   };
-
-  const handleEmail = (e) => {
-    e.preventDefault();
-    let data = { user_id: userID, newEmail: inputsValue.email };
-    if (isValidEmail(inputsValue.email)) {
-      axios
-        .patch("http://localhost:5000/user/email", data)
-        .then((res) => {
-          if (res.status === 200) {
-            toast.success("Email has been succesfull updated");
-            setDefaultValue((state) => {
-              return (state.email = data.newEmail);
-            });
-            setInputsValue((state) => (state.email = ""));
-            setInputsError((state) => (state.email = ""));
-          }
-        })
-        .catch((err) => console.log(err));
-    } else {
-      setInputsError((state) => (state.email = "This is not a valid Email"));
-    }
+  const toggleEditEmail = () => {
+    emailIsLock ? setEmailIsLock(false) : setEmailIsLock(true);
   };
 
   return (
@@ -168,59 +108,52 @@ const Profile = () => {
       <ChangePassword isOpen={isOpen} getCloseState={getCloseState} />
       <div data-blur={isOpen ? "is-active" : ""} className="blur"></div>
       <form
-        className="aera username"
-        onSubmit={() => {
-          console.log("working");
-          return handleSubmit(submitUsername);
-        }}
+        action="post"
+        className="aera"
+        onSubmit={handleSubmit(submitUsername)}
       >
         <div className="username-icon">
           <AccountCircleIcon />
         </div>
-
         <Input
-          type={"text"}
-          name={"username"}
-          // disabled={inputsLock.username}
+          name="username"
           defaultValue={defaultValue.username}
-          errorMessage={inputsError.username}
+          disabled={usernameIsLock}
+          errorMessage={errors.username?.message}
           register={register}
         />
-        <button type="button" onClick={toggleUsernameLock}>
+        <button type="button" onClick={toggleEditUsername}>
           <EditIcon />
         </button>
         <button type="submit">
           <DoneIcon />
         </button>
       </form>
-
-      <form className="aera email" onClick={handleEmail}>
+      <form action="post" className="aera" onSubmit={handleSubmit(submitEmail)}>
         <div className="email-icon">
           <EmailIcon />
         </div>
         <Input
-          type="email"
-          // disabled={inputsLock.email}
-          defaultValue={userInfos.email}
           name="email"
-          errorMessage={inputsError.email}
+          disabled={emailIsLock}
+          defaultValue={defaultValue.email}
+          errorMessage={errors.email?.message}
           register={register}
         />
-        <button type="button" onClick={toggleEmailLock}>
+        <button type="button" onClick={toggleEditEmail}>
           <EditIcon />
         </button>
-        <button type="button" disabled={inputsLock.email}>
+        <button type="submit">
           <DoneIcon />
         </button>
       </form>
-
       <div className="aera password">
         <div className="password">
           <LockIcon />
         </div>
         <Input
           type="password"
-          // disabled={inputsLock.password}
+          disabled={true}
           defaultValue={"NotaPassword"}
           register={register}
           name="password"

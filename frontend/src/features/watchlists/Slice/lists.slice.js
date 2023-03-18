@@ -4,14 +4,12 @@ import axios from "axios";
 export const getLists = createAsyncThunk(
   "getLists",
   async (arg, { dispatch, getState }) => {
-    // getState().lists.lists.loading = "failed";
     const result = await axios
       .get("http://localhost:5000/list/" + arg)
       .then((res) => {
-        dispatch(getListsSucces(res.data));
+        return res.data;
       });
-
-    return result.data;
+    return result;
   }
 );
 
@@ -53,8 +51,9 @@ const listSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getLists.fulfilled, (state, action) => {
-      state.loading = "succeeded";
+    builder.addCase(getLists.fulfilled, (state, { payload }) => {
+      state.loading = "idle";
+      state.lists = payload.lists;
     });
   },
 });

@@ -1,48 +1,61 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { getLists } from "../../../features/watchlists/Slice/lists.slice";
-import { getIdsMoviesLiked } from "../../../features/movie liked/Slice/likes.slice";
-import { getIdsTvshowsLiked } from "../../../features/tvshow liked/slice/like.slice";
-import useMediaId from "../../../utils/hooks/useMediaId";
+import {
+  getFetchMovie,
+  getIdsMoviesLiked,
+} from "../../../features/movie liked/Slice/likes.slice";
+import {
+  getFetchTvshow,
+  getIdsTvshowsLiked,
+} from "../../../features/tvshow liked/slice/like.slice";
 import LoaderUI from "../../Loader/LoaderUI";
+import AppContext from "../../../utils/Context/AppContextProvider";
+import UserContext from "../../../utils/Context/UserContextProvider";
 
 const Lists = () => {
-  const disaptch = useDispatch();
-  const [globalLoading, setGlobalLoading] = useState(true);
+  const { languages } = useContext(AppContext);
+  const { userID: user_id } = useContext(UserContext);
+
+  const dispatch = useDispatch();
+
+  const [globalLoading, setGlobalLoading] = useState(false);
+
+  const store = useSelector((state) => {
+    return state;
+  });
 
   const {
-    user: {
-      user: { id: user_id },
-    },
-    lists: { lists: watchlists, loading },
-    movieLiked: { likes: movieIdsLiked },
-    tvshowLiked: { likes: tvshowIdsLiked },
-  } = useSelector((state) => state);
+    movieLiked: { ids: moviesLikedIds },
+    tvshowLiked: { ids: tvshowsLikedIds },
+    lists: { lists: watchlists, loading: loadingWatchlists },
+  } = store;
+  console.log();
+  // const {
+  //   user: {
+  //     user: { id: user_id },
+  //   },
+  //   lists: { lists: watchlists, loading },
+  //   movieLiked: { likes: movieIdsLiked },
+  //   tvshowLiked: { likes: tvshowIdsLiked },
+  // } = useSelector((state) => state);
 
-  const { fetchContent: moviesLiked, loading: loadingMovieLiked } = useMediaId(
-    movieIdsLiked,
-    "movie"
-  );
-  const { fetchContent: tvshowLiked, loading: loadingTvshowLiked } = useMediaId(
-    tvshowIdsLiked,
-    "tv"
-  );
-
-  useEffect(() => {
-    let arrLoading = [loadingMovieLiked, loadingTvshowLiked];
-    const state = arrLoading.every((el) => el === "idle");
-    setGlobalLoading(!state);
-  }, [loadingMovieLiked, loadingTvshowLiked]);
+  // useEffect(() => {
+  //   let arrLoading = [loadingMovieLiked, loadingTvshowLiked];
+  //   const state = arrLoading.every((el) => el === "idle");
+  //   setGlobalLoading(!state);
+  // }, [loadingMovieLiked, loadingTvshowLiked]);
 
   useEffect(() => {
-    disaptch(getLists(user_id));
-    disaptch(getIdsMoviesLiked(user_id));
-    disaptch(getIdsTvshowsLiked(user_id));
-  }, []);
+    dispatch(getLists(user_id));
+    dispatch(getIdsMoviesLiked(user_id));
+    dispatch(getIdsTvshowsLiked(user_id));
+    dispatch(getFetchMovie(languages));
+    dispatch(getFetchTvshow(languages));
+  }, [languages, user_id]);
 
-  let numberLikedMovies = moviesLiked?.length;
-  let numberLikedTvshow = tvshowLiked?.length;
+  let numberLikedMovies = moviesLikedIds?.length;
+  let numberLikedTvshow = tvshowsLikedIds?.length;
   let numberOfLists = watchlists.length;
 
   return (

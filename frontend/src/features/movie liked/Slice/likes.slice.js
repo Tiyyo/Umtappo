@@ -9,8 +9,8 @@ const getQueries = (arrIds, languages) => {
 };
 
 export const getIdsMoviesLiked = createAsyncThunk(
-  "getMoviesLiked",
-  async (arg, { dispatch, getState }) => {
+  "getIdsMoviesLiked",
+  async (arg, { dispatch, getState, rejectWithValue }) => {
     const result = await axios
       .get("http://localhost:5000/like/movie/" + arg)
       .then((res) => {
@@ -19,16 +19,17 @@ export const getIdsMoviesLiked = createAsyncThunk(
           res.data.movie_liked.map((r) => {
             return r.map((l) => arr.push(l));
           });
-          dispatch(getIdsMoviesLikedSuccess(arr));
+          return arr;
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => rejectWithValue(err.response.data));
+    return result;
   }
 );
 
 export const getFetchMovie = createAsyncThunk(
   "getFetchMovie",
-  async (languages, { dispatch, getState }) => {
+  async (languages, { dispatch, getState, rejectWithValue }) => {
     const arrIds = getState().movieLiked.ids.map((m) => m.id);
     const queries = getQueries(arrIds, languages);
 
@@ -48,14 +49,15 @@ export const getFetchMovie = createAsyncThunk(
         );
         uniqueContent.forEach((c) => (c.type = "Movie"));
         return uniqueContent;
-      });
-    dispatch(getFetchMovieLiked(result));
+      })
+      .catch((err) => rejectWithValue(err.response.data));
+    return result;
   }
 );
 
 const likesSlice = createSlice({
   name: "movie_liked",
-  initialState: { ids: "", fetchMedia: [] },
+  initialState: { ids: "", fetchMedia: [], loading: "idle" },
   reducers: {
     getIdsMoviesLikedSuccess: (state, { payload }) => {
       state.ids = payload;
@@ -66,12 +68,33 @@ const likesSlice = createSlice({
     dislikeMovie: (state, { payload }) => {
       state.ids = state.ids.filter((m) => m.id !== payload.id);
     },
-    getFetchMovieLiked: (state, { payload }) => {
-      state.fetchMedia = payload;
-    },
     deleteMovieFromFetch: (state, { payload }) => {
       state.fetchMedia = state.fetchMedia.filter((m) => m.id !== payload.id);
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getIdsMoviesLiked.fulfilled, (state, action) => {
+        console.log(action);
+        state.ids = action.payload;
+      })
+      .addCase(getIdsMoviesLiked.pending, (state, action) => {
+        if (state.loading === "idle") {
+          state.loading = "pending";
+        }
+      })
+      .addCase(getFetchMovie.fulfilled, (state, action) => {
+        state.fetchMedia = action.payload;
+        state.loading = "idle";
+      })
+      .addCase(getFetchMovie.pending, (state, action) => {
+        if (state.loading === "idle") {
+          state.loading = "pending";
+        }
+      })
+      .addCase(getFetchMovie.rejected, (state, action) => {
+        state.loading = "failed";
+      });
   },
 });
 

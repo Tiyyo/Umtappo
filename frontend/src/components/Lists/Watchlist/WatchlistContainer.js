@@ -15,6 +15,7 @@ const WatchlistContainer = () => {
   const { lists: myLists, loading: loadingListState } = useSelector(
     (state) => state.lists
   );
+
   const toggleView = () => {
     view === gridView ? setView(listView) : setView(gridView);
   };
