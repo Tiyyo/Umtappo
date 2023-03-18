@@ -75,13 +75,15 @@ const likesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getIdsMoviesLiked.fulfilled, (state, action) => {
-        console.log(action);
         state.ids = action.payload;
       })
       .addCase(getIdsMoviesLiked.pending, (state, action) => {
         if (state.loading === "idle") {
           state.loading = "pending";
         }
+      })
+      .addCase(getIdsMoviesLiked.rejected, (state, action) => {
+        state.loading = "rejected";
       })
       .addCase(getFetchMovie.fulfilled, (state, action) => {
         state.fetchMedia = action.payload;

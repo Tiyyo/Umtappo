@@ -51,10 +51,17 @@ const listSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getLists.fulfilled, (state, { payload }) => {
-      state.loading = "idle";
-      state.lists = payload.lists;
-    });
+    builder
+      .addCase(getLists.fulfilled, (state, action) => {
+        state.loading = "idle";
+        state.lists = action.payload.lists;
+      })
+      .addCase(getLists.pending, (state, action) => {
+        state.loading = "pending";
+      })
+      .addCase(getLists.rejected, (state, action) => {
+        state.loading = "failed";
+      });
   },
 });
 

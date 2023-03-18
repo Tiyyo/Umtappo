@@ -10,7 +10,7 @@ const getQueries = (arrIds, languages) => {
 
 export const getIdsTvshowsLiked = createAsyncThunk(
   "getIdsTvshowsLiked",
-  async (arg, { dispatch, getState }) => {
+  async (arg, { dispatch, getState, rejectWithValue }) => {
     const result = await axios
       .get("http://localhost:5000/like/tvshow/" + arg)
       .then((res) => {
@@ -18,8 +18,10 @@ export const getIdsTvshowsLiked = createAsyncThunk(
         res.data.tvshow_liked.map((r) => {
           return r.map((l) => arr.push(l));
         });
-        dispatch(getIdsTvshowsLikedSucces(arr));
-      });
+        return arr;
+      })
+      .catch((err) => rejectWithValue(err.response.data));
+    return result;
   }
 );
 
@@ -69,6 +71,17 @@ const likesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getIdsTvshowsLiked.fulfilled, (state, action) => {
+        state.ids = action.payload;
+      })
+      .addCase(getIdsTvshowsLiked.pending, (state, action) => {
+        if (state.loading === "idle") {
+          state.loading = "pending";
+        }
+      })
+      .addCase(getIdsTvshowsLiked.rejected, (state, action) => {
+        state.loading = "rejected";
+      })
       .addCase(getFetchTvshow.fulfilled, (state, action) => {
         state.fetchMedia = action.payload;
         state.loading = "idle";
