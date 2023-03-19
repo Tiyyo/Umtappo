@@ -19,15 +19,25 @@ const LikesContainer = () => {
 
   const dispatch = useDispatch();
 
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
-  const moviesLiked = useSelector((state) => state.movieLiked.fetchMedia);
+  const { loading: loadMovies, fetchMedia: moviesLiked } = useSelector(
+    (state) => state.movieLiked
+  );
 
-  const tvshowsLiked = useSelector((state) => state.tvshowLiked.fetchMedia);
+  const { fetchMedia: tvshowsLiked, loading: loadTvshows } = useSelector(
+    (state) => state.tvshowLiked
+  );
 
   useEffect(() => {
     dispatch(getFetchTvshow(languages));
   }, [languages]);
+
+  useEffect(() => {
+    let arr = [loadTvshows, loadMovies];
+    const currentLoadingState = arr.every((l) => l === "idle");
+    setLoading(!currentLoadingState);
+  }, [loadTvshows, loadMovies]);
 
   return (
     <>

@@ -65,7 +65,7 @@ const SmallCard = ({ typeList, list }) => {
       <Link to={name} state={{ list, typeList: typeList }}>
         <div className="small-card__poster">
           {!content ? (
-            <LoaderUI />
+            <LoaderUI fixed={true} />
           ) : (
             <img
               src={posterImage(sizePoster, content)}

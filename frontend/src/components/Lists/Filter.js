@@ -1,15 +1,14 @@
 import React from "react";
+import Button from "../Button/Button";
 import "./animationbtn.scss";
+import GridViewIcon from "@mui/icons-material/GridView";
 
 const Filter = () => {
   return (
     <div className="essai">
-      <button>
-        <div className="gradient"></div>
-        <div className="gradient-2"></div>
-        <div className="gradient-3"></div>
-        <div className="top"></div>
-      </button>
+      <Button>
+        <GridViewIcon sx={{ color: "white" }} />
+      </Button>
     </div>
   );
 };
