@@ -5,14 +5,18 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { ThemeProvider } from "@mui/material";
 import AppContext from "../../utils/Context/AppContextProvider";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser, getUserData } from "../../features/user/slice/user.slice";
 
 const Account = () => {
-  const { setUserID, userInfos, setUserInfos, setIsAuth, setIsLoggedIn } =
+  const { setUserID, setUserInfos, setIsAuth, setIsLoggedIn } =
     useContext(UserContext);
 
   const { iconTheme } = useContext(AppContext);
+
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   let locations = location.pathname
     .replace("/", " ")
@@ -22,18 +26,25 @@ const Account = () => {
 
   const logOut = () => {
     window.localStorage.clear();
-    if (window.localStorage.accessToken) {
-      console.log(localStorage.accessToken);
+    if (window.localStorage.accesToken) {
+      console.log(localStorage.accesToken);
     }
-    window.localStorage.removeItem("accessToken");
+    window.localStorage.removeItem("accesToken");
     setUserID("");
     setUserInfos("");
     setIsAuth(false);
     setIsLoggedIn(false);
+    dispatch(clearUser());
     navigate("/Login");
 
     return alert("You are now logOut !");
   };
+
+  const { username } = useSelector((state) => state.user.user);
+
+  useEffect(() => {
+    dispatch(getUserData());
+  }, []);
 
   const goBack = () => {
     return navigate(-1);
@@ -60,7 +71,7 @@ const Account = () => {
           <span>Change your picture profile</span>
         </div>
         <h2 className="welcome">
-          Hello <span>{userInfos.username}</span>
+          Hello <span>{username}</span>
         </h2>
       </div>
       <Outlet />

@@ -6,6 +6,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import AppContext from "../../../utils/Context/AppContextProvider";
 import { ThemeProvider } from "@mui/material";
+import Button from "../../Button/Button";
 
 const MenuLink = ({ path, icon }) => {
   const { iconTheme } = useContext(AppContext);
@@ -23,7 +24,9 @@ const MenuLink = ({ path, icon }) => {
         <span>{path}</span>
         <Link to={path}>
           <button type="button">
-            <ArrowForwardIcon />
+            <Button>
+              <ArrowForwardIcon />
+            </Button>
           </button>
         </Link>
       </li>

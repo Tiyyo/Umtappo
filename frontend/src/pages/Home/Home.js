@@ -10,6 +10,7 @@ import useFetch from "../../utils/hooks/useFetch";
 import { HomeContextProvider } from "../../utils/Context/HomeContextProvider";
 import AppContext from "../../utils/Context/AppContextProvider";
 import { useOutletContext } from "react-router";
+import Footer from "../../components/Footer/Footer";
 
 const Home = React.forwardRef((props, ref) => {
   const data = useOutletContext();
@@ -152,6 +153,7 @@ const Home = React.forwardRef((props, ref) => {
               <Promoted content={promotedElements} />
               <Genre dataToDisplay="Both" />
               <Promoted content={promotedElements} />
+              <Footer />
             </div>
           </div>
         ) : (

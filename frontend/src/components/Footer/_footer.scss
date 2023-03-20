@@ -1,0 +1,23 @@
+.footer  {
+    font-family: 'Lato', serif;
+
+    .credits  {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        column-gap: 0.4rem;
+
+        
+
+        span  {
+            font-size: 0.6rem;
+            color: var(--text);
+        }
+
+    }
+    .social-media-links  {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem;
+    }
+}

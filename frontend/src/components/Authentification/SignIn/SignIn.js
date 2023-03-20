@@ -22,6 +22,7 @@ import InputPassword from "../InputPassword";
 
 function SignIn() {
   let accessToken;
+
   const {
     register,
     handleSubmit,

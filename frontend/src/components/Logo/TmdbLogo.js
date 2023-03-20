@@ -1,9 +1,9 @@
 import React from "react";
-import Tmdb_logo from "../../assets/images/Tmdb_logo.png";
+import Tmdb_logo from "../../assets/images/TMDB_logo.svg";
 
 const TmdbLogo = () => {
   return (
-    <div>
+    <div className="tmdb_logo">
       <img src={Tmdb_logo} />
     </div>
   );

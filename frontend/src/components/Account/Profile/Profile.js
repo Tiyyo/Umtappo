@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Input from "../../Authentification/Input";
 import ChangePassword from "../ChangePassword/ChangePassword";
@@ -12,12 +12,20 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  editEmail,
+  editUsername,
+  getUserData,
+} from "../../../features/user/slice/user.slice";
 
-export const userSchema = yup.object().shape({
+export const usernameSchema = yup.object().shape({
   username: yup
     .string()
     .min(3, "Username must contain at least 3 characters")
     .required("Please this filed is required"),
+});
+export const emailShcema = yup.object().shape({
   email: yup
     .string()
     .email("This is not an email !")
@@ -25,35 +33,43 @@ export const userSchema = yup.object().shape({
 });
 
 const Profile = () => {
-  const { userInfos, userID } = useContext(UserContext);
+  const dispatch = useDispatch();
+  const {
+    id: userID,
+    email: userEmail,
+    username: username,
+  } = useSelector((state) => state.user.user);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [defaultValue, setDefaultValue] = useState({
-    username: userInfos.username,
-    email: userInfos.email,
-    password: "NotAPassword",
-  });
 
   const [usernameIsLock, setUsernameIsLock] = useState(true);
   const [emailIsLock, setEmailIsLock] = useState(true);
 
   const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm({ resolver: yupResolver(userSchema) });
+    register: registerUsername,
+    handleSubmit: handleSubmitUsername,
+    formState: { errors: errorUsername, isSubmitting: isSubmittingUsername },
+  } = useForm({ resolver: yupResolver(usernameSchema) });
+
+  const {
+    register: registerEmail,
+    handleSubmit: handleSubmitEmail,
+    formState: { errors: errorEmail, isSubmitting: isSubmittingEmail },
+  } = useForm({
+    resolver: yupResolver(emailShcema),
+  });
 
   const submitUsername = async (value) => {
-    console.log(value);
     let data = { user_id: userID, newUsername: value.username };
 
     await axios
       .patch("http://localhost:5000/user/username", data)
       .then((res) => {
         if (res.status === 200) {
-          setDefaultValue((state) => {
-            return (state.username = data.newUsername);
-          });
+          dispatch(editUsername(value.username));
+          // setDefaultValue((state) => {
+          //   return (state.username = data.newUsername);
+          // });
           toast.success("Username succesfully updated", {
             position: "top-right",
             autoClose: 1000,
@@ -70,8 +86,6 @@ const Profile = () => {
   };
 
   const submitEmail = async (value) => {
-    console.log(value);
-
     let data = { user_id: userID, newEmail: value.email };
 
     await axios
@@ -79,9 +93,10 @@ const Profile = () => {
       .then((res) => {
         if (res.status === 200) {
           toast.success("Email has been succesfull updated");
-          setDefaultValue((state) => {
-            return (state.email = data.newEmail);
-          });
+          dispatch(editEmail(value.email));
+          // setDefaultValue((state) => {
+          //   return (state.email = data.newEmail);
+          // });
         }
       })
       .catch((err) => console.log(err));
@@ -103,24 +118,30 @@ const Profile = () => {
     emailIsLock ? setEmailIsLock(false) : setEmailIsLock(true);
   };
 
+  useEffect(() => {
+    dispatch(getUserData());
+    console.log("fire");
+  }, []);
+
   return (
     <div className="profile">
       <ChangePassword isOpen={isOpen} getCloseState={getCloseState} />
       <div data-blur={isOpen ? "is-active" : ""} className="blur"></div>
+
       <form
         action="post"
         className="aera"
-        onSubmit={handleSubmit(submitUsername)}
+        onSubmit={handleSubmitUsername(submitUsername)}
       >
         <div className="username-icon">
           <AccountCircleIcon />
         </div>
         <Input
           name="username"
-          defaultValue={defaultValue.username}
+          defaultValue={username}
           disabled={usernameIsLock}
-          errorMessage={errors.username?.message}
-          register={register}
+          errorMessage={errorUsername.username?.message}
+          register={registerUsername}
         />
         <button type="button" onClick={toggleEditUsername}>
           <EditIcon />
@@ -129,16 +150,21 @@ const Profile = () => {
           <DoneIcon />
         </button>
       </form>
-      <form action="post" className="aera" onSubmit={handleSubmit(submitEmail)}>
+
+      <form
+        action="post"
+        className="aera"
+        onSubmit={handleSubmitEmail(submitEmail)}
+      >
         <div className="email-icon">
           <EmailIcon />
         </div>
         <Input
           name="email"
           disabled={emailIsLock}
-          defaultValue={defaultValue.email}
-          errorMessage={errors.email?.message}
-          register={register}
+          defaultValue={userEmail}
+          errorMessage={errorEmail.email?.message}
+          register={registerEmail}
         />
         <button type="button" onClick={toggleEditEmail}>
           <EditIcon />
@@ -147,6 +173,7 @@ const Profile = () => {
           <DoneIcon />
         </button>
       </form>
+
       <div className="aera password">
         <div className="password">
           <LockIcon />
@@ -155,7 +182,7 @@ const Profile = () => {
           type="password"
           disabled={true}
           defaultValue={"NotaPassword"}
-          register={register}
+          register={registerUsername}
           name="password"
         />
         <button type="button" onClick={() => openModal()}>

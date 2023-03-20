@@ -7,6 +7,7 @@ import LoaderUI from "../../components/Loader/LoaderUI";
 
 import useFetch from "../../utils/hooks/useFetch";
 import AppContext from "../../utils/Context/AppContextProvider";
+import Footer from "../../components/Footer/Footer";
 
 const Films = () => {
   let currentDate = new Date();
@@ -83,6 +84,7 @@ const Films = () => {
           <HorizontalCarousel content={popularMovies} title="Popular" />
           <Genre dataToDisplay="Movie" />
           <Promoted content={promotedMovies} />
+          <Footer />
         </div>
       )}
     </div>

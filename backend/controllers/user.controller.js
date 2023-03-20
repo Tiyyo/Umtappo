@@ -85,6 +85,27 @@ module.exports.currentUser = asyncHandler(async (req, res) => {
   });
 });
 
+module.exports.getUserInfos = asyncHandler(async (req, res) => {
+  const user_id = req.params.id;
+
+  if (!user_id) {
+    res.status(400).send("User id is missing");
+    throw new Error("User id is missing");
+  }
+  const user = await Users.findById(user_id);
+
+  if (!user) {
+    res.status(400).send("Id match no user");
+  } else {
+    res.status(200).json({
+      username: user.username,
+      email: user.email,
+    });
+  }
+
+  res.status(200).send("ok");
+});
+
 //@desc Current user info
 //@route PATCH user/username
 //@acees public

@@ -5,3 +5,12 @@
     font-weight: 400;
     color: $title;
 }
+
+.tmdb_logo {
+    width: 30%;
+
+    img {
+        object-fit: cover;
+    }
+    
+}

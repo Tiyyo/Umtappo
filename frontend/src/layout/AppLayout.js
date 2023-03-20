@@ -5,7 +5,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import BackIcon from "../components/Navigation/BackIcon";
 import { ThemeProvider } from "@mui/material";
 import AppContext from "../utils/Context/AppContextProvider";
-import Footer from "../components/Footer/Footer";
+import Button from "../components/Button/Button";
 
 const AppLayout = () => {
   const [inputSearchValue, setInputSearchValue] = useState("");
@@ -44,10 +44,9 @@ const AppLayout = () => {
         <div className="header">
           <Navigation />
           <SearchBar getInputValue={getInputValue} />
-          {shouldHide ? "" : <BackIcon color="primary" />}
+          <Button>{shouldHide ? "" : <BackIcon color="primary" />}</Button>
         </div>
         <Outlet context={inputSearchValue} />
-        <Footer />
       </div>
     </ThemeProvider>
   );

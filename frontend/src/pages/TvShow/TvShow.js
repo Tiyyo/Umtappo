@@ -7,6 +7,7 @@ import Genre from "../../components/Container/Genre/Genre";
 import useFetch from "../../utils/hooks/useFetch";
 import AppContext from "../../utils/Context/AppContextProvider";
 import LoaderUI from "../../components/Loader/LoaderUI";
+import Footer from "../../components/Footer/Footer";
 
 const TvShow = () => {
   let currentDate = new Date();
@@ -57,28 +58,31 @@ const TvShow = () => {
   }, [loadTrends, loadLastTvShows, loadTvShowOnAir, loadPromotedShow]);
 
   return (
-    <div className="app">
-      {!loading ? (
-        <div className="loading">
-          <LoaderUI />
-        </div>
-      ) : (
-        <div className="main">
-          <TrendsBanner content={tvShowOnAir} title="On TV Today" />
-          <HorizontalCarousel
-            content={lastReleaseTvShow}
-            title="What has been out lately"
-          />
-          <HorizontalCarousel
-            content={trendingTvShows}
-            title={"What is Trending now"}
-          />
-          <Promoted content={promotedTvShows} />
-          <Genre dataToDisplay="TvShow" />
-          <Promoted content={promotedTvShows} />
-        </div>
-      )}
-    </div>
+    <>
+      <div className="app">
+        {!loading ? (
+          <div className="loading">
+            <LoaderUI />
+          </div>
+        ) : (
+          <div className="main">
+            <TrendsBanner content={tvShowOnAir} title="On TV Today" />
+            <HorizontalCarousel
+              content={lastReleaseTvShow}
+              title="What has been out lately"
+            />
+            <HorizontalCarousel
+              content={trendingTvShows}
+              title={"What is Trending now"}
+            />
+            <Promoted content={promotedTvShows} />
+            <Genre dataToDisplay="TvShow" />
+            <Promoted content={promotedTvShows} />
+            <Footer />
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

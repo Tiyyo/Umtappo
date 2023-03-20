@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import useIsLiked from "./useIsLiked";
 import UserContext from "../../utils/Context/UserContextProvider";
+import Button from "../Button/Button";
 
 const CallToAction = ({ content }) => {
   const { iconTheme } = useContext(AppContext);
@@ -100,15 +101,19 @@ const CallToAction = ({ content }) => {
             addToFavorite();
           }}
         >
-          {isLiked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+          <Button>{isLiked ? <BookmarkIcon /> : <BookmarkBorderIcon />}</Button>
         </div>
         <div className="media-element__call-to-action__add-to">
           <Link to="add_to_playlist" state={{ content }}>
-            <AddIcon />
+            <Button>
+              <AddIcon />
+            </Button>
           </Link>
         </div>
         <div className="media-element__call-to-action__share">
-          <ShareIcon />
+          <Button>
+            <ShareIcon />
+          </Button>
         </div>
       </ThemeProvider>
     </div>
