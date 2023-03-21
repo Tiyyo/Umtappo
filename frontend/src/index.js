@@ -11,6 +11,9 @@ import userReducer from "./features/user/slice/user.slice";
 import headerResumeReducer from "./features/watchlists/Slice/resume.header";
 import movieLikedReducer from "./features/movie liked/Slice/likes.slice";
 import tvshowLikedReducer from "./features/tvshow liked/slice/like.slice";
+import { tmdbAPI } from "./features/content/tmdbAPI";
+import { getDefaultNormalizer } from "@testing-library/react";
+import mediaModalReducer from "./features/content/Slice/modalMedia.slice";
 
 const store = configureStore({
   reducer: {
@@ -19,7 +22,10 @@ const store = configureStore({
     header_resume: headerResumeReducer,
     movieLiked: movieLikedReducer,
     tvshowLiked: tvshowLikedReducer,
+    [tmdbAPI.reducerPath]: tmdbAPI.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(tmdbAPI.middleware),
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

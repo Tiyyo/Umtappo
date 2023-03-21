@@ -7,7 +7,6 @@ import useWindowSize from "../../../utils/hooks/useWindowSize";
 const HeaderHome = ({ content }) => {
   const { config } = useContext(AppContext);
   const { setImageHeaderHeight } = useContext(HomeContext);
-  // const { content } = props;
 
   const [posterToDisplay, setPosterToDisplay] = useState(1);
   const image = useRef();

@@ -30,7 +30,7 @@ export const AppContextProvider = ({ children }) => {
       setIconTheme(darkIconTheme);
       body.dataset.theme = "dark";
       window.localStorage.preferedTheme = "dark";
-    } else {
+    } else if (preferedTheme === "light") {
       setIconTheme(lightIconTheme);
       body.dataset.theme = "light";
       window.localStorage.preferedTheme = "light";
@@ -38,12 +38,18 @@ export const AppContextProvider = ({ children }) => {
   }, [preferedTheme]);
 
   useEffect(() => {
+    if (window.localStorage.preferedTheme) {
+      setTheme(window.localStorage.preferedTheme);
+    } else return;
+  }, []);
+
+  useEffect(() => {
     if (window.localStorage.language) {
       setLanguages(window.localStorage.language);
     } else {
       setLanguages("en-US");
     }
-  });
+  }, []);
 
   useEffect(() => {
     const fetchConfig = async () => {
@@ -77,25 +83,6 @@ export const AppContextProvider = ({ children }) => {
     };
     fetchGenreListTv();
   }, []);
-
-  useEffect(() => {
-    if (window.localStorage.preferedTheme) {
-      if (window.localStorage.preferedTheme === "dark") {
-        setIconTheme(darkIconTheme);
-        setTheme("dark");
-        body.dataset.theme = "dark";
-      } else {
-        setIconTheme(lightIconTheme);
-        setTheme("light");
-        body.dataset.theme = "light";
-      }
-    } else {
-      // setIconTheme(darkIconTheme);
-      // setTheme("dark");
-      // body.dataset.theme = "dark";
-      // window.localStorage.preferedTheme = "dark";
-    }
-  });
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

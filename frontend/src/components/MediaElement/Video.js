@@ -2,8 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import AppContext from "../../utils/Context/AppContextProvider";
 import ReactPlayer from "react-player";
 
-const Video = (props) => {
-  const { content, videos, loading } = props;
+const Video = ({ content, videos, loading }) => {
   const { config } = useContext(AppContext);
   const [ytKey, setYtKey] = useState(null);
   const [contentPresence, setPrescence] = useState(true);

@@ -8,57 +8,65 @@ import LoaderUI from "../../components/Loader/LoaderUI";
 import useFetch from "../../utils/hooks/useFetch";
 import AppContext from "../../utils/Context/AppContextProvider";
 import Footer from "../../components/Footer/Footer";
+import {
+  useGetLastReleaseMovieQuery,
+  useGetPopularMovieQuery,
+  useGetPromotedMovieQuery,
+  useGetUpcomingMovieQuery,
+} from "../../features/content/tmdbAPI";
 
 const Films = () => {
-  let currentDate = new Date();
-  const date = currentDate.setMonth(-1);
   const promotedElementPageNumber = useRef();
   const { languages } = useContext(AppContext);
 
-  const upcomingMovieUrl = `https://api.themoviedb.org/3/movie/upcoming?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&page=1&region=FR`;
-
-  const lastReleaseMoviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&region=FR&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.lte=${date}&watch_region=FR&with_watch_monetization_types=flatrate`;
+  const [mainIsLoading, setMainIsLoading] = useState(true);
 
   const recommendationsMoviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&sort_by=vote_average.desc&include_adult=false&include_video=false&page=1&vote_count.gte=5000&vote_average.gte=8&with_watch_monetization_types=flatrate`;
 
-  const promotedMoviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&sort_by=vote_average.desc&include_adult=false&include_video=false&page=${promotedElementPageNumber.current}&vote_count.gte=5000&vote_average.gte=8&with_watch_monetization_types=flatrate`;
+  // const { content: upcomingMovies, loading: loadTrends } =
+  //   useFetch(upcomingMovieUrl);
 
-  const popularMoviesUrl = `https://api.themoviedb.org/3/movie/popular?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&page=1&region=FR`;
+  // const { content: lastReleaseMovies, loading: loadLastMovies } =
+  //   useFetch(lastReleaseMoviesUrl);
 
-  const [loading, setLoading] = useState(false);
+  // const { content: recommendationsMovie, loading: loadRecommendMovies } =
+  //   useFetch(recommendationsMoviesUrl);
 
-  const { content: upcomingMovies, loading: loadTrends } =
-    useFetch(upcomingMovieUrl);
+  // const { content: promotedMovies, loading: loadPromotedMovie } =
+  //   useFetch(promotedMoviesUrl);
 
-  const { content: lastReleaseMovies, loading: loadLastMovies } =
-    useFetch(lastReleaseMoviesUrl);
+  // const { content: popularMovies, loading: loadPopularMovie } =
+  //   useFetch(popularMoviesUrl);
 
-  const { content: recommendationsMovie, loading: loadRecommendMovies } =
-    useFetch(recommendationsMoviesUrl);
-
-  const { content: promotedMovies, loading: loadPromotedMovie } =
-    useFetch(promotedMoviesUrl);
-
-  const { content: popularMovies, loading: loadPopularMovie } =
-    useFetch(popularMoviesUrl);
-
-  let loadsArray = [
-    loadTrends,
-    loadLastMovies,
-    loadRecommendMovies,
-    loadPromotedMovie,
-    loadPopularMovie,
-  ];
+  const { data: promotedMovies, isLoading: isLoadingPromotedMovie } =
+    useGetPromotedMovieQuery(languages, promotedElementPageNumber);
+  const { data: lastReleaseMovies, isLoading: isloadingLastReleaseMovie } =
+    useGetLastReleaseMovieQuery(languages);
+  const { data: upcomingMovies, isLoading: isLoadingUpcomingMovie } =
+    useGetUpcomingMovieQuery(languages);
+  const {
+    data: popularMovies,
+    isLoading: isLoadingPopularMovies,
+    isFetching,
+    isError,
+    error,
+    isSuccess: isSuccessPopularMovie,
+  } = useGetPopularMovieQuery(languages);
 
   useEffect(() => {
-    const updatelLoading = () => {
-      const isTrue = (el) => {
-        return el === true;
-      };
-      return setLoading(loadsArray.every(isTrue));
-    };
-    updatelLoading();
-  }, [loadsArray]);
+    let arr = [
+      isLoadingPopularMovies,
+      isLoadingPromotedMovie,
+      isloadingLastReleaseMovie,
+      isLoadingUpcomingMovie,
+    ];
+    setMainIsLoading(arr.some((l) => l));
+  }, [
+    isLoadingPopularMovies,
+    isLoadingUpcomingMovie,
+    isLoadingPromotedMovie,
+    isloadingLastReleaseMovie,
+  ]);
 
   useEffect(() => {
     promotedElementPageNumber.current = Math.floor(Math.random() * 6);
@@ -66,10 +74,8 @@ const Films = () => {
 
   return (
     <div className="app">
-      {!loading ? (
-        <div className="loader--container">
-          <LoaderUI />
-        </div>
+      {mainIsLoading ? (
+        <LoaderUI fixed={true} />
       ) : (
         <div className="main">
           <TrendsBanner

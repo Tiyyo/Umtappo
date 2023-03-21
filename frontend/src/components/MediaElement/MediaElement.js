@@ -8,13 +8,23 @@ import Synopsis from "./Synopsis";
 import Attributes from "./Attributes";
 import CallToAction from "./CallToAction";
 import Video from "./Video";
+import {
+  useGetInfosModalQuery,
+  useGetModalMediaQuery,
+  useGetVideosQuery,
+  useGetCreditsQuery,
+} from "../../features/content/tmdbAPI";
+import LoaderUI from "../Loader/LoaderUI";
 
 const MediaElement = () => {
   //--- Destructuring
   const location = useLocation();
   const { content } = location.state;
+
+  console.log(content);
+
   const { languages } = useContext(AppContext);
-  const { id, type } = content;
+  const { media_type: type, id } = content;
 
   // -- Const and var
   let filmVideoUrl = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}`;
@@ -37,9 +47,10 @@ const MediaElement = () => {
   //--Others Hook
 
   //--- State Hook
-  const [credits, setCredits] = useState([]);
+  // const [credits, setCredits] = useState([]);
   const [similars, setSimilars] = useState([]);
-  const [videos, setVideos] = useState([]);
+  // const [videos, setVideos] = useState([]);
+  const [formatedType, setFormatedType] = useState("");
 
   const [moreContent, setMoreContent] = useState({
     credits: "",
@@ -50,13 +61,34 @@ const MediaElement = () => {
 
   //--Function
 
+  const formatType = () => {
+    if (content.media_type === "tvshow") {
+      return setFormatedType("tv");
+    } else if (content.media_type === "movie") {
+      return setFormatedType("movie");
+    }
+  };
+
+  const params = { id: content.id, type: formatedType, languages };
+  const {
+    data,
+    isLoading: isLoadingMain,
+    isSuccess,
+  } = useGetInfosModalQuery({ params });
+  const { data: videos, isLoading: isLoadingVideo } = useGetVideosQuery({
+    params,
+  });
+  const { data: credits, isLoading: isLoadingCredits } = useGetCreditsQuery({
+    params,
+  });
+
   const getDetails = async (querys) => {
     axios
       .all(querys.map((url) => axios.get(url)))
       .then(
         axios.spread((video, credit, similar) => {
-          setVideos(video.data);
-          setCredits(credit.data);
+          // setVideos(video.data);
+          // setCredits(credit.data);
           setSimilars(similar.data.results);
         })
       )
@@ -65,10 +97,14 @@ const MediaElement = () => {
   };
 
   useEffect(() => {
-    if (type === "Movie") {
+    formatType();
+  }, [content.media_type]);
+
+  useEffect(() => {
+    if (type === "movie") {
       getDetails(filmsUrl);
     }
-    if (type === "TvShow") {
+    if (type === "tvshow") {
       getDetails(tvShowUrls);
     }
   }, [type, filmsUrl, tvShowUrls]);
@@ -76,14 +112,29 @@ const MediaElement = () => {
   return (
     <>
       <div className="media-element">
-        <Video content={content} videos={videos} loading={loading} />
-        <CallToAction content={content} />
+        {isLoadingVideo ? (
+          <LoaderUI />
+        ) : (
+          <Video content={content} videos={videos} loading={isLoadingVideo} />
+        )}
+        {/* <CallToAction content={content} /> */}
         <div className="media-element__title">
           {content.title || content.name}
         </div>
-        <Attributes content={content} />
-        <Synopsis content={content} />
-        <Casts credits={credits} loading={loading} />
+        {isLoadingMain ? (
+          <LoaderUI />
+        ) : (
+          <>
+            <Synopsis content={data} />
+            <Attributes content={data} type={content.media_type} />
+          </>
+        )}
+        {isLoadingCredits ? (
+          <LoaderUI size={"0.7rem"} />
+        ) : (
+          <Casts credits={credits} loading={loading} />
+        )}
+
         <SimilarContent similars={similars} loading={loading} />
       </div>
     </>

@@ -1,14 +1,7 @@
-import React, { useContext } from "react";
-import AppContext from "../../utils/Context/AppContextProvider";
+import React from "react";
 import { StarOutline } from "@mui/icons-material";
-import { displayGenre } from "./display.genre";
 
-const Attributes = (props) => {
-  const { content } = props;
-  const { genre_ids, type } = content;
-
-  const { genreListMovie, genreListTv } = useContext(AppContext);
-
+const Attributes = ({ content, type }) => {
   const displayReleaseYear = () => {
     if (content.first_air_date) {
       return content.first_air_date.substring(0, 4);
@@ -19,12 +12,20 @@ const Attributes = (props) => {
   };
   return (
     <div className="media-element__infos">
-      <div className="media-element__infos__type">{content.type}</div>
+      <div className="media-element__infos__type">
+        {type === "movie" ? type : "TvShow"}
+      </div>
       <div className="media-element__infos__release-year">
         {displayReleaseYear()}
       </div>
       <div className="media-element__infos__genres">
-        {displayGenre(genre_ids, type, genreListMovie, genreListTv)}
+        {content.genres.map((g, index) => {
+          return (
+            <span key={index} className="genre">
+              {g.name}
+            </span>
+          );
+        })}
       </div>
       <div className="media-element__infos__rating">
         <StarOutline sx={{ color: "yellow" }} />

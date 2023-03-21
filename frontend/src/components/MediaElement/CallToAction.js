@@ -27,7 +27,7 @@ const CallToAction = ({ content }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const dispatch = useDispatch();
-  const isAlreadyLiked = useIsLiked(content.type, userID, content.id);
+  const isAlreadyLiked = useIsLiked(content.media_type, userID, content.id);
 
   useEffect(() => {
     if (isAlreadyLiked) {
