@@ -11,6 +11,7 @@ export const AppContextProvider = ({ children }) => {
   const [languages, setLanguages] = useState("");
   const [preferedTheme, setTheme] = useState("");
   const [iconTheme, setIconTheme] = useState(darkIconTheme);
+  const [navIsIntersect, setNavIsIntersect] = useState(false);
 
   const body = document.querySelector("body");
 
@@ -23,6 +24,8 @@ export const AppContextProvider = ({ children }) => {
     setTheme,
     preferedTheme,
     iconTheme,
+    navIsIntersect,
+    setNavIsIntersect,
   };
 
   useEffect(() => {
@@ -35,7 +38,7 @@ export const AppContextProvider = ({ children }) => {
       body.dataset.theme = "light";
       window.localStorage.preferedTheme = "light";
     }
-  }, [preferedTheme]);
+  }, [preferedTheme, body.dataset]);
 
   useEffect(() => {
     if (window.localStorage.preferedTheme) {
@@ -57,7 +60,9 @@ export const AppContextProvider = ({ children }) => {
         .get(
           "https://api.themoviedb.org/3/configuration?api_key=3e2abd7e10753ed410ed7439f7e1f93f"
         )
-        .then((res) => setConfig(res.data.images));
+        .then((res) => setConfig(res.data.images))
+        .catch((err) => console.log(err));
+      return result;
     };
     fetchConfig();
   }, []);
@@ -68,7 +73,9 @@ export const AppContextProvider = ({ children }) => {
         .get(
           "https://api.themoviedb.org/3/genre/movie/list?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=en-US"
         )
-        .then((res) => setGenreListMovie(res.data.genres));
+        .then((res) => setGenreListMovie(res.data.genres))
+        .catch((err) => console.log(err));
+      return result;
     };
     fetchGenreListMovie();
   }, []);
@@ -79,7 +86,9 @@ export const AppContextProvider = ({ children }) => {
         .get(
           "https://api.themoviedb.org/3/genre/tv/list?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=en-US"
         )
-        .then((res) => setGenreListTv(res.data.genres));
+        .then((res) => setGenreListTv(res.data.genres))
+        .catch((err) => console.log(err));
+      return result;
     };
     fetchGenreListTv();
   }, []);

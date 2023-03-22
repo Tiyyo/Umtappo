@@ -23,11 +23,9 @@ const MenuLink = ({ path, icon }) => {
         {displayIcon(icon)}
         <span>{path}</span>
         <Link to={path}>
-          <button type="button">
-            <Button>
-              <ArrowForwardIcon />
-            </Button>
-          </button>
+          <Button>
+            <ArrowForwardIcon />
+          </Button>
         </Link>
       </li>
     </ThemeProvider>

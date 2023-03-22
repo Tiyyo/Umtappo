@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 
 import TrendsBanner from "../../components/Container/Trends/TrendsBanner";
 import HorizontalCarousel from "../../components/Container/HorizontalCarousel/HorizontalCarousel";
 import Promoted from "../../components/Container/Promoted/Promoted";
 import Genre from "../../components/Container/Genre/Genre";
-import useFetch from "../../utils/hooks/useFetch";
 import AppContext from "../../utils/Context/AppContextProvider";
 import LoaderUI from "../../components/Loader/LoaderUI";
 import Footer from "../../components/Footer/Footer";
@@ -18,7 +17,7 @@ import {
 
 const TvShow = () => {
   let promotedElementPageNumber = 1;
-  const { languages } = useContext(AppContext);
+  const { languages, setNavIsIntersect } = useContext(AppContext);
 
   const [mainIsLoading, setMainIsLoading] = useState(true);
 
@@ -46,6 +45,24 @@ const TvShow = () => {
     isLoadingTrendTvshow,
   ]);
 
+  const mainDiv = useRef();
+
+  useEffect(() => {
+    if (mainDiv.current) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) {
+            setNavIsIntersect(true);
+          } else if (entry.isIntersecting) {
+            setNavIsIntersect(false);
+          }
+        },
+        { rootMargin: "5px" }
+      );
+      observer.observe(mainDiv.current);
+    }
+  }, [mainDiv.current]);
+
   return (
     <>
       <div className="app">
@@ -55,6 +72,7 @@ const TvShow = () => {
           </div>
         ) : (
           <div className="main">
+            <div ref={mainDiv}></div>
             <TrendsBanner content={tvShowOnAir} title="On TV Today" />
             <HorizontalCarousel
               content={lastReleaseTvShow}

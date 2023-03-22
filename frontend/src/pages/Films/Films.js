@@ -17,26 +17,11 @@ import {
 
 const Films = () => {
   const promotedElementPageNumber = useRef();
-  const { languages } = useContext(AppContext);
+  const { languages, setNavIsIntersect } = useContext(AppContext);
 
   const [mainIsLoading, setMainIsLoading] = useState(true);
 
   const recommendationsMoviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&sort_by=vote_average.desc&include_adult=false&include_video=false&page=1&vote_count.gte=5000&vote_average.gte=8&with_watch_monetization_types=flatrate`;
-
-  // const { content: upcomingMovies, loading: loadTrends } =
-  //   useFetch(upcomingMovieUrl);
-
-  // const { content: lastReleaseMovies, loading: loadLastMovies } =
-  //   useFetch(lastReleaseMoviesUrl);
-
-  // const { content: recommendationsMovie, loading: loadRecommendMovies } =
-  //   useFetch(recommendationsMoviesUrl);
-
-  // const { content: promotedMovies, loading: loadPromotedMovie } =
-  //   useFetch(promotedMoviesUrl);
-
-  // const { content: popularMovies, loading: loadPopularMovie } =
-  //   useFetch(popularMoviesUrl);
 
   const { data: promotedMovies, isLoading: isLoadingPromotedMovie } =
     useGetPromotedMovieQuery(languages, promotedElementPageNumber);
@@ -72,12 +57,32 @@ const Films = () => {
     promotedElementPageNumber.current = Math.floor(Math.random() * 6);
   }, []);
 
+  const mainDiv = useRef();
+
+  useEffect(() => {
+    if (mainDiv.current) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          console.log(entry);
+          if (!entry.isIntersecting) {
+            setNavIsIntersect(true);
+          } else if (entry.isIntersecting) {
+            setNavIsIntersect(false);
+          }
+        },
+        { rootMargin: "5px" }
+      );
+      observer.observe(mainDiv.current);
+    }
+  }, [mainDiv.current]);
+
   return (
     <div className="app">
       {mainIsLoading ? (
         <LoaderUI fixed={true} />
       ) : (
         <div className="main">
+          <div ref={mainDiv}></div>
           <TrendsBanner
             content={upcomingMovies}
             title={"What is coming soon next"}

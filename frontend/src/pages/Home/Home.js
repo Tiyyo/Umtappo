@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import TrendsBanner from "../../components/Container/Trends/TrendsBanner";
 import HorizontalCarousel from "../../components/Container/HorizontalCarousel/HorizontalCarousel";
 import Genre from "../../components/Container/Genre/Genre";
@@ -21,33 +21,24 @@ import {
   useGetTopRatedMovieQuery,
   useGetTopRatedTvshowQuery,
 } from "../../features/content/tmdbAPI";
+import { Link, Outlet } from "react-router-dom";
 
 const Home = () => {
-  const { languages } = useContext(AppContext);
+  const { languages, setNavIsIntersect } = useContext(AppContext);
+
   const [promotedElementPageNumber, setPromotedElementPageNumber] = useState(1);
   const [promotedShowElementPageNumber, setPromotedShowElementPageNumber] =
     useState(1);
+  const [mainIsLoading, setMainIsLoading] = useState(true);
 
-  const {
-    currentData: playingNowMovie,
-    isLoading: isLoadingPlayingNowMovie,
-    isSuccess: isSuccesPlayingNowMovie,
-  } = useGetPlayingNowMovieQuery(languages);
+  const { currentData: playingNowMovie, isSuccess: isSuccesPlayingNowMovie } =
+    useGetPlayingNowMovieQuery(languages);
 
-  const {
-    data: popularMovies,
-    isLoading: isLoadingPopularMovies,
-    isFetching,
-    isError,
-    error,
-    isSuccess: isSuccessPopularMovie,
-  } = useGetPopularMovieQuery(languages);
+  const { data: popularMovies, isLoading: isLoadingPopularMovies } =
+    useGetPopularMovieQuery(languages);
 
-  const {
-    data: popularTvShow,
-    isLoading: isLoadingPopularTvshow,
-    isSuccess: isSuccessPopularTvshow,
-  } = useGetPopularTvshowQuery(languages);
+  const { data: popularTvShow, isLoading: isLoadingPopularTvshow } =
+    useGetPopularTvshowQuery(languages);
 
   const { data: topRatedMovies, isLoading: isLoadingTopRatedMovie } =
     useGetTopRatedMovieQuery(languages);
@@ -75,8 +66,6 @@ const Home = () => {
     setPromotedShowElementPageNumber(1);
   }, []);
 
-  const [mainIsLoading, setMainIsLoading] = useState(true);
-
   useEffect(() => {
     let arr = [
       isLoadingPopularMovies,
@@ -102,18 +91,48 @@ const Home = () => {
     isLoadingLastReleaseTvshow,
   ]);
 
+  // const observer = new IntersectionObserver(([entry]) => {
+  //   console.log(entry.boundingClientRect.top);
+  //   if (entry.boundingClientRect.top < 0) {
+  //     alert("App is on top");
+  //     observer.unobserve(mainDiv.current);
+  //   }
+  // });
+  // observer.observe(mainDiv.current);
+
+  const mainDiv = useRef();
+
+  useEffect(() => {
+    if (mainDiv.current) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          console.log(entry);
+          if (!entry.isIntersecting) {
+            setNavIsIntersect(true);
+          } else if (entry.isIntersecting) {
+            setNavIsIntersect(false);
+          }
+        },
+        { rootMargin: "5px" }
+      );
+      observer.observe(mainDiv.current);
+    }
+  }, [mainDiv.current]);
+
   return (
     <HomeContextProvider>
+      <Outlet />
       {isSuccesPlayingNowMovie ? (
         <HeaderHome content={playingNowMovie} />
       ) : (
-        <LoaderUI fixed={true} />
+        <LoaderUI fixed={true} overlay="true" />
       )}
       <Spacer />
       <div className="app">
         <div className="main">
+          <div ref={mainDiv}>Ref</div>
           {mainIsLoading ? (
-            <LoaderUI fixed={true} />
+            <LoaderUI fixed={true} overlay="true" />
           ) : (
             <>
               <HorizontalCarousel
@@ -135,6 +154,10 @@ const Home = () => {
               <Promoted content={[...promotedMovies, ...promotedTvShows]} />
               <Genre dataToDisplay="Both" />
               <Promoted content={[...promotedMovies, ...promotedTvShows]} />
+              <Link to={"modal"}>
+                <button type="button">Link to outlet</button>
+              </Link>
+
               <Footer />
             </>
           )}

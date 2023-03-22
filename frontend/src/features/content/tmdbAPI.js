@@ -144,6 +144,12 @@ export const tmdbAPI = createApi({
       transformResponse: (response, meta, data) => response,
       transformErrorResponse: (response, meta, arg) => response.status,
     }),
+    getSimilars: builder.query({
+      query: ({ params }) => `
+      https://api.themoviedb.org/3/${params.type}/${params.id}/recommendations?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${params.languages}&page=1`,
+      transformResponse: (response, meta, data) => response.results,
+      transformErrorResponse: (response, meta, arg) => response.status,
+    }),
   }),
 });
 
@@ -164,4 +170,5 @@ export const {
   useGetInfosModalQuery,
   useGetVideosQuery,
   useGetCreditsQuery,
+  useGetSimilarsQuery,
 } = tmdbAPI;

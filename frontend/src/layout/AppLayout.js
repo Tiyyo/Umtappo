@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navigation from "../components/Navigation/Navigation";
 import SearchBar from "../components/SearchBar/SearchBar";
 import { Outlet, useLocation } from "react-router-dom";
@@ -11,7 +11,7 @@ const AppLayout = () => {
   const [inputSearchValue, setInputSearchValue] = useState("");
   const [shouldHide, setShouldHide] = useState(false);
   const { pathname } = useLocation();
-  const { iconTheme } = useContext(AppContext);
+  const { iconTheme, navIsIntersect } = useContext(AppContext);
 
   const hideAccountIcon = () => {
     switch (pathname) {
@@ -41,7 +41,10 @@ const AppLayout = () => {
   return (
     <ThemeProvider theme={iconTheme}>
       <div className="app__container">
-        <div className="header">
+        <div
+          className="header"
+          data-background={navIsIntersect ? "hard" : "clear"}
+        >
           <Navigation />
           <SearchBar getInputValue={getInputValue} />
           <Button>{shouldHide ? "" : <BackIcon color="primary" />}</Button>

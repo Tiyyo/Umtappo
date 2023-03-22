@@ -1,14 +1,11 @@
 import React from "react";
 
-const Casts = (props) => {
-  const { credits, loading } = props;
+const Casts = ({ credits }) => {
   let director = "Director";
   let directorAlternative = "Storyboard Artist";
 
   const displayCastsActors = () => {
-    if (loading) {
-      return;
-    } else if (credits.cast.length > 0) {
+    if (credits.cast.length > 0) {
       let castToDisplay = credits.cast.slice(0, 3);
       return (
         <div className="actors">
@@ -26,9 +23,7 @@ const Casts = (props) => {
   };
 
   const displayCastsDirectors = () => {
-    if (loading) {
-      return;
-    } else if (credits.crew.length > 0) {
+    if (credits.crew.length > 0) {
       const { crew } = credits;
       let mainDirector = [];
       for (let i = 0; i < crew.length; i++) {

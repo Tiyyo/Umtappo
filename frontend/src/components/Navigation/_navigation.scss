@@ -31,6 +31,7 @@
 // }
 
 .app__container  {
+    
     .header  {
         display: flex;
         justify-content: space-between;
@@ -39,7 +40,17 @@
         position: fixed;
         z-index: 5;
         height: $heightTopNav;
-        background: var(--secondary_gradient);
+        
+        
+        &[data-background="clear"] {
+            background: var(--secondary_gradient);
+            transition: 0.3s ease-in;
+        }
+        
+        &[data-background="hard"] {
+            background: var(--secondary);
+            transition: 0.3s ease-in;
+        }
 
 
         .nav {

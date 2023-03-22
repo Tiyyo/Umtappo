@@ -33,11 +33,11 @@ import { getCurrentUser } from "../../features/user/slice/user.slice";
 import { useDispatch } from "react-redux";
 import { reset } from "../../features/watchlists/Slice/resume.header";
 import Profile from "../../components/Account/Profile/Profile";
+import ModalOutlet from "../../components/MediaElement/ModalOutlet";
 
 const AnimatedRoutes = () => {
   const {
-    isAuth,
-    isLoggedIn,
+
     setIsAuth,
     setIsLoggedIn,
     setUserID,
@@ -94,7 +94,9 @@ const AnimatedRoutes = () => {
         <Route element={<ProtectedRoutes />}>
           <Route path={"/"} element={<AppLayout />}>
             <Route path={""} element={<Navigate to="/Home" />} />
-            <Route exact path={"Home"} element={<Home />} />
+            <Route exact path={"Home"} element={<Home />}>
+              <Route path={"modal"} element={<ModalOutlet />} />
+            </Route>
             <Route exact path="Favorites" element={<Favorites />}>
               <Route path={""} element={<FavoritesResume />} />
               <Route path={":listName"} element={<Watchlist />} />
@@ -102,7 +104,7 @@ const AnimatedRoutes = () => {
             <Route exact path="Films" element={<Films />} />
             <Route eaxct path="TvShow" element={<TvShow />} />
             <Route exact path="Search" element={<SearchResult />} />
-            <Route path={`:id/:modalid`} element={<MediaElement />} />
+            <Route path={`:id/:modalid`} element={<MediaElement />}></Route>
             <Route
               path={":id/:id/add_to_playlist"}
               element={<AddToWatchlist />}
