@@ -32,38 +32,7 @@
         align-items: flex-start;
         padding : 1vh 15px;
 
-        .avatar-wrapper  {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            flex : 1 1 20%;
-            padding: 0.5vh;
-
-            .avatar {
-                flex: 0 0 ;
-                border-radius : 50%;
-                border : 3px solid rgba(227, 112, 30, 0.581);
-                height : 75px;
-                width : 75px; 
-                overflow: hidden;
-
-                img {
-                    width: 100%;
-                    object-fit: cover;
-                    object-position: center;
-                }
-              }
-
-            span {
-                font-size : 0.5rem;
-                text-decoration : underline;
-                line-height: 1.6;
-                cursor: pointer;
-                text-align: center;
-                
-            }
-          }
+        
     }
     .welcome  {
         flex : 4 1 80%;

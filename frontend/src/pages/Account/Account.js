@@ -1,12 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import UserContext from "../../utils/Context/UserContextProvider";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { ThemeProvider } from "@mui/material";
+
 import AppContext from "../../utils/Context/AppContextProvider";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser, getUserData } from "../../features/user/slice/user.slice";
+import Avatar from "../../components/Account/Avatar/Avatar";
+import ModalEditPhoto from "../../components/Account/Avatar/ModalEditPhoto";
 
 const Account = () => {
   const { setUserID, setUserInfos, setIsAuth, setIsLoggedIn } =
@@ -17,6 +19,8 @@ const Account = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+
+  const [isOpen, setIsOpen] = useState(false);
 
   let locations = location.pathname
     .replace("/", " ")
@@ -42,34 +46,29 @@ const Account = () => {
 
   const { username } = useSelector((state) => state.user.user);
 
-  useEffect(() => {
-    dispatch(getUserData());
-  }, []);
+  const getStateModal = (state) => {
+    setIsOpen(state);
+  };
 
   const goBack = () => {
     return navigate(-1);
   };
 
+  useEffect(() => {
+    dispatch(getUserData());
+  }, []);
+
   return (
     <div className="account">
+      <ModalEditPhoto isOpen={isOpen} getStateModal={getStateModal} />
       <nav className="title">
-        <ThemeProvider theme={iconTheme}>
-          <button type="button" className="back-icon" onClick={goBack}>
-            <ArrowBackIcon color="primary" size="extraLarge" />
-          </button>
-        </ThemeProvider>
+        <button type="button" className="back-icon" onClick={goBack}>
+          <ArrowBackIcon color="primary" size="extraLarge" />
+        </button>
         <h2 className="page-name">{locations[numberOfLocations - 1]}</h2>
       </nav>
       <div className="banner">
-        <div className="avatar-wrapper">
-          <div className="avatar">
-            <img
-              src="https://xsgames.co/randomusers/avatar.php?g=male"
-              alt="random avatar profile"
-            />
-          </div>
-          <span>Change your picture profile</span>
-        </div>
+        <Avatar getStateModal={getStateModal} />
         <h2 className="welcome">
           Hello <span>{username}</span>
         </h2>

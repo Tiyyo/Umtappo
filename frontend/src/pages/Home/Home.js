@@ -91,22 +91,12 @@ const Home = () => {
     isLoadingLastReleaseTvshow,
   ]);
 
-  // const observer = new IntersectionObserver(([entry]) => {
-  //   console.log(entry.boundingClientRect.top);
-  //   if (entry.boundingClientRect.top < 0) {
-  //     alert("App is on top");
-  //     observer.unobserve(mainDiv.current);
-  //   }
-  // });
-  // observer.observe(mainDiv.current);
-
   const mainDiv = useRef();
 
   useEffect(() => {
     if (mainDiv.current) {
       const observer = new IntersectionObserver(
         ([entry]) => {
-          console.log(entry);
           if (!entry.isIntersecting) {
             setNavIsIntersect(true);
           } else if (entry.isIntersecting) {
@@ -116,6 +106,7 @@ const Home = () => {
         { rootMargin: "5px" }
       );
       observer.observe(mainDiv.current);
+      return () => observer.disconnect(mainDiv.current);
     }
   }, [mainDiv.current]);
 
