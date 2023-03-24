@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import defaultAvatar from "../../../assets/images/default_avatar.png";
+import { useSelector } from "react-redux";
 
 const Avatar = ({ getStateModal }) => {
-  const openModalPhoto = () => {
-    console.log("hello");
-  };
+  const { crop: userProfileImage, full } = useSelector(
+    (state) => state.user.user.pictures
+  );
 
   return (
     <div className="avatar-wrapper">
       <div className="avatar">
         <img
-          src="https://xsgames.co/randomusers/avatar.php?g=male"
-          alt="random avatar profile"
+          src={userProfileImage ? userProfileImage : defaultAvatar}
+          alt="user profile picture or default avatar"
         />
       </div>
       <div className="edit" onClick={() => getStateModal(true)}>

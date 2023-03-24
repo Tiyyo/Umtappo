@@ -100,6 +100,7 @@ module.exports.getUserInfos = asyncHandler(async (req, res) => {
     res.status(200).json({
       username: user.username,
       email: user.email,
+      pictures: user.pictures,
     });
   }
 
@@ -108,7 +109,7 @@ module.exports.getUserInfos = asyncHandler(async (req, res) => {
 
 //@desc Current user info
 //@route PATCH user/username
-//@acees public
+//@acees private
 module.exports.patchUsername = asyncHandler(async (req, res) => {
   const { newUsername, user_id } = req.body;
 
@@ -226,4 +227,35 @@ module.exports.patchPassword = asyncHandler(async (req, res) => {
   } else {
     res.status(401).send("Passwords doesn't match");
   }
+});
+
+module.exports.addProfileImage = asyncHandler(async (req, res) => {
+  const { user_id, imgCropLink, imgFullLink } = req.body;
+
+  let data = { crop: imgCropLink, full: imgFullLink };
+
+  if (!user_id || !imgCropLink || !imgFullLink) {
+    res.status(400).send("An UserId or Images Links are missing");
+    throw new Error("An UserId or Images Links are missing");
+  }
+
+  const user = await Users.findById(user_id);
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  const query = { _id: user_id };
+  const update = {
+    $set: { pictures: data },
+  };
+  const options = { rawResult: true };
+
+  await Users.findOneAndUpdate(query, update, options).then((e) => {
+    if (e.lastErrorObject.updatedExisting) {
+      res.status(200).send("images link added to the database");
+    } else {
+      res.status(400).send("something goes wrong");
+    }
+  });
 });

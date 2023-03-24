@@ -22,6 +22,11 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       required: false,
     },
+    pictures: {
+      full: { type: String },
+      crop: { type: String },
+    },
+
     lists: [{ type: mongoose.SchemaTypes.ObjectId, ref: "List" }],
     movie_liked: [
       { type: Array },

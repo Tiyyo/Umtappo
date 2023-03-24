@@ -1,65 +1,136 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Button from "../../Button/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import DownloadDoneIcon from "@mui/icons-material/DownloadDone";
-import ReactCrop, {
-  centerCrop,
-  makeAspectCrop,
-  Crop,
-  PixelCrop,
-} from "react-image-crop";
-import { getCroppedImg } from "./getCroppedImg";
+import ReactCrop from "react-image-crop";
+import { canvasPreview } from "./canvasPreview";
+import axios from "axios";
+import UserContext from "../../../utils/Context/UserContextProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePictures } from "../../../features/user/slice/user.slice";
+import LoaderUI from "../../Loader/LoaderUI";
+
+const validFilesTypes = ["image/jpg", "image/jpeg", "image/png", "image/JPG"];
 
 const ModalEditPhoto = ({ isOpen, getStateModal }) => {
-  const cropImageRef = useRef();
-  const hiddenAnchorRef = useRef();
-  const blobUrlRef = useRef('')
-  const previewCanvasRef = useRef(null)
-  const [imgSrc, setImgSrc] = useState('')
-  const [crop, setCrop] = useState();
-  const imgRef = useRef(null)
+  const { userID } = useContext(UserContext);
 
+  const dispatch = useDispatch();
+
+  const previewCanvasRef = useRef(null);
+  const [imgSrc, setImgSrc] = useState("");
+  const [crop, setCrop] = useState();
+  const imgRef = useRef(null);
+  const [srcFile, setSrcFile] = useState(null);
 
   const [completeCrop, setCompleteCrop] = useState(null);
+  const [errorType, setErrorType] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSelectFile = (e) => {
+    const file = e.target.files[0];
+
+    if (!validFilesTypes.find((type) => type === file.type)) {
+      setErrorType("File must be an png or jpg type");
+      return;
+    } else {
+      setErrorType("");
+    }
     if (e.target.files && e.target.files.length > 0) {
+      setSrcFile(file);
       const reader = new FileReader();
       reader.addEventListener("load", () =>
-      setImgSrc(reader.result?.toString() || "")
+        setImgSrc(reader.result?.toString() || "")
       );
-      reader.readAsDataURL(e.target.files[0]);
+      reader.readAsDataURL(file);
     }
   };
 
-  const handleOnLoad = useCallback((img) => {
-    cropImageRef.current = img;
-  }, []);
+  const splitGenerateLink = (link) => {
+    return link.split("?")[0];
+  };
 
   useEffect(() => {
-    if (!completeCrop || !cropImageRef) {
-      return;
+    if (
+      completeCrop?.width &&
+      completeCrop?.height &&
+      imgRef.current &&
+      previewCanvasRef.current
+    ) {
+      return canvasPreview(
+        imgRef.current,
+        previewCanvasRef.current,
+        completeCrop
+      );
     }
-  });
+  }, [completeCrop]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    const endpoint = "http://localhost:5000/s3Url";
+    const generateLink = axios.get(endpoint);
+
+    const { urlCropImage, urlFullImage } = await axios
+      .all([generateLink, generateLink])
+      .then(
+        axios.spread((res1, res2) => {
+          return { urlCropImage: res1.data.url, urlFullImage: res2.data.url };
+        })
+      );
+
+    await fetch(urlFullImage, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      body: srcFile,
+    }).then(() => console.log("full image uploaded succesfully"));
+
     if (!previewCanvasRef.current) {
-      throw new Error('Crop canvas does not exist')
+      throw new Error("Crop canvas does not exist");
     }
 
-    previewCanvasRef.current.toBlob((blob) => {
-      if (!blob) {
-        throw new Error('Failed to create blob')
-      }
-      if (blobUrlRef.current) {
-        URL.revokeObjectURL(blobUrlRef.current)
-      }
-      blobUrlRef.current = URL.createObjectURL(blob)
-      hiddenAnchorRef.current!.href = blobUrlRef.current
-      hiddenAnchorRef.current!.click()
-    })
+    let blob = await new Promise((resolve) =>
+      previewCanvasRef.current.toBlob(resolve)
+    );
+
+    let imageCrop = new File([blob], "user_profile_crop.png", {
+      type: "image/png",
+    });
+
+    await fetch(urlCropImage, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      body: imageCrop,
+    });
+    const imgFullLink = splitGenerateLink(urlFullImage);
+    const imgCropLink = splitGenerateLink(urlCropImage);
+
+    await axios
+      .put("http://localhost:5000/user/image", {
+        user_id: userID,
+        imgFullLink,
+        imgCropLink,
+      })
+      .then(() => {
+        setIsLoading(false);
+        getStateModal(false);
+      })
+      .catch((err) => console.log(err.response.data));
+
+    dispatch(updatePictures({ crop: imgCropLink, full: imgFullLink }));
   };
+
+  const prevFullImage = useSelector((state) => state.user.user.pictures.full);
 
   return (
     <div
@@ -77,6 +148,7 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
       <div className="modal-edit__blur">
         <div className="modal-edit__container">
           <div className="modal-edit__container__image">
+            {isLoading ? <LoaderUI /> : ""}
             <ReactCrop
               crop={crop}
               aspect={1}
@@ -85,10 +157,18 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
               onComplete={(c) => setCompleteCrop(c)}
               className="crop"
             >
-              {imgUp ? (
-                <img src={imgUp} alt="current avatar or picture uploaded" />
+              {imgSrc ? (
+                <img
+                  src={imgSrc}
+                  alt="current avatar or picture uploaded"
+                  ref={imgRef}
+                />
               ) : (
-                ""
+                <img
+                  src={prevFullImage}
+                  alt="current avatar or picture uploaded"
+                  ref={imgRef}
+                />
               )}
             </ReactCrop>
           </div>
@@ -105,6 +185,7 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
               accept="image/*"
               name="pickProfileImage"
               id="pickProfileImage"
+              hidden
               className="modal-edit__container__input-file"
               onChange={(e) => handleSelectFile(e)}
             />
@@ -115,35 +196,27 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
               <DownloadDoneIcon fontSize="small" />
               <span>Confirm</span>
             </button>
-            {!!completedCrop && (
+            {!!completeCrop && (
               <>
                 <div>
                   <canvas
                     ref={previewCanvasRef}
                     style={{
-                      border: "1px solid black",
                       objectFit: "contain",
-                      width: completedCrop.width,
-                      height: completedCrop.height,
+                      width: completeCrop.width,
+                      height: completeCrop.height,
+                      borderRadius: "50%",
+                      position: "fixed",
+                      top: "-100vh",
+                      zIndex: "-1",
                     }}
                   />
                 </div>
-                <div>
-                  <button onClick={onDownloadCropClick}>Download Crop</button>
-                  <a
-                    ref={hiddenAnchorRef}
-                    download
-                    style={{
-                      position: "absolute",
-                      top: "-200vh",
-                      visibility: "hidden",
-                    }}
-                  >
-                    Hidden download
-                  </a>
-                </div>
               </>
             )}
+          </div>
+          <div className="modal-edit__container__error">
+            {errorType && <p>{errorType}</p>}
           </div>
         </div>
       </div>

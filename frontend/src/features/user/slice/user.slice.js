@@ -22,6 +22,7 @@ const userSlice = createSlice({
       id: "",
       username: "",
       email: "",
+      pictures: "",
     },
     loading: "idle",
   },
@@ -38,6 +39,9 @@ const userSlice = createSlice({
     clearUser: (state, { payload }) => {
       state.user = "";
     },
+    updatePictures: (state, { payload }) => {
+      state.user.pictures = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -45,6 +49,7 @@ const userSlice = createSlice({
         state.loading = "idle";
         state.user.username = payload.username;
         state.user.email = payload.email;
+        state.user.pictures = payload.pictures;
       })
       .addCase(getUserData.pending, (state, action) => {
         state.loading = "pending";
@@ -56,5 +61,11 @@ const userSlice = createSlice({
 });
 
 const { actions, reducer } = userSlice;
-export const { getCurrentUser, editEmail, editUsername, clearUser } = actions;
+export const {
+  getCurrentUser,
+  editEmail,
+  editUsername,
+  clearUser,
+  updatePictures,
+} = actions;
 export default reducer;
