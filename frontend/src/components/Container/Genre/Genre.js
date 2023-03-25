@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import InfiniteHorizontalCarousel from "../InfiniteCarousel/InfiniteCarousel";
 import { useContext } from "react";
 import AppContext from "../../../utils/Context/AppContextProvider";
@@ -9,20 +9,34 @@ const Genre = (props) => {
   const { genreListTv: genreTvList, genreListMovie: genreMovieList } =
     useContext(AppContext);
   let flatGenreLists = [...genreMovieList, ...genreTvList];
-  let numberValues = 3;
+  let numberContainerToDisplay = 3;
   let movie = "Movie";
-  let tvShow = "TvShow";
+  let tvshow = "TvShow";
   let both = "Both";
 
   const randomValues = useRef([]);
   const favoriteGenre = useRef([]);
 
-  const choseRandomValues = (numberValues, referenceGenre) => {
+  const [favoriteGenres, setFavoriteGenres] = useState([]);
+
+  const addType = (list, mediaType) => {
+    list.map((el) => (el.media_type = mediaType));
+    return list;
+  };
+
+  const flatData = () => {
+    let movieGenres = addType(genreMovieList, movie);
+    let tvshowGenres = addType(genreTvList, tvshow);
+    let flatGenres = [...movieGenres, ...tvshowGenres];
+    return flatGenres;
+  };
+
+  const choseRandomValues = (numberContainerToDisplay, referenceGenre) => {
     let indexes = [];
-    while (indexes.length < numberValues) {
+    while (indexes.length < numberContainerToDisplay) {
       let randomNumber = Math.floor(Math.random() * referenceGenre.length);
       if (indexes.includes(randomNumber)) {
-        return;
+        continue;
       } else {
         indexes.push(randomNumber);
       }
@@ -31,11 +45,12 @@ const Genre = (props) => {
   };
 
   const matchIndexes = (referenceGenre) => {
-    let genre = [];
+    let genreToDisplay = [];
     randomValues.current.forEach((value) => {
-      genre.push(referenceGenre[value]);
+      genreToDisplay.push(referenceGenre[value]);
     });
-    favoriteGenre.current = genre;
+    favoriteGenre.current = genreToDisplay;
+    return setFavoriteGenres(genreToDisplay);
   };
 
   const addTypeBoth = () => {
@@ -46,43 +61,46 @@ const Genre = (props) => {
         }
         for (let i = 0; i < genreTvList.length; i++) {
           if (genre.id === genreTvList[i].id) {
-            genre.type = tvShow;
+            genre.type = tvshow;
           }
         }
       }
     });
   };
 
-  const addMovieType = () => {
-    favoriteGenre.current.forEach((genre) => {
-      genre.type = movie;
-    });
-  };
+  // const addMovieType = () => {
+  //   favoriteGenre.current.forEach((genre) => {
+  //     genre.type = movie;
+  //   });
+  // };
 
-  const addTvShowType = () => {
-    favoriteGenre.current.forEach((genre) => (genre.type = tvShow));
-  };
+  // const addTvShowType = () => {
+  //   favoriteGenre.current.forEach((genre) => (genre.type = tvShow));
+  // };
 
   useEffect(() => {
+    console.log("working");
     if (dataToDisplay === both) {
-      choseRandomValues(numberValues, flatGenreLists);
-      matchIndexes(flatGenreLists);
-      addTypeBoth();
-    }
-    if (dataToDisplay === movie) {
-      choseRandomValues(numberValues, genreMovieList);
+      console.log("both");
+      let flatGenres = flatData();
+      console.log(flatGenres);
+      choseRandomValues(numberContainerToDisplay, flatGenres);
+      matchIndexes(flatGenres);
+      // addTypeBoth();
+    } else if (dataToDisplay === movie) {
+      console.log("movie");
+
+      choseRandomValues(numberContainerToDisplay, genreMovieList);
       matchIndexes(genreMovieList);
-      addMovieType();
-    }
-    if (dataToDisplay === tvShow) {
-      choseRandomValues(numberValues, genreTvList);
+    } else if (dataToDisplay === tvshow) {
+      choseRandomValues(numberContainerToDisplay, genreTvList);
       matchIndexes(genreTvList);
-      addTvShowType();
     }
-  }, [dataToDisplay, numberValues]);
+  }, []);
 
   return (
     <div className="favorite-genre">
+      {console.log(favoriteGenre.current)}
       {favoriteGenre.current.map((genre) => (
         <InfiniteHorizontalCarousel key={genre.id} genre={genre} />
       ))}

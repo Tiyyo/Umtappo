@@ -7,7 +7,7 @@ import AppContext from "../../../utils/Context/AppContextProvider";
 
 const InfiniteCarousel = ({ genre }) => {
   // const { genre } = props;
-  const { id, name, type } = genre;
+  const { id, name, media_type } = genre;
   const { languages } = useContext(AppContext);
 
   let movie = "Movie";
@@ -21,7 +21,7 @@ const InfiniteCarousel = ({ genre }) => {
   const carousel = useRef();
 
   useEffect(() => {
-    if (type === movie) {
+    if (media_type === movie) {
       const fetchData = async () => {
         const result = await axios
           .get(
@@ -36,7 +36,7 @@ const InfiniteCarousel = ({ genre }) => {
       };
       fetchData();
     }
-    if (type === tvShow) {
+    if (media_type === tvShow) {
       const fetchData = async () => {
         const result = await axios
           .get(
@@ -62,9 +62,9 @@ const InfiniteCarousel = ({ genre }) => {
   return (
     <div className="infinite-carousel">
       <h2>
-        {type} | {name}
+        {media_type} | {name}
       </h2>
-      {loading ? (
+      {/* {loading ? (
         <LoaderUI />
       ) : (
         <motion.div
@@ -82,7 +82,7 @@ const InfiniteCarousel = ({ genre }) => {
             })}
           </motion.div>
         </motion.div>
-      )}
+      )} */}
     </div>
   );
 };

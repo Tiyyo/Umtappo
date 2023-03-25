@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Button from "../../Button/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
@@ -17,7 +11,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { updatePictures } from "../../../features/user/slice/user.slice";
 import LoaderUI from "../../Loader/LoaderUI";
 
-const validFilesTypes = ["image/jpg", "image/jpeg", "image/png", "image/JPG"];
+const validFilesTypes = [
+  "image/jpg",
+  "image/jpeg",
+  "image/png",
+  "image/JPG",
+  "image/JPEG",
+  "image/PNG",
+];
 
 const ModalEditPhoto = ({ isOpen, getStateModal }) => {
   const { userID } = useContext(UserContext);
@@ -111,7 +112,7 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
         "Content-Type": "multipart/form-data",
       },
       body: imageCrop,
-    });
+    }).then((res) => console.log(res));
     const imgFullLink = splitGenerateLink(urlFullImage);
     const imgCropLink = splitGenerateLink(urlCropImage);
 
@@ -122,6 +123,7 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
         imgCropLink,
       })
       .then(() => {
+        console.log("end");
         setIsLoading(false);
         getStateModal(false);
       })
@@ -148,7 +150,6 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
       <div className="modal-edit__blur">
         <div className="modal-edit__container">
           <div className="modal-edit__container__image">
-            {isLoading ? <LoaderUI /> : ""}
             <ReactCrop
               crop={crop}
               aspect={1}
@@ -158,11 +159,7 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
               className="crop"
             >
               {imgSrc ? (
-                <img
-                  src={imgSrc}
-                  alt="current avatar or picture uploaded"
-                  ref={imgRef}
-                />
+                <img src={imgSrc} alt="crop mep" ref={imgRef} />
               ) : (
                 <img
                   src={prevFullImage}
@@ -192,9 +189,21 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
             <button
               className="modal-edit__container__validate"
               onClick={handleSubmit}
+              style={
+                isLoading
+                  ? { backgroundColor: "var(--button_loading)" }
+                  : { backgroundColor: "var(--primary_dark)" }
+              }
             >
-              <DownloadDoneIcon fontSize="small" />
-              <span>Confirm</span>
+              {isLoading ? (
+                <LoaderUI size={"1.1rem"} />
+              ) : (
+                <>
+                  {" "}
+                  <DownloadDoneIcon fontSize="small" />
+                  <span>Confirm</span>
+                </>
+              )}
             </button>
             {!!completeCrop && (
               <>

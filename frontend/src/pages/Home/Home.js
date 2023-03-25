@@ -121,7 +121,7 @@ const Home = () => {
       <Spacer />
       <div className="app">
         <div className="main">
-          <div ref={mainDiv}>Ref</div>
+          <div ref={mainDiv}></div>
           {mainIsLoading ? (
             <LoaderUI fixed={true} overlay="true" />
           ) : (
