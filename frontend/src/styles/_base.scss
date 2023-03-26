@@ -13,6 +13,10 @@ body::-webkit-scrollbar  {
         text-decoration: none;
     }
 }
+.app-container  {
+    overflow :hidden;
+}
+
 .wrapper  {
     padding-top: $heightTopNav;
     background-color: var(--secondary);
@@ -21,6 +25,7 @@ body::-webkit-scrollbar  {
 .back-icon  {
     cursor: pointer;
 }
+
 
 button {
     cursor: pointer;
