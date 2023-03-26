@@ -12,6 +12,7 @@ export const AppContextProvider = ({ children }) => {
   const [preferedTheme, setTheme] = useState("");
   const [iconTheme, setIconTheme] = useState(darkIconTheme);
   const [navIsIntersect, setNavIsIntersect] = useState(false);
+  const [lastSearchValue, setLastSearchValue] = useState("")
 
   const body = document.querySelector("body");
 
@@ -26,6 +27,8 @@ export const AppContextProvider = ({ children }) => {
     iconTheme,
     navIsIntersect,
     setNavIsIntersect,
+    lastSearchValue, 
+    setLastSearchValue
   };
 
   useEffect(() => {
