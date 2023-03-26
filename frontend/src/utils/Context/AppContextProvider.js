@@ -43,7 +43,8 @@ export const AppContextProvider = ({ children }) => {
   useEffect(() => {
     if (window.localStorage.preferedTheme) {
       setTheme(window.localStorage.preferedTheme);
-    } else return;
+    } else {
+      setTheme("dark")
   }, []);
 
   useEffect(() => {
