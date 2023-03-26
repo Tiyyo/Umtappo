@@ -150,6 +150,12 @@ export const tmdbAPI = createApi({
       transformResponse: (response, meta, data) => response.results,
       transformErrorResponse: (response, meta, arg) => response.status,
     }),
+    getGenre: builder.query({
+      query: ({ params }) =>
+        `discover/${params.media_type}?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${params.languages}&sort_by=popularity.desc&page=${params.pageNumber}&timezone=Europe%2FAmerica&with_genres=${params.id}&include_null_first_air_dates=false&watch_region=FR&with_watch_monetization_types=flatrate&with_status=0`,
+      transformResponse: (response) => response.results,
+      transformErrorResponse: (response) => response.status,
+    }),
   }),
 });
 
@@ -171,4 +177,5 @@ export const {
   useGetVideosQuery,
   useGetCreditsQuery,
   useGetSimilarsQuery,
+  useGetGenreQuery,
 } = tmdbAPI;

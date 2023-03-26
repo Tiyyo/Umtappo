@@ -83,7 +83,7 @@ const TvShow = () => {
               title={"What is Trending now"}
             />
             <Promoted content={promotedTvShows} />
-            <Genre dataToDisplay="TvShow" />
+            <Genre dataToDisplay="tv" />
             <Promoted content={promotedTvShows} />
             <Footer />
           </div>

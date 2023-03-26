@@ -8,10 +8,10 @@ const Genre = (props) => {
 
   const { genreListTv: genreTvList, genreListMovie: genreMovieList } =
     useContext(AppContext);
-  let flatGenreLists = [...genreMovieList, ...genreTvList];
+
   let numberContainerToDisplay = 3;
-  let movie = "Movie";
-  let tvshow = "TvShow";
+  let movie = "movie";
+  let tvshow = "tv";
   let both = "Both";
 
   const randomValues = useRef([]);
@@ -53,57 +53,28 @@ const Genre = (props) => {
     return setFavoriteGenres(genreToDisplay);
   };
 
-  const addTypeBoth = () => {
-    favoriteGenre.current.forEach((genre) => {
-      for (let i = 0; i < genreMovieList.length; i++) {
-        if (genre.id === genreMovieList[i].id) {
-          genre.type = movie;
-        }
-        for (let i = 0; i < genreTvList.length; i++) {
-          if (genre.id === genreTvList[i].id) {
-            genre.type = tvshow;
-          }
-        }
-      }
-    });
-  };
-
-  // const addMovieType = () => {
-  //   favoriteGenre.current.forEach((genre) => {
-  //     genre.type = movie;
-  //   });
-  // };
-
-  // const addTvShowType = () => {
-  //   favoriteGenre.current.forEach((genre) => (genre.type = tvShow));
-  // };
-
   useEffect(() => {
-    console.log("working");
     if (dataToDisplay === both) {
-      console.log("both");
       let flatGenres = flatData();
-      console.log(flatGenres);
       choseRandomValues(numberContainerToDisplay, flatGenres);
       matchIndexes(flatGenres);
-      // addTypeBoth();
     } else if (dataToDisplay === movie) {
-      console.log("movie");
-
-      choseRandomValues(numberContainerToDisplay, genreMovieList);
-      matchIndexes(genreMovieList);
+      let movieGenres = addType(genreMovieList, movie);
+      choseRandomValues(numberContainerToDisplay, movieGenres);
+      matchIndexes(movieGenres);
     } else if (dataToDisplay === tvshow) {
-      choseRandomValues(numberContainerToDisplay, genreTvList);
-      matchIndexes(genreTvList);
+      let tvshowGenres = addType(genreTvList, tvshow);
+      choseRandomValues(numberContainerToDisplay, tvshowGenres);
+      matchIndexes(tvshowGenres);
     }
   }, []);
 
   return (
     <div className="favorite-genre">
-      {console.log(favoriteGenre.current)}
-      {favoriteGenre.current.map((genre) => (
-        <InfiniteHorizontalCarousel key={genre.id} genre={genre} />
-      ))}
+      {favoriteGenres &&
+        favoriteGenres.map((genre) => (
+          <InfiniteHorizontalCarousel key={genre.id} genre={genre} />
+        ))}
     </div>
   );
 };

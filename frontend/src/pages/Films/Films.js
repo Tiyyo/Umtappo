@@ -4,8 +4,6 @@ import HorizontalCarousel from "../../components/Container/HorizontalCarousel/Ho
 import Genre from "../../components/Container/Genre/Genre";
 import Promoted from "../../components/Container/Promoted/Promoted";
 import LoaderUI from "../../components/Loader/LoaderUI";
-
-import useFetch from "../../utils/hooks/useFetch";
 import AppContext from "../../utils/Context/AppContextProvider";
 import Footer from "../../components/Footer/Footer";
 import {
@@ -93,7 +91,7 @@ const Films = () => {
           />
           <Promoted content={promotedMovies} />
           <HorizontalCarousel content={popularMovies} title="Popular" />
-          <Genre dataToDisplay="Movie" />
+          <Genre dataToDisplay="movie" />
           <Promoted content={promotedMovies} />
           <Footer />
         </div>
