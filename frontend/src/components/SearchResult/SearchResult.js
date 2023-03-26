@@ -37,7 +37,7 @@ const SearchResult = () => {
     <div className="app">
       <div className="search--result__container">
         <div className="search--result__wrapper">
-          {elements.map((content, index) => {
+          {elements.filter((content) => content.poster_path).map((content, index) => {
             content.type = content.media_type;
             if (index === elements.length - 1) {
               return (
@@ -50,7 +50,7 @@ const SearchResult = () => {
                     <img
                       src={
                         config.base_url +
-                        config.logo_sizes[1] +
+                        config.logo_sizes[2] +
                         content.poster_path
                       }
                       alt={"poster of " + content.name || content.title}
