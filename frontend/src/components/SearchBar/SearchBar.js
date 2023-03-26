@@ -12,11 +12,14 @@ import "@fontsource/roboto/700.css";
 import AppContext from "../../utils/Context/AppContextProvider";
 
 const SearchBar = ({ getInputValue }) => {
-  // const { getInputValue } = props;
+  
   const { pathname } = useLocation();
+  
   const navigate = useNavigate();
+  
   const [searchActive, setSearchActive] = useState(false);
-  const { iconTheme } = useContext(AppContext);
+  
+  const { iconTheme, lastSearchValue } = useContext(AppContext);
 
   const handleBackSpace = () => {
     const searchInput = document.querySelector(".search__input");
@@ -72,6 +75,7 @@ const SearchBar = ({ getInputValue }) => {
               className={
                 searchActive ? "search__input isactive" : "search__input"
               }
+              defaultValue={lastSearchValue}
               placeholder={searchActive ? "Search" : ""}
               onChange={(e) => getInputValue(e.target.value)}
               autoFocus
