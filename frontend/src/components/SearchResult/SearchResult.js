@@ -6,7 +6,7 @@ import useSearch from "../../utils/hooks/useSearch";
 
 const SearchResult = () => {
   const observer = useRef();
-  const { config } = useContext(AppContext);
+  const { config, setLastSearchValue } = useContext(AppContext);
   const inputSearchValue = useOutletContext();
   const [pageNumber, setPageNumber] = useState(1);
   const {
@@ -45,6 +45,7 @@ const SearchResult = () => {
                   key={content.id + content.title}
                   to={content.id.toString()}
                   state={{ content }}
+                  onClick={setLastSearchvalue(inputSearchValue)}
                 >
                   {config && content.poster_path ? (
                     <img
