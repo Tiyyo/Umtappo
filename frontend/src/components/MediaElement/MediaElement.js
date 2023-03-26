@@ -36,17 +36,17 @@ const MediaElement = () => {
   const {
     data,
     isLoading: isLoadingMain,
-    isSuccess,
+    isSuccess : isSuccessMain,
   } = useGetInfosModalQuery({ params });
-  const { currentData: videos, isLoading: isLoadingVideo } = useGetVideosQuery({
+  const { currentData: videos, isLoading: isLoadingVideo, isSucces : isSuccesVideo } = useGetVideosQuery({
     params,
   });
-  const { currentData: credits, isLoading: isLoadingCredits } =
+  const { currentData: credits, isLoading: isLoadingCredits, isSuccess : isSuccessCredits } =
     useGetCreditsQuery({
       params,
     });
 
-  const { currentData: similars, isLoading: isLoadingSimilars } =
+  const { currentData: similars, isLoading: isLoadingSimilars, isSuccess : isSuccessSimilars } =
     useGetSimilarsQuery({
       params,
     });
@@ -58,7 +58,7 @@ const MediaElement = () => {
   return (
     <>
       <div className="media-element">
-        {isLoadingVideo ? (
+        {isLoadingVideo & !isSuccessLoading ? (
           <LoaderUI overlay={"true"} fixed={"true"} />
         ) : (
           <Video content={content} videos={videos} loading={isLoadingVideo} />
@@ -67,7 +67,7 @@ const MediaElement = () => {
         <div className="media-element__title">
           {content.title || content.name}
         </div>
-        {isLoadingMain ? (
+        {isLoadingMain && !isSuccessMain ? (
           <LoaderUI overlay={"true"} fixed={"true"} />
         ) : (
           <>
@@ -75,13 +75,13 @@ const MediaElement = () => {
             <Attributes content={data} type={content.media_type} />
           </>
         )}
-        {isLoadingCredits ? (
+        {isLoadingCredits && !isSuccessCredits ? (
           <LoaderUI overlay={"true"} fixed={"true"} size={"0.7rem"} />
         ) : (
           <Casts credits={credits} />
         )}
 
-        {isLoadingSimilars ? (
+        {isLoadingSimilars && !isSuccessLoading ? (
           <LoaderUI overlay={"true"} fixed={"true"} size={"0.5rem"} />
         ) : (
           <SimilarContent similars={similars} />
