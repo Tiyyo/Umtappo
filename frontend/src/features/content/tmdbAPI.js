@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 let currentDate = new Date();
 const date = currentDate.setMonth(-1);
 let movie = "movie";
-let tvshow = "tvshow";
+let tvshow = "tv";
 
 export const tmdbAPI = createApi({
   reducerPath: "tmdbAPI",
@@ -126,34 +126,41 @@ export const tmdbAPI = createApi({
     }),
     getInfosModal: builder.query({
       query: ({ params }) =>
-        `https://api.themoviedb.org/3/${params.type}/${params.id}?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${params.languages}`,
-      transformResponse: (response, meta, data) => {
+        `https://api.themoviedb.org/3/${params.media_type}/${params.id}?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${params.languages}`,
+      transformResponse: (response, meta, arg) => {
         return response;
       },
       transformErrorResponse: (response, meta, arg) => response.status,
     }),
     getVideos: builder.query({
       query: ({ params }) =>
-        `https://api.themoviedb.org/3/${params.type}/${params.id}/videos?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${params.languages}`,
+        `https://api.themoviedb.org/3/${params.media_type}/${params.id}/videos?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${params.languages}`,
       transformResponse: (response, meta, data) => response,
-      transformErrorResponse: (response, meta, arg) => response.status,
+      transformErrorResponse: (response, meta, arg) => {
+        return response.status;
+      },
     }),
     getCredits: builder.query({
       query: ({ params }) =>
-        `https://api.themoviedb.org/3/${params.type}/${params.id}/credits?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${params.languages}`,
+        `https://api.themoviedb.org/3/${params.media_type}/${params.id}/credits?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${params.languages}`,
       transformResponse: (response, meta, data) => response,
-      transformErrorResponse: (response, meta, arg) => response.status,
+      transformErrorResponse: (response, meta, arg) => {
+        return response.status;
+      },
     }),
     getSimilars: builder.query({
       query: ({ params }) => `
-      https://api.themoviedb.org/3/${params.type}/${params.id}/recommendations?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${params.languages}&page=1`,
+      https://api.themoviedb.org/3/${params.media_type}/${params.id}/recommendations?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${params.languages}&page=1`,
       transformResponse: (response, meta, data) => response.results,
       transformErrorResponse: (response, meta, arg) => response.status,
     }),
     getGenre: builder.query({
       query: ({ params }) =>
         `discover/${params.media_type}?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${params.languages}&sort_by=popularity.desc&page=${params.pageNumber}&timezone=Europe%2FAmerica&with_genres=${params.id}&include_null_first_air_dates=false&watch_region=FR&with_watch_monetization_types=flatrate&with_status=0`,
-      transformResponse: (response) => response.results,
+      transformResponse: (response, meta, { params }) => {
+        response.results.map((r) => (r.media_type = params.media_type));
+        return response.results;
+      },
       transformErrorResponse: (response) => response.status,
     }),
   }),

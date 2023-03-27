@@ -1,10 +1,8 @@
 import React, { useCallback, useEffect, useState, useMemo } from "react";
 import PromotedCard from "../../Cards/Promoted/PromotedCard";
 import useWindowsSize from "../../../utils/hooks/useWindowSize";
-import { useAsyncError } from "react-router";
 
 const Promoted = ({ content }) => {
-  // const { content } = props;
   const [randomIndexElement, setRandomIndex] = useState(0);
   const [numberElementDisplayed, setNumberElementDisplayed] = useState(1);
 
@@ -21,18 +19,6 @@ const Promoted = ({ content }) => {
   const controls = () => {
     if (randomIndexElement === -1) {
       setRandomIndex(0);
-    }
-  };
-
-  const handleNumOfContent = (windowWidth) => {
-    if (windowWidth < 340) {
-      setNumberElementDisplayed(0);
-    } else if (340 < windowWidth < 340 * 2) {
-      setNumberElementDisplayed(1);
-    } else if (340 * 2 < windowWidth < 340 * 3) {
-      setNumberElementDisplayed(2);
-    } else if (340 * 3 < windowWidth < 340 * 4) {
-      setNumberElementDisplayed(3);
     }
   };
 

@@ -19,46 +19,39 @@ const MediaElement = () => {
   //--- Destructuring
   const location = useLocation();
   const { content } = location.state;
+
+  const { media_type, id } = content;
+
   const { languages } = useContext(AppContext);
-  const { media_type: type, id } = content;
 
-  const [formatedType, setFormatedType] = useState("");
+  const params = { id, media_type, languages };
 
-  const formatType = () => {
-    if (content.media_type === "tvshow") {
-      return setFormatedType("tv");
-    } else if (content.media_type === "movie") {
-      return setFormatedType("movie");
-    }
-  };
-
-  const params = { id: content.id, type: formatedType, languages };
   const {
     data,
     isLoading: isLoadingMain,
-    isSuccess : isSuccessMain,
+    isSuccess: isSuccessMain,
   } = useGetInfosModalQuery({ params });
-  const { currentData: videos, isLoading: isLoadingVideo, isSucces : isSuccesVideo } = useGetVideosQuery({
-    params,
-  });
-  const { currentData: credits, isLoading: isLoadingCredits, isSuccess : isSuccessCredits } =
-    useGetCreditsQuery({
-      params,
-    });
+  const {
+    currentData: videos,
+    isLoading: isLoadingVideo,
+    isSucces: isSuccessVideo,
+  } = useGetVideosQuery({ params });
+  const {
+    currentData: credits,
+    isLoading: isLoadingCredits,
+    isSuccess: isSuccessCredits,
+  } = useGetCreditsQuery({ params });
 
-  const { currentData: similars, isLoading: isLoadingSimilars, isSuccess : isSuccessSimilars } =
-    useGetSimilarsQuery({
-      params,
-    });
-
-  useEffect(() => {
-    formatType();
-  }, [content.media_type]);
+  const {
+    currentData: similars,
+    isLoading: isLoadingSimilars,
+    isSuccess: isSuccessSimilars,
+  } = useGetSimilarsQuery({ params });
 
   return (
     <>
       <div className="media-element">
-        {isLoadingVideo & !isSuccessLoading ? (
+        {isLoadingVideo & !isSuccessVideo ? (
           <LoaderUI overlay={"true"} fixed={"true"} />
         ) : (
           <Video content={content} videos={videos} loading={isLoadingVideo} />
@@ -81,7 +74,7 @@ const MediaElement = () => {
           <Casts credits={credits} />
         )}
 
-        {isLoadingSimilars && !isSuccessLoading ? (
+        {isLoadingSimilars && !isSuccessSimilars ? (
           <LoaderUI overlay={"true"} fixed={"true"} size={"0.5rem"} />
         ) : (
           <SimilarContent similars={similars} />

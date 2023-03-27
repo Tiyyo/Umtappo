@@ -25,6 +25,7 @@ const useSearch = (query, pageNumber) => {
       })
         .then((res) => {
           setContent((prevContent) => {
+            console.log(res.data);
             return [...prevContent, ...res.data.results];
           });
           setHasMore(() => {

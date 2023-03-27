@@ -8,10 +8,11 @@ import { Link } from "react-router-dom";
 import AppContext from "../../../utils/Context/AppContextProvider";
 
 const MovieCard = ({ content }) => {
+  var movieType = "movie";
   const { config } = useContext(AppContext);
 
   const displayTypeIcon = (entries) => {
-    if (entries === "Movie") {
+    if (entries === movieType) {
       return <TheatersOutlinedIcon sx={{ fontSize: "0.8rem" }} />;
     } else {
       return <TvOutlinedIcon sx={{ fontSize: "0.8rem" }} />;
@@ -41,7 +42,7 @@ const MovieCard = ({ content }) => {
         <Link to={idString} state={{ content }}>
           <div className="movie-card__image--container">
             <p className="movie-card__image--container__type">
-              {displayTypeIcon(content.type)}
+              {displayTypeIcon(content.media_type)}
             </p>
 
             {config && content.poster_path ? (

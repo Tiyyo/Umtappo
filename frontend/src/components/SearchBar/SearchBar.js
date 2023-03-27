@@ -12,14 +12,14 @@ import "@fontsource/roboto/700.css";
 import AppContext from "../../utils/Context/AppContextProvider";
 
 const SearchBar = ({ getInputValue }) => {
-  
   const { pathname } = useLocation();
-  
+
   const navigate = useNavigate();
-  
+
   const [searchActive, setSearchActive] = useState(false);
-  
-  const { iconTheme, lastSearchValue } = useContext(AppContext);
+
+  const { iconTheme, lastSearchValue, setLastSearchValue } =
+    useContext(AppContext);
 
   const handleBackSpace = () => {
     const searchInput = document.querySelector(".search__input");
@@ -33,6 +33,10 @@ const SearchBar = ({ getInputValue }) => {
       setSearchActive(false);
     }
   }, [pathname]);
+
+  useEffect(() => {
+    getInputValue(lastSearchValue);
+  }, [lastSearchValue]);
 
   return (
     <ThemeProvider theme={iconTheme}>
@@ -53,6 +57,7 @@ const SearchBar = ({ getInputValue }) => {
               onClick={() => {
                 setSearchActive(false);
                 handleBackSpace();
+                setLastSearchValue("");
                 navigate(-1);
               }}
             >
@@ -79,6 +84,7 @@ const SearchBar = ({ getInputValue }) => {
               placeholder={searchActive ? "Search" : ""}
               onChange={(e) => getInputValue(e.target.value)}
               autoFocus
+              style={searchActive ? { opacity: "1" } : { opacity: "0" }}
             />
           </button>
         </Link>

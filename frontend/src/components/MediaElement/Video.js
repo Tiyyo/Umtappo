@@ -8,8 +8,12 @@ const Video = ({ content, videos, loading }) => {
   const [contentPresence, setPrescence] = useState(true);
 
   let videoType = "Trailer";
-  let imagePath =
-    config.base_url + config.backdrop_sizes[1] + content.backdrop_path;
+
+  function imagePath(size) {
+    return (
+      config.base_url + config.backdrop_sizes[size] + content.backdrop_path
+    );
+  }
 
   const getVideoKey = () => {
     if (!loading) {
@@ -35,10 +39,10 @@ const Video = ({ content, videos, loading }) => {
         ></ReactPlayer>
       );
     } else {
-      if (imagePath) {
+      if (!imagePath(1).includes("null")) {
         return (
           <img
-            src={imagePath}
+            src={imagePath(1)}
             alt={"poster of " + content.name || content.title}
           />
         );

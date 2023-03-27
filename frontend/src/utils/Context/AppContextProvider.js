@@ -12,7 +12,7 @@ export const AppContextProvider = ({ children }) => {
   const [preferedTheme, setTheme] = useState("");
   const [iconTheme, setIconTheme] = useState(darkIconTheme);
   const [navIsIntersect, setNavIsIntersect] = useState(false);
-  const [lastSearchValue, setLastSearchValue] = useState("")
+  const [lastSearchValue, setLastSearchValue] = useState("");
 
   const body = document.querySelector("body");
 
@@ -27,8 +27,8 @@ export const AppContextProvider = ({ children }) => {
     iconTheme,
     navIsIntersect,
     setNavIsIntersect,
-    lastSearchValue, 
-    setLastSearchValue
+    lastSearchValue,
+    setLastSearchValue,
   };
 
   useEffect(() => {
@@ -47,7 +47,8 @@ export const AppContextProvider = ({ children }) => {
     if (window.localStorage.preferedTheme) {
       setTheme(window.localStorage.preferedTheme);
     } else {
-      setTheme("dark")
+      setTheme("dark");
+    }
   }, []);
 
   useEffect(() => {
