@@ -10,9 +10,9 @@ const getQueries = (arrIds, languages) => {
 
 export const getIdsMoviesLiked = createAsyncThunk(
   "getIdsMoviesLiked",
-  async (arg, { dispatch, getState, rejectWithValue }) => {
+  async (user_id, { dispatch, getState, rejectWithValue }) => {
     const result = await axios
-      .get("http://localhost:5000/like/movie/" + arg)
+      .get("http://localhost:5000/like/movie/" + user_id)
       .then((res) => {
         if (res.status === 200) {
           let arr = [];
@@ -76,6 +76,7 @@ const likesSlice = createSlice({
     builder
       .addCase(getIdsMoviesLiked.fulfilled, (state, action) => {
         state.ids = action.payload;
+        state.loading = "idle";
       })
       .addCase(getIdsMoviesLiked.pending, (state, action) => {
         if (state.loading === "idle") {

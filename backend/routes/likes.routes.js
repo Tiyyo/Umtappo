@@ -14,8 +14,8 @@ const router = express.Router();
 router.get("/movie/:id", getMoviesLiked);
 router.post("/movie", likeMovie);
 router.patch("/movie", dislikeMovie);
-router.get("/tvshow/:id", getTvshowsLiked);
-router.post("/tvshow", likeShow);
-router.patch("/tvshow", dislikeShow);
+router.get("/tv/:id", getTvshowsLiked);
+router.post("/tv", likeShow);
+router.patch("/tv", dislikeShow);
 
 module.exports = router;

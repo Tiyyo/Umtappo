@@ -43,7 +43,6 @@ const SearchResult = () => {
             // .filter((content) => content.poster_path)
             .map((content, index) => {
               content.type = content.media_type;
-              console.log(content);
               if (content.type === "person") return;
               if (index === elements.length - 1 && content) {
                 return (

@@ -12,7 +12,7 @@ export const getIdsTvshowsLiked = createAsyncThunk(
   "getIdsTvshowsLiked",
   async (arg, { dispatch, getState, rejectWithValue }) => {
     const result = await axios
-      .get("http://localhost:5000/like/tvshow/" + arg)
+      .get("http://localhost:5000/like/tv/" + arg)
       .then((res) => {
         let arr = [];
         res.data.tvshow_liked.map((r) => {
@@ -73,6 +73,7 @@ const likesSlice = createSlice({
     builder
       .addCase(getIdsTvshowsLiked.fulfilled, (state, action) => {
         state.ids = action.payload;
+        state.loading = "idle";
       })
       .addCase(getIdsTvshowsLiked.pending, (state, action) => {
         if (state.loading === "idle") {

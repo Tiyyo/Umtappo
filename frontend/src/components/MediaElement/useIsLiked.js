@@ -1,31 +1,26 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getIdsTvshowsLiked } from "../../features/tvshow liked/slice/like.slice";
-import { getIdsMoviesLiked } from "../../features/movie liked/Slice/likes.slice";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-const useIsLiked = (type, user_id, contentId) => {
-  const dispatch = useDispatch();
+const useIsLiked = (media_type, id) => {
   const [isAlreadyLiked, setAlreadyLiked] = useState(null);
 
-  const movieLiked = useSelector((state) => state.movieLiked);
-  const tvshowLiked = useSelector((state) => state.tvshowLiked);
+  const movieLikedIds = useSelector((state) => state.movieLiked.ids);
+  const tvshowLikedIds = useSelector((state) => state).tvshowLiked.ids;
 
-  const isLiked = useCallback((contentId, content) => {
-    let exist = content?.ids.map((el) => el.id).some((id) => id === contentId);
-    return exist;
-  }, []);
+  const likes = {
+    ...movieLikedIds,
+    ...tvshowLikedIds,
+  };
 
   useEffect(() => {
-    if (type.toLowerCase() === "tvshow") {
-      dispatch(getIdsTvshowsLiked(user_id)).then(() => {
-        return setAlreadyLiked(isLiked(contentId, tvshowLiked));
+    if (Object.keys(likes).length > 0) {
+      Object.values(likes).forEach((like) => {
+        if (like.id === id && like.media_type === media_type) {
+          return setAlreadyLiked(true);
+        }
       });
-    } else if (type.toLowerCase() === "movie") {
-      dispatch(getIdsMoviesLiked(user_id)).then(() => {
-        return setAlreadyLiked(isLiked(contentId, movieLiked));
-      });
-    }
-  }, [type, contentId, user_id, movieLiked, tvshowLiked]);
+    } else return setAlreadyLiked(false);
+  }, [likes]);
 
   return isAlreadyLiked;
 };

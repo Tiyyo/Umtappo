@@ -143,7 +143,7 @@ module.exports.likeShow = asyncHandler(async (req, res) => {
 
 module.exports.dislikeShow = asyncHandler(async (req, res) => {
   const { user_id, content_id, media_type } = req.body;
-  let refType = "tvshow";
+  let refType = "tv";
 
   if (!user_id || !content_id) {
     res.status(400).send("user_id or content_id is missing");

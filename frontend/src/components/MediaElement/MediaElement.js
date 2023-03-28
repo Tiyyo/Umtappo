@@ -14,15 +14,21 @@ import {
   useGetSimilarsQuery,
 } from "../../features/content/tmdbAPI";
 import LoaderUI from "../Loader/LoaderUI";
+import { useDispatch } from "react-redux";
+import UserContext from "../../utils/Context/UserContextProvider";
+import { getIdsMoviesLiked } from "../../features/movie liked/Slice/likes.slice";
+import { getIdsTvshowsLiked } from "../../features/tvshow liked/slice/like.slice";
 
 const MediaElement = () => {
   //--- Destructuring
   const location = useLocation();
+  const dispatch = useDispatch();
   const { content } = location.state;
 
   const { media_type, id } = content;
 
   const { languages } = useContext(AppContext);
+  const { userID } = useContext(UserContext);
 
   const params = { id, media_type, languages };
 
@@ -31,11 +37,13 @@ const MediaElement = () => {
     isLoading: isLoadingMain,
     isSuccess: isSuccessMain,
   } = useGetInfosModalQuery({ params });
+
   const {
     currentData: videos,
     isLoading: isLoadingVideo,
     isSucces: isSuccessVideo,
   } = useGetVideosQuery({ params });
+
   const {
     currentData: credits,
     isLoading: isLoadingCredits,
@@ -48,15 +56,21 @@ const MediaElement = () => {
     isSuccess: isSuccessSimilars,
   } = useGetSimilarsQuery({ params });
 
+  useEffect(() => {
+    dispatch(getIdsMoviesLiked(userID));
+    dispatch(getIdsTvshowsLiked(userID));
+  }, []);
+
   return (
     <>
       <div className="media-element">
+        {console.log("fire")}
         {isLoadingVideo & !isSuccessVideo ? (
           <LoaderUI overlay={"true"} fixed={"true"} />
         ) : (
           <Video content={content} videos={videos} loading={isLoadingVideo} />
         )}
-        <CallToAction content={data} />
+        <CallToAction content={data} media_type={media_type} id={id} />
         <div className="media-element__title">
           {content.title || content.name}
         </div>
@@ -73,7 +87,6 @@ const MediaElement = () => {
         ) : (
           <Casts credits={credits} />
         )}
-
         {isLoadingSimilars && !isSuccessSimilars ? (
           <LoaderUI overlay={"true"} fixed={"true"} size={"0.5rem"} />
         ) : (

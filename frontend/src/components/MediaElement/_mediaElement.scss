@@ -148,6 +148,22 @@
 
         &__favorite  {
             cursor: pointer;
+            position: relative;
+            transition: all 5s ease-in;
+
+            
+            &:hover {
+         
+                &::after  {
+                    transition: all 5s ease-in;
+                    position: absolute;
+                    top: -50px;
+                    left: -40px;
+                    color : var(--text);
+                    content: "add-to favorite";
+
+                }
+            }
         }
     }
   }

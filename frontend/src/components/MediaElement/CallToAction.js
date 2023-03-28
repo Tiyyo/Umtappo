@@ -20,86 +20,81 @@ import useIsLiked from "./useIsLiked";
 import UserContext from "../../utils/Context/UserContextProvider";
 import Button from "../Button/Button";
 
-const CallToAction = ({ content }) => {
+const CallToAction = ({ media_type, id, content }) => {
   const { iconTheme } = useContext(AppContext);
   const { userID } = useContext(UserContext);
 
   const [isLiked, setIsLiked] = useState(false);
 
   const dispatch = useDispatch();
-  // const isAlreadyLiked = useIsLiked(content.media_type, userID, content.id);
 
-  // useEffect(() => {
-  //   if (isAlreadyLiked) {
-  //     setIsLiked(true);
-  //   }
-  // }, [isAlreadyLiked]);
+  const isAlreadyLiked = useIsLiked(media_type, id);
+
+  useEffect(() => {
+    if (isAlreadyLiked) {
+      setIsLiked(true);
+    }
+  }, [isAlreadyLiked]);
 
   let movieType = "movie";
-  let tvshowType = "tvshow";
+  let tvshowType = "tv";
 
   const addToFavorite = () => {
     setIsLiked(!isLiked);
   };
 
-  // const addToLikes = async (type) => {
-  //   const data = { user_id: userID, content_id: content.id, media_type: type };
-  //   const res = await axios
-  //     .post(`http://localhost:5000/like/${type}`, data)
-  //     .then((res) => {
-  //       if (res.status === 200) {
-  //         type === movieType
-  //           ? dispatch(likeMovie({ id: content.id, media_type: type }))
-  //           : dispatch(likeTvshow({ id: content.id, media_type: tvshowType }));
-  //       } else {
-  //         console.log(res.response.data);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
+  const addToLikes = async (media_type) => {
+    const data = { user_id: userID, content_id: id, media_type };
+    const result = await axios
+      .post(`http://localhost:5000/like/${media_type}`, data)
+      .then((res) => {
+        if (res.status === 200) {
+          media_type === movieType
+            ? dispatch(likeMovie({ id, media_type }))
+            : dispatch(likeTvshow({ id, media_type }));
+        } else {
+          console.log(res.response.data);
+        }
+      })
+      .catch((err) => console.log(err));
+    return result;
+  };
 
-  // const removeFromLikes = async (type) => {
-  //   const data = { user_id: userID, content_id: content.id, media_type: type };
-  //   const res = await axios
-  //     .patch(`http://localhost:5000/like/${type}`, data)
-  //     .then((res) => {
-  //       if (res.status === 200) {
-  //         type === movieType
-  //           ? dispatch(dislikeMovie({ id: content.id, media_type: type }))
-  //           : dispatch(
-  //               dislikeTvshow({ id: content.id, media_type: tvshowType })
-  //             );
-  //       } else {
-  //         console.log(res.response.data);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
+  const removeFromLikes = async (media_type) => {
+    const data = { user_id: userID, content_id: id, media_type };
+    const result = await axios
+      .patch(`http://localhost:5000/like/${media_type}`, data)
+      .then((res) => {
+        if (res.status === 200) {
+          media_type === movieType
+            ? dispatch(dislikeMovie({ id: content.id, media_type }))
+            : dispatch(dislikeTvshow({ id: content.id, media_type }));
+        } else {
+          console.log(res.response.data);
+        }
+      })
+      .catch((err) => console.log(err));
+    return result;
+  };
 
-  // useEffect(() => {
-  //   if (isLiked) {
-  //     content.type.toLowerCase() === movieType
-  //       ? addToLikes(movieType)
-  //       : addToLikes(tvshowType);
-  //   } else {
-  //     content.type.toLowerCase() === tvshowType
-  //       ? removeFromLikes(movieType)
-  //       : removeFromLikes(tvshowType);
-  //   }
-  // }, [isLiked]);
-
-  // useEffect(() => {
-  //   setIsLiked(data);
-  // }, [data]);
+  useEffect(() => {
+    if (isLiked) {
+      media_type === movieType ? addToLikes(movieType) : addToLikes(tvshowType);
+    } else {
+      media_type === tvshowType
+        ? removeFromLikes(movieType)
+        : removeFromLikes(tvshowType);
+    }
+  }, [isLiked]);
 
   return (
     <div className="media-element__call-to-action">
       <ThemeProvider theme={iconTheme}>
         <div
           className="media-element__call-to-action__favorite"
-          // onClick={() => {
-          //   addToFavorite();
-          // }}
+          onClick={() => {
+            addToFavorite();
+          }}
         >
           <Button>{isLiked ? <BookmarkIcon /> : <BookmarkBorderIcon />}</Button>
         </div>
