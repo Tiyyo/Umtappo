@@ -29,6 +29,7 @@ const Home = () => {
   const [promotedElementPageNumber, setPromotedElementPageNumber] = useState(1);
   const [promotedShowElementPageNumber, setPromotedShowElementPageNumber] =
     useState(1);
+
   const [mainIsLoading, setMainIsLoading] = useState(true);
 
   const { currentData: playingNowMovie, isSuccess: isSuccesPlayingNowMovie } =
@@ -91,10 +92,10 @@ const Home = () => {
     isLoadingLastReleaseTvshow,
   ]);
 
-  const mainDiv = useRef();
+  const headerHome = useRef();
 
   useEffect(() => {
-    if (mainDiv.current) {
+    if (headerHome.current) {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (!entry.isIntersecting) {
@@ -105,23 +106,22 @@ const Home = () => {
         },
         { rootMargin: "5px" }
       );
-      observer.observe(mainDiv.current);
-      return () => observer.disconnect(mainDiv.current);
+      observer.observe(headerHome.current);
+      return () => observer.disconnect(headerHome.current);
     }
-  }, [mainDiv.current]);
+  }, [headerHome.current]);
 
   return (
     <HomeContextProvider>
       <Outlet />
       {isSuccesPlayingNowMovie ? (
-        <HeaderHome content={playingNowMovie} />
+        <HeaderHome content={playingNowMovie} ref={headerHome} />
       ) : (
         <LoaderUI fixed={true} overlay="true" />
       )}
       <Spacer />
       <div className="app">
         <div className="main">
-          <div ref={mainDiv}></div>
           {mainIsLoading ? (
             <LoaderUI fixed={true} overlay="true" />
           ) : (

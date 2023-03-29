@@ -47,7 +47,7 @@ const SearchResult = () => {
               if (index === elements.length - 1 && content) {
                 return (
                   <Link
-                    key={content.id + content.title}
+                    key={content.id + index}
                     to={content.id.toString()}
                     state={{ content }}
                     onClick={setLastSearchValue(inputSearchValue)}
@@ -74,7 +74,7 @@ const SearchResult = () => {
               } else {
                 return (
                   <Link
-                    key={content.id}
+                    key={content.id + index}
                     to={content.id.toString()}
                     state={{ content }}
                     className="search-result__link"
@@ -90,7 +90,7 @@ const SearchResult = () => {
                       />
                     ) : (
                       <div className="no-img">
-                        <p key={content.id}>{content.title || content.name}</p>
+                        <p>{content.title || content.name}</p>
                       </div>
                     )}
                   </Link>

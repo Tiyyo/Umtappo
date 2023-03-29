@@ -203,11 +203,7 @@ module.exports.patchPassword = asyncHandler(async (req, res) => {
     res.status(400).send("User id not found in database");
   }
 
-  console.log(user.password);
-
   const matchPassword = await bcrypt.compare(password, user.password);
-
-  console.log(matchPassword);
 
   const newHashedPassword = await bcrypt.hash(newPassword, 10);
   const query = { _id: user_id };

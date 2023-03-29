@@ -37,6 +37,7 @@ const userSchema = mongoose.Schema(
       { type: Array },
       { id: { type: String }, media_type: { type: String } },
     ],
+    rates: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Rates" }],
   },
   {
     timestamps: true,

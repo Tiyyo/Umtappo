@@ -1,7 +1,11 @@
 import React from "react";
 import { StarOutline } from "@mui/icons-material";
+import StarIcon from "@mui/icons-material/Star";
+import { Button } from "@mui/material";
+import Rates from "./Rates";
 
 const Attributes = ({ content, type }) => {
+  console.log(content);
   const displayReleaseYear = () => {
     if (content.first_air_date) {
       return content.first_air_date.substring(0, 4);
@@ -10,6 +14,7 @@ const Attributes = ({ content, type }) => {
       return content.release_date.substring(0, 4);
     }
   };
+
   return (
     <div className="media-element__infos">
       <div className="media-element__infos__type">
@@ -27,10 +32,7 @@ const Attributes = ({ content, type }) => {
           );
         })}
       </div>
-      <div className="media-element__infos__rating">
-        <StarOutline sx={{ color: "yellow" }} />
-        {Math.round(content.vote_average * 10) / 10} / 10{" "}
-      </div>
+      <Rates votes={content.vote_average} />
     </div>
   );
 };

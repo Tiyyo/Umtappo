@@ -112,7 +112,7 @@ module.exports.likeShow = asyncHandler(async (req, res) => {
     throw new Error("User id or media type or content id is missing");
   }
 
-  if (media_type.toLowerCase() !== "tvshow") {
+  if (media_type.toLowerCase() !== "tv") {
     res.status(400).send("media type must be Tv show");
     throw new Error("media type must be Tv show");
   }
@@ -129,7 +129,7 @@ module.exports.likeShow = asyncHandler(async (req, res) => {
   const isExist = condition();
   const query = { _id: user_id };
   const update = { $push: { tvshow_liked: data } };
-  const options = { new: true };
+  const options = { new: true, rawResult: true };
 
   if (isExist) {
     res.status(400).send("Media already liked");

@@ -4,7 +4,7 @@ import AppContext from "../../../utils/Context/AppContextProvider";
 import HomeContext from "../../../utils/Context/HomeContextProvider";
 import useWindowSize from "../../../utils/hooks/useWindowSize";
 
-const HeaderHome = ({ content }) => {
+const HeaderHome = React.forwardRef(({ content }, headerHome) => {
   const { config } = useContext(AppContext);
   const { setImageHeaderHeight } = useContext(HomeContext);
 
@@ -29,7 +29,7 @@ const HeaderHome = ({ content }) => {
   }, [numberOfContent, delayBetweenContent]);
 
   return (
-    <div className="header-home">
+    <div className="header-home" ref={headerHome}>
       <img
         src={
           config?.base_url +
@@ -41,6 +41,6 @@ const HeaderHome = ({ content }) => {
       />
     </div>
   );
-};
+});
 
 export default HeaderHome;
