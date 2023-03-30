@@ -66,24 +66,37 @@
             }
         }
         &__rating  {
-            flex: 1 1 25%;
+            flex: 1 0 22%;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            align-content: center;
+            flex-wrap: wrap;
 
             &--users  {
+                padding: 5px 0;
+                padding-right: 10px;
                 display: flex;
                 align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                row-gap: 0.5rem;
+                
                 font-size: 0.9rem;
-    
+                
                 span  {
                     color: var(--text_light);
                 }
-
+                
             }
-
+            
             &--myrate  {
+                padding: 5px 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
                 cursor: pointer;
-                align-self: center;
+
                 
                 button  {
                     font-size: 0.7rem;
@@ -216,50 +229,122 @@
   }
 
   .rate-me{ 
+    $sizeBtn : 35px;
+
     position: absolute;
     z-index: 3;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     aspect-ratio: 2/1;
-    width: 60vw;
-    max-width: 250px;
+    width: 100vw;
+    max-width: 450px;
     border-radius: 0.7rem;
-    top: 10%;
+    // top: 10%;
     left: 50%;
     transform: translate( -50%, 0);
-    // background-color: rgb(14, 13, 13);
+
     background-color: var(--secondary);
     border: 1px solid var(--border_list);
     transition: ease 0.15s;
-  
-  
-      .close-icon  {
-        color: var(--primary_dark);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-  
-        svg {
-          font-size: 1.3rem;
-        }
-      }
+    padding: 0 1em 2em 1em;
 
+    &__wrapper  {
+        position: relative;
+
+        &__close-icon  {
+            position: absolute;
+            top: -$sizeBtn - 5px;
+            right: 1em;
+            color: var(--primary_dark);
+            background-color: transparent;
+            height: $sizeBtn;
+            width: $sizeBtn;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s ease-in-out;
+
+            &:hover  {
+                background-color: rgba(103, 99, 99, 0.671);
+            }
+      
+            svg {
+              font-size: 1.3rem;
+            }
+
+        }
+        &__my-rate  {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+
+            div  {
+                font-family: 'Cuby-Cuby', serif;
+                font-size: 4rem;
+                color: var(--star);
+            }
+
+            p > span {
+                color: var(--primary);
+            }
+
+        }
+        
     &__picking  {
         position: relative;
 
-    }
-    .star-container  {
-        position: absolute;
-        z-index: -1;
-        display: flex;
-    }
-    input {
-        opacity: 0;
-        width: 100%;
+        input[type='range'] {
+            padding: 0 5%;
+            opacity: 0;
+            width: 100%;
+        }
+
+        .star-container  {
+            position: absolute;
+            z-index: -1;
+            display: flex;
+            width: 100%;
+            padding: 0 5%;
+    
+            .star  {
+                flex: 1 0 9%;
+                display: flex;
+                align-items: center;
+                flex-shrink: 0;
+                width: 7%;
+                color: var(--star);
+                font-size: 175%;
+    
+            }
+        }
     }
 
     }
+
+    button{
+        align-self: center;
+        font-family: 'Lato', sans-serif;
+        font-size: 0.8rem;
+        text-transform: capitalize;
+        border-radius: 3px;
+        background-color: var(--primary_dark);
+        color: var(--text);
+        padding: 5px 15px;
+        margin: 1em;
+        max-width: 250px;
+        letter-spacing: 1px;
+        border: none;
+
+        &:disabled  {
+            background-color: var(--secondary_light)
+        }
+    }
+
+}
     
        
   

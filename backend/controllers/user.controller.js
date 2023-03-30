@@ -103,8 +103,6 @@ module.exports.getUserInfos = asyncHandler(async (req, res) => {
       pictures: user.pictures,
     });
   }
-
-  res.status(200).send("ok");
 });
 
 //@desc Current user info

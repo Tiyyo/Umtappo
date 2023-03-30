@@ -32,7 +32,12 @@ const Attributes = ({ content, type }) => {
           );
         })}
       </div>
-      <Rates votes={content.vote_average} />
+      <Rates
+        votes={content.vote_average}
+        title={content.name || content.title}
+        media_type={content.media_type}
+        id={content.id}
+      />
     </div>
   );
 };

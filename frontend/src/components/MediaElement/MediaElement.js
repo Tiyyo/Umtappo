@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 import UserContext from "../../utils/Context/UserContextProvider";
 import { getIdsMoviesLiked } from "../../features/movie liked/Slice/likes.slice";
 import { getIdsTvshowsLiked } from "../../features/tvshow liked/slice/like.slice";
+import { getRating } from "../../features/rating/slice/rating.slice";
 
 const MediaElement = () => {
   //--- Destructuring
@@ -59,6 +60,7 @@ const MediaElement = () => {
   useEffect(() => {
     dispatch(getIdsMoviesLiked(userID));
     dispatch(getIdsTvshowsLiked(userID));
+    dispatch(getRating(userID));
   }, []);
 
   return (

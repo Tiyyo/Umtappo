@@ -22,15 +22,22 @@ import {
   useGetTopRatedTvshowQuery,
 } from "../../features/content/tmdbAPI";
 import { Link, Outlet } from "react-router-dom";
+import { getCurrentUser } from "../../features/user/slice/user.slice";
+import UserContext from "../../utils/Context/UserContextProvider";
+import { useDispatch } from "react-redux";
 
 const Home = () => {
   const { languages, setNavIsIntersect } = useContext(AppContext);
+
+  const { userID } = useContext(UserContext);
 
   const [promotedElementPageNumber, setPromotedElementPageNumber] = useState(1);
   const [promotedShowElementPageNumber, setPromotedShowElementPageNumber] =
     useState(1);
 
   const [mainIsLoading, setMainIsLoading] = useState(true);
+
+  const dispatch = useDispatch();
 
   const { currentData: playingNowMovie, isSuccess: isSuccesPlayingNowMovie } =
     useGetPlayingNowMovieQuery(languages);
@@ -110,6 +117,10 @@ const Home = () => {
       return () => observer.disconnect(headerHome.current);
     }
   }, [headerHome.current]);
+
+  useEffect(() => {
+    dispatch(getCurrentUser(userID));
+  }, []);
 
   return (
     <HomeContextProvider>

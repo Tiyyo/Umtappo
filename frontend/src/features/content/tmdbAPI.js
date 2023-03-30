@@ -128,6 +128,7 @@ export const tmdbAPI = createApi({
       query: ({ params }) =>
         `https://api.themoviedb.org/3/${params.media_type}/${params.id}?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${params.languages}`,
       transformResponse: (response, meta, arg) => {
+        response.media_type = arg.params.media_type;
         return response;
       },
       transformErrorResponse: (response, meta, arg) => response.status,

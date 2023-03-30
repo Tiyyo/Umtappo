@@ -28,6 +28,7 @@ const userSlice = createSlice({
   },
   reducers: {
     getCurrentUser: (state, { payload }) => {
+      console.log(typeof payload);
       state.user.id = payload;
     },
     editEmail: (state, { payload }) => {

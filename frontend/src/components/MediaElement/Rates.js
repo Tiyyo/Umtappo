@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import { Button } from "@mui/material";
 import RateMe from "./RateMe";
+import useRating from "./useRating";
 
-const Rates = ({ votes }) => {
+const Rates = ({ votes, title, media_type, id }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isRated, setIsRated] = useState(false);
+  const { isRated, rate: prevRate } = useRating(id, media_type);
 
   const getCloseState = (state) => {
     setIsOpen(false);
@@ -13,7 +14,13 @@ const Rates = ({ votes }) => {
 
   return (
     <div className="media-element__infos__rating">
-      <RateMe isOpen={isOpen} close={getCloseState} />
+      <RateMe
+        isOpen={isOpen}
+        close={getCloseState}
+        title={title}
+        media_type={media_type}
+        id={id}
+      />
       <div data-blur={isOpen ? "is-active" : ""} className="blur"></div>
       <div className="media-element__infos__rating--users">
         <StarIcon sx={{ color: "rgb(214, 214, 32)" }} />
@@ -21,9 +28,20 @@ const Rates = ({ votes }) => {
       </div>
       <div className="media-element__infos__rating--myrate">
         {isRated ? (
-          "My Rate"
+          <div
+            className="media-element__infos__rating--users"
+            onClick={() => setIsOpen(true)}
+          >
+            <StarIcon sx={{ color: "rgb(52, 126, 210)" }} />
+            {prevRate},0 / <span>10</span>{" "}
+          </div>
         ) : (
-          <Button onClick={() => setIsOpen(true)}>Rate Me</Button>
+          <Button
+            sx={{ color: "#fb8c00", letterSpacing: "2px" }}
+            onClick={() => setIsOpen(true)}
+          >
+            Rate Me
+          </Button>
         )}
       </div>
     </div>

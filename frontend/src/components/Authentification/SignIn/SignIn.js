@@ -76,18 +76,18 @@ function SignIn() {
             email: res?.data?.email,
             password: res?.data?.password,
           });
-
           setIsAuth(true);
-          dispatch(getCurrentUser(res.data.id));
           toast.success("Login Succesfully", {
             position: "top-center",
-            autoClose: 1000,
+            autoClose: 500,
             hideProgressBar: true,
             closeOnClick: true,
-            pauseOnHover: true,
+            pauseOnHover: false,
             draggable: false,
             progress: 0,
             theme: "dark",
+            icon: false,
+            // transition: Flip,
           });
           navigate("/home");
         } else {

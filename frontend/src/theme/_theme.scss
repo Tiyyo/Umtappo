@@ -17,6 +17,9 @@ body[data-theme="light"] {
     --text_light : rgb(80, 78, 77);
     --border_list : rgba(54, 54, 54, 0.2);
     --button_loading : #414141db;
+    --star : rgb(52, 126, 210);
+
+
 
 }
 
@@ -48,5 +51,6 @@ body[data-theme="dark"] {
     --transparent_bg : rgba(0,0,0,0.2);
     --text_light : rgb(192, 187, 183);
     --border_list : rgba(255, 255, 255, 0.2);
+    --star : rgb(52, 126, 210);
 
 }
