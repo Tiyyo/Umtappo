@@ -47,7 +47,7 @@ export const getFetchMovie = createAsyncThunk(
             return content.find((c) => c.id === id);
           }
         );
-        uniqueContent.forEach((c) => (c.type = "Movie"));
+        uniqueContent.forEach((c) => (c.media_type = "movie"));
         return uniqueContent;
       })
       .catch((err) => rejectWithValue(err.response.data));

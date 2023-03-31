@@ -17,9 +17,6 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { getDefaultNormalizer } from "@testing-library/react";
 import mediaModalReducer from "./features/content/Slice/modalMedia.slice";
 
-// middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware().concat(tmdbAPI.middleware),
-
 const store = configureStore({
   reducer: {
     user: userReducer,

@@ -230,6 +230,7 @@
 
   .rate-me{ 
     $sizeBtn : 35px;
+    visibility: visible;
 
     position: absolute;
     z-index: 3;
@@ -240,13 +241,11 @@
     width: 100vw;
     max-width: 450px;
     border-radius: 0.7rem;
-    // top: 10%;
     left: 50%;
     transform: translate( -50%, 0);
-
     background-color: var(--secondary);
     border: 1px solid var(--border_list);
-    transition: ease 0.15s;
+    transition: ease 0.3s;
     padding: 0 1em 2em 1em;
 
     &__wrapper  {
@@ -264,7 +263,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.3s ease-in-out;
+            transition: 0.2s ease-in-out;
 
             &:hover  {
                 background-color: rgba(103, 99, 99, 0.671);
@@ -300,7 +299,7 @@
         input[type='range'] {
             padding: 0 5%;
             opacity: 0;
-            width: 100%;
+            width: 97%;
         }
 
         .star-container  {

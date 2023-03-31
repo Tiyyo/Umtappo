@@ -54,7 +54,9 @@ const RateMe = ({ isOpen, close, title, media_type, id }) => {
     <div
       className="rate-me"
       style={
-        isOpen ? { bottom: "0", opacity: 1 } : { bottom: "-100vh", opacity: 0 }
+        isOpen
+          ? { bottom: "0", visibility: "visible" }
+          : { bottom: "0", visibility: "hidden" }
       }
     >
       <div className="rate-me__wrapper">

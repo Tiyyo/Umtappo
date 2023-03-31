@@ -6,10 +6,8 @@
     @include center;
 
     &__logo  {
-        max-width: 40vw;
-        position: absolute;
-        opacity: 1;
-        top: 6vh;
+        position: fixed;
+        top: 7.5%;
 
         h1 {
             font-family: 'Black Ravens';

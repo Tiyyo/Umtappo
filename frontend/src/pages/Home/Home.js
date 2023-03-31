@@ -22,9 +22,13 @@ import {
   useGetTopRatedTvshowQuery,
 } from "../../features/content/tmdbAPI";
 import { Link, Outlet } from "react-router-dom";
-import { getCurrentUser } from "../../features/user/slice/user.slice";
+import {
+  getCurrentUser,
+  getUserData,
+} from "../../features/user/slice/user.slice";
 import UserContext from "../../utils/Context/UserContextProvider";
 import { useDispatch } from "react-redux";
+import useRecommendations from "../../components/Container/Genre/useRecommendations";
 
 const Home = () => {
   const { languages, setNavIsIntersect } = useContext(AppContext);
@@ -119,8 +123,14 @@ const Home = () => {
   }, [headerHome.current]);
 
   useEffect(() => {
-    dispatch(getCurrentUser(userID));
+    dispatch(getUserData(userID));
   }, []);
+
+  const recommendSystem = useRecommendations();
+
+  useEffect(() => {
+    console.log(recommendSystem);
+  }, [recommendSystem]);
 
   return (
     <HomeContextProvider>

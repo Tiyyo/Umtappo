@@ -38,15 +38,25 @@ const AddToPlaylist = () => {
       .put("http://localhost:5000/list", data)
       .then((res) => {
         if (res.status === 200) {
-          toast.success("Successfully added");
+          toast.success("Successfully added", {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+            theme: "dark",
+          });
           dispatch(addContent(data));
           dispatch(getLists());
-        }
-        if (res.status === 422) {
-          toast.info("Already added to this list");
+        } else {
+          toast.error("Already in that list", {});
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {

@@ -12,7 +12,7 @@ const LoginLayout = () => {
     <div className="log">
       <Outlet />
       <div className="log__logo">
-        <h1>MovAPP</h1>
+        <h1>Umptappo</h1>
       </div>
     </div>
   );
