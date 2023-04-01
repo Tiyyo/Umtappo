@@ -135,5 +135,21 @@
             cursor: pointer;
             border: none;
         }
+
+        &__error  {
+            color: var(--error);
+            font-size: 1em;
+            font-weight: bold;
+            margin-top: 10px;
+            display: flex;
+            gap: 0.5em;
+            p  {
+                padding: 5px 0;
+            }
+         
+
+        }
+
+
     }
   }

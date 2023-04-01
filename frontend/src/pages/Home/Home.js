@@ -128,9 +128,9 @@ const Home = () => {
 
   const recommendSystem = useRecommendations();
 
-  useEffect(() => {
-    console.log(recommendSystem);
-  }, [recommendSystem]);
+  // useEffect(() => {
+  //   console.log(recommendSystem);
+  // }, [recommendSystem]);
 
   return (
     <HomeContextProvider>

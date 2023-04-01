@@ -6,72 +6,59 @@
     max-width: 450px;
     color : var(--text);
 
-    .languages  {
-        display: flex;
+    &__item  {
+        display: grid;
+        grid-template-columns: 7% 43% 50%;
         align-items: center;
-        column-gap: 3px;
+        // column-gap: 3px;
         width: 100%;
-        padding: 5px 0;
+        padding: 5px 10px;
         background-color: var(--menu_link);
         border-radius: 20px;
-
-        .language-icon {
+        
+        &__icon  {
             flex : 1 1 7%;
         }
         
-        label {
+        &__name  {
             flex : 1 1 48%;
-            font-size: 0.98em;
+            font-size: 0.9em;
             letter-spacing: 1px;
         }
-
-        select {
-            flex : 1 2 55%;
+        
+        select  {
+            background-color: var(--secondary);      
             height: 30px;
-            width: 50%;
+            width: 70%;
             border-radius: 9px;
             background-color: var(--secondary);
             color: var(--text);
-            padding-left: 6px;
         }
-    }
-    .theme {
-        display: flex;
-        align-items: center;
-        column-gap: 3px;
-        width: 100%;
-        padding: 5px 0;
-        background-color: var(--menu_link);
-        border-radius: 20px;
-
-        .theme-choice__icon  {
-            flex : 1 1 7%;
-
-        }
-
-        p {
-            flex : 1 1 48%;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-        }
-
-         .choices {
+    
+        &__action {
+            justify-self: last baseline;
             flex : 1 2 55%;
             display: flex;
-            column-gap: 7px;
-
+            align-items: center;
+            // background-color: var(--secondary);
+            
             button {
                 display: flex;
                 align-items: center;
                 column-gap: 3px;
                 height: 30px;
                 border-radius: 9px;
-                padding: 0 10px;
+                margin:0  3px;
                 background-color: var(--secondary);
                 border: none;
                 cursor: pointer;
             }
-        }
 
+            span  {
+                font-family: 'Lato', sans-serif;
+                font-size: 0.9em;
+            }
+        }
     }
 }
+

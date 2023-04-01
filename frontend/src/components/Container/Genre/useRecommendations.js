@@ -17,7 +17,7 @@ const useRecommendations = () => {
   const dispatch = useDispatch();
 
   const { userID } = useContext(UserContext);
-  const { languages } = useContext(AppContext);
+  const { languages, genreListTv, genreListMovie } = useContext(AppContext);
 
   const { lists, movieLiked, rating, tvshowLiked } = useSelector(
     (state) => state
@@ -27,6 +27,8 @@ const useRecommendations = () => {
   const [dataFromMovieLiked, setDataFromMovieLiked] = useState(null);
   const [dataFromTvshowLiked, setDataFromTvshowLiked] = useState(null);
   const [globalData, setGlobalData] = useState(null);
+  const [values, setValues] = useState(null);
+  const [scores, setScores] = useState(null);
 
   const getListData = () => {
     if (lists.lists.length > 0) {
@@ -91,12 +93,6 @@ const useRecommendations = () => {
     setDataFromTvshowLiked(getLikesData(tvshowLiked));
   }, [lists, tvshowLiked, movieLiked]);
 
-  //   dataFromList.length > 0 &&
-  //   dataFromMovieLiked &&
-  //   dataFromMovieLiked.length > 0 &&
-  //   dataFromTvshowLiked &&
-  //   dataFromTvshowLiked.length > 0
-
   useEffect(() => {
     if (dataFromList && dataFromMovieLiked && dataFromTvshowLiked) {
       let likesData = [...dataFromMovieLiked, ...dataFromTvshowLiked];
@@ -135,16 +131,77 @@ const useRecommendations = () => {
         }
       }
     }
-
     setGlobalData(globalDataCpy);
   }
 
   useEffect(() => {
     if (globalData && rating.rates.length > 0) {
-      console.log("fire");
       addUserRate();
     }
   }, [globalData, rating]);
+
+  useEffect(() => {
+    if (globalData) {
+      let values = globalData
+        .map((data) => {
+          if (data.status === "liked") {
+            return [
+              data.genres,
+              data.vote_average,
+              data.userRate || 5,
+              2,
+              data.media_type,
+            ];
+          } else {
+            return [
+              data.genres,
+              data.vote_average,
+              data.userRate || 5,
+              1.5,
+              data.media_type,
+            ];
+          }
+        })
+        .map((value) => {
+          let newObj = value[0].map((v) => {
+            let score = +(
+              (1 + value[2] * 3.35 + value[1] * 1.95) *
+              value[3]
+            ).toFixed(4);
+            return { id: v, score };
+          });
+          return newObj;
+        })
+        .flat();
+      setValues(values);
+    }
+  }, [globalData]);
+
+  useEffect(() => {
+    let genreValues = [...genreListTv, ...genreListMovie];
+    if (values) {
+      genreValues = genreValues.map((g) => {
+        return { ...g, score: [], occurency: 0 };
+      });
+
+      for (let i = 0; i < values.length; i++) {
+        for (let j = 0; j < genreValues.length; j++) {
+          if (values[i].id === genreValues[j].id) {
+            genreValues[j].score.push(values[i].score);
+            genreValues[j].occurency++;
+          }
+        }
+      }
+
+      genreValues.map((g) => {
+        if (g.score.length > 0) {
+          let sumScore = g.score.reduce((a, b) => a + b);
+          return (g.score = +(sumScore / g.occurency).toFixed(3));
+        } else return g;
+      });
+      return setScores(genreValues);
+    }
+  }, [genreListTv, genreListMovie, values]);
 
   useLayoutEffect(() => {
     dispatch(getLists(userID));
@@ -157,7 +214,7 @@ const useRecommendations = () => {
     dispatch(getRating(userID));
   }, []);
 
-  return { globalData };
+  return { scores };
 };
 
 export default useRecommendations;

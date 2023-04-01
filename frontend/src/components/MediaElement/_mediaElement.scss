@@ -154,18 +154,23 @@
     &__similar--content  {
 
        .similar-content__wrapper {
-        display: grid;
-        place-items: center;
-        grid-template-columns: repeat( auto-fit, minmax(95px, 1fr));
-        // overflow-x: scroll;
-        gap: 1rem;
-        padding: 0.2rem 0.1rem ;
+        // display: grid;
+        // place-items: center;
+        // grid-template-columns: repeat( auto-fit, minmax(95px, 1fr));
+        // gap: 1rem;
+        // padding: 0.2rem 0.1rem ;
+
+        display: inline-flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 0.4em;
        
 
         img {
             aspect-ratio: 2/3;
-            width: 90px;
-            object-fit: contain;
+            width: 23.5%;
+            object-fit: cover;
             border-radius: 9px;
         }
        }
