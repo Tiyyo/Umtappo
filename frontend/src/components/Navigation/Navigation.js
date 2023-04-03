@@ -1,60 +1,48 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import TvOutlinedIcon from "@mui/icons-material/TvOutlined";
 import TheatersOutlinedIcon from "@mui/icons-material/TheatersOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
-import { ThemeProvider } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import Hamburger from "../hamburger/Hamburger";
-import AppContext from "../../utils/Context/AppContextProvider";
 
-const Navigation = (props) => {
-  const [openMenu, setOpenMenu] = useState(false);
-  const { iconTheme } = useContext(AppContext);
-
-  const getHamburgerState = (state) => {
-    state ? setOpenMenu(true) : setOpenMenu(false);
-  };
-
+const Navigation = ({ isOpen }) => {
   return (
     <div className="nav">
-      <Hamburger getHamburgerState={getHamburgerState}></Hamburger>
       <ul
         className="nav__links"
-        style={openMenu ? { right: "-0.5rem" } : { right: "-20vw" }}
+        style={isOpen ? { right: "0rem" } : { right: "-100vw" }}
       >
-        <ThemeProvider theme={iconTheme}>
-          <NavLink to="/home">
-            <li>
-              <HomeOutlinedIcon color="primary" size="extra-large" />
-            </li>
-          </NavLink>
-          <NavLink to="/films">
-            <li>
-              <TheatersOutlinedIcon color="primary" />
-            </li>
-          </NavLink>
-          <NavLink to="/tvshow">
-            <li>
-              <TvOutlinedIcon color="primary" />
-            </li>
-          </NavLink>
-          <NavLink to="/Favorites">
-            <li>
-              <FavoriteBorderOutlinedIcon color="primary" />
-            </li>
-          </NavLink>
-          <NavLink to="/Account">
-            <li>
-              <PersonPinIcon
-                color="primary"
-                size="large"
-                sx={{ backgroundColor: "transparent", fontSize: "1.8rem" }}
-              />
-            </li>
-          </NavLink>
-        </ThemeProvider>
+        <NavLink to="/home">
+          <li>
+            <HomeOutlinedIcon color="primary" size="extra-large" />
+            <p>Home</p>
+          </li>
+        </NavLink>
+        <NavLink to="/films">
+          <li>
+            <TheatersOutlinedIcon color="primary" />
+            <p>Movies</p>
+          </li>
+        </NavLink>
+        <NavLink to="/tvshow">
+          <li>
+            <TvOutlinedIcon color="primary" />
+            <p>TvShows</p>
+          </li>
+        </NavLink>
+        <NavLink to="/Favorites">
+          <li>
+            <FavoriteBorderOutlinedIcon color="primary" />
+            <p>Favorites</p>
+          </li>
+        </NavLink>
+        <NavLink to="/Account">
+          <li>
+            <PersonPinIcon color="primary" />
+            <p>Account</p>
+          </li>
+        </NavLink>
       </ul>
     </div>
   );

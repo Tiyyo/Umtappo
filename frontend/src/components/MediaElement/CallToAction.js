@@ -4,7 +4,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import ShareIcon from "@mui/icons-material/Share";
 import AddIcon from "@mui/icons-material/Add";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import AppContext from "../../utils/Context/AppContextProvider";
 import {
   likeMovie,
@@ -88,24 +88,25 @@ const CallToAction = ({ media_type, id, content }) => {
   }, [isLiked]);
 
   return (
-    <div className="media-element__call-to-action">
+    <div className="modal-content__wrapper__media-element__call-to-action">
+      <Outlet />
       <ThemeProvider theme={iconTheme}>
         <div
-          className="media-element__call-to-action__favorite"
+          className="modal-content__wrapper__media-element__call-to-action__favorite"
           onClick={() => {
             addToFavorite();
           }}
         >
           <Button>{isLiked ? <BookmarkIcon /> : <BookmarkBorderIcon />}</Button>
         </div>
-        <div className="media-element__call-to-action__add-to">
+        <div className="modal-content__wrapper__media-element__call-to-action__add-to">
           <Link to="add_to_playlist" state={{ content }}>
             <Button>
               <AddIcon />
             </Button>
           </Link>
         </div>
-        <div className="media-element__call-to-action__share">
+        <div className="modal-content__wrapper__media-element__call-to-action__share">
           <Link to={"modal"}>
             <Button>
               <ShareIcon />

@@ -4,12 +4,42 @@
     // width: 100%;
     .input {
         @include input;
+
     }
     .inputError  {
+        display: flex;
+        align-items:  center;
+        gap: 0.7em;
         max-height: fit-content;
         color:var(--error);
-        font-size : 0.7rem;
+        font-size : 0.7em;
         padding: 5px 8px;
+        width: 100%;
+
+        svg {
+            flex: 1 0 5%;
+ 
+        }
+
+        p {
+            flex : 1 10 93%;
+        }
+        &--submit  {
+            justify-content: flex-start;
+            padding: 20px 0;
+            font-weight: 700;
+            font-size: 1em;
+
+            svg {
+                flex: 1 1 auto;
+
+            }
+
+            p {
+                flex : 1 10 auto;
+                width : 90%;
+            }
+        }
     }
     .visibility-icons  {
         border: none;
@@ -29,7 +59,11 @@
     }
     .input__submit  {
         @include submitBtn;
+        max-width: 275px;
+        position: relative;
     }
+
+    margin: 0.4em 0 ;
 }
 
 .social-auth  {

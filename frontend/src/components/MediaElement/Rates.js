@@ -13,7 +13,7 @@ const Rates = ({ votes, title, media_type, id }) => {
   };
 
   return (
-    <div className="media-element__infos__rating">
+    <div className="modal-content__wrapper__media-element__infos__rating">
       <RateMe
         isOpen={isOpen}
         close={getCloseState}
@@ -21,15 +21,15 @@ const Rates = ({ votes, title, media_type, id }) => {
         media_type={media_type}
         id={id}
       />
-      <div data-blur={isOpen ? "is-active" : ""} className="blur"></div>
+      <div data-blur={isOpen ? "is-active" : ""} className="rating-blur"></div>
       <div className="media-element__infos__rating--users">
         <StarIcon sx={{ color: "rgb(214, 214, 32)" }} />
         {Math.round(votes * 10) / 10} / <span>10</span>{" "}
       </div>
-      <div className="media-element__infos__rating--myrate">
+      <div className="modal-content__wrapper__media-element__infos__rating--myrate">
         {isRated ? (
           <div
-            className="media-element__infos__rating--users"
+            className="modal-content__wrapper__media-element__infos__rating--users"
             onClick={() => setIsOpen(true)}
           >
             <StarIcon sx={{ color: "rgb(52, 126, 210)" }} />

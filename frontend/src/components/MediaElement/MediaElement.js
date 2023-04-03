@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import AppContext from "../../utils/Context/AppContextProvider";
 import SimilarContent from "./SimilarContent";
 import Casts from "./Casts";
@@ -19,6 +19,9 @@ import UserContext from "../../utils/Context/UserContextProvider";
 import { getIdsMoviesLiked } from "../../features/movie liked/Slice/likes.slice";
 import { getIdsTvshowsLiked } from "../../features/tvshow liked/slice/like.slice";
 import { getRating } from "../../features/rating/slice/rating.slice";
+import Blur from "../Overlay/Blur";
+import Button from "../Button/Button";
+import CloseIcon from "@mui/icons-material/Close";
 
 const MediaElement = () => {
   //--- Destructuring
@@ -32,6 +35,8 @@ const MediaElement = () => {
   const { userID } = useContext(UserContext);
 
   const params = { id, media_type, languages };
+
+  const navigate = useNavigate();
 
   const {
     data,
@@ -64,8 +69,14 @@ const MediaElement = () => {
   }, []);
 
   return (
-    <>
-      <div className="media-element">
+    <div className="modal-content__wrapper">
+      <Blur></Blur>
+      <div className="modal-content__wrapper__media-element media-element">
+        <div className="modal-content__wrapper__media-element__close-modal">
+          <Button>
+            <CloseIcon onClick={() => navigate(-1)} />
+          </Button>
+        </div>
         {console.log("fire")}
         {isLoadingVideo & !isSuccessVideo ? (
           <LoaderUI overlay={"true"} fixed={"true"} />
@@ -95,7 +106,7 @@ const MediaElement = () => {
           <SimilarContent similars={similars} />
         )}
       </div>
-    </>
+    </div>
   );
 };
 

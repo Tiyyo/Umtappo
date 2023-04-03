@@ -11,7 +11,7 @@ const Synopsis = (props) => {
 
   const sysnopsis = () => {
     const synopsisContainer = document.querySelector(
-      ".media-element__synopsis--container"
+      ".modal-content__wrapper__media-element__synopsis--container"
     );
     if (synopsisContainer.offsetHeight === synopsisContainer.scrollHeight) {
       setIsEnough(true);
@@ -25,9 +25,9 @@ const Synopsis = (props) => {
   }, []);
 
   return (
-    <div className="media-element__synopsis">
+    <div className="modal-content__wrapper__media-element__synopsis">
       <div
-        className="media-element__synopsis--container"
+        className="modal-content__wrapper__media-element__synopsis--container"
         style={
           synopsisIsOpen ? { maxHeight: "fit-content" } : { maxHeight: "62px" }
         }

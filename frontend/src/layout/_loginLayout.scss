@@ -1,7 +1,7 @@
 .log  {
     font-family: 'Lato', serif;
     min-height: 100vh;
-    background-color: var(--secondary);
+    background-color: var(--bg_primary);
     position: relative;
     @include center;
 
@@ -10,9 +10,17 @@
         top: 7.5%;
 
         h1 {
-            font-family: 'Black Ravens';
-            font-size: 5rem;
-            color: var(--primary);
+            font-family: 'Evermore' , Arial , Roboto, sans-serif;
+            font-size: 5vw;
+            color: var(--secondary_hard_dark);
+
+            @include respond-to('medium-large')  {
+                font-size: 3vw;
+            }
+
+            span {
+                color: var(--bg_secondary);
+            }
         } 
     }
 

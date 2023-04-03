@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import AddNameNewList from "./AddNameNewList";
 import UserContext from "../../utils/Context/UserContextProvider";
 import axios from "axios";
@@ -11,6 +11,9 @@ import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import { ThemeProvider } from "@mui/material";
 import AppContext from "../../utils/Context/AppContextProvider";
 import Watchlist from "./Watchlist";
+import Blur from "../Overlay/Blur";
+import Button from "../Button/Button";
+import CloseIcon from "@mui/icons-material/Close";
 
 const AddToPlaylist = () => {
   const {
@@ -22,6 +25,7 @@ const AddToPlaylist = () => {
   const { userID } = useContext(UserContext);
   const { iconTheme } = useContext(AppContext);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { lists: myLists } = useSelector((state) => state.lists);
 
@@ -64,8 +68,14 @@ const AddToPlaylist = () => {
   }, [userID]);
 
   return (
-    <ThemeProvider theme={iconTheme}>
+    <div className="modal-content__wrapper">
+      <Blur></Blur>
       <div className="add-to-watchlists">
+        <div className="modal-content__wrapper__media-element__close-modal">
+          <Button>
+            <CloseIcon onClick={() => navigate(-1)} />
+          </Button>
+        </div>
         <Outlet />
         <header>
           <h4 className="title"> Watchlists </h4>
@@ -86,7 +96,10 @@ const AddToPlaylist = () => {
             content={content}
             getCloseState={getCloseState}
           />
-          <div data-blur={isOpen ? "is-active" : ""} className="blur"></div>
+          <div
+            data-blur={isOpen ? "is-active" : ""}
+            className="naming-blur"
+          ></div>
           {myLists.length !== 0 ? (
             myLists.map((list) => {
               return <Watchlist key={list._id} list={list} content={content} />;
@@ -96,7 +109,7 @@ const AddToPlaylist = () => {
           )}
         </div>
       </div>
-    </ThemeProvider>
+    </div>
   );
 };
 

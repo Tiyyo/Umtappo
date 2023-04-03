@@ -1,5 +1,9 @@
 .signup  {
+    max-width: 900px;
 
+    @include respond-to('large') {
+        font-size: 130%;
+    }
     a {
         text-decoration: none;
     }
@@ -23,9 +27,10 @@
             color : var(--text);
             display: flex;
             flex-direction: column;
-            font-size: 0.7rem;
-            padding-bottom: 15px;
-
+            row-gap: 0.5em;
+            font-size: 0.8em;
+            padding: 1em;
+            
             .terms-and-privacy {
                 display: flex;
                 flex-direction: row-reverse;

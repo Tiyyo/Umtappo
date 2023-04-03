@@ -1,12 +1,13 @@
 import React from "react";
 import LoaderUI from "../Loader/LoaderUI";
+import ErrorIcon from "@mui/icons-material/Error";
 
-const InputSubmit = ({ value, isSubmitting, errorMessage }) => {
+const InputSubmit = ({ value, isSubmitting, errorMessage, isError }) => {
   return (
     <div className="inputWrapper" style={{ textAlign: "center" }}>
-      {isSubmitting ? (
+      {isSubmitting && !isError ? (
         <div className="input__submit">
-          <LoaderUI size={20} />
+          <LoaderUI size={20} position={"absolute"} />
         </div>
       ) : (
         <input
@@ -16,8 +17,9 @@ const InputSubmit = ({ value, isSubmitting, errorMessage }) => {
           disabled={isSubmitting}
         />
       )}
-      <div className="inputError" style={{ fontSize: "1rem" }}>
-        {errorMessage}
+      <div className="inputError inputError--submit">
+        {errorMessage ? <ErrorIcon /> : ""}
+        <p>{errorMessage}</p>
       </div>
     </div>
   );

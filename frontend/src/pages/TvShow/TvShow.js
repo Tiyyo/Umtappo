@@ -14,6 +14,7 @@ import {
   useGetTrendsTvshowQuery,
   useGetTvshowOnAirQuery,
 } from "../../features/content/tmdbAPI";
+import { Outlet } from "react-router";
 
 const TvShow = () => {
   let promotedElementPageNumber = 1;
@@ -66,6 +67,7 @@ const TvShow = () => {
   return (
     <>
       <div className="app">
+        <Outlet />
         {mainIsLoading ? (
           <div className="loading">
             <LoaderUI />

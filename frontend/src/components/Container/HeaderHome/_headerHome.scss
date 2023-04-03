@@ -6,12 +6,20 @@
     // margin-bottom: 350px;
     // z-index: 10;
     // -webkit-mask-image: linear-gradient(to bottom,black 10%,transparent 80%);
-  
-    img  {
-      width: 100%;
-      aspect-ratio: 2/3;
-      height: auto;
+
+    &__image-wrapper  {
       mask-image: linear-gradient(to bottom,black 0%,transparent 90%);
+      aspect-ratio: 2/3;
+
+      @include respond-to('medium-large') {
+        aspect-ratio : 16/9;
+      }
+    }
+  
+
+    img {
+      display: block;
+      width: 100%;
     }
   }
   

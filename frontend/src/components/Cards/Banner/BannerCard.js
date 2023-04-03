@@ -13,7 +13,7 @@ const BannerCard = ({ element: el }) => {
 
   // number between 0 and 3 which represent the size of backdrop image
   const sizeBackdrop = () => {
-    return 1;
+    return 3;
   };
 
   return (

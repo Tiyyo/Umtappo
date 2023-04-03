@@ -1,13 +1,11 @@
 .app__container  {
-    background-color: var(--secondary);
+    background-color: var(--bg_primary);
     min-height: 100vh;
     
 }
 
 .app  {
     padding: 0 1vw 15px 0;
-
-
 
     .main  {
         padding-top: $heightheader;

@@ -48,7 +48,7 @@ const MovieCard = ({ content }) => {
             {config && content.poster_path ? (
               <img
                 src={
-                  config.base_url + config.poster_sizes[1] + content.poster_path
+                  config.base_url + config.poster_sizes[3] + content.poster_path
                 }
                 alt={"poster of " + content.title}
               />

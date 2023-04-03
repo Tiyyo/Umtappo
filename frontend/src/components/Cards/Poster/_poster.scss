@@ -8,6 +8,17 @@
     overflow: hidden;
     list-style-type: none;
     position: relative;
+    @include respond-to ('medium') {
+        width: 10em;
+    }
+    @include respond-to ('medium-large') {
+        width: 14em;
+    }
+    @include respond-to ('extra-large') {
+        width: 17em;
+    }
+
+
 
     &__header  {
         display: flex;

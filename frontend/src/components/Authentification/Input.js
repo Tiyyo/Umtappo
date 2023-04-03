@@ -1,5 +1,5 @@
 import React from "react";
-import DoneIcon from "@mui/icons-material/Done";
+import ErrorIcon from "@mui/icons-material/Error";
 
 const Input = ({
   type,
@@ -21,14 +21,10 @@ const Input = ({
         disabled={disabled ? true : false}
         {...register(name)}
       />
-      <div className="inputError"> {errorMessage}</div>
-
-      {/*
-      //-- a voir
-      <div className="valid-icon" style={{ opacity: 1 }}>
-        <DoneIcon color="primary" />
-      </div>  
-      */}
+      <div className="inputError">
+        {errorMessage ? <ErrorIcon /> : ""}
+        <p>{errorMessage}</p>
+      </div>
     </div>
   );
 };

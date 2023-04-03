@@ -175,7 +175,7 @@ const SignUp = () => {
           Have an account ?{" "}
           <Link
             style={{ textDecoration: "none", cursor: "pointer" }}
-            to="Login/SignIn"
+            to="/Login/SignIn"
           >
             <span>Log in</span>
           </Link>

@@ -60,7 +60,7 @@ const Casts = ({ credits }) => {
   };
 
   return (
-    <div className="media-element__casting">
+    <div className="modal-content__wrapper__media-element__casting">
       {credits ? displayCasts() : ""}
     </div>
   );

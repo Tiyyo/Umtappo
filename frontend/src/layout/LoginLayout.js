@@ -12,7 +12,9 @@ const LoginLayout = () => {
     <div className="log">
       <Outlet />
       <div className="log__logo">
-        <h1>Umptappo</h1>
+        <h1>
+          Umpt<span>a</span>ppo
+        </h1>
       </div>
     </div>
   );
