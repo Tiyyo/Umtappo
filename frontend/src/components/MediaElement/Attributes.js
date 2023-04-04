@@ -16,14 +16,14 @@ const Attributes = ({ content, type }) => {
   };
 
   return (
-    <div className="media-element__infos">
-      <div className="media-element__infos__type">
+    <div className="modal-content__wrapper__media-element__infos">
+      <div className="modal-content__wrapper__media-element__infos__type">
         {type === "movie" ? type : "TvShow"}
       </div>
-      <div className="media-element__infos__release-year">
+      <div className="modal-content__wrapper__media-element__infos__release-year">
         {displayReleaseYear()}
       </div>
-      <div className="media-element__infos__genres">
+      <div className="modal-content__wrapper__media-element__infos__genres">
         {content.genres.map((g, index) => {
           return (
             <span key={index} className="genre">
@@ -32,7 +32,12 @@ const Attributes = ({ content, type }) => {
           );
         })}
       </div>
-      <Rates votes={content.vote_average} />
+      <Rates
+        votes={content.vote_average}
+        title={content.name || content.title}
+        media_type={content.media_type}
+        id={content.id}
+      />
     </div>
   );
 };

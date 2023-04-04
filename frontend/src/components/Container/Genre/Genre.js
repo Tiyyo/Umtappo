@@ -2,12 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import InfiniteHorizontalCarousel from "../InfiniteCarousel/InfiniteCarousel";
 import { useContext } from "react";
 import AppContext from "../../../utils/Context/AppContextProvider";
+import useRecommendations from "./useRecommendations";
 
 const Genre = (props) => {
   const { dataToDisplay } = props;
 
-  const { genreListTv: genreTvList, genreListMovie: genreMovieList } =
-    useContext(AppContext);
+  const {
+    genreListTv: genreTvList,
+    genreListMovie: genreMovieList,
+    recommendations,
+  } = useContext(AppContext);
 
   let numberContainerToDisplay = 3;
   let movie = "movie";
@@ -18,6 +22,8 @@ const Genre = (props) => {
   const favoriteGenre = useRef([]);
 
   const [favoriteGenres, setFavoriteGenres] = useState([]);
+
+  const { scores } = useRecommendations();
 
   const addType = (list, mediaType) => {
     list.map((el) => (el.media_type = mediaType));
@@ -71,10 +77,24 @@ const Genre = (props) => {
 
   return (
     <div className="favorite-genre">
-      {favoriteGenres &&
-        favoriteGenres.map((genre) => (
-          <InfiniteHorizontalCarousel key={genre.id} genre={genre} />
-        ))}
+      {console.log(scores)}
+      {recommendations && scores && favoriteGenres
+        ? scores
+            .filter((f) => {
+              if (dataToDisplay === movie) {
+                return f.media_type === movie;
+              } else if (dataToDisplay === tvshow) {
+                return f.media_type === tvshow;
+              } else return f;
+            })
+            .sort((a, b) => b.score - a.score)
+            .slice(0, numberContainerToDisplay)
+            .map((genre) => (
+              <InfiniteHorizontalCarousel key={genre.id} genre={genre} />
+            ))
+        : favoriteGenres.map((genre) => (
+            <InfiniteHorizontalCarousel key={genre.id} genre={genre} />
+          ))}
     </div>
   );
 };

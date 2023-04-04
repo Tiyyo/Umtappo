@@ -4,7 +4,6 @@ import PosterCard from "../../Cards/Poster/PosterCard";
 import LoaderUI from "../../Loader/LoaderUI";
 
 const HorizontalCarousel = ({ content, title }) => {
-  // const { content, title } = props;
   const [width, setWidth] = useState(0);
   const carousel = useRef();
 
@@ -25,6 +24,7 @@ const HorizontalCarousel = ({ content, title }) => {
         >
           <motion.div
             drag="x"
+            whileTap={{ cursor: "grabbing" }}
             dragConstraints={{ right: 0, left: -width }}
             className="horizontal-carousel__outer__inner"
           >

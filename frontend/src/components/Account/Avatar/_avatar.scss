@@ -28,11 +28,12 @@
         align-self: flex-start;
         padding : 5px 0 5px 15%;
         cursor: pointer;
+        
 
         span {
             font-size : 0.6rem;
             text-decoration : underline;
-            color : var(--primary)
+            color : var(--text)
         }
       }
 
@@ -135,5 +136,21 @@
             cursor: pointer;
             border: none;
         }
+
+        &__error  {
+            color: var(--error);
+            font-size: 1em;
+            font-weight: bold;
+            margin-top: 10px;
+            display: flex;
+            gap: 0.5em;
+            p  {
+                padding: 5px 0;
+            }
+         
+
+        }
+
+
     }
   }

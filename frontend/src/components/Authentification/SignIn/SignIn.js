@@ -5,24 +5,19 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "../../../utils/Context/UserContextProvider";
 import AppContext from "../../../utils/Context/AppContextProvider";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import DoneIcon from "@mui/icons-material/Done";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Link } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
-import { getCurrentUser } from "../../../features/user/slice/user.slice";
 import SocialAuth from "../SocialAuth";
 import Header from "../Header";
 import InputSubmit from "../InputSubmit";
 import Input from "../Input";
 import InputPassword from "../InputPassword";
 
+import { getCurrentUser } from "../../../features/user/slice/user.slice";
 function SignIn() {
-  let accessToken;
-
   const {
     register,
     handleSubmit,
@@ -30,16 +25,19 @@ function SignIn() {
   } = useForm();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { setIsLoggedIn, setUserID, setUserInfos, setIsAuth } =
     useContext(UserContext);
   const { iconTheme } = useContext(AppContext);
 
-  const dispatch = useDispatch();
+  const [error, setError] = useState({
+    isError: false,
+    value: "",
+  });
+  const [accessToken, setAccessToken] = useState(null);
 
-  const [errors, setErrors] = useState("");
-
-  const user = async (data) => {
+  async function user(data) {
     await axios
       .post("http://localhost:5000/user/login", {
         email: data?.email,
@@ -47,21 +45,25 @@ function SignIn() {
       })
       .then((res) => {
         if (res.status === 200) {
-          accessToken = res.data.accessToken;
+          setError({ ...error, isError: false });
+          setAccessToken(res.data.accessToken);
           window.localStorage.setItem("accesToken", accessToken);
           setIsLoggedIn(true);
           auth(accessToken);
         }
       })
       .catch((err) => {
-        if (err) {
-          setErrors(err.response.data);
+        console.log(err.response);
+        if (err.response.status === 401 || 400) {
+          setError({ ...error, isError: true, value: err.response.data });
           setIsAuth(false);
+        } else {
+          setError({ ...error, isError: true, value: err.response.statusText });
         }
       });
-  };
+  }
 
-  const auth = async (token) => {
+  async function auth(token) {
     await axios
       .get("http://localhost:5000/user/current", {
         headers: {
@@ -76,18 +78,18 @@ function SignIn() {
             email: res?.data?.email,
             password: res?.data?.password,
           });
-
           setIsAuth(true);
-          dispatch(getCurrentUser(res.data.id));
           toast.success("Login Succesfully", {
             position: "top-center",
-            autoClose: 1000,
+            autoClose: 500,
             hideProgressBar: true,
             closeOnClick: true,
-            pauseOnHover: true,
+            pauseOnHover: false,
             draggable: false,
             progress: 0,
             theme: "dark",
+            icon: false,
+            // transition: Flip,
           });
           navigate("/home");
         } else {
@@ -95,7 +97,7 @@ function SignIn() {
         }
       })
       .catch((err) => console.log(err));
-  };
+  }
 
   const goBack = () => {
     return navigate("/Login");
@@ -134,7 +136,8 @@ function SignIn() {
           <InputSubmit
             value={"SIGN IN"}
             isSubmitting={isSubmitting}
-            errorMessage={errors}
+            errorMessage={error.value}
+            isError={error.isError}
           />
           <Link style={{ textDecoration: "none", cursor: "pointer" }}>
             <p className="password-recuperation-link">Forgot your password ?</p>
@@ -144,7 +147,7 @@ function SignIn() {
           Don't have an account ?{" "}
           <Link
             style={{ textDecoration: "none", cursor: "pointer" }}
-            to="Login/SignUp"
+            to="/Login/SignUp"
           >
             <span>Join Us</span>
           </Link>

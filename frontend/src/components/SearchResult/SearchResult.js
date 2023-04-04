@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Link, useOutletContext } from "react-router-dom";
+import { Link, Outlet, useOutletContext } from "react-router-dom";
 import { useContext } from "react";
 import AppContext from "../../utils/Context/AppContextProvider";
 import useSearch from "../../utils/hooks/useSearch";
@@ -37,6 +37,7 @@ const SearchResult = () => {
 
   return (
     <div className="app">
+      <Outlet />
       <div className="search--result__container">
         <div className="search--result__wrapper">
           {elements

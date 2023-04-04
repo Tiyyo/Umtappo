@@ -90,16 +90,27 @@ const AnimatedRoutes = () => {
           <Route path={"/"} element={<AppLayout />}>
             <Route path={""} element={<Navigate to="/Home" />} />
             <Route exact path={"Home"} element={<Home />}>
-              <Route path={"modal"} element={<ModalOutlet />} />
+              <Route path={":id"} element={<MediaElement />}></Route>
+              <Route
+                path={":id/add_to_playlist"}
+                element={<AddToWatchlist />}
+              />
             </Route>
             <Route exact path="Favorites" element={<Favorites />}>
               <Route path={""} element={<FavoritesResume />} />
               <Route path={":listName"} element={<Watchlist />} />
             </Route>
-            <Route exact path="Films" element={<Films />} />
-            <Route eaxct path="TvShow" element={<TvShow />} />
-            <Route exact path="Search" element={<SearchResult />} />
-            <Route path={`:id/:modalid`} element={<MediaElement />}></Route>
+            <Route exact path="Films" element={<Films />}>
+              <Route path={":id"} element={<MediaElement />} />
+            </Route>
+
+            <Route eaxct path="TvShow" element={<TvShow />}>
+              <Route path={":id"} element={<MediaElement />} />
+            </Route>
+            <Route exact path="Search" element={<SearchResult />}>
+              <Route path={":id"} element={<MediaElement />} />
+            </Route>
+            {/* <Route path={`:id/:modalid`} element={<MediaElement />} /> */}
             <Route
               path={":id/:id/add_to_playlist"}
               element={<AddToWatchlist />}

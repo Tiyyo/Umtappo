@@ -58,7 +58,7 @@ const Video = ({ content, videos, loading }) => {
 
   return (
     <div
-      className="media-element__trailer-container"
+      className="modal-content__wrapper__media-element__trailer-container"
       style={contentPresence ? { height: "fit-content" } : { height: "0" }}
     >
       {handleImageBehavior()}

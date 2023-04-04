@@ -11,6 +11,29 @@ module.exports.addRates = asyncHandler(async (req, res) => {
     throw new Error("Rate, Id, User_id or media_type is missing");
   }
 
+  const user = await Users.findById(user_id);
+
+  if (!user) {
+    res.status(400).send("User not found");
+    throw new Error("User not found");
+  }
+
+  const userRates = await Users.findById(user_id)
+    .populate("rates", ["_id", "id", "media_type", "rate"])
+    .exec()
+    .then((docs) => docs);
+
+  if (userRates) {
+    userRates.rates.map((el) => {
+      if (el.id === id && el.media_type === media_type) {
+        res
+          .status(400)
+          .send("Grade already in database , you need to use edit rate");
+        return;
+      }
+    });
+  }
+
   const rate = new Rates({
     _id: new mongoose.Types.ObjectId(),
     id,
@@ -18,8 +41,6 @@ module.exports.addRates = asyncHandler(async (req, res) => {
     media_type,
   });
   rate.save();
-
-  const user = await Users.findById(user_id);
 
   if (!user) {
     res.status(400).send("User not found");
@@ -33,11 +54,14 @@ module.exports.addRates = asyncHandler(async (req, res) => {
     };
     const options = { rawResult: true };
     await Users.findOneAndUpdate(query, update, options).then((e) => {
-      if (e.lastErrorObject.updateExisting)
-        return res.status(200).send({ _id: rate._id });
+      console.log(e);
+      if (e.lastErrorObject.updatedExisting) {
+        res.status(200).send({ _id: rate._id });
+      }
     });
   }
 });
+
 module.exports.removeRates = asyncHandler(async (req, res) => {
   const { _id } = req.body;
   if (!_id) {

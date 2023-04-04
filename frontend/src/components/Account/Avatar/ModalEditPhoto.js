@@ -3,6 +3,7 @@ import Button from "../../Button/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import DownloadDoneIcon from "@mui/icons-material/DownloadDone";
+import ReportIcon from "@mui/icons-material/Report";
 import ReactCrop from "react-image-crop";
 import { canvasPreview } from "./canvasPreview";
 import axios from "axios";
@@ -225,6 +226,7 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
             )}
           </div>
           <div className="modal-edit__container__error">
+            <ReportIcon />
             {errorType && <p>{errorType}</p>}
           </div>
         </div>

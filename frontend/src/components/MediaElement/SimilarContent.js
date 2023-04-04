@@ -23,7 +23,7 @@ const SimilarContent = ({ similars }) => {
   };
 
   return (
-    <div className="media-element__similar--content">
+    <div className="modal-content__wrapper__media-element__similar--content">
       {displaySimilarContent()}
     </div>
   );

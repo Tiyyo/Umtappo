@@ -1,7 +1,13 @@
 import React from "react";
 
 const Logo = () => {
-  return <h1 className="logo">CinéFliX</h1>;
+  return (
+    <div className="logo">
+      <h1 className="logo__font">
+        Umt<span>a</span>ppo
+      </h1>
+    </div>
+  );
 };
 
 export default Logo;

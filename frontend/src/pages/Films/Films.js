@@ -12,6 +12,7 @@ import {
   useGetPromotedMovieQuery,
   useGetUpcomingMovieQuery,
 } from "../../features/content/tmdbAPI";
+import { Outlet } from "react-router";
 
 const Films = () => {
   const promotedElementPageNumber = useRef();
@@ -76,6 +77,7 @@ const Films = () => {
 
   return (
     <div className="app">
+      <Outlet />
       {mainIsLoading ? (
         <LoaderUI fixed={true} />
       ) : (
@@ -93,7 +95,6 @@ const Films = () => {
           <HorizontalCarousel content={popularMovies} title="Popular" />
           <Genre dataToDisplay="movie" />
           <Promoted content={promotedMovies} />
-          <Footer />
         </div>
       )}
     </div>

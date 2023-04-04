@@ -45,7 +45,7 @@ export const getFetchTvshow = createAsyncThunk(
             return content.find((c) => c.id === id);
           }
         );
-        uniqueContent.forEach((c) => (c.type = "Tvshow"));
+        uniqueContent.forEach((c) => (c.media_type = "tv"));
         return uniqueContent;
       });
     return result;

@@ -1,5 +1,14 @@
 body[data-theme="light"] {
-    --primary : #c25e00;
+    --bg_primary : rgb(251, 231, 213);
+
+
+    --primary_hard_light : rgb(255, 214, 178);
+    --primary_light :rgb(255, 164, 83);
+    --primary : rgb(241, 136, 42);
+    --primary_dark : rgb(203, 102, 12);
+    --primary_hard_dark : rgb(161, 76, 0);
+    
+    // --primary : #c25e00;
     --secondary : rgb(238, 228, 222);
     --text : rgba(0,0,0,1);
     --menu_link : rgba(253, 184, 55, 0.2);
@@ -17,19 +26,43 @@ body[data-theme="light"] {
     --text_light : rgb(80, 78, 77);
     --border_list : rgba(54, 54, 54, 0.2);
     --button_loading : #414141db;
+    --star : rgb(52, 126, 210);
+
+
 
 }
 
 body[data-theme="dark"] {
+    --bg_primary : rgb(3, 13, 24);
+    --bg_primary_soft_opacity : rgba(3, 13, 24, 0.926);
+    --text_primary_light : rgba(4, 20, 42, 0.645);
+    --text_primary_hard : rgba(4, 20, 42, 1);
+    
+    --bg_secondary :rgb(251, 231, 213);
+    --secondary_light :rgb(255, 164, 83);
+    --secondary : rgb(241, 136, 42);
+    --secondary_darker : #fb8c00;
+    --secondary_hard_dark :rgb(161, 76, 0);
+    --secondary_hard_dark_soft :rgb(154, 117, 85);
+    
+    --text : rgba(255, 245, 236, 0.95);
+    --white_black : rgba(235, 230, 225, 0.944);
+    --menu_link : rgb(6, 16, 29);
+
+
+
+    //legacy
+    --primary_dark : rgb(203, 102, 12);
     --primary : #fb8c00;
+
     --primary_light : #ffbd45;
     --primary_dark : #c25e00;
     --button_loading : #414141db;
-    --secondary : #0b0b0b;
+    // --secondary : #0b0b0b;
     --secondary_gradient : linear-gradient(180deg, #0b0b0bd9 0%,  #0b0b0b20 10%, #0b0b0b17  100%);
-    --secondary_light : #484848;
+    // --secondary_light : #484848;
     --secondary_dark : #000000;
-    --error : rgba(196, 15, 15, 0.835);
+    --error : rgba(227, 28, 28, 0.958);
     --red_icon : rgb(219, 30, 30);
     --yellow_star: rgb(234, 223, 14);
     --nav_bg : rgba(21, 20, 20, 0.903);
@@ -38,9 +71,7 @@ body[data-theme="dark"] {
     --blackbg : #121212;
     --main-primary : rgba(231, 154, 33, 1);
     --main-primary_light : rgba(231, 154, 33, 0.4);
-    --white : rgba(235, 230, 225, 0.944);
-    --text : rgba(255,255,255,1);
-    --menu_link : rgba(18, 17, 17, 0.8);
+    // --menu_link : rgba(18, 17, 17, 0.8);
     --menu_link_transparent : rgba(18, 17, 17, 0.2);
     --input_bg : rgba(0,0,0,1);
     --input_lock_color : rgba(255, 255, 255, 0.5);
@@ -48,5 +79,8 @@ body[data-theme="dark"] {
     --transparent_bg : rgba(0,0,0,0.2);
     --text_light : rgb(192, 187, 183);
     --border_list : rgba(255, 255, 255, 0.2);
+    --star : rgb(52, 126, 210);
 
 }
+
+// --- new palette

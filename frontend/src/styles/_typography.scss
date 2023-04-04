@@ -1,9 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Merriweather:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;@400;700;900&family=Merriweather:wght@300;400;700&display=swap');
+
 
 @font-face {
     font-family: 'Black Ravens';
-    src : local('Black Ravens'), url('../../src/assets/fonts/BlackRavens/Black\ Ravens.ttf') format("truetype")
+    src : local('Black Ravens'), url('../assets/fonts/BlackRavens/Black\ Ravens.ttf') format("truetype")
+}
+
+@font-face {
+    font-family: 'Cuby-Cuby';
+    src: local('Cuby-Cuby'), url('../assets/fonts/Cuby-Cuby.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: 'Evermore';
+    src: local('Evermore'), url('../assets/fonts/Evermore.ttf') format("truetype");
 }
 
 

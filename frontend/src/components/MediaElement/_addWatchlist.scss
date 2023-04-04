@@ -1,17 +1,29 @@
 .add-to-watchlists  {
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
-    background-color: var(--secondary);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-    padding-top: $heightTopNav;
+  position: relative;
+  top: 50px;
+  min-width: 300px;
+  width: 100vw;
+  padding-bottom: 150px;
+  // max-width: 600px;
+  
+  font-family: 'Lato', sans-serif;
+  color: var(--text);
+  line-height: 1.6;
+  z-index: 3;
+  margin: 0 auto;
+  max-width: 115rem;
+  border-radius: 12px;
+  background: linear-gradient(180deg , rgba(13, 13, 13, 0.98) 70% ,rgba(45, 24, 9, 0.906) 100%);
+  background-color: rgba(13, 13, 13, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.166);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 
 
-    .blur {
+
+
+    .naming-blur {
       transition: ease-in-out 0.2s;
 
       
@@ -54,7 +66,7 @@
         align-items: center;
         padding-top: 50px;
         row-gap: 6%;
-        max-width: 600px;
+        max-width: 1000px;
 
         &__new-btn{
             $fontSize : 0.8rem;

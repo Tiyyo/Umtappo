@@ -27,7 +27,17 @@ const Watchlist = ({ list, content }) => {
       .put("http://localhost:5000/list", data)
       .then((res) => {
         if (res.status === 200) {
-          toast.success("Successfully added");
+          toast.info("Successfully added", {
+            position: "top-center",
+            autoClose: 500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+            theme: "dark",
+            // transition: Flip,
+          });
           dispatch(addContent(data));
           dispatch(getLists());
         }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import ErrorIcon from "@mui/icons-material/Error";
 
 const InputPassword = ({ name, placeholder, register, icon, errorMessage }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -49,7 +50,10 @@ const InputPassword = ({ name, placeholder, register, icon, errorMessage }) => {
           <VisibilityOffIcon color="primary" />
         </span>
       </button>
-      <div className="inputError">{errorMessage}</div>
+      <div className="inputError">
+        {errorMessage ? <ErrorIcon /> : ""}
+        <p>{errorMessage}</p>
+      </div>
     </div>
   );
 };

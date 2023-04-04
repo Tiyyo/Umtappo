@@ -1,11 +1,13 @@
 .footer  {
     font-family: 'Lato', serif;
+    background-color: var(--bg_primary);
 
     .credits  {
         display: flex;
         justify-content: center;
         align-items: flex-start;
         column-gap: 0.4rem;
+        padding-top: 2em;
 
         
 

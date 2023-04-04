@@ -4,7 +4,8 @@ import LanguageIcon from "@mui/icons-material/Language";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import InvertColorsIcon from "@mui/icons-material/InvertColors";
-
+import RecommendIcon from "@mui/icons-material/Recommend";
+import Switch from "@mui/material/Switch";
 import { ThemeProvider } from "@mui/material";
 
 const Preference = () => {
@@ -12,8 +13,15 @@ const Preference = () => {
   const englishISO = "en-US";
   const espagnolISO = "es-ES";
 
-  const { setLanguages, languages, setTheme, preferedTheme, iconTheme } =
-    useContext(AppContext);
+  const {
+    setLanguages,
+    languages,
+    setTheme,
+    preferedTheme,
+    iconTheme,
+    setRecommendations,
+    recommendations,
+  } = useContext(AppContext);
 
   const getBackState = (e) => {
     if (e.target.value === "French") {
@@ -43,14 +51,17 @@ const Preference = () => {
   return (
     <ThemeProvider theme={iconTheme}>
       <div className="preference">
-        <div className="languages">
-          <div className="language-icon">
+        <div className="preference__item">
+          <div className="preference__item__icon">
             <LanguageIcon />
           </div>
-          <label htmlFor="languages">Languages</label>
+          <label className="preference__item__name" htmlFor="languages">
+            Languages
+          </label>
           <select
             name="languages"
             id="languages"
+            className="preference__item__action"
             onChange={(e) => getBackState(e)}
           >
             <option value="">{getCurrentLanguage()}</option>
@@ -60,12 +71,12 @@ const Preference = () => {
           </select>
         </div>
 
-        <div className="theme">
-          <div className="theme-choice__icon">
+        <div className="preference__item">
+          <div className="preference__item__icon">
             <InvertColorsIcon />
           </div>
-          <p>Prefered Theme</p>
-          <div className="choices">
+          <p className="preference__item__name">Prefered Theme</p>
+          <div className="preference__item__action">
             <button
               type="button"
               style={
@@ -90,6 +101,23 @@ const Preference = () => {
               <LightModeIcon />
               Light
             </button>
+          </div>
+        </div>
+
+        <div className="preference__item">
+          <div className="preference__item__icon">
+            <RecommendIcon />
+          </div>
+          <p className="preference__item__name">Recommendations</p>
+          <div className="preference__item__action">
+            <span>OFF</span>
+            <Switch
+              checked={recommendations}
+              onChange={(e) => setRecommendations(e.target.checked)}
+              inputProps={{ "aria-label": "controlled" }}
+              size="medium"
+            />
+            <span>ON</span>
           </div>
         </div>
       </div>

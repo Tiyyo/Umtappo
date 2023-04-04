@@ -22,15 +22,22 @@ import {
   useGetTopRatedTvshowQuery,
 } from "../../features/content/tmdbAPI";
 import { Link, Outlet } from "react-router-dom";
+import { getUserData } from "../../features/user/slice/user.slice";
+import UserContext from "../../utils/Context/UserContextProvider";
+import { useDispatch } from "react-redux";
 
 const Home = () => {
   const { languages, setNavIsIntersect } = useContext(AppContext);
+
+  const { userID } = useContext(UserContext);
 
   const [promotedElementPageNumber, setPromotedElementPageNumber] = useState(1);
   const [promotedShowElementPageNumber, setPromotedShowElementPageNumber] =
     useState(1);
 
   const [mainIsLoading, setMainIsLoading] = useState(true);
+
+  const dispatch = useDispatch();
 
   const { currentData: playingNowMovie, isSuccess: isSuccesPlayingNowMovie } =
     useGetPlayingNowMovieQuery(languages);
@@ -111,6 +118,10 @@ const Home = () => {
     }
   }, [headerHome.current]);
 
+  useEffect(() => {
+    dispatch(getUserData(userID));
+  }, []);
+
   return (
     <HomeContextProvider>
       <Outlet />
@@ -145,11 +156,6 @@ const Home = () => {
               <Promoted content={[...promotedMovies, ...promotedTvShows]} />
               <Genre dataToDisplay="Both" />
               <Promoted content={[...promotedMovies, ...promotedTvShows]} />
-              <Link to={"modal"}>
-                <button type="button">Link to outlet</button>
-              </Link>
-
-              <Footer />
             </>
           )}
         </div>

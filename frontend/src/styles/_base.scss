@@ -1,3 +1,10 @@
+:root{
+    --toastify-color-dark: rgb(52, 126, 210);;
+    --toastify-color-info: rgb(52, 126, 210);
+    --toastify-toast-min-height: 42px;
+    --toastify-toast-width: 180px;
+}
+
 body {
     font-size: 62.5%;
     overflow-x: hidden;

@@ -1,6 +1,14 @@
 .banner-card  {
-
+    display: flex;
+    justify-content: center; 
+    align-items: center;  
+    
+    @include respond-to ('medium-large') {
+        font-size: 125%;
+    }
+    
     &__image-container  {
+        max-width: 1600px;
         position: relative;
         aspect-ratio: 16/9;
 
@@ -16,7 +24,7 @@
         }
         &__title {
             position: absolute;
-            font-size: 0.7rem;
+            font-size: 0.7em;
             padding: 0.3rem;
             color: var(--text);
             top: 20px;

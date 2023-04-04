@@ -7,7 +7,7 @@
     
     h2 {
       @include titleContainer;
-      padding: 1rem 0 1rem 0.5rem;
+      padding-top: 25px;
     }
     &__swiper {
         width: 100vw;
@@ -16,13 +16,13 @@
       }
 
   }
+
   .swiper-slide {
     position: relative;
-    height: auto;
     text-align: center;
     font-size: 18px;
     background: transparent;
-  
+    
     /* Center slide text vertically */
     display: -webkit-box;
     display: -ms-flexbox;

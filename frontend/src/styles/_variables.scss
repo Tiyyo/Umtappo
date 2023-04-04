@@ -1,9 +1,10 @@
 //--define breakpoints
 $breakpoints:  (
-    'small': (max-width: 480px),
-    'medium': (max-width: 768px),
-    'large': (max-width: 1200px),
-    'extra-large': (min-width: 1201px)
+    'small': (min-width: 480px),
+    'medium': (min-width: 768px),
+    'medium-large' :(min-width : 960px),
+    'large': (min-width: 1200px),
+    'extra-large': (min-width: 1601px)
 );
 
 //--- Colors
@@ -28,6 +29,14 @@ $white : rgba(235, 230, 225, 0.944);
 $avatar-size : 32px;
 $heightheader : 20px;
 $heightTopNav : 50px;
+$dynamicRatingOuterSmall : 26px;
+$dynamicRatingInnerSmall : 22px;
+$dynamicRatingOuterMedium : 30px;
+$dynamicRatingInnerMedium : 25px;
+$dynamicRatingOuterLarge : 53px;
+$dynamicRatingInnerLarge : 44px;
+
+
 
 
 

@@ -19,15 +19,16 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     user: {
-      id: "",
-      username: "",
-      email: "",
-      pictures: "",
+      id: null,
+      username: null,
+      email: null,
+      pictures: null,
     },
     loading: "idle",
   },
   reducers: {
     getCurrentUser: (state, { payload }) => {
+      console.log(typeof payload);
       state.user.id = payload;
     },
     editEmail: (state, { payload }) => {
