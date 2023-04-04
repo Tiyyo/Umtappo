@@ -4,7 +4,7 @@
     width: 100vw;
     overflow: hidden;
     padding: 0 0 5px 0;
-
+    
     h2 {
         @include titleContainer;
         
@@ -13,12 +13,14 @@
         cursor:grab;
         overflow: hidden;
         display: flex;
-
-    &__inner {
+        
+        &__inner {
+        cursor:grab;
         display: flex;
         flex-wrap: nowrap;
         column-gap: 15px;
-        padding: 1rem 1.5rem;
+        padding: 2rem 1.5rem;
+        scroll-behavior: smooth;
         }
     }
 }

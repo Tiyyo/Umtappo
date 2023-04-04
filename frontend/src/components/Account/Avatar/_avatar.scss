@@ -28,11 +28,12 @@
         align-self: flex-start;
         padding : 5px 0 5px 15%;
         cursor: pointer;
+        
 
         span {
             font-size : 0.6rem;
             text-decoration : underline;
-            color : var(--primary)
+            color : var(--text)
         }
       }
 

@@ -87,7 +87,6 @@ const TvShow = () => {
             <Promoted content={promotedTvShows} />
             <Genre dataToDisplay="tv" />
             <Promoted content={promotedTvShows} />
-            <Footer />
           </div>
         )}
       </div>

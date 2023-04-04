@@ -95,7 +95,6 @@ const Films = () => {
           <HorizontalCarousel content={popularMovies} title="Popular" />
           <Genre dataToDisplay="movie" />
           <Promoted content={promotedMovies} />
-          <Footer />
         </div>
       )}
     </div>

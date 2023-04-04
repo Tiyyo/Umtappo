@@ -8,6 +8,7 @@
     overflow: hidden;
     list-style-type: none;
     position: relative;
+    
     @include respond-to ('medium') {
         width: 10em;
     }
@@ -35,21 +36,46 @@
         &__rating  {
             position: absolute;
             z-index: 2;
-            top: -4px;
+            top: 0em;
             left: -4px;
+
+            @include respond-to ('medium') {
+               top: 5px;
+               left: 0px;
+            }
         }
 
     }
 
     &__image--container  {
         position: relative;
+       
 
         &__type  {
             position: absolute;
             bottom: 2px;
-            left: 1px;
+            left: 5px;
             color: $white;
-            mix-blend-mode: difference;
+            mix-blend-mode: lighten;
+
+
+            @include respond-to ('medium') {
+                svg  {
+                    font-size: 1.4em;
+                }
+            }
+
+            @include respond-to ('medium-large') {
+                svg  {
+                    font-size: 1.6em;
+                }
+            }
+
+            @include respond-to ('extra-large') {
+                svg  {
+                    font-size: 1.9em;
+                }
+            }
         }
 
 

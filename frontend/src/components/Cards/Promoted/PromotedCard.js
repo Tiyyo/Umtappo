@@ -30,7 +30,7 @@ const PromotedCard = ({ content }) => {
         <p className="promoted-card__infos--synopsis">{content.overview}</p>
         <div className="promoted-card__infos__details">
           <div className="promoted-card__infos__details--type">
-            {content.type ? content.type : ""}
+            {content.media_type}
           </div>
           <div className="promoted-card__infos__details--year">
             {content.release_date ? content.release_date.substring(0, 4) : ""}

@@ -156,7 +156,6 @@ const Home = () => {
               <Promoted content={[...promotedMovies, ...promotedTvShows]} />
               <Genre dataToDisplay="Both" />
               <Promoted content={[...promotedMovies, ...promotedTvShows]} />
-              <Footer />
             </>
           )}
         </div>

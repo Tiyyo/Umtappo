@@ -6,43 +6,36 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 import { NavLink } from "react-router-dom";
 
-const Navigation = ({ isOpen }) => {
+const Navigation = () => {
   return (
     <div className="nav">
-      <ul
-        className="nav__links"
-        style={isOpen ? { right: "0rem" } : { right: "-100vw" }}
-      >
+      <ul className="nav__links">
         <NavLink to="/home">
-          <li>
-            <HomeOutlinedIcon color="primary" size="extra-large" />
-            <p>Home</p>
-          </li>
+          {({ isActive, isPending }) => (
+            <li className={isActive ? "active" : ""}>Home</li>
+          )}
         </NavLink>
         <NavLink to="/films">
-          <li>
-            <TheatersOutlinedIcon color="primary" />
-            <p>Movies</p>
-          </li>
+          {({ isActive, isPending }) => (
+            <li className={isActive ? "active" : ""}>Movies</li>
+          )}
         </NavLink>
         <NavLink to="/tvshow">
-          <li>
-            <TvOutlinedIcon color="primary" />
-            <p>TvShows</p>
-          </li>
+          {({ isActive, isPending }) => (
+            <li className={isActive ? "active" : ""}>TvShows</li>
+          )}
         </NavLink>
         <NavLink to="/Favorites">
-          <li>
-            <FavoriteBorderOutlinedIcon color="primary" />
-            <p>Favorites</p>
-          </li>
+          {({ isActive, isPending }) => (
+            <li className={isActive ? "active" : ""}>Favorites</li>
+          )}
         </NavLink>
-        <NavLink to="/Account">
+        {/* <NavLink to="/Account">
           <li>
             <PersonPinIcon color="primary" />
             <p>Account</p>
           </li>
-        </NavLink>
+        </NavLink> */}
       </ul>
     </div>
   );

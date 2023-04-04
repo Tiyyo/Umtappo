@@ -33,12 +33,21 @@
                 color: var(--text);
             }
             
+
+            @include respond-to('large') {
+                height: 2.5rem;
+                font-size: 1.2em;
+            }
             &.isactive {
                 border-radius: 36px;
-                max-width: 65vw;
+                max-width: 300px;
                 width: 600px;
                 padding-left: 35px;
                 background-color: var(--transparent_bg);
+
+                @include respond-to ('medium-large')  {
+                    max-width: 50vw;
+                }
             }
 
         }

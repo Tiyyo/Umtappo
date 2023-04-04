@@ -4,7 +4,7 @@ import defaultAvatar from "../../../assets/images/default_avatar.png";
 import { useSelector } from "react-redux";
 
 const Avatar = ({ getStateModal }) => {
-  const { crop: userProfileImage, full } = useSelector(
+  const { crop: userProfileImage } = useSelector(
     (state) => state.user.user.pictures
   );
 
@@ -17,7 +17,7 @@ const Avatar = ({ getStateModal }) => {
         />
       </div>
       <div className="edit" onClick={() => getStateModal(true)}>
-        <ModeEditIcon color="primary" fontSize="10px" />
+        <ModeEditIcon fontSize="10px" />
         <span>Edit</span>
       </div>
     </div>

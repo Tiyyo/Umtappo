@@ -3,19 +3,20 @@
     display: flex;
     flex-direction: column;
     row-gap: 20px;
+    flex: 1 0 70%;
 
     .link  {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 0.3rem 20px ;
-        border: 2px solid rgba(227, 112, 30, 0.087);
+        // border: 2px solid rgba(227, 112, 30, 0.087);
         border-radius: 27px;
         background-color: var(--menu_link);
         color: var(--text);
         font-size: 0.9rem;
         letter-spacing: 1px;
-        box-shadow: 3px 2px 5px 2px rgba(255,255,255,0.05) ;
+        box-shadow: 3px 2px 5px 1px rgba(255, 255, 255, 0.028) ;
 
         button {
             cursor: pointer;

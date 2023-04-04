@@ -11,7 +11,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import AppContext from "../../utils/Context/AppContextProvider";
 
-const SearchBar = ({ getInputValue }) => {
+const SearchBar = ({ getInputValue, getSearchState }) => {
   const { pathname } = useLocation();
 
   const navigate = useNavigate();
@@ -29,8 +29,10 @@ const SearchBar = ({ getInputValue }) => {
   useEffect(() => {
     if (pathname.toLowerCase().includes("search")) {
       setSearchActive(true);
+      getSearchState(true);
     } else {
       setSearchActive(false);
+      getSearchState(false);
     }
   }, [pathname]);
 

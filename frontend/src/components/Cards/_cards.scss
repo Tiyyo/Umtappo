@@ -22,8 +22,7 @@
     background-color: transparent;
     align-items: center;
     justify-content: center;
-
-
+    
 }
 
 .progress-circle  {
@@ -36,6 +35,16 @@
     // display: flex;
     // align-items: center;
     // justify-content: center; 
+
+    @include respond-to ('medium') {
+        height: $dynamicRatingOuterMedium;
+        width: $dynamicRatingOuterMedium;   
+    }
+
+    @include respond-to ('medium-large') {
+        height: $dynamicRatingOuterLarge;
+        width: $dynamicRatingOuterLarge;
+    }
 }
 
 .progress-text  {
@@ -53,7 +62,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.5rem;
+    font-size: 0.5em;
+
+    @include respond-to ('medium') {
+        height: $dynamicRatingInnerMedium;
+        width: $dynamicRatingInnerMedium;
+    }
+    @include respond-to ('medium-large') {
+        height: $dynamicRatingInnerLarge;
+        width: $dynamicRatingInnerLarge;
+        font-size: 1.05em;
+    }
 
 }
 
