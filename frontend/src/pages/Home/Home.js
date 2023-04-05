@@ -21,7 +21,7 @@ import {
   useGetTopRatedMovieQuery,
   useGetTopRatedTvshowQuery,
 } from "../../features/content/tmdbAPI";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { getUserData } from "../../features/user/slice/user.slice";
 import UserContext from "../../utils/Context/UserContextProvider";
 import { useDispatch } from "react-redux";

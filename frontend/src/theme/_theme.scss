@@ -34,7 +34,7 @@ body[data-theme="light"] {
 
 body[data-theme="dark"] {
     --bg_primary : rgb(3, 13, 24);
-    --bg_primary_soft_opacity : rgba(3, 13, 24, 0.926);
+    --bg_primary_soft_opacity : rgba(3, 13, 24, 0.95);
     --text_primary_light : rgba(4, 20, 42, 0.645);
     --text_primary_hard : rgba(4, 20, 42, 1);
     
@@ -47,6 +47,7 @@ body[data-theme="dark"] {
     
     --text : rgba(255, 245, 236, 0.95);
     --white_black : rgba(235, 230, 225, 0.944);
+    --shadow : rgba(235, 230, 225, 0.073);
     --menu_link : rgb(6, 16, 29);
 
 

@@ -77,7 +77,6 @@ const Genre = (props) => {
 
   return (
     <div className="favorite-genre">
-      {console.log(scores)}
       {recommendations && scores && favoriteGenres
         ? scores
             .filter((f) => {

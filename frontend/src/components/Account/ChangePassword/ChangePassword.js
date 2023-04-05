@@ -47,7 +47,11 @@ const ChangePassword = ({ isOpen, getCloseState }) => {
   return (
     <div
       className="change-password"
-      style={isOpen ? { top: "10%" } : { top: "-100vh" }}
+      style={
+        isOpen
+          ? { top: "10%", display: "flex" }
+          : { top: "-100vh", display: "none" }
+      }
     >
       <div className="change-password__header">
         <h2>You need to enter your password to confirm</h2>

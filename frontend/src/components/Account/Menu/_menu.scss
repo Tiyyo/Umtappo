@@ -2,8 +2,31 @@
     padding: 2vh 1vh 2vh 1vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
     row-gap: 20px;
     flex: 1 0 70%;
+    
+
+    @include respond-to ('medium') {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        align-content: flex-start;
+        gap: 1em;
+
+    }
+
+    a {
+        width: 95%;
+        @include respond-to ('medium') {
+            flex: 1 0 45%;
+            width: 45%;
+            max-width: 45%;
+            height: fit-content;
+            
+        }
+    }
 
     .link  {
         display: flex;
@@ -17,11 +40,23 @@
         font-size: 0.9rem;
         letter-spacing: 1px;
         box-shadow: 3px 2px 5px 1px rgba(255, 255, 255, 0.028) ;
+        transition: color ease-in 0.3s;
+        
+
+        
+        &:hover {
+            color: var(--secondary_darker);
+        }
 
         button {
             cursor: pointer;
             border: none;
             background-color: transparent;
+            transition: color ease-in 0.3s;
+           
+        }
+
+        svg  {
             color: var(--text);
         }
     }

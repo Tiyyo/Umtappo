@@ -1,9 +1,14 @@
 .lists  {
     padding: 2rem 10px;
+    min-height: 100vh;
+
+    @include respond-to ('medium') {
+        font-size: 140%;
+    }
 
     &__infos  {
         padding-bottom: 1rem ;
-        font-size: 0.8rem;
+        font-size: 0.8em;
         letter-spacing: 1px;
         line-height: 1.7;
         border-bottom : 2px solid rgba(234, 104, 11, 0.087);
