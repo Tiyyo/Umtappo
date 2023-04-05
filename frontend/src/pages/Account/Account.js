@@ -30,9 +30,6 @@ const Account = () => {
 
   const logOut = () => {
     window.localStorage.clear();
-    if (window.localStorage.accesToken) {
-      console.log(localStorage.accesToken);
-    }
     window.localStorage.removeItem("accesToken");
     setUserID("");
     setUserInfos("");
@@ -70,7 +67,7 @@ const Account = () => {
       <div className="banner">
         <Avatar getStateModal={getStateModal} />
         <h2 className="welcome">
-          Hello <span>{username}</span>
+          Welcome back ! <span>{username}</span>
         </h2>
       </div>
       <Outlet />

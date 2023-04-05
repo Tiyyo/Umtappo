@@ -78,7 +78,7 @@ const AppLayout = () => {
             getSearchState={getSearchState}
           />
           <AvatarNavLink />
-          <NavLink to="/Account" className="favorites-link_mobile">
+          <NavLink to="/Favorites" className="favorites-link_mobile">
             <BookmarkBorderIcon />
           </NavLink>
           <MobileNav isOpen={openMenu} />

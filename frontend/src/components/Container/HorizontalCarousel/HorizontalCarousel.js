@@ -2,10 +2,22 @@ import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import PosterCard from "../../Cards/Poster/PosterCard";
 import LoaderUI from "../../Loader/LoaderUI";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import NavCarousel from "../NavCarousel";
 
 const HorizontalCarousel = ({ content, title }) => {
   const [width, setWidth] = useState(0);
+  const [scrollXValue, setScrollXValue] = useState(0);
+
   const carousel = useRef();
+
+  const innerCarousel = useRef();
+  const windowWidth = useRef([window.innerWidth]);
+
+  const getScrollXPosition = (state) => {
+    setScrollXValue(state);
+  };
 
   useEffect(() => {
     if (carousel?.current) {
@@ -22,11 +34,20 @@ const HorizontalCarousel = ({ content, title }) => {
           ref={carousel}
           whileTap={{ cursor: "grabbing" }}
         >
+          <NavCarousel
+            innerCarousel={innerCarousel.current}
+            width={width}
+            scrollValue={scrollXValue}
+            getScrollPosition={getScrollXPosition}
+          />
           <motion.div
             drag="x"
             whileTap={{ cursor: "grabbing" }}
             dragConstraints={{ right: 0, left: -width }}
             className="horizontal-carousel__outer__inner"
+            ref={innerCarousel}
+            animate={{ x: scrollXValue }}
+            transition={{ ease: "easeInOut", duration: 1.2 }}
           >
             {content
               .filter((el) => el.poster_path)

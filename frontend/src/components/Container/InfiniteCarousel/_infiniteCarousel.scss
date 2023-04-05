@@ -3,9 +3,86 @@
         @include titleContainer;
       }
       &__outer  {
+        position: relative;
         cursor:grab;
         overflow: hidden;
         display: flex;
+
+        .next  {
+          display: none;
+          @include respond-to ('medium') {
+
+              position: absolute;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background-color: transparent;
+              backdrop-filter: blur(1px);
+              color: var(--text_primary_hard );
+              border: none;
+              right: 0px;
+              bottom: 0;
+              top: 0.5rem;
+              z-index: 4;
+              height: 100%;
+              width: 7vw;
+              max-width: 75px;
+              
+              svg {
+                  font-size: 6em;
+                  transition: all 0.4s ease;
+                  
+                  @include respond-to ('large') {
+                      font-size: 7em;
+                  }
+                     
+                  &:hover  {
+                      color: var(--secondary_hard_dark);
+                      transform: scale(1.4);
+                  }
+  
+              }
+  
+          }
+    
+      }
+      .prev  {
+          display: none;
+          @include respond-to ('medium') {
+              position: absolute;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background-color: transparent;
+              backdrop-filter: blur(1px);
+              color: var(--text_primary_hard );
+              border: none;
+              left: 0;
+              bottom: 0;
+              top: 0.5rem;
+              z-index: 4;
+              height: 100%;
+              width: 7vw;
+              max-width: 75px;
+              
+              svg {
+                  font-size: 6em;
+                  transition: all 0.4s ease;
+                  
+                  @include respond-to ('large') {
+                      font-size: 7em;
+                  }
+                     
+                  &:hover  {
+                      color: var(--secondary_hard_dark);
+                      transform: scale(1.4);
+                  }
+  
+              }
+  
+          }
+    
+      }
 
         &__inner  {
             display: flex;

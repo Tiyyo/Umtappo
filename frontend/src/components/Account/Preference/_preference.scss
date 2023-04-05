@@ -1,24 +1,48 @@
 .preference  {
     padding: 2rem 15px;
     display: flex;
+    align-items: center;
     flex-direction: column;
     row-gap: 2vh;
-    max-width: 450px;
+    min-height: 100vh;
     color : var(--text);
+
+
+    @include respond-to ('medium') {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        align-content: flex-start;
+        row-gap: 1em;
+        font-size: 140%;
+    }
 
     &__item  {
         display: grid;
-        grid-template-columns: 7% 43% 50%;
+        grid-template-columns: 10% 41% 48%;
         align-items: center;
-        // column-gap: 3px;
         width: 100%;
         padding: 5px 10px;
         background-color: var(--menu_link);
         border-radius: 20px;
+        font-size: 80%;
+        width: 95%;
+        height: 56px;
+        margin: 0 15px;
+
+        @include respond-to ('medium') {
+            flex: 1 0 45%;
+            width: 45%;
+            max-width: 45%; 
+
+        }
         
         &__icon  {
             flex : 1 1 7%;
+
         }
+
         
         &__name  {
             flex : 1 1 48%;
@@ -31,16 +55,15 @@
             height: 30px;
             width: 70%;
             border-radius: 9px;
-            background-color: var(--secondary);
+            background-color: var(--bg_primary);
             color: var(--text);
         }
     
         &__action {
             justify-self: last baseline;
-            flex : 1 2 55%;
             display: flex;
             align-items: center;
-            // background-color: var(--secondary);
+
             
             button {
                 display: flex;
@@ -49,7 +72,7 @@
                 height: 30px;
                 border-radius: 9px;
                 margin:0  3px;
-                background-color: var(--secondary);
+                background-color: var(--bg_primary);
                 border: none;
                 cursor: pointer;
             }

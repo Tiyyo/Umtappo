@@ -5,12 +5,14 @@ import { motion } from "framer-motion";
 import LoaderUI from "../../Loader/LoaderUI";
 import AppContext from "../../../utils/Context/AppContextProvider";
 import { useGetGenreQuery } from "../../../features/content/tmdbAPI";
+import NavCarousel from "../NavCarousel";
 
 const InfiniteCarousel = ({ genre }) => {
   let movie = "Movie";
   let tvShow = "TvShow";
 
   const [pageNumber, setPageNumber] = useState(1);
+  const [scrollXValue, setScrollXValue] = useState(0);
 
   const { id, name, media_type } = genre;
 
@@ -23,6 +25,8 @@ const InfiniteCarousel = ({ genre }) => {
   const [width, setWidth] = useState(0);
 
   const carousel = useRef();
+  const innerCarousel = useRef();
+  const windowWidth = useRef([window.innerWidth]);
 
   const displayType = (media_type) => {
     if (media_type === "tv") {
@@ -30,6 +34,10 @@ const InfiniteCarousel = ({ genre }) => {
     } else if (media_type === "movie") {
       return movie;
     }
+  };
+
+  const getScrollXPosition = (state) => {
+    setScrollXValue(state);
   };
 
   useEffect(() => {
@@ -51,10 +59,19 @@ const InfiniteCarousel = ({ genre }) => {
           ref={carousel}
           whileTap={{ cursor: "grabbing" }}
         >
+          <NavCarousel
+            innerCarousel={innerCarousel.current}
+            width={width}
+            scrollValue={scrollXValue}
+            getScrollPosition={getScrollXPosition}
+          />
           <motion.div
             drag="x"
             dragConstraints={{ right: 0, left: -width }}
             className="infinite-carousel__outer__inner"
+            ref={innerCarousel}
+            animate={{ x: scrollXValue }}
+            transition={{ ease: "easeInOut", duration: 1.5 }}
           >
             {data.map((el) => {
               return <MovieCard className="item" key={el.id} content={el} />;

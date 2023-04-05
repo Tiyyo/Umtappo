@@ -19,15 +19,15 @@ const MenuLink = ({ path, icon }) => {
 
   return (
     <ThemeProvider theme={iconTheme}>
-      <li className="link">
-        {displayIcon(icon)}
-        <span>{path}</span>
-        <Link to={path}>
+      <Link to={path}>
+        <li className="link">
+          {displayIcon(icon)}
+          <span>{path}</span>
           <Button>
             <ArrowForwardIcon />
           </Button>
-        </Link>
-      </li>
+        </li>
+      </Link>
     </ThemeProvider>
   );
 };
