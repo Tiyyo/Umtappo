@@ -60,19 +60,26 @@ const Watchlist = () => {
   return (
     <div className="list-container">
       <div className="list-container__header">
-        <h2 className="list-container__header--list-name">{name}</h2>
-        <div className="list-container__header--image">
-          <img
-            src={pathImage(header_resume, 0)}
-            alt="poster of current hover content"
-          />
+        <div className="list-container__header__top-section">
+          <h2 className="list-container__header__top-section__list-name">
+            {name}
+          </h2>
         </div>
-        <div className="list-container__header__infos">
-          <div className="list-container__header__infos--content">
-            {header()}
+        <div className="list-container__header__main-section">
+          <div className="list-container__header--image">
+            <img
+              src={pathImage(header_resume, 1)}
+              alt="poster of current hover content"
+            />
+          </div>
+          <div className="list-container__header__infos">
+            <div className="list-container__header__infos--content">
+              {header()}
+            </div>
           </div>
         </div>
       </div>
+
       <div className="list-container__main">
         <motion.div
           className="outer-vertical-carousel"

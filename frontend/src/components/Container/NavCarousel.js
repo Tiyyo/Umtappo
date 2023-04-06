@@ -10,8 +10,8 @@ const NavCarousel = ({
   getScrollPosition,
   scrollValue,
 }) => {
-  const [firstCardIsVisble, setFirstCardIsVisible] = useState(false);
-  const [lastCardIsVisble, setLastCardIsVisible] = useState(false);
+  const [firstCardIsVisble, setFirstCardIsVisible] = useState(null);
+  const [lastCardIsVisble, setLastCardIsVisible] = useState(null);
 
   const windowWidth = useRef([window.innerWidth]);
   let prev = "prev";
@@ -21,7 +21,15 @@ const NavCarousel = ({
   // @param  navWay = "prev" || "next"
 
   function isVisible(child, navWay) {
-    if (innerCarousel.children) {
+    console.log(carousel);
+    console.log(
+      window.getComputedStyle(carousel.current.nextSibling).transform
+    );
+    let startingState = window.getComputedStyle(
+      carousel.current.nextSibling
+    ).transform;
+
+    if (carousel.current.nextSibling.children) {
       const observer = new IntersectionObserver(([entry]) => {
         if (navWay === "prev") {
           if (entry && entry.isIntersecting) {
@@ -35,6 +43,8 @@ const NavCarousel = ({
           } else {
             setLastCardIsVisible(false);
           }
+        } else if (startingState === "none") {
+          alert("cant do that");
         }
       });
       observer.observe(child);
@@ -45,7 +55,6 @@ const NavCarousel = ({
   }
 
   function handleNextClick() {
-    console.log(windowWidth);
     var lastChild =
       carousel.current.nextSibling.children[
         carousel.current.nextSibling.children.length - 1
@@ -59,11 +68,15 @@ const NavCarousel = ({
   }
 
   function handlePrevClick() {
+    console.log(firstCardIsVisble);
     var firstChild = carousel.current.nextSibling.children[0];
     isVisible(firstChild, prev);
+    if (firstCardIsVisble === null) {
+      getScrollPosition(0);
+    }
     if (firstCardIsVisble) {
       getScrollPosition(0);
-    } else {
+    } else if (firstCardIsVisble === false) {
       getScrollPosition(scrollValue + windowWidth.current[0]);
     }
   }

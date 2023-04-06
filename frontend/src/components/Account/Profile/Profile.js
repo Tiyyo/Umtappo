@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Input from "../../Authentification/Input";
 import ChangePassword from "../ChangePassword/ChangePassword";
@@ -7,7 +7,6 @@ import DoneIcon from "@mui/icons-material/Done";
 import LockIcon from "@mui/icons-material/Lock";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EmailIcon from "@mui/icons-material/Email";
-import UserContext from "../../../utils/Context/UserContextProvider";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
@@ -120,7 +119,6 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(getUserData());
-    console.log("fire");
   }, []);
 
   return (

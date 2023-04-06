@@ -77,17 +77,17 @@ const ItemList = ({ content, listID, typeList }) => {
         </div>
         <div className="attributes">
           <span className="item-list__infos--type">
-            {content.type.toLowerCase() === "movie" ? (
+            {/* {content.media_type.toLowerCase() === "movie" ? (
               <div>
                 <TheatersOutlinedIcon />
-                <span>{content.type}</span>
+                <span>{content.media_type}</span>
               </div>
             ) : (
               <div>
                 <TvOutlinedIcon />
-                <span>{content.type}</span>
+                <span>{content.media_type}</span>
               </div>
-            )}
+            )} */}
           </span>
           <span>.</span>
           <span className="item-list__infos--year">

@@ -5,7 +5,6 @@ import { Button } from "@mui/material";
 import Rates from "./Rates";
 
 const Attributes = ({ content, type }) => {
-  console.log(content);
   const displayReleaseYear = () => {
     if (content.first_air_date) {
       return content.first_air_date.substring(0, 4);

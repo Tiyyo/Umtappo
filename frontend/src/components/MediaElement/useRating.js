@@ -11,9 +11,7 @@ const useRating = (id, media_type) => {
   const [rateId, setRateId] = useState(null);
 
   useEffect(() => {
-    console.log(loading, rates);
     if (loading === "idle") {
-      console.log(typeof rates);
       rates?.map((el) => {
         if (el.id === id && el.media_type === media_type) {
           setIsRated(true);

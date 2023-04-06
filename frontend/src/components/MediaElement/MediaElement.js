@@ -38,6 +38,8 @@ const MediaElement = () => {
 
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(true);
+
   const {
     data,
     isLoading: isLoadingMain,
@@ -63,6 +65,11 @@ const MediaElement = () => {
   } = useGetSimilarsQuery({ params });
 
   useEffect(() => {
+    let arr = [isLoadingMain, isLoadingCredits, isLoadingSimilars];
+    setLoading(arr.some((l) => l));
+  }, [isLoadingMain, isLoadingCredits, isLoadingSimilars]);
+
+  useEffect(() => {
     dispatch(getIdsMoviesLiked(userID));
     dispatch(getIdsTvshowsLiked(userID));
     dispatch(getRating(userID));
@@ -72,38 +79,25 @@ const MediaElement = () => {
     <div className="modal-content__wrapper">
       <Blur></Blur>
       <div className="modal-content__wrapper__media-element media-element">
-        <div className="modal-content__wrapper__media-element__close-modal">
-          <Button>
-            <CloseIcon onClick={() => navigate(-1)} />
-          </Button>
-        </div>
-        {console.log("fire")}
-        {isLoadingVideo & !isSuccessVideo ? (
-          <LoaderUI overlay={"true"} fixed={"true"} />
-        ) : (
-          <Video content={content} videos={videos} loading={isLoadingVideo} />
-        )}
-        <CallToAction content={data} media_type={media_type} id={id} />
-        <div className="media-element__title">
-          {content.title || content.name}
-        </div>
-        {isLoadingMain && !isSuccessMain ? (
-          <LoaderUI overlay={"true"} fixed={"true"} />
+        {loading ? (
+          <LoaderUI overlay={"false"} position={"fixed"} />
         ) : (
           <>
+            <div className="modal-content__wrapper__media-element__close-modal">
+              <Button>
+                <CloseIcon onClick={() => navigate(-1)} />
+              </Button>
+            </div>
+            <Video content={content} videos={videos} loading={isLoadingVideo} />
+            <CallToAction content={data} media_type={media_type} id={id} />
+            <div className="media-element__title">
+              {content.title || content.name}
+            </div>
             <Synopsis content={data} />
             <Attributes content={data} type={content.media_type} />
+            <Casts credits={credits} />
+            <SimilarContent similars={similars} />
           </>
-        )}
-        {isLoadingCredits && !isSuccessCredits ? (
-          <LoaderUI overlay={"true"} fixed={"true"} size={"0.7rem"} />
-        ) : (
-          <Casts credits={credits} />
-        )}
-        {isLoadingSimilars && !isSuccessSimilars ? (
-          <LoaderUI overlay={"true"} fixed={"true"} size={"0.5rem"} />
-        ) : (
-          <SimilarContent similars={similars} />
         )}
       </div>
     </div>

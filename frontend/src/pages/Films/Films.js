@@ -79,7 +79,7 @@ const Films = () => {
     <div className="app">
       <Outlet />
       {mainIsLoading ? (
-        <LoaderUI fixed={true} />
+        <LoaderUI position={"fixed"} />
       ) : (
         <div className="main">
           <div ref={mainDiv}></div>

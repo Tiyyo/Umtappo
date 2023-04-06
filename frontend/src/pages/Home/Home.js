@@ -128,7 +128,7 @@ const Home = () => {
       {isSuccesPlayingNowMovie ? (
         <HeaderHome content={playingNowMovie} ref={headerHome} />
       ) : (
-        <LoaderUI fixed={true} overlay="true" />
+        <LoaderUI position={"fixed"} overlay="true" />
       )}
       <Spacer />
       <div className="app">

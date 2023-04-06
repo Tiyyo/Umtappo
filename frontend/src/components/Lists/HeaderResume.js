@@ -7,27 +7,27 @@ const HeaderResume = ({ content, typeList }) => {
   let like = "like";
   let watchlist = "whatchlist";
 
-  const { genreListMovie, genreListTv } = useContext(AppContext);
+  // const { genreListMovie, genreListTv } = useContext(AppContext);
 
-  const displayLikedMediaGenre = (typeList) => {
-    if (typeList === like) {
-      const genreName = content.genres.map((g) => g.name);
-      return genreName.map((name, index) => {
-        return (
-          <span key={index} className="genre">
-            {name}
-          </span>
-        );
-      });
-    } else if (typeList === watchlist) {
-      return displayGenre(
-        content.genre_ids,
-        content.type,
-        genreListMovie,
-        genreListTv
-      );
-    }
-  };
+  // const displayLikedMediaGenre = (typeList) => {
+  // if (typeList === like) {
+  //   const genreName = content.genres.map((g) => g.name);
+  //   return genreName.map((name, index) => {
+  //     return (
+  //       <span key={index} className="genre">
+  //         {name}
+  //       </span>
+  //     );
+  //   });
+  // } else if (typeList === watchlist) {
+  //   return displayGenre(
+  //     content.genre_ids,
+  //     content.type,
+  //     genreListMovie,
+  //     genreListTv
+  //   );
+  // }
+  // };
 
   return (
     <>
@@ -41,14 +41,14 @@ const HeaderResume = ({ content, typeList }) => {
             style={{ display: "flex", padding: "4% 2%", alignItems: "center" }}
           >
             <div className="year">
-              {content.first_air_date?.substring(0, 4) ||
-                content.release_date?.substring(0, 4)}
+              {/* {content.first_air_date?.substring(0, 4) ||
+                content.release_date?.substring(0, 4)} */}
             </div>
             <div className="type">{content.type}</div>
           </div>
-          <div className="genres">{displayLikedMediaGenre(typeList)}</div>
+          {/* <div className="genres">{displayLikedMediaGenre(typeList)}</div> */}
           <div className="rates">
-            {Math.round(content.vote_average * 10) / 10}
+            {/* {Math.round(content.vote_average * 10) / 10} */}
           </div>
         </div>
       )}

@@ -70,7 +70,7 @@ const TvShow = () => {
         <Outlet />
         {mainIsLoading ? (
           <div className="loading">
-            <LoaderUI />
+            <LoaderUI position={"fixed"} />
           </div>
         ) : (
           <div className="main">

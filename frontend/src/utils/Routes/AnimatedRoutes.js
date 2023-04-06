@@ -86,43 +86,40 @@ const AnimatedRoutes = () => {
   return (
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
-        <Route element={<ProtectedRoutes />}>
-          <Route path={"/"} element={<AppLayout />}>
-            <Route path={""} element={<Navigate to="/Home" />} />
-            <Route exact path={"Home"} element={<Home />}>
-              <Route path={":id"} element={<MediaElement />}></Route>
-              <Route
-                path={":id/add_to_playlist"}
-                element={<AddToWatchlist />}
-              />
-            </Route>
-            <Route exact path="Favorites" element={<Favorites />}>
-              <Route path={""} element={<FavoritesResume />} />
-              <Route path={":listName"} element={<Watchlist />} />
-            </Route>
-            <Route exact path="Films" element={<Films />}>
-              <Route path={":id"} element={<MediaElement />} />
-            </Route>
+        {/* <Route element={<ProtectedRoutes />}> */}
+        <Route path={"/"} element={<AppLayout />}>
+          <Route path={""} element={<Navigate to="/Home" />} />
+          <Route exact path={"Home"} element={<Home />}>
+            <Route path={":id"} element={<MediaElement />}></Route>
+            <Route path={":id/add_to_playlist"} element={<AddToWatchlist />} />
+          </Route>
+          <Route exact path="Favorites" element={<Favorites />}>
+            <Route path={""} element={<FavoritesResume />} />
+            <Route path={":listName"} element={<Watchlist />} />
+          </Route>
+          <Route exact path="Films" element={<Films />}>
+            <Route path={":id"} element={<MediaElement />} />
+          </Route>
 
-            <Route eaxct path="TvShow" element={<TvShow />}>
-              <Route path={":id"} element={<MediaElement />} />
-            </Route>
-            <Route exact path="Search" element={<SearchResult />}>
-              <Route path={":id"} element={<MediaElement />} />
-            </Route>
-            {/* <Route path={`:id/:modalid`} element={<MediaElement />} /> */}
-            <Route
-              path={":id/:id/add_to_playlist"}
-              element={<AddToWatchlist />}
-            />
-            <Route path="Account" element={<Account />}>
-              <Route path={""} element={<Menu />} />
-              <Route path="Profile" element={<Profile />} />
-              <Route path="Preference" element={<Preference />} />
-              <Route path="Lists" element={<AccountWatchlist />} />
-            </Route>
+          <Route eaxct path="TvShow" element={<TvShow />}>
+            <Route path={":id"} element={<MediaElement />} />
+          </Route>
+          <Route exact path="Search" element={<SearchResult />}>
+            <Route path={":id"} element={<MediaElement />} />
+          </Route>
+          {/* <Route path={`:id/:modalid`} element={<MediaElement />} /> */}
+          <Route
+            path={":id/:id/add_to_playlist"}
+            element={<AddToWatchlist />}
+          />
+          <Route path="Account" element={<Account />}>
+            <Route path={""} element={<Menu />} />
+            <Route path="Profile" element={<Profile />} />
+            <Route path="Preference" element={<Preference />} />
+            <Route path="Lists" element={<AccountWatchlist />} />
           </Route>
         </Route>
+        {/* </Route> */}
         <Route path={"/Login"} element={<LoginLayout />}>
           <Route path={""} element={<HomePage />} />
           <Route path="SignIn" element={<SignIn />} />

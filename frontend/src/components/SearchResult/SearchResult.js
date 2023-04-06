@@ -31,6 +31,13 @@ const SearchResult = () => {
     [loading, hasMore]
   );
 
+  function imagePathBanner(content, int) {
+    return config.base_url + config.backdrop_sizes[int] + content.backdrop_path;
+  }
+  function imagePathPoster(content, int) {
+    return config.base_url + config.poster_sizes[int] + content.poster_path;
+  }
+
   useEffect(() => {
     setPageNumber(1);
   }, [inputSearchValue]);

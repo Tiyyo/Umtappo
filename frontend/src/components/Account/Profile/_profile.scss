@@ -29,7 +29,10 @@
             width: 45%;
             max-width: 45%;
             height: fit-content;
+        }
 
+        @include respond-to ('large') {
+            max-width: 550px;
         }
         
         .inputWrapper  {

@@ -19,20 +19,16 @@ const Favorites = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getLists(userID));
-    dispatch(getIdsMoviesLiked(userID)).then(() =>
-      dispatch(getFetchMovie(languages))
-    );
-    dispatch(getIdsTvshowsLiked(userID)).then(() =>
-      dispatch(getFetchTvshow(languages))
-    );
+    // dispatch(getLists(userID));
+    // dispatch(getIdsMoviesLiked(userID)).then(() =>
+    //   dispatch(getFetchMovie(languages))
+    // );
+    // dispatch(getIdsTvshowsLiked(userID)).then(() =>
+    //   dispatch(getFetchTvshow(languages))
+    // );
   }, [userID, languages]);
 
-  return (
-    <div className="favorites">
-      <Outlet />
-    </div>
-  );
+  return <div className="favorites">{/* <Outlet /> */}</div>;
 };
 
 export default Favorites;
