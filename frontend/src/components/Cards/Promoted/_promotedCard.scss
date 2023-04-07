@@ -1,20 +1,24 @@
 .promoted-card  {
     position: relative;
     display: grid;
+    
     box-shadow: 0px 0px 15px 2px rgba(104, 104, 104, 0.168);
     width: fit-content;
     min-width: 330px;
     max-width: 455px;
+    min-height: 240px;
     border-radius: 12px;
     overflow: hidden;
     background-color: var(--bg_primary);
+
 
     &__banner {
         position: relative;
         z-index: 1;
         border-radius: 6px;
         overflow: hidden;
-        height: 57%;
+        height : 57%;
+
         img {
             width: 100%;
             object-fit: contain;
@@ -33,6 +37,10 @@
         cursor: pointer;
     }
     &__infos  {
+        align-self: flex-end;
+        flex : 1 2 43%;
+
+
         position: absolute;
         z-index: 2;
         width: 70% ;

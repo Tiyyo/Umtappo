@@ -47,13 +47,13 @@
     height: 100%;
     width: 100%;
     background-color: transparent;
-
+    
     &__close-btn {
         position: absolute;
         top: 8px;
         left: 8px;
     }
-
+    
     &__blur  {
         height: 100%;
         width: 100%;
@@ -64,8 +64,9 @@
         padding-top: 5vh;
     }
     &__container  {
-        background-color: var(--secondary);
-        border: 1px solid var(--border_list);
+        position: relative;
+        background-color: var(--bg_primary);
+        border: 2px solid rgba(1, 84, 84, 0.188);
         border-radius: 24px;
         width: 85%;
         padding: 15px;
@@ -73,6 +74,19 @@
         flex-direction: column;
         align-items: center;
         padding: 25px;
+        max-width: 45rem;
+
+        animation: open 250ms ease-in 0ms 1 normal forwards;
+
+        @keyframes open {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+            
+        }
 
         &__image  {
             position: relative;
@@ -111,7 +125,7 @@
             justify-content: center;
             padding: 4px 0;
             column-gap: 5px;
-            background-color: var(--primary_dark);
+            background-color: var(--secondary_hard_dark);
             border-radius:  6px;
             color: var(--text);
             letter-spacing: 2px; 
@@ -128,21 +142,26 @@
             justify-content: center;
             column-gap: 5px;
             padding: 4px 0;
-            background-color: var(--primary_dark);
+            background-color: var(--secondary_hard_dark);
             border-radius:  6px;
             color: var(--text);
             letter-spacing: 1px; 
             text-align: center;
             cursor: pointer;
             border: none;
+
+            &:disabled  {
+                background-color: var(--shadow);
+            }
         }
 
         &__error  {
             color: var(--error);
-            font-size: 1em;
-            font-weight: bold;
+            font-size: 0.8em;
+            font-weight: 400;
             margin-top: 10px;
             display: flex;
+            align-items: center;
             gap: 0.5em;
             p  {
                 padding: 5px 0;

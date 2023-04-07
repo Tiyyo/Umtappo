@@ -6,7 +6,7 @@ export const getUserData = createAsyncThunk(
   async (arg, { dispatch, getState, rejectWithValue }) => {
     const user_id = getState().user.user.id;
     const result = await axios
-      .get("http://localhost:5000/user/" + user_id)
+      .get("http://localhost:5000/user/" + arg)
       .then((res) => {
         return res.data;
       })
@@ -22,7 +22,7 @@ const userSlice = createSlice({
       id: null,
       username: null,
       email: null,
-      pictures: null,
+      pictures: [],
     },
     loading: "idle",
   },

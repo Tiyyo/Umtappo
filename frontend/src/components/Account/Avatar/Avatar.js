@@ -4,17 +4,16 @@ import defaultAvatar from "../../../assets/images/default_avatar.png";
 import { useSelector } from "react-redux";
 
 const Avatar = ({ getStateModal }) => {
-  const { crop: userProfileImage } = useSelector(
+  const { crop: profileImage } = useSelector(
     (state) => state.user.user.pictures
   );
+
+  // console.log(data);
 
   return (
     <div className="avatar-wrapper">
       <div className="avatar">
-        <img
-          src={userProfileImage ? userProfileImage : defaultAvatar}
-          alt="user profile picture or default avatar"
-        />
+        <img src={profileImage ? profileImage : defaultAvatar} alt="avatar" />
       </div>
       <div className="edit" onClick={() => getStateModal(true)}>
         <ModeEditIcon fontSize="10px" />

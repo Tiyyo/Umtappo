@@ -42,7 +42,8 @@ const RateMe = ({ isOpen, close, title, media_type, id }) => {
         .then((res) => {
           dispatch(addRating({ _id: res.data._id, id, media_type, rate }));
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => close(false));
     }
   };
 

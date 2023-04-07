@@ -39,7 +39,11 @@ const AddNameNewList = ({ isOpen, getCloseState, content }) => {
   return (
     <div
       className="name-newlist"
-      style={isOpen ? { top: "50%" } : { top: "-100vh" }}
+      style={
+        isOpen
+          ? { top: "50%", display: "flex" }
+          : { top: "-100vh", display: "none" }
+      }
     >
       <div className="name-newlist__header">
         <h2>Name your watchlist</h2>

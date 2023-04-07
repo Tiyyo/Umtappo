@@ -33,7 +33,9 @@ const PromotedCard = ({ content }) => {
             {content.media_type}
           </div>
           <div className="promoted-card__infos__details--year">
-            {content.release_date ? content.release_date.substring(0, 4) : ""}
+            {content.release_date
+              ? content.release_date.substring(0, 4)
+              : content.first_air_date.substring(0, 4)}
           </div>
           <div className="promoted-card__infos__details--score">
             {content.vote_average}

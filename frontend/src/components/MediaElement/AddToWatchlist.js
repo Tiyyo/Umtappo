@@ -81,15 +81,15 @@ const AddToPlaylist = () => {
           <h4 className="title"> Watchlists </h4>
         </header>
 
-        <div className="watchlist">
+        <div className="watchlists">
           <button
-            className="watchlist__new-btn"
+            className="watchlists__new-btn"
             onClick={() => {
               setIsOpen(true);
             }}
           >
             <LibraryAddIcon />
-            Add New
+            <span>Add New</span>
           </button>
           <AddNameNewList
             isOpen={isOpen}
@@ -100,13 +100,18 @@ const AddToPlaylist = () => {
             data-blur={isOpen ? "is-active" : ""}
             className="naming-blur"
           ></div>
-          {myLists.length !== 0 ? (
-            myLists.map((list) => {
-              return <Watchlist key={list._id} list={list} content={content} />;
-            })
-          ) : (
-            <h4>You have never created any list yet</h4>
-          )}
+
+          <div className="watchlist-container">
+            {myLists.length !== 0 ? (
+              myLists.map((list) => {
+                return (
+                  <Watchlist key={list._id} list={list} content={content} />
+                );
+              })
+            ) : (
+              <h4>You have never created any list yet</h4>
+            )}
+          </div>
         </div>
       </div>
     </div>

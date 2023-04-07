@@ -49,7 +49,7 @@ const Watchlist = ({ list, content }) => {
   };
 
   return (
-    <div className="playlist" key={list._id}>
+    <div className="watchlist" key={list._id}>
       <h4 className="name">{list.name}</h4>
       <button
         type="button"

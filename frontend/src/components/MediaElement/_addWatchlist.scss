@@ -4,22 +4,32 @@
   min-width: 300px;
   width: 100vw;
   padding-bottom: 150px;
-  // max-width: 600px;
-  
+  max-width: 60em; 
   font-family: 'Lato', sans-serif;
   color: var(--text);
   line-height: 1.6;
   z-index: 3;
   margin: 0 auto;
-  max-width: 115rem;
   border-radius: 12px;
-  background: linear-gradient(180deg , rgba(13, 13, 13, 0.98) 70% ,rgba(45, 24, 9, 0.906) 100%);
-  background-color: rgba(13, 13, 13, 0.98);
+  background-color: var(--bg_primary);
   border: 1px solid rgba(255, 255, 255, 0.166);
   display: flex;
   align-items: center;
   flex-direction: column;
+  animation: open 300ms ease-in 0ms 1 normal forwards;
 
+  
+  @keyframes open {
+    0% {
+      opacity: 1;
+      transform: scaleY(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scaleY(1);
+
+    }
+  }
 
 
 
@@ -54,10 +64,11 @@
         }
         .title  {
             text-align: center;
+            color: var(--secondary);
         }
         
     }
-    .watchlist {
+    .watchlists {
         position: relative;
         display: flex;
         flex-direction: column;
@@ -82,9 +93,14 @@
           margin-bottom: 25px;
           border-radius: 0.5rem;
           border: none;
-          background-color: var(--secondary);
-          color: var(--primary_dark);
+          background-color: var(--bg_secondary );
+          color: var(--text_primary_hard);
           cursor: pointer;
+
+          span  {
+            // color: var(--secondary_hard_dark);
+            font-weight: 700;
+          }
 
         }
 
@@ -94,7 +110,18 @@
             border-top: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .playlist  {
+        .watchlist-container  {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 95%;
+
+          @include respond-to ('medium' ) {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+          }
+
+          .watchlist  {
             $sizeBtn : 30px;
             $sizeIcon : 1rem;
 
@@ -110,13 +137,20 @@
 
             &:hover  {
               transform: scale(1.12 , 1.07);
-              background-color: var(--secondary);
+              background-color: var(--bg_secondary);
+              color: var(--text_primary_hard);
             }
 
             .name  {
                 color: var(--text_light);
                 font-size: 80%;
                 flex: 4 1 80%;
+                transition: all ease-in 0.25s ;
+
+                &:hover  {
+                  color: var(--text_primary_hard);
+                  font-weight: 700;
+                }
             }
             .add  {
                 cursor: pointer;
@@ -158,6 +192,10 @@
               }
             }
         }
+
+        }
+
+
     }
 }
 
@@ -174,8 +212,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    // background-color: rgb(14, 13, 13);
-    background-color: var(--secondary);
+    background-color: var(--bg_primary);
     border: 1px solid var(--border_list);
     transition: ease 0.15s;
   
@@ -191,10 +228,11 @@
         color: var(--text_light);
       }
       .close-icon  {
-        color: var(--primary_dark);
+        color: var(--secondary_hard_dark);
         display: flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
   
         svg {
           font-size: 1.3rem;

@@ -11,7 +11,7 @@ import Avatar from "../../components/Account/Avatar/Avatar";
 import ModalEditPhoto from "../../components/Account/Avatar/ModalEditPhoto";
 
 const Account = () => {
-  const { setUserID, setUserInfos, setIsAuth, setIsLoggedIn } =
+  const { setUserID, setUserInfos, setIsAuth, setIsLoggedIn, userID } =
     useContext(UserContext);
 
   const { iconTheme } = useContext(AppContext);
@@ -52,7 +52,7 @@ const Account = () => {
   };
 
   useEffect(() => {
-    dispatch(getUserData());
+    dispatch(getUserData(userID));
   }, []);
 
   return (

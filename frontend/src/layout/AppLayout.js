@@ -11,7 +11,6 @@ import Footer from "../components/Footer/Footer";
 
 import AvatarNavLink from "../components/Navigation/AvatarNavLink";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
 import MobileNav from "../components/Navigation/MobileNav";
 
 const AppLayout = () => {

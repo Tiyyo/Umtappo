@@ -21,6 +21,8 @@ const validFilesTypes = [
   "image/PNG",
 ];
 
+const maxSize = 1024000; // octet
+
 const ModalEditPhoto = ({ isOpen, getStateModal }) => {
   const { userID } = useContext(UserContext);
 
@@ -45,6 +47,10 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
     } else {
       setErrorType("");
     }
+    if (file.size > maxSize) {
+      setErrorType("File must not exceded 1024 mo");
+    }
+    console.log(file.size);
     if (e.target.files && e.target.files.length > 0) {
       setSrcFile(file);
       const reader = new FileReader();
@@ -133,23 +139,27 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
     dispatch(updatePictures({ crop: imgCropLink, full: imgFullLink }));
   };
 
-  const prevFullImage = useSelector((state) => state.user.user.pictures.full);
+  const { full: prevFullImage } = useSelector((state) => {
+    if (state.user.user.pictures) {
+      return state.user?.user?.pictures;
+    } else return;
+  });
 
   return (
     <div
       className="modal-edit"
       style={isOpen ? { display: "flex" } : { display: "none" }}
     >
-      <div
-        className="modal-edit__close-btn"
-        onClick={() => getStateModal(false)}
-      >
-        <Button>
-          <CloseIcon />
-        </Button>
-      </div>
       <div className="modal-edit__blur">
         <div className="modal-edit__container">
+          <div
+            className="modal-edit__close-btn"
+            onClick={() => getStateModal(false)}
+          >
+            <Button>
+              <CloseIcon />
+            </Button>
+          </div>
           <div className="modal-edit__container__image">
             <ReactCrop
               crop={crop}
@@ -163,7 +173,7 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
                 <img src={imgSrc} alt="crop mep" ref={imgRef} />
               ) : (
                 <img
-                  src={prevFullImage}
+                  src={prevFullImage ? prevFullImage : ""}
                   alt="current avatar or picture uploaded"
                   ref={imgRef}
                 />
@@ -191,10 +201,9 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
               className="modal-edit__container__validate"
               onClick={handleSubmit}
               style={
-                isLoading
-                  ? { backgroundColor: "var(--button_loading)" }
-                  : { backgroundColor: "var(--primary_dark)" }
+                isLoading ? { backgroundColor: "var(--button_loading)" } : {}
               }
+              disabled={errorType.length > 0 ? true : false}
             >
               {isLoading ? (
                 <LoaderUI size={"1.1rem"} />
@@ -226,8 +235,12 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
             )}
           </div>
           <div className="modal-edit__container__error">
-            <ReportIcon />
-            {errorType && <p>{errorType}</p>}
+            {errorType && (
+              <>
+                <ReportIcon />
+                <p>{errorType}</p>
+              </>
+            )}
           </div>
         </div>
       </div>

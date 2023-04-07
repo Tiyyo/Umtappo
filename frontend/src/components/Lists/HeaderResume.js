@@ -1,12 +1,8 @@
 import React, { useContext } from "react";
 import AppContext from "../../utils/Context/AppContextProvider";
 import LoaderUI from "../Loader/LoaderUI";
-import { displayGenre } from "../MediaElement/display.genre";
 
 const HeaderResume = ({ content, typeList }) => {
-  let like = "like";
-  let watchlist = "whatchlist";
-
   // const { genreListMovie, genreListTv } = useContext(AppContext);
 
   // const displayLikedMediaGenre = (typeList) => {
