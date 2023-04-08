@@ -4,11 +4,17 @@ import defaultAvatar from "../../../assets/images/default_avatar.png";
 import { useSelector } from "react-redux";
 
 const Avatar = ({ getStateModal }) => {
-  const { crop: profileImage } = useSelector(
-    (state) => state.user.user.pictures
-  );
+  const pictures = useSelector((state) => {
+    return state.user.user.pictures;
+  });
 
-  // console.log(data);
+  console.log(pictures);
+
+  // const { crop: profileImage } = useSelector(
+  //   (state) => state.user.user.pictures
+  // );
+
+  const { crop: profileImage } = pictures;
 
   return (
     <div className="avatar-wrapper">

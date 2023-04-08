@@ -2,6 +2,7 @@
     &--header  {
     display: flex;
     justify-content: space-between;
+    color: var(--text);
 
     .watchlists-title  {
       display: flex;
@@ -20,11 +21,15 @@
     button {
       background-color: transparent;
       border: none;
+      color: var(--text);
     }
     
     }
 
     &--main{
+      &::-webkit-scrollbar  {
+        display: none;
+      }
       
  
 

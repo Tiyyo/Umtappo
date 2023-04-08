@@ -88,11 +88,17 @@ const Genre = (props) => {
             })
             .sort((a, b) => b.score - a.score)
             .slice(0, numberContainerToDisplay)
-            .map((genre) => (
-              <InfiniteHorizontalCarousel key={genre.id} genre={genre} />
+            .map((genre, index) => (
+              <InfiniteHorizontalCarousel
+                key={genre.id + index.toString()}
+                genre={genre}
+              />
             ))
-        : favoriteGenres.map((genre) => (
-            <InfiniteHorizontalCarousel key={genre.id} genre={genre} />
+        : favoriteGenres.map((genre, index) => (
+            <InfiniteHorizontalCarousel
+              key={genre.id + index.toString()}
+              genre={genre}
+            />
           ))}
     </div>
   );

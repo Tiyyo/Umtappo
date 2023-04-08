@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 import AppContext from "../../utils/Context/AppContextProvider";
 import { useDispatch, useSelector } from "react-redux";
-import ItemList from "./ItemList";
+import ItemList from "./ItemList/ItemList";
 import HeaderResume from "./HeaderResume";
 import { motion } from "framer-motion";
 

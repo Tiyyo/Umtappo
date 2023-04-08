@@ -73,8 +73,10 @@ const InfiniteCarousel = ({ genre }) => {
             animate={{ x: scrollXValue }}
             transition={{ ease: "easeInOut", duration: 1.5 }}
           >
-            {data.map((el) => {
-              return <MovieCard className="item" key={el.id} content={el} />;
+            {data.map((el, index) => {
+              return (
+                <MovieCard className="item" key={el.id + index} content={el} />
+              );
             })}
           </motion.div>
         </motion.div>
