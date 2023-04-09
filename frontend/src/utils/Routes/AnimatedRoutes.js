@@ -1,9 +1,6 @@
 import axios from "axios";
-
 import React, { useContext, useEffect } from "react";
-
 import { Route, Routes, useLocation, Navigate } from "react-router";
-
 import HomePage from "../../components/Authentification/Home/HomePage";
 import SignIn from "../../components/Authentification/SignIn/SignIn";
 import SignUp from "../../components/Authentification/SignUp/SignUp";
@@ -23,17 +20,12 @@ import SearchResult from "../../components/SearchResult/SearchResult";
 import Watchlist from "../../components/Lists/Watchlist";
 import Favorites from "../../pages/Favorites/Favorites";
 import Filter from "../../components/Lists/Filter";
-
 import { AnimatePresence } from "framer-motion";
-
 import ProtectedRoutes from "./ProtectedRoutes";
 import UserContext from "../Context/UserContextProvider";
-
 import { getCurrentUser } from "../../features/user/slice/user.slice";
 import { useDispatch } from "react-redux";
-import { reset } from "../../features/watchlists/Slice/resume.header";
 import Profile from "../../components/Account/Profile/Profile";
-import ModalOutlet from "../../components/MediaElement/ModalOutlet";
 
 const AnimatedRoutes = () => {
   const { setIsAuth, setIsLoggedIn, setUserID, setUserInfos } =
@@ -69,10 +61,6 @@ const AnimatedRoutes = () => {
   };
 
   useEffect(() => {
-    dispatch(reset());
-  }, [location]);
-
-  useEffect(() => {
     if (window.localStorage.accesToken) {
       setIsLoggedIn(true);
       auth(window.localStorage.accesToken);
@@ -86,40 +74,42 @@ const AnimatedRoutes = () => {
   return (
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
-        {/* <Route element={<ProtectedRoutes />}> */}
-        <Route path={"/"} element={<AppLayout />}>
-          <Route path={""} element={<Navigate to="/Home" />} />
-          <Route exact path={"Home"} element={<Home />}>
-            <Route path={":id"} element={<MediaElement />}></Route>
-            <Route path={":id/add_to_playlist"} element={<AddToWatchlist />} />
-          </Route>
-          <Route exact path="Favorites" element={<Favorites />}>
-            <Route path={""} element={<FavoritesResume />} />
-            <Route path={":listName"} element={<Watchlist />} />
-          </Route>
-          <Route exact path="Films" element={<Films />}>
-            <Route path={":id"} element={<MediaElement />} />
-          </Route>
+        <Route element={<ProtectedRoutes />}>
+          <Route path={"/"} element={<AppLayout />}>
+            <Route path={""} element={<Navigate to="/Home" />} />
+            <Route exact path={"Home"} element={<Home />}>
+              <Route path={":id"} element={<MediaElement />}></Route>
+              <Route
+                path={":id/add_to_playlist"}
+                element={<AddToWatchlist />}
+              />
+            </Route>
+            <Route exact path="Favorites" element={<Favorites />}>
+              <Route path={""} element={<FavoritesResume />} />
+              <Route path={":listName"} element={<Watchlist />} />
+            </Route>
+            <Route exact path="Films" element={<Films />}>
+              <Route path={":id"} element={<MediaElement />} />
+            </Route>
 
-          <Route eaxct path="TvShow" element={<TvShow />}>
-            <Route path={":id"} element={<MediaElement />} />
-          </Route>
-          <Route exact path="Search" element={<SearchResult />}>
-            <Route path={":id"} element={<MediaElement />} />
-          </Route>
-          {/* <Route path={`:id/:modalid`} element={<MediaElement />} /> */}
-          <Route
-            path={":id/:id/add_to_playlist"}
-            element={<AddToWatchlist />}
-          />
-          <Route path="Account" element={<Account />}>
-            <Route path={""} element={<Menu />} />
-            <Route path="Profile" element={<Profile />} />
-            <Route path="Preference" element={<Preference />} />
-            <Route path="Lists" element={<AccountWatchlist />} />
+            <Route eaxct path="TvShow" element={<TvShow />}>
+              <Route path={":id"} element={<MediaElement />} />
+            </Route>
+            <Route exact path="Search" element={<SearchResult />}>
+              <Route path={":id"} element={<MediaElement />} />
+            </Route>
+            <Route
+              path={":id/:id/add_to_playlist"}
+              element={<AddToWatchlist />}
+            />
+            <Route path="Account" element={<Account />}>
+              <Route path={""} element={<Menu />} />
+              <Route path="Profile" element={<Profile />} />
+              <Route path="Preference" element={<Preference />} />
+              <Route path="Lists" element={<AccountWatchlist />} />
+            </Route>
           </Route>
         </Route>
-        {/* </Route> */}
         <Route path={"/Login"} element={<LoginLayout />}>
           <Route path={""} element={<HomePage />} />
           <Route path="SignIn" element={<SignIn />} />

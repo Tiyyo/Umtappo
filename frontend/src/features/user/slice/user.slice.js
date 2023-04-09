@@ -3,10 +3,9 @@ import axios from "axios";
 
 export const getUserData = createAsyncThunk(
   "getUserData",
-  async (arg, { dispatch, getState, rejectWithValue }) => {
-    const user_id = getState().user.user.id;
+  async (userID, { rejectWithValue }) => {
     const result = await axios
-      .get("http://localhost:5000/user/" + arg)
+      .get("http://localhost:5000/user/" + userID)
       .then((res) => {
         return res.data;
       })
@@ -22,13 +21,12 @@ const userSlice = createSlice({
       id: null,
       username: null,
       email: null,
-      pictures: [],
+      pictures: null,
     },
     loading: "idle",
   },
   reducers: {
     getCurrentUser: (state, { payload }) => {
-      console.log(typeof payload);
       state.user.id = payload;
     },
     editEmail: (state, { payload }) => {
@@ -38,7 +36,7 @@ const userSlice = createSlice({
       state.user.username = payload;
     },
     clearUser: (state, { payload }) => {
-      state.user = "";
+      state.user = {};
     },
     updatePictures: (state, { payload }) => {
       state.user.pictures = payload;

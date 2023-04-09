@@ -16,8 +16,6 @@ import {
 } from "../../../features/tvshow liked/slice/like.slice";
 import axios from "axios";
 import { displayGenre } from "../../MediaElement/display.genre";
-import openItem from "./openItem";
-import closeItem from "./closeItem";
 import { AnimatePresence, motion, spring } from "framer-motion";
 
 const ItemList = ({ content, listID, typeList }) => {
@@ -92,15 +90,11 @@ const ItemList = ({ content, listID, typeList }) => {
     setOpenList(!openList);
   };
 
-  const getOpenState = (state) => {
-    console.log(state);
-  };
-
   return (
     <AnimatePresence>
       <motion.div
         className="item-list"
-        transition={{ layout: { duration: 1, type: spring } }}
+        transition={{ layout: { duration: 0.3, type: spring } }}
         exit={{ opacity: 0 }}
         layout
         data-position={openList ? "open" : "close"}
@@ -134,8 +128,8 @@ const ItemList = ({ content, listID, typeList }) => {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 1 }}
-                  exit={{ opacity: 0, y: -50 }}
+                  transition={{ duration: 0.2 }}
+                  exit={{ opacity: 0, y: 0, transform: "sclae(0)" }}
                   layout="position"
                 >
                   <div className="item-list__wrapper__infos__overview">
@@ -150,7 +144,8 @@ const ItemList = ({ content, listID, typeList }) => {
 
             <div className="item-list__wrapper__infos__attributes">
               <span className="item-list__wrapper__infos__attributes__type">
-                {content.media_type.toLowerCase() === "movie" ? (
+                {console.log(content)}
+                {/* {content.media_type ? (
                   <div>
                     <TheatersOutlinedIcon />
                     <span>{content.media_type}</span>
@@ -160,7 +155,7 @@ const ItemList = ({ content, listID, typeList }) => {
                     <TvOutlinedIcon />
                     <span>{content.media_type}</span>
                   </div>
-                )}
+                )} */}
               </span>
               <span> </span>
               <span className="item-list__wrapper__infos__attributes__year">

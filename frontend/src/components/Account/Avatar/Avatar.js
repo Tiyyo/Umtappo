@@ -1,25 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import defaultAvatar from "../../../assets/images/default_avatar.png";
 import { useSelector } from "react-redux";
 
 const Avatar = ({ getStateModal }) => {
-  const pictures = useSelector((state) => {
-    return state.user.user.pictures;
+  const profileImage = useSelector((state) => {
+    return state.user.user.pictures.crop;
   });
-
-  console.log(pictures);
-
-  // const { crop: profileImage } = useSelector(
-  //   (state) => state.user.user.pictures
-  // );
-
-  const { crop: profileImage } = pictures;
 
   return (
     <div className="avatar-wrapper">
       <div className="avatar">
-        <img src={profileImage ? profileImage : defaultAvatar} alt="avatar" />
+        <img
+          src={profileImage ? profileImage : defaultAvatar}
+          alt="user profile picture"
+        />
       </div>
       <div className="edit" onClick={() => getStateModal(true)}>
         <ModeEditIcon fontSize="10px" />

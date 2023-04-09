@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import AppContext from "../../utils/Context/AppContextProvider";
 import SimilarContent from "./SimilarContent";
 import Casts from "./Casts";
@@ -40,29 +40,17 @@ const MediaElement = () => {
 
   const [loading, setLoading] = useState(true);
 
-  const {
-    data,
-    isLoading: isLoadingMain,
-    isSuccess: isSuccessMain,
-  } = useGetInfosModalQuery({ params });
+  const { data, isLoading: isLoadingMain } = useGetInfosModalQuery({ params });
 
-  const {
-    currentData: videos,
-    isLoading: isLoadingVideo,
-    isSucces: isSuccessVideo,
-  } = useGetVideosQuery({ params });
+  const { currentData: videos, isLoading: isLoadingVideo } = useGetVideosQuery({
+    params,
+  });
 
-  const {
-    currentData: credits,
-    isLoading: isLoadingCredits,
-    isSuccess: isSuccessCredits,
-  } = useGetCreditsQuery({ params });
+  const { currentData: credits, isLoading: isLoadingCredits } =
+    useGetCreditsQuery({ params });
 
-  const {
-    currentData: similars,
-    isLoading: isLoadingSimilars,
-    isSuccess: isSuccessSimilars,
-  } = useGetSimilarsQuery({ params });
+  const { currentData: similars, isLoading: isLoadingSimilars } =
+    useGetSimilarsQuery({ params });
 
   useEffect(() => {
     let arr = [isLoadingMain, isLoadingCredits, isLoadingSimilars];
@@ -73,7 +61,7 @@ const MediaElement = () => {
     dispatch(getIdsMoviesLiked(userID));
     dispatch(getIdsTvshowsLiked(userID));
     dispatch(getRating(userID));
-  }, []);
+  }, [userID]);
 
   return (
     <div className="modal-content__wrapper">

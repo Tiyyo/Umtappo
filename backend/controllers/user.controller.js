@@ -66,8 +66,6 @@ module.exports.loginUser = asyncHandler(async (req, res) => {
     res.status(401).send("Email or Password is not valid");
     throw new Error("Email or Password is not valid");
   }
-
-  // res.json({ message: "User Logged IN" });
 });
 
 //@desc Current user info

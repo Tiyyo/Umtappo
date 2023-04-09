@@ -9,14 +9,12 @@ import { Link } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
 import SocialAuth from "../SocialAuth";
 import Header from "../Header";
 import InputSubmit from "../InputSubmit";
 import Input from "../Input";
 import InputPassword from "../InputPassword";
 
-import { getCurrentUser } from "../../../features/user/slice/user.slice";
 function SignIn() {
   const {
     register,
@@ -25,7 +23,6 @@ function SignIn() {
   } = useForm();
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const { setIsLoggedIn, setUserID, setUserInfos, setIsAuth } =
     useContext(UserContext);
@@ -35,7 +32,6 @@ function SignIn() {
     isError: false,
     value: "",
   });
-  const [accessToken, setAccessToken] = useState(null);
 
   async function user(data) {
     await axios
@@ -46,14 +42,12 @@ function SignIn() {
       .then((res) => {
         if (res.status === 200) {
           setError({ ...error, isError: false });
-          setAccessToken(res.data.accessToken);
-          window.localStorage.setItem("accesToken", accessToken);
+          window.localStorage.setItem("accesToken", res.data.accessToken);
           setIsLoggedIn(true);
-          auth(accessToken);
+          auth(res.data.accessToken);
         }
       })
       .catch((err) => {
-        console.log(err.response);
         if (err.response.status === 401 || 400) {
           setError({ ...error, isError: true, value: err.response.data });
           setIsAuth(false);
@@ -71,13 +65,15 @@ function SignIn() {
         },
       })
       .then((res) => {
+        console.log(res);
         if (res.status === 200) {
+          const userInfos = {
+            username: res.data.username,
+            email: res.data.email,
+            password: res.data.password,
+          };
           setUserID(res?.data?.id);
-          setUserInfos({
-            username: res?.data.username,
-            email: res?.data?.email,
-            password: res?.data?.password,
-          });
+          setUserInfos(userInfos);
           setIsAuth(true);
           toast.success("Login Succesfully", {
             position: "top-center",
@@ -89,7 +85,6 @@ function SignIn() {
             progress: 0,
             theme: "dark",
             icon: false,
-            // transition: Flip,
           });
           navigate("/home");
         } else {

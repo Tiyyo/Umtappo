@@ -39,7 +39,7 @@ const MovieCard = ({ content }) => {
             />
           </button>
         </div>
-        <Link to={idString} state={{ content }}>
+        <Link preventScrollReset={true} to={idString} state={{ content }}>
           <div className="movie-card__image--container">
             <p className="movie-card__image--container__type">
               {displayTypeIcon(content.media_type)}

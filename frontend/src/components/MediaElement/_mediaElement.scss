@@ -5,6 +5,9 @@
     align-items: flex-start;
     justify-content: center;
     z-index: 5;
+    max-height: 100dvh;
+    overflow: scroll;
+
 
     .blur  {
             position: fixed;

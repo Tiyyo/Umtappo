@@ -11,6 +11,7 @@ import UserContext from "../../../utils/Context/UserContextProvider";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePictures } from "../../../features/user/slice/user.slice";
 import LoaderUI from "../../Loader/LoaderUI";
+import { splitGenerateLink } from "./split.link";
 
 const validFilesTypes = [
   "image/jpg",
@@ -50,7 +51,7 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
     if (file.size > maxSize) {
       setErrorType("File must not exceded 1024 mo");
     }
-    console.log(file.size);
+
     if (e.target.files && e.target.files.length > 0) {
       setSrcFile(file);
       const reader = new FileReader();
