@@ -13,7 +13,7 @@
     padding : 5% 2% 0 2%;
     color : var(--text);
     font-family: 'Lato', sans-serif;
-    font-size: 62.5%;
+    font-size: 70%;
 
     @include respond-to('medium') {
       font-size: 85%;
@@ -162,7 +162,7 @@
         
         &__attributes  {
           display: flex;
-          align-items: center;
+          align-items: last baseline;
           padding: 5px 0;
           column-gap: 5%;
           align-self: flex-start;
@@ -225,11 +225,13 @@
     align-items: center;
     border-radius: 0.5rem;
     flex-shrink: 1;
+    width: fit-content;
     
     
     &__close-icon  {
       align-self: flex-end;
       padding-bottom: 0.1rem;
+
       svg {
         font-size: 1.05rem;
         color: var(--text);

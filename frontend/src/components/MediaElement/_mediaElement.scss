@@ -1,40 +1,39 @@
 .modal-content__wrapper  {
-    position: sticky;
-    top: 2vh;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100%;
     z-index: 5;
-    max-height: 100dvh;
-    overflow: scroll;
-
+    background-color: rgba(108, 81, 81, 0.064);
 
     .blur  {
-            position: fixed;
-            z-index: 1;
+            position: absolute;
             top: 0;
-            left: 0;
-            width: 100%;
+            overflow-y: scroll;
+            overflow-x: hidden;
             height: 100vh;
-            background-color: rgba(29, 27, 27, 0.249);
+            cursor: pointer;
+            z-index: 1;
+            width: 100vw;
+            background-color: rgba(0, 0, 0, 0.476);
             backdrop-filter: blur(7px);
             filter: blur(0);
-            
+            animation: opacityIn 400ms ease-in 1;
+
         }
         
         &__media-element {
-        // padding: $heightTopNav 0.5rem $heightTopNav  0.5rem;
-        overflow-y: scroll; 
+        margin: 2.5em auto;
+        width: 90%;
+        max-width: 70rem;
+        background-color: var(--bg_primary_soft_opacity);
+        border: 2px solid rgba(1, 84, 84, 0.349);
+        border-radius: 12px;
         font-family: 'Lato', sans-serif;
         color: var(--text);
         line-height: 1.6;
-        z-index: 3;
-        margin: 0 auto;
-        max-width: 60rem;
-        border-radius: 12px;
-        padding: 1em 0.5em;
-        background-color: var(--bg_primary_soft_opacity);
-        border: 2px solid rgba(1, 84, 84, 0.349);
+        padding: 1em 0.5em 3em 0.5em;
+
         &::-webkit-scrollbar {
             display: none;
         }
@@ -220,20 +219,23 @@
             justify-content: center;
             align-items: center;
             gap: 0.4em;
-           
-    
-            img {
+
+            .image-wrapper {
                 aspect-ratio: 2/3;
                 width: 22%;
-                object-fit: cover;
-                border-radius: 9px;
 
                 @include respond-to ('medium') {
-                width: 15%;
-                }
-                @include respond-to ('large') {
-                width: 7%;
-                }
+                    width: 15%;
+                    }
+                    @include respond-to ('large') {
+                    width: 7%;
+                    }
+            }
+           
+            img {
+                object-fit: cover;
+                border-radius: 9px;
+                width: 100%;
             }
            }
         }

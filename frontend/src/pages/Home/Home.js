@@ -8,7 +8,6 @@ import Promoted from "../../components/Container/Promoted/Promoted";
 import Spacer from "../../components/Container/HeaderHome/Spacer";
 import { HomeContextProvider } from "../../utils/Context/HomeContextProvider";
 import AppContext from "../../utils/Context/AppContextProvider";
-import Footer from "../../components/Footer/Footer";
 import {
   useGetAllTrendsQuery,
   useGetLastReleaseMovieQuery,

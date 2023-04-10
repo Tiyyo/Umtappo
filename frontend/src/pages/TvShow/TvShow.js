@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-
 import TrendsBanner from "../../components/Container/Trends/TrendsBanner";
 import HorizontalCarousel from "../../components/Container/HorizontalCarousel/HorizontalCarousel";
 import Promoted from "../../components/Container/Promoted/Promoted";
 import Genre from "../../components/Container/Genre/Genre";
 import AppContext from "../../utils/Context/AppContextProvider";
 import LoaderUI from "../../components/Loader/LoaderUI";
-import Footer from "../../components/Footer/Footer";
-
 import {
   useGetLastReleaseTvshowQuery,
   useGetPromotedTvshowQuery,

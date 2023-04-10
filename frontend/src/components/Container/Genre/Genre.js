@@ -22,7 +22,6 @@ const Genre = (props) => {
   const favoriteGenre = useRef([]);
 
   const [favoriteGenres, setFavoriteGenres] = useState([]);
-
   const { scores } = useRecommendations();
 
   const addType = (list, mediaType) => {

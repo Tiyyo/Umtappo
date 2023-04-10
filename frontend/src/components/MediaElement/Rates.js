@@ -9,7 +9,7 @@ const Rates = ({ votes, title, media_type, id }) => {
   const { isRated, rate: prevRate } = useRating(id, media_type);
 
   const getCloseState = (state) => {
-    setIsOpen(false);
+    setIsOpen(state);
   };
 
   return (

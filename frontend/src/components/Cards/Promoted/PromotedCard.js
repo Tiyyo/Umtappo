@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { imagePath } from "../../../utils/function/image.path";
 import AppContext from "../../../utils/Context/AppContextProvider";
+import LazyLoad from "react-lazy-load";
 
 const PromotedCard = ({ content }) => {
   const { config } = useContext(AppContext);
@@ -8,19 +10,15 @@ const PromotedCard = ({ content }) => {
   return (
     <div className="promoted-card">
       <div className="promoted-card__banner">
-        <img
-          src={
-            config.base_url + config.backdrop_sizes[1] + content.backdrop_path
-          }
-          alt="banner"
-        />
+        <LazyLoad>
+          <img src={imagePath(config, "backdrop", content, 1)} alt="banner" />
+        </LazyLoad>
       </div>
       <Link to={content.id.toString()} state={{ content }}>
         <div className="promoted-card__poster">
-          <img
-            src={config.base_url + config.logo_sizes[1] + content.poster_path}
-            alt="poster"
-          />
+          <LazyLoad>
+            <img src={imagePath(config, "logo", content, 1)} alt="poster" />
+          </LazyLoad>
         </div>
       </Link>
       <div className="promoted-card__infos">

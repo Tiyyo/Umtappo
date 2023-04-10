@@ -9,22 +9,20 @@ import { Provider } from "react-redux";
 import listsReducer from "./features/watchlists/Slice/lists.slice";
 import userReducer from "./features/user/slice/user.slice";
 import ratingReducer from "./features/rating/slice/rating.slice";
-import headerResumeReducer from "./features/watchlists/Slice/resume.header";
 import movieLikedReducer from "./features/movie liked/Slice/likes.slice";
 import tvshowLikedReducer from "./features/tvshow liked/slice/like.slice";
 import { tmdbAPI } from "./features/content/tmdbAPI";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { getDefaultNormalizer } from "@testing-library/react";
-import mediaModalReducer from "./features/content/Slice/modalMedia.slice";
+import displayContentModalReducer from "./features/modal display content/modal.display.content";
 
 const store = configureStore({
   reducer: {
     user: userReducer,
     lists: listsReducer,
     rating: ratingReducer,
-    header_resume: headerResumeReducer,
     movieLiked: movieLikedReducer,
     tvshowLiked: tvshowLikedReducer,
+    displayContentModal: displayContentModalReducer,
     [tmdbAPI.reducerPath]: tmdbAPI.reducer,
   },
   middleware: (getDefaultMiddleware) =>

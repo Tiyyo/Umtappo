@@ -29,11 +29,8 @@ const SearchResult = () => {
     [loading, hasMore]
   );
 
-  function imagePathBanner(content, int) {
-    return config.base_url + config.backdrop_sizes[int] + content.backdrop_path;
-  }
-  function imagePathPoster(content, int) {
-    return config.base_url + config.poster_sizes[int] + content.poster_path;
+  function imagePathLogo(content, int) {
+    return config.base_url + config.logo_sizes[int] + content.poster_path;
   }
 
   useEffect(() => {
@@ -58,11 +55,7 @@ const SearchResult = () => {
                 >
                   {config && content.poster_path ? (
                     <img
-                      src={
-                        config.base_url +
-                        config.logo_sizes[3] +
-                        content.poster_path
-                      }
+                      src={imagePathLogo(content, 3)}
                       alt={"poster of " + content.name || content.title}
                       ref={lastContentRef}
                     />
@@ -85,11 +78,7 @@ const SearchResult = () => {
                 >
                   {config && content.poster_path ? (
                     <img
-                      src={
-                        config.base_url +
-                        config.logo_sizes[3] +
-                        content.poster_path
-                      }
+                      src={imagePathLogo(content, 3)}
                       alt={"poster of " + content.name || content.title}
                     />
                   ) : (

@@ -4,12 +4,7 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 
 // nextSibling have to be inner carousel to work that way
 
-const NavCarousel = ({
-  innerCarousel,
-  width,
-  getScrollPosition,
-  scrollValue,
-}) => {
+const NavCarousel = ({ width, getScrollPosition, scrollValue }) => {
   const [firstCardIsVisble, setFirstCardIsVisible] = useState(null);
   const [lastCardIsVisble, setLastCardIsVisible] = useState(null);
 
@@ -21,23 +16,19 @@ const NavCarousel = ({
   // @param  navWay = "prev" || "next"
 
   function isVisible(child, navWay) {
-    console.log(carousel);
-    console.log(
-      window.getComputedStyle(carousel.current.nextSibling).transform
-    );
     let startingState = window.getComputedStyle(
       carousel.current.nextSibling
     ).transform;
 
     if (carousel.current.nextSibling.children) {
       const observer = new IntersectionObserver(([entry]) => {
-        if (navWay === "prev") {
+        if (navWay === prev) {
           if (entry && entry.isIntersecting) {
             setFirstCardIsVisible(true);
           } else {
             setFirstCardIsVisible(false);
           }
-        } else if (navWay === "next") {
+        } else if (navWay === next) {
           if (entry && entry.isIntersecting) {
             setLastCardIsVisible(true);
           } else {
@@ -68,7 +59,6 @@ const NavCarousel = ({
   }
 
   function handlePrevClick() {
-    console.log(firstCardIsVisble);
     var firstChild = carousel.current.nextSibling.children[0];
     isVisible(firstChild, prev);
     if (firstCardIsVisble === null) {

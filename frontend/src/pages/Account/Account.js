@@ -14,8 +14,6 @@ const Account = () => {
   const { setUserID, setUserInfos, setIsAuth, setIsLoggedIn, userID } =
     useContext(UserContext);
 
-  const { iconTheme } = useContext(AppContext);
-
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -38,7 +36,7 @@ const Account = () => {
     dispatch(clearUser());
     navigate("/Login");
 
-    return alert("You are now logOut !");
+    return alert("You are now logout !");
   };
 
   const { username } = useSelector((state) => state.user.user);

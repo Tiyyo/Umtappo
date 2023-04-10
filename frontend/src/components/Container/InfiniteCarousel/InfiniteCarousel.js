@@ -26,7 +26,6 @@ const InfiniteCarousel = ({ genre }) => {
 
   const carousel = useRef();
   const innerCarousel = useRef();
-  const windowWidth = useRef([window.innerWidth]);
 
   const displayType = (media_type) => {
     if (media_type === "tv") {

@@ -3,9 +3,9 @@ import axios from "axios";
 
 export const getLists = createAsyncThunk(
   "getLists",
-  async (arg, { dispatch, getState }) => {
+  async (user_id, { dispatch, getState }) => {
     const result = await axios
-      .get("http://localhost:5000/list/" + arg)
+      .get("http://localhost:5000/list/" + user_id)
       .then((res) => {
         return res.data;
       });

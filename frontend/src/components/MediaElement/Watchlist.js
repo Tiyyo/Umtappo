@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   getLists,
   deleteList,
@@ -8,9 +8,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
 import { toast } from "react-toastify";
+import UserContext from "../../utils/Context/UserContextProvider";
 
 const Watchlist = ({ list, content }) => {
   const dispatch = useDispatch();
+  const { userID } = useContext(UserContext);
 
   const removeList = (_id) => {
     let objectID = { _id };
@@ -36,10 +38,9 @@ const Watchlist = ({ list, content }) => {
             draggable: false,
             progress: undefined,
             theme: "dark",
-            // transition: Flip,
           });
           dispatch(addContent(data));
-          dispatch(getLists());
+          dispatch(getLists(userID));
         }
         if (res.status === 422) {
           toast.info("Already added to this list");

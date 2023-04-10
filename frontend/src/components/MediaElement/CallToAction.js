@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ThemeProvider } from "@mui/material";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import ShareIcon from "@mui/icons-material/Share";
 import AddIcon from "@mui/icons-material/Add";
-import { Link, Outlet } from "react-router-dom";
-import AppContext from "../../utils/Context/AppContextProvider";
+import { Link } from "react-router-dom";
 import {
   likeMovie,
   dislikeMovie,
@@ -14,21 +12,20 @@ import {
   likeTvshow,
   dislikeTvshow,
 } from "../../features/tvshow liked/slice/like.slice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import useIsLiked from "./useIsLiked";
 import UserContext from "../../utils/Context/UserContextProvider";
 import Button from "../Button/Button";
 
 const CallToAction = ({ media_type, id, content }) => {
-  const { iconTheme } = useContext(AppContext);
   const { userID } = useContext(UserContext);
 
   const [isLiked, setIsLiked] = useState(false);
 
   const dispatch = useDispatch();
 
-  const isAlreadyLiked = useIsLiked(media_type, id);
+  const isAlreadyLiked = useIsLiked(media_type, id); // too loog
 
   useEffect(() => {
     if (isAlreadyLiked) {
@@ -37,11 +34,16 @@ const CallToAction = ({ media_type, id, content }) => {
   }, [isAlreadyLiked]);
 
   let movieType = "movie";
-  let tvshowType = "tv";
 
-  const addToFavorite = () => {
-    setIsLiked(!isLiked);
-  };
+  function handleClick() {
+    if (isLiked) {
+      removeFromLikes(media_type);
+      setIsLiked(false);
+    } else {
+      addToLikes(media_type);
+      setIsLiked(true);
+    }
+  }
 
   const addToLikes = async (media_type) => {
     const data = { user_id: userID, content_id: id, media_type };
@@ -77,43 +79,28 @@ const CallToAction = ({ media_type, id, content }) => {
     return result;
   };
 
-  useEffect(() => {
-    if (isLiked) {
-      media_type === movieType ? addToLikes(movieType) : addToLikes(tvshowType);
-    } else {
-      media_type === tvshowType
-        ? removeFromLikes(movieType)
-        : removeFromLikes(tvshowType);
-    }
-  }, [isLiked]);
-
   return (
     <div className="modal-content__wrapper__media-element__call-to-action">
-      <Outlet />
-      <ThemeProvider theme={iconTheme}>
-        <div
-          className="modal-content__wrapper__media-element__call-to-action__favorite"
-          onClick={() => {
-            addToFavorite();
-          }}
-        >
-          <Button>{isLiked ? <BookmarkIcon /> : <BookmarkBorderIcon />}</Button>
-        </div>
-        <div className="modal-content__wrapper__media-element__call-to-action__add-to">
-          <Link to="add_to_playlist" state={{ content }}>
-            <Button>
-              <AddIcon />
-            </Button>
-          </Link>
-        </div>
-        <div className="modal-content__wrapper__media-element__call-to-action__share">
-          <Link to={"modal"}>
-            <Button>
-              <ShareIcon />
-            </Button>
-          </Link>
-        </div>
-      </ThemeProvider>
+      <div
+        className="modal-content__wrapper__media-element__call-to-action__favorite"
+        onClick={handleClick}
+      >
+        <Button>{isLiked ? <BookmarkIcon /> : <BookmarkBorderIcon />}</Button>
+      </div>
+      <div className="modal-content__wrapper__media-element__call-to-action__add-to">
+        <Link to="add_to_playlist" state={{ content }}>
+          <Button>
+            <AddIcon />
+          </Button>
+        </Link>
+      </div>
+      <div className="modal-content__wrapper__media-element__call-to-action__share">
+        <Link to={"modal"}>
+          <Button>
+            <ShareIcon />
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 };

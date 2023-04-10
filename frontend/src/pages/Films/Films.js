@@ -5,7 +5,6 @@ import Genre from "../../components/Container/Genre/Genre";
 import Promoted from "../../components/Container/Promoted/Promoted";
 import LoaderUI from "../../components/Loader/LoaderUI";
 import AppContext from "../../utils/Context/AppContextProvider";
-import Footer from "../../components/Footer/Footer";
 import {
   useGetLastReleaseMovieQuery,
   useGetPopularMovieQuery,
@@ -20,22 +19,14 @@ const Films = () => {
 
   const [mainIsLoading, setMainIsLoading] = useState(true);
 
-  const recommendationsMoviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&sort_by=vote_average.desc&include_adult=false&include_video=false&page=1&vote_count.gte=5000&vote_average.gte=8&with_watch_monetization_types=flatrate`;
-
   const { data: promotedMovies, isLoading: isLoadingPromotedMovie } =
     useGetPromotedMovieQuery(languages, promotedElementPageNumber);
   const { data: lastReleaseMovies, isLoading: isloadingLastReleaseMovie } =
     useGetLastReleaseMovieQuery(languages);
   const { data: upcomingMovies, isLoading: isLoadingUpcomingMovie } =
     useGetUpcomingMovieQuery(languages);
-  const {
-    data: popularMovies,
-    isLoading: isLoadingPopularMovies,
-    isFetching,
-    isError,
-    error,
-    isSuccess: isSuccessPopularMovie,
-  } = useGetPopularMovieQuery(languages);
+  const { data: popularMovies, isLoading: isLoadingPopularMovies } =
+    useGetPopularMovieQuery(languages);
 
   useEffect(() => {
     let arr = [
@@ -62,7 +53,6 @@ const Films = () => {
     if (mainDiv.current) {
       const observer = new IntersectionObserver(
         ([entry]) => {
-          console.log(entry);
           if (!entry.isIntersecting) {
             setNavIsIntersect(true);
           } else if (entry.isIntersecting) {

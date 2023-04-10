@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const useRating = (id, media_type) => {
-  const dispatch = useDispatch();
-
   const { rates, loading } = useSelector((state) => state.rating);
 
   const [rate, setRate] = useState(null);

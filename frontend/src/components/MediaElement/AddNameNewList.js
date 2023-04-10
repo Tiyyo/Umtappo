@@ -27,7 +27,7 @@ const AddNameNewList = ({ isOpen, getCloseState, content }) => {
       .post("http://localhost:5000/list", data)
       .then((res) => {
         dispatch(createList(data));
-        dispatch(getLists());
+        dispatch(getLists(userID));
       })
       .catch((err) => console.log(err))
       .finally(() => {

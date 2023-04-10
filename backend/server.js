@@ -25,6 +25,7 @@ app.use("/user", require("./routes/user.routes"));
 app.use("/list", require("./routes/list.routes"));
 app.use("/like", require("./routes/likes.routes"));
 app.use("/rate", require("./routes/rates.routes"));
+app.use("/recommendations", require("./routes/recommendations.routes"));
 // app.use(express.static(path.join(__dirname, "client", "build")));
 app.get("/s3Url", async (req, res) => {
   const url = await s3.generateUploadURL();

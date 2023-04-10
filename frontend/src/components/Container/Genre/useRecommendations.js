@@ -31,9 +31,13 @@ const useRecommendations = () => {
   const [scores, setScores] = useState(null);
 
   const getListData = () => {
+    console.log(lists.lists);
     if (lists.lists.length > 0) {
       let dataFromList = lists.lists
-        .map((el) => el.content)
+        .map((el) => {
+          console.log(el.content);
+          return el.content;
+        })
         .reduce((prev, curr) => {
           return [...prev, ...curr];
         }, [])

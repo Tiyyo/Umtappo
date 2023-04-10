@@ -1,23 +1,15 @@
-import { useContext } from "react";
 import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
 import DynamicRating from "../../MediaElement/DynamicRating";
-import TheatersOutlinedIcon from "@mui/icons-material/TheatersOutlined";
-import TvOutlinedIcon from "@mui/icons-material/TvOutlined";
 import HideImageIcon from "@mui/icons-material/HideImage";
 import { Link } from "react-router-dom";
+import { displayTypeIcon } from "./display.type.icon";
+import { useContext } from "react";
 import AppContext from "../../../utils/Context/AppContextProvider";
+import { imagePath } from "../../../utils/function/image.path";
+import LazyLoad from "react-lazy-load";
 
 const MovieCard = ({ content }) => {
-  var movieType = "movie";
   const { config } = useContext(AppContext);
-
-  const displayTypeIcon = (entries) => {
-    if (entries === movieType) {
-      return <TheatersOutlinedIcon sx={{ fontSize: "0.8rem" }} />;
-    } else {
-      return <TvOutlinedIcon sx={{ fontSize: "0.8rem" }} />;
-    }
-  };
 
   let idString = content.id.toString();
 
@@ -39,22 +31,21 @@ const MovieCard = ({ content }) => {
             />
           </button>
         </div>
-        <Link preventScrollReset={true} to={idString} state={{ content }}>
+        <Link to={idString} state={{ content }}>
           <div className="movie-card__image--container">
             <p className="movie-card__image--container__type">
               {displayTypeIcon(content.media_type)}
             </p>
-
-            {config && content.poster_path ? (
-              <img
-                src={
-                  config.base_url + config.poster_sizes[3] + content.poster_path
-                }
-                alt={"poster of " + content.title}
-              />
+            {content.poster_path ? (
+              <LazyLoad>
+                <img
+                  src={imagePath(config, "poster", content, 3)}
+                  alt={"poster of " + content.title}
+                />
+              </LazyLoad>
             ) : (
               <div className="movie-card__image--container__default--image">
-                <HideImageIcon size="large" sx={{ color: "#fb8c00" }} />
+                <HideImageIcon size="large" />
               </div>
             )}
           </div>

@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updatePictures } from "../../../features/user/slice/user.slice";
 import LoaderUI from "../../Loader/LoaderUI";
 import { splitGenerateLink } from "./split.link";
+import useSelectedFiles from "./useSelectedFiles";
 
 const validFilesTypes = [
   "image/jpg",
@@ -30,41 +31,38 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
   const dispatch = useDispatch();
 
   const previewCanvasRef = useRef(null);
-  const [imgSrc, setImgSrc] = useState("");
+  // const [imgSrc, setImgSrc] = useState("");
   const [crop, setCrop] = useState();
   const imgRef = useRef(null);
-  const [srcFile, setSrcFile] = useState(null);
+  // const [srcFile, setSrcFile] = useState(null);
 
   const [completeCrop, setCompleteCrop] = useState(null);
-  const [errorType, setErrorType] = useState("");
+  // const [errorType, setErrorType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [file, setFile] = useState(null);
 
-  const handleSelectFile = (e) => {
-    const file = e.target.files[0];
+  // const handleSelectFile = (e) => {
+  //   const file = e.target.files[0];
 
-    if (!validFilesTypes.find((type) => type === file.type)) {
-      setErrorType("File must be an png or jpg type");
-      return;
-    } else {
-      setErrorType("");
-    }
-    if (file.size > maxSize) {
-      setErrorType("File must not exceded 1024 mo");
-    }
+  //   if (!validFilesTypes.find((type) => type === file.type)) {
+  //     setErrorType("File must be an png or jpg type");
+  //     return;
+  //   } else {
+  //     setErrorType("");
+  //   }
+  //   if (file.size > maxSize) {
+  //     setErrorType("File must not exceded 1024 mo");
+  //   }
 
-    if (e.target.files && e.target.files.length > 0) {
-      setSrcFile(file);
-      const reader = new FileReader();
-      reader.addEventListener("load", () =>
-        setImgSrc(reader.result?.toString() || "")
-      );
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const splitGenerateLink = (link) => {
-    return link.split("?")[0];
-  };
+  //   if (e.target.files && e.target.files.length > 0) {
+  //     setSrcFile(file);
+  //     const reader = new FileReader();
+  //     reader.addEventListener("load", () =>
+  //       setImgSrc(reader.result?.toString() || "")
+  //     );
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
   useEffect(() => {
     if (
@@ -81,70 +79,73 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
     }
   }, [completeCrop]);
 
-  const handleSubmit = async () => {
-    setIsLoading(true);
-    const endpoint = "http://localhost:5000/s3Url";
-    const generateLink = axios.get(endpoint);
+  // const handleSubmit = async () => {
+  //   setIsLoading(true);
+  //   const endpoint = "http://localhost:5000/s3Url";
+  //   const generateLink = axios.get(endpoint);
 
-    const { urlCropImage, urlFullImage } = await axios
-      .all([generateLink, generateLink])
-      .then(
-        axios.spread((res1, res2) => {
-          return { urlCropImage: res1.data.url, urlFullImage: res2.data.url };
-        })
-      );
+  //   const { urlCropImage, urlFullImage } = await axios
+  //     .all([generateLink, generateLink])
+  //     .then(
+  //       axios.spread((res1, res2) => {
+  //         return { urlCropImage: res1.data.url, urlFullImage: res2.data.url };
+  //       })
+  //     );
 
-    await fetch(urlFullImage, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      body: srcFile,
-    }).then(() => console.log("full image uploaded succesfully"));
+  //   await fetch(urlFullImage, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "multipart/form-data",
+  //     },
+  //     body: srcFile,
+  //   }).then(() => console.log("full image uploaded succesfully"));
 
-    if (!previewCanvasRef.current) {
-      throw new Error("Crop canvas does not exist");
+  //   if (!previewCanvasRef.current) {
+  //     throw new Error("Crop canvas does not exist");
+  //   }
+
+  //   let blob = await new Promise((resolve) =>
+  //     previewCanvasRef.current.toBlob(resolve)
+  //   );
+
+  //   let imageCrop = new File([blob], "user_profile_crop.png", {
+  //     type: "image/png",
+  //   });
+
+  //   await fetch(urlCropImage, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "multipart/form-data",
+  //     },
+  //     body: imageCrop,
+  //   }).then((res) => console.log(res));
+  //   const imgFullLink = splitGenerateLink(urlFullImage);
+  //   const imgCropLink = splitGenerateLink(urlCropImage);
+
+  //   await axios
+  //     .put("http://localhost:5000/user/image", {
+  //       user_id: userID,
+  //       imgFullLink,
+  //       imgCropLink,
+  //     })
+  //     .then(() => {
+  //       console.log("end");
+  //       setIsLoading(false);
+  //       getStateModal(false);
+  //     })
+  //     .catch((err) => console.log(err.response.data));
+
+  //   dispatch(updatePictures({ crop: imgCropLink, full: imgFullLink }));
+  // };
+
+  const pictures = useSelector((state) => state.user.user.pictures);
+  const prevFullImage = pictures?.full;
+
+  function getFile(e) {
+    if (e.target.files && e.target.files.length > 0) {
+      return setFile(e.target.files[0]);
     }
-
-    let blob = await new Promise((resolve) =>
-      previewCanvasRef.current.toBlob(resolve)
-    );
-
-    let imageCrop = new File([blob], "user_profile_crop.png", {
-      type: "image/png",
-    });
-
-    await fetch(urlCropImage, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      body: imageCrop,
-    }).then((res) => console.log(res));
-    const imgFullLink = splitGenerateLink(urlFullImage);
-    const imgCropLink = splitGenerateLink(urlCropImage);
-
-    await axios
-      .put("http://localhost:5000/user/image", {
-        user_id: userID,
-        imgFullLink,
-        imgCropLink,
-      })
-      .then(() => {
-        console.log("end");
-        setIsLoading(false);
-        getStateModal(false);
-      })
-      .catch((err) => console.log(err.response.data));
-
-    dispatch(updatePictures({ crop: imgCropLink, full: imgFullLink }));
-  };
-
-  const { full: prevFullImage } = useSelector((state) => {
-    if (state.user.user.pictures) {
-      return state.user?.user?.pictures;
-    } else return;
-  });
+  }
 
   return (
     <div
@@ -161,7 +162,7 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
               <CloseIcon />
             </Button>
           </div>
-          <div className="modal-edit__container__image">
+          {/* <div className="modal-edit__container__image">
             <ReactCrop
               crop={crop}
               aspect={1}
@@ -180,7 +181,7 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
                 />
               )}
             </ReactCrop>
-          </div>
+          </div> */}
           <div className="modal-edit__container__action">
             <label
               htmlFor="pickProfileImage"
@@ -196,9 +197,12 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
               id="pickProfileImage"
               hidden
               className="modal-edit__container__input-file"
-              onChange={(e) => handleSelectFile(e)}
+              onChange={(e) => {
+                // handleSelectFile(e);
+                return getFile(e);
+              }}
             />
-            <button
+            {/* <button
               className="modal-edit__container__validate"
               onClick={handleSubmit}
               style={
@@ -215,8 +219,8 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
                   <span>Confirm</span>
                 </>
               )}
-            </button>
-            {!!completeCrop && (
+            </button> */}
+            {/* {!!completeCrop && (
               <>
                 <div>
                   <canvas
@@ -233,16 +237,16 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
                   />
                 </div>
               </>
-            )}
+            )} */}
           </div>
-          <div className="modal-edit__container__error">
+          {/* <div className="modal-edit__container__error">
             {errorType && (
               <>
                 <ReportIcon />
                 <p>{errorType}</p>
               </>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
