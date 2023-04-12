@@ -8,8 +8,9 @@ import { deleteList } from "../../features/watchlists/Slice/lists.slice";
 import { imagePath } from "../../utils/function/image.path";
 import AppContext from "../../utils/Context/AppContextProvider";
 
-const SmallCard = ({ typeList, list }) => {
+const SmallCard = ({ defaultImage, list, typeList }) => {
   const { content, name, _id } = list;
+
   const { config } = useContext(AppContext);
 
   const [isShow, setIsShow] = useState(false);
@@ -54,11 +55,13 @@ const SmallCard = ({ typeList, list }) => {
         <div className="small-card__poster">
           {!content ? (
             <LoaderUI fixed={true} />
-          ) : (
+          ) : imagePath(config, "poster", content[randomNum], 1) ? (
             <img
               src={imagePath(config, "poster", content[randomNum], 1)}
               alt={"poster of " + name + " list"}
             />
+          ) : (
+            <div className="default-image">{defaultImage}</div>
           )}
         </div>
       </Link>

@@ -46,7 +46,14 @@ const CallToAction = ({ media_type, id, content }) => {
   }
 
   const addToLikes = async (media_type) => {
-    const data = { user_id: userID, content_id: id, media_type };
+    console.log(content);
+    const data = {
+      user_id: userID,
+      content_id: id,
+      media_type,
+      genres: content.genres,
+      vote_average: content.vote_average,
+    };
     const result = await axios
       .post(`http://localhost:5000/like/${media_type}`, data)
       .then((res) => {

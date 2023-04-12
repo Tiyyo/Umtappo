@@ -243,13 +243,29 @@
       width: fit-content;
       overflow: hidden;
       box-shadow: 0 4px 30px rgba(10, 34, 62, 0.5) ;
+      margin-bottom: 0.5em;
+      background-color: var(--menu_link);
       
       img {
         aspect-ratio: 2/3;
         object-fit: cover;
         border-radius: 0.4em;
         height: auto;
+        width: 100%;
       }
+      .default-image  {
+        width: 100px;
+        aspect-ratio: 2/3;
+        border: 1px solid var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--secondary_hard_dark);
+        border-radius: 0.4em;
+
+      }
+
+
     }
     h3 {
       font-family: 'Lato', sans-serif;

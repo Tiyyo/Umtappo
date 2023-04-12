@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import InfiniteHorizontalCarousel from "../InfiniteCarousel/InfiniteCarousel";
 import { useContext } from "react";
 import AppContext from "../../../utils/Context/AppContextProvider";
-import useRecommendations from "./useRecommendations";
+import UserContext from "../../../utils/Context/UserContextProvider";
 
 const Genre = (props) => {
   const { dataToDisplay } = props;
@@ -12,6 +12,7 @@ const Genre = (props) => {
     genreListMovie: genreMovieList,
     recommendations,
   } = useContext(AppContext);
+  const { scores } = useContext(UserContext);
 
   let numberContainerToDisplay = 3;
   let movie = "movie";
@@ -22,7 +23,7 @@ const Genre = (props) => {
   const favoriteGenre = useRef([]);
 
   const [favoriteGenres, setFavoriteGenres] = useState([]);
-  const { scores } = useRecommendations();
+  console.log(scores, recommendations, favoriteGenres);
 
   const addType = (list, mediaType) => {
     list.map((el) => (el.media_type = mediaType));
@@ -76,9 +77,10 @@ const Genre = (props) => {
 
   return (
     <div className="favorite-genre">
-      {recommendations && scores && favoriteGenres
+      {recommendations && scores
         ? scores
             .filter((f) => {
+              console.log("recommendation on");
               if (dataToDisplay === movie) {
                 return f.media_type === movie;
               } else if (dataToDisplay === tvshow) {

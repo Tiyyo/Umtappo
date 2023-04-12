@@ -1,4 +1,7 @@
 export const imagePath = (config, imageFormat, content, size) => {
+  if (!config || !imageFormat || !content) {
+    return;
+  }
   if (imageFormat === "poster") {
     return config.base_url + config.poster_sizes[size] + content.poster_path;
   } else if (imageFormat === "logo") {

@@ -70,7 +70,7 @@ const ItemList = ({ content, listID, typeList }) => {
             </div>
           </div>
           <DeleteItem
-            conetnt={content}
+            content={content}
             openList={openList}
             typeList={typeList}
             listID={listID}

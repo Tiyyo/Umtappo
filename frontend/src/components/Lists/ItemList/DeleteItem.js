@@ -17,16 +17,17 @@ import UserContext from "../../../utils/Context/UserContextProvider";
 const DeleteItem = ({ content, openList, typeList, listID }) => {
   const dispatch = useDispatch();
   const { userID } = useContext(UserContext);
+
   const dislikeContent = async (content) => {
     let type;
-    listID === "1" ? (type = "movie") : (type = "tvshow");
+    listID === "1" ? (type = "movie") : (type = "tv");
     let data = { user_id: userID, content_id: content.id, media_type: type };
 
     if (type === "movie") {
       pullIdFromDatabase(type, data);
       dispatch(dislikeMovie({ id: content.id, media_type: type }));
       dispatch(deleteMovieFromFetch(content));
-    } else if (type === "tvshow") {
+    } else if (type === "tv") {
       pullIdFromDatabase(type, data);
       dispatch(dislikeTvshow({ id: content.id, media_type: type }));
       dispatch(deleteTvshowFromFetch(content));

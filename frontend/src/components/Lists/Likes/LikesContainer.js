@@ -5,6 +5,8 @@ import SmallCard from "../SmallCard";
 import LoaderUI from "../../Loader/LoaderUI";
 import { getFetchTvshow } from "../../../features/tvshow liked/slice/like.slice";
 import AppContext from "../../../utils/Context/AppContextProvider";
+import MovieIcon from "../../Button/MovieIcon";
+import TvIcon from "../../Button/TvIcon";
 
 const LikesContainer = () => {
   const { languages } = useContext(AppContext);
@@ -49,6 +51,7 @@ const LikesContainer = () => {
                 _id: "1",
               }}
               typeList={"like"}
+              defaultImage={<MovieIcon />}
             />
             <SmallCard
               list={{
@@ -57,6 +60,7 @@ const LikesContainer = () => {
                 _id: "2",
               }}
               typeList={"like"}
+              defaultImage={<TvIcon />}
             />
           </div>
         </div>

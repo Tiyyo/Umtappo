@@ -13,7 +13,7 @@ export const AppContextProvider = ({ children }) => {
   const [iconTheme, setIconTheme] = useState(darkIconTheme);
   const [navIsIntersect, setNavIsIntersect] = useState(false);
   const [lastSearchValue, setLastSearchValue] = useState("");
-  const [recommendations, setRecommendations] = useState(true);
+  const [recommendations, setRecommendations] = useState(false);
 
   const body = document.querySelector("body");
 
