@@ -14,7 +14,9 @@ import tvshowLikedReducer from "./features/tvshow liked/slice/like.slice";
 import { tmdbAPI } from "./features/content/tmdbAPI";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import displayContentModalReducer from "./features/modal display content/modal.display.content";
+import { disableReactDevTools } from "@fvilers/disable-react-devtools";
 
+if (process.env.NODE_ENV === "production") disableReactDevTools();
 const store = configureStore({
   reducer: {
     user: userReducer,
@@ -27,6 +29,7 @@ const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(tmdbAPI.middleware),
+  devTools: false,
 });
 
 setupListeners(store.dispatch);
