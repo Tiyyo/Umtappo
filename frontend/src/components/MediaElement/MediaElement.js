@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useLayoutEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AppContext from "../../utils/Context/AppContextProvider";
 import SimilarContent from "./SimilarContent";
@@ -22,6 +22,11 @@ import { getRating } from "../../features/rating/slice/rating.slice";
 import Blur from "../Overlay/Blur";
 import Button from "../Button/Button";
 import CloseIcon from "@mui/icons-material/Close";
+import {
+  closeModal,
+  openModal,
+} from "../../features/modal display content/modal.display.content";
+import { AnimatePresence, motion } from "framer-motion";
 
 const MediaElement = () => {
   //--- Destructuring
@@ -52,6 +57,11 @@ const MediaElement = () => {
   const { currentData: similars, isLoading: isLoadingSimilars } =
     useGetSimilarsQuery({ params });
 
+  const handleClose = () => {
+    dispatch(closeModal(false));
+    navigate(-1);
+  };
+
   useEffect(() => {
     let arr = [isLoadingMain, isLoadingCredits, isLoadingSimilars];
     setLoading(arr.some((l) => l));
@@ -63,31 +73,51 @@ const MediaElement = () => {
     dispatch(getRating(userID));
   }, [userID]);
 
+  useLayoutEffect(() => {
+    dispatch(openModal(true));
+  }, []);
+
   return (
     <div className="modal-content__wrapper">
-      <Blur></Blur>
-      <div className="modal-content__wrapper__media-element media-element">
-        {loading ? (
-          <LoaderUI overlay={"false"} position={"fixed"} />
-        ) : (
-          <>
-            <div className="modal-content__wrapper__media-element__close-modal">
-              <Button>
-                <CloseIcon onClick={() => navigate(-1)} />
-              </Button>
-            </div>
-            <Video content={content} videos={videos} loading={isLoadingVideo} />
-            <CallToAction content={data} media_type={media_type} id={id} />
-            <div className="media-element__title">
-              {content.title || content.name}
-            </div>
-            <Synopsis content={data} />
-            <Attributes content={data} type={content.media_type} />
-            <Casts credits={credits} />
-            <SimilarContent similars={similars} />
-          </>
-        )}
-      </div>
+      <Blur>
+        <AnimatePresence>
+          <motion.div
+            key="modal_media"
+            exit={{
+              opacity: 0,
+              transition: {
+                duration: 1.5,
+              },
+            }}
+            className="modal-content__wrapper__media-element media-element"
+          >
+            {loading ? (
+              <LoaderUI overlay={"false"} position={"fixed"} />
+            ) : (
+              <>
+                <div className="modal-content__wrapper__media-element__close-modal">
+                  <Button>
+                    <CloseIcon onClick={handleClose} />
+                  </Button>
+                </div>
+                <Video
+                  content={content}
+                  videos={videos}
+                  loading={isLoadingVideo}
+                />
+                <CallToAction content={data} media_type={media_type} id={id} />
+                <div className="media-element__title">
+                  {content.title || content.name}
+                </div>
+                <Synopsis content={data} />
+                <Attributes content={data} type={content.media_type} />
+                <Casts credits={credits} />
+                <SimilarContent similars={similars} />
+              </>
+            )}
+          </motion.div>
+        </AnimatePresence>
+      </Blur>
     </div>
   );
 };

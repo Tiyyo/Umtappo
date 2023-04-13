@@ -10,7 +10,14 @@ body {
     overflow-x: hidden;
     -ms-overflow-style: none;  
     scrollbar-width: none;  
+
+    &[scroll="disabled"] {
+        overflow: hidden;
+    }
 }
+
+
+
 body::-webkit-scrollbar  {
     display: none;
 }

@@ -3,7 +3,6 @@
     .header  {
         font-family: 'Lato', sans-serif;
         display: flex;
-        // grid-template-columns: 10% 40% 35% 50px;
         align-items: center;
         width: 100%;
         position: fixed;
@@ -39,7 +38,7 @@
         }
             
         &[data-background="clear"] {
-            background: linear-gradient(180deg, rgba(3, 13, 24, 0.4)90%, rgba(3, 13, 24, 0.1) 100%);
+            background: var(--gradient_nav);
             transition: 0.3s ease-in;
         }
         

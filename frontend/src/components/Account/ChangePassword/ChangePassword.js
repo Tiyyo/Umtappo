@@ -25,22 +25,41 @@ const ChangePassword = ({ isOpen, getCloseState }) => {
     },
   });
 
-  const submitPasswords = async (data) => {
+  const submitPasswords = async (data, e) => {
+    e.preventDefault();
     let body = {
-      password: data.password,
-      newPassword: data.newPassword,
+      password: data?.password,
+      newPassword: data?.newPassword,
       user_id: userID,
     };
     await axios
       .patch("http://localhost:5000/user/password", body)
       .then((res) => {
         if (res.status === 200) {
-          toast.success(res.data);
+          toast.success(res.data, {
+            position: "top-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+            theme: "dark",
+          });
           getCloseState(false);
         }
       })
       .catch((err) => {
-        toast.error(err.response.data);
+        toast.error(err.response.data, {
+          position: "top-center",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+          theme: "dark",
+        });
       });
   };
 
@@ -65,7 +84,7 @@ const ChangePassword = ({ isOpen, getCloseState }) => {
         </div>
       </div>
       <form
-        onSubmit={handleSubmit(submitPasswords)}
+        onSubmit={handleSubmit(submitPasswords())}
         className="change-password__form"
       >
         <InputPassword

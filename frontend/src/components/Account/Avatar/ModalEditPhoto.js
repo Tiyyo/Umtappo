@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updatePictures } from "../../../features/user/slice/user.slice";
 import LoaderUI from "../../Loader/LoaderUI";
 import { splitGenerateLink } from "./split.link";
+import useSelectedFiles from "./useSelectedFiles";
 
 const validFilesTypes = [
   "image/jpg",
@@ -38,6 +39,7 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
   const [completeCrop, setCompleteCrop] = useState(null);
   const [errorType, setErrorType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [file, setFile] = useState(null);
 
   const handleSelectFile = (e) => {
     const file = e.target.files[0];
@@ -60,10 +62,6 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
       );
       reader.readAsDataURL(file);
     }
-  };
-
-  const splitGenerateLink = (link) => {
-    return link.split("?")[0];
   };
 
   useEffect(() => {
@@ -140,11 +138,14 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
     dispatch(updatePictures({ crop: imgCropLink, full: imgFullLink }));
   };
 
-  const { full: prevFullImage } = useSelector((state) => {
-    if (state.user.user.pictures) {
-      return state.user?.user?.pictures;
-    } else return;
-  });
+  const pictures = useSelector((state) => state.user.user.pictures);
+  const prevFullImage = pictures?.full;
+
+  function getFile(e) {
+    if (e.target.files && e.target.files.length > 0) {
+      return setFile(e.target.files[0]);
+    }
+  }
 
   return (
     <div
@@ -196,7 +197,9 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
               id="pickProfileImage"
               hidden
               className="modal-edit__container__input-file"
-              onChange={(e) => handleSelectFile(e)}
+              onChange={(e) => {
+                handleSelectFile(e);
+              }}
             />
             <button
               className="modal-edit__container__validate"

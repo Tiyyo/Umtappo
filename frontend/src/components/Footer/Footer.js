@@ -2,7 +2,7 @@ import React from "react";
 import TmdbLogo from "../Logo/TmdbLogo";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import Button from "../Button/Button";
+import IconLink from "./IconLink";
 
 const Footer = () => {
   return (
@@ -12,23 +12,12 @@ const Footer = () => {
         <TmdbLogo />
       </div>
       <div className="social-media-links">
-        <div className="github-link">
-          <a href={"https://github.com/Tiyyo"} target="_blank">
-            <Button>
-              <GitHubIcon />
-            </Button>
-          </a>
-        </div>
-        <div className="linkedIn-link">
-          <a
-            href={"https://www.linkedin.com/in/steeve-matou-220b99133/"}
-            target="_blank"
-          >
-            <Button>
-              <LinkedInIcon />
-            </Button>
-          </a>
-        </div>
+        <IconLink link={"https://github.com/Tiyyo"}>
+          <GitHubIcon />
+        </IconLink>
+        <IconLink link={"https://www.linkedin.com/in/steeve-matou-220b99133/"}>
+          <LinkedInIcon />
+        </IconLink>
       </div>
     </div>
   );

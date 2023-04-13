@@ -1,20 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 import { useDispatch, useSelector } from "react-redux";
-import useMediaId from "../../../utils/hooks/useMediaId";
 import SmallCard from "../SmallCard";
 import LoaderUI from "../../Loader/LoaderUI";
 import { getFetchTvshow } from "../../../features/tvshow liked/slice/like.slice";
-import {
-  getFetchMovie,
-  getIdsMoviesLiked,
-} from "../../../features/movie liked/Slice/likes.slice";
 import AppContext from "../../../utils/Context/AppContextProvider";
+import MovieIcon from "../../Button/MovieIcon";
+import TvIcon from "../../Button/TvIcon";
 
 const LikesContainer = () => {
-  let mediaTypeTvv = "tv";
-  let mediaTypeMovie = "movie";
-
   const { languages } = useContext(AppContext);
 
   const dispatch = useDispatch();
@@ -57,6 +51,7 @@ const LikesContainer = () => {
                 _id: "1",
               }}
               typeList={"like"}
+              defaultImage={<MovieIcon />}
             />
             <SmallCard
               list={{
@@ -65,6 +60,7 @@ const LikesContainer = () => {
                 _id: "2",
               }}
               typeList={"like"}
+              defaultImage={<TvIcon />}
             />
           </div>
         </div>

@@ -40,7 +40,6 @@ const Profile = () => {
   } = useSelector((state) => state.user.user);
 
   const [isOpen, setIsOpen] = useState(false);
-
   const [usernameIsLock, setUsernameIsLock] = useState(true);
   const [emailIsLock, setEmailIsLock] = useState(true);
 
@@ -172,7 +171,7 @@ const Profile = () => {
         </button>
       </form>
 
-      <div className="aera password">
+      <form className="aera password">
         <div className="password">
           <LockIcon />
         </div>
@@ -189,7 +188,7 @@ const Profile = () => {
         <button type="button">
           <DoneIcon />
         </button>
-      </div>
+      </form>
     </div>
   );
 };

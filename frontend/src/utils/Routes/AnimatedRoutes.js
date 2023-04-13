@@ -19,7 +19,6 @@ import MediaElement from "../../components/MediaElement/MediaElement";
 import SearchResult from "../../components/SearchResult/SearchResult";
 import Watchlist from "../../components/Lists/Watchlist";
 import Favorites from "../../pages/Favorites/Favorites";
-import Filter from "../../components/Lists/Filter";
 import { AnimatePresence } from "framer-motion";
 import ProtectedRoutes from "./ProtectedRoutes";
 import UserContext from "../Context/UserContextProvider";
@@ -115,7 +114,6 @@ const AnimatedRoutes = () => {
           <Route path="SignIn" element={<SignIn />} />
           <Route path="SignUp" element={<SignUp />} />
         </Route>
-        <Route path={"/Filter"} element={<Filter />} />
       </Routes>
     </AnimatePresence>
   );

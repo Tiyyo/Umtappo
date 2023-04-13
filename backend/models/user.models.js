@@ -30,12 +30,22 @@ const userSchema = mongoose.Schema(
     lists: [{ type: mongoose.SchemaTypes.ObjectId, ref: "List" }],
     movie_liked: [
       { type: Array },
-      { id: { type: String }, media_type: { type: String } },
+      {
+        id: { type: String },
+        media_type: { type: String },
+        vote_average: { type: Number },
+        genres: { type: Array },
+      },
     ],
 
     tvshow_liked: [
       { type: Array },
-      { id: { type: String }, media_type: { type: String } },
+      {
+        id: { type: String },
+        media_type: { type: String },
+        vote_average: { type: Number },
+        genres: { type: Array },
+      },
     ],
     rates: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Rates" }],
   },

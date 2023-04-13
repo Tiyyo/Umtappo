@@ -1,8 +1,4 @@
-import React, { useContext } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 import * as yup from "yup";
-import axios from "axios";
 
 export const passwordSchema = yup.object().shape({
   password: yup.string().required(),
@@ -19,9 +15,3 @@ export const passwordSchema = yup.object().shape({
       "Must containe one special character"
     ),
 });
-
-const useChangePassword = () => {
-  return {};
-};
-
-export default useChangePassword;

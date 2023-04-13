@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const Avatar = ({ getStateModal }) => {
   const profileImage = useSelector((state) => {
-    return state.user.user.pictures.crop;
+    return state.user.user.pictures?.crop;
   });
 
   return (

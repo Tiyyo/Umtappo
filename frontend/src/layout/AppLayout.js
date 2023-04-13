@@ -12,8 +12,10 @@ import Footer from "../components/Footer/Footer";
 import AvatarNavLink from "../components/Navigation/AvatarNavLink";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import MobileNav from "../components/Navigation/MobileNav";
+import { useSelector } from "react-redux";
 
 const AppLayout = () => {
+  const body = document.querySelector("body");
   const [inputSearchValue, setInputSearchValue] = useState("");
   const [openMenu, setOpenMenu] = useState(false);
   const [searchIsActive, setSearchIsActive] = useState(false);
@@ -50,6 +52,16 @@ const AppLayout = () => {
   const getHamburgerState = (state) => {
     state ? setOpenMenu(true) : setOpenMenu(false);
   };
+
+  const modalIsOpen = useSelector((state) => state.displayContentModal.isOpen);
+
+  useEffect(() => {
+    if (modalIsOpen) {
+      body.setAttribute("scroll", "disabled");
+    } else {
+      body.removeAttribute("scroll");
+    }
+  }, [modalIsOpen]);
 
   useEffect(() => {
     hideAccountIcon();

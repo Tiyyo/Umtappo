@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import AppContext from "../../utils/Context/AppContextProvider";
 import ReactPlayer from "react-player";
+import { imagePath } from "../../utils/function/image.path";
 
 const Video = ({ content, videos, loading }) => {
   const { config } = useContext(AppContext);
@@ -8,12 +9,6 @@ const Video = ({ content, videos, loading }) => {
   const [contentPresence, setPrescence] = useState(true);
 
   let videoType = "Trailer";
-
-  function imagePath(size) {
-    return (
-      config.base_url + config.backdrop_sizes[size] + content.backdrop_path
-    );
-  }
 
   const getVideoKey = () => {
     if (!loading) {
@@ -39,15 +34,13 @@ const Video = ({ content, videos, loading }) => {
         ></ReactPlayer>
       );
     } else {
-      if (!imagePath(1).includes("null")) {
-        return (
-          <img
-            src={imagePath(1)}
-            alt={"poster of " + content.name || content.title}
-          />
-        );
-      } else {
+      if (imagePath(config, "backdrop", content, 1).includes("null")) {
         return;
+      } else {
+        <img
+          src={imagePath(config, "backdrop", content, 1)}
+          alt={"poster of " + content.name || content.title}
+        />;
       }
     }
   };

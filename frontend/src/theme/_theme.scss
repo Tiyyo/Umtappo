@@ -1,32 +1,44 @@
 body[data-theme="light"] {
     --bg_primary : rgb(251, 231, 213);
+    --bg_primary_soft_opacity : rgba(251, 231, 213, 0.95);
+    --gradient_nav : linear-gradient(180deg, rgba(251, 231, 213, 0.4)90%, rgba(251, 231, 213, 0.1) 100%);
+    --text_primary_hard : rgba(4, 20, 42, 1); 
+    --text_primary_light : rgba(4, 20, 42, 0.645);
+    --bg_secondary :rgb(251, 249, 245);
+    --secondary_hard_dark :rgb(161, 76, 0);
+    --secondary_darker : #08122ae9;
+    --menu_link : rgb(249, 239, 226);
+    --text_light : rgba(16, 16, 16, 0.956);
+    --white_black : rgba(11, 11, 11, 0.944);
 
-
-    --primary_hard_light : rgb(255, 214, 178);
-    --primary_light :rgb(255, 164, 83);
-    --primary : rgb(241, 136, 42);
+    // --primary_hard_light : rgb(255, 214, 178);
+    // --primary_light :rgb(255, 164, 83);
+    // --primary : rgb(241, 136, 42);
     --primary_dark : rgb(203, 102, 12);
     --primary_hard_dark : rgb(161, 76, 0);
     
     // --primary : #c25e00;
-    --secondary : rgb(238, 228, 222);
-    --text : rgba(0,0,0,1);
-    --menu_link : rgba(253, 184, 55, 0.2);
-    --menu_link_transparent : rgba(253, 184, 55, 0.1);
-    --input_bg : rgba(255,255,255,1);
-    --input_lock_color : rgba(0, 0, 0, 0.5);
-    --error : rgba(196, 15, 15, 0.871);
-    --primary_dark : #c25e00;
-    --input_placeholder : rgba(218, 113, 21, 0.641);
-    --transparent_bg : rgba(255,255,255,0.2);
-    --primary_light : #ffbd45;
-    --nav_bg : rgba(233, 207, 191, 0.733);
-    --secondary_gradient : linear-gradient(180deg, rgb(238, 228, 222, 1) 0%,  rgb(238, 228, 222, 0.4) 30%, rgb(238, 228, 222, 0.15)  100%);
-    --nav_icon : black;
-    --text_light : rgb(80, 78, 77);
-    --border_list : rgba(54, 54, 54, 0.2);
-    --button_loading : #414141db;
+    // --secondary : rgb(238, 228, 222);
+    // --text : rgba(0,0,0,1);
+    // --menu_link : rgba(253, 184, 55, 0.2);
+    // --menu_link_transparent : rgba(253, 184, 55, 0.1);
+    // --input_bg : rgba(255,255,255,1);
+    // --input_lock_color : rgba(0, 0, 0, 0.5);
+    // --error : rgba(196, 15, 15, 0.871);
+    // --primary_dark : #c25e00;
+    // --input_placeholder : rgba(218, 113, 21, 0.641);
+    // --transparent_bg : rgba(255,255,255,0.2);
+    // --primary_light : #ffbd45;
+    // --nav_bg : rgba(233, 207, 191, 0.733);
+    // --secondary_gradient : linear-gradient(180deg, rgb(238, 228, 222, 1) 0%,  rgb(238, 228, 222, 0.4) 30%, rgb(238, 228, 222, 0.15)  100%);
+    // --nav_icon : black;
+    // --text_light : rgb(80, 78, 77);
+    // --border_list : rgba(54, 54, 54, 0.2);
+    // --button_loading : #414141db;
+    --white : rgb(234, 232, 232);
     --star : rgb(52, 126, 210);
+    --border_modal : rgba(254, 171, 171, 0.349); 
+    --nav_icon : rgba(31, 30, 29, 0.889);
 
 
 
@@ -35,9 +47,10 @@ body[data-theme="light"] {
 body[data-theme="dark"] {
     --bg_primary : rgb(3, 13, 24);
     --bg_primary_soft_opacity : rgba(3, 13, 24, 0.95);
+    --gradient_nav : linear-gradient(180deg, rgba(3, 13, 24, 0.4)90%, rgba(3, 13, 24, 0.1) 100%);
     --text_primary_light : rgba(4, 20, 42, 0.645);
     --text_primary_hard : rgba(4, 20, 42, 1);
-    
+    --border_modal : rgba(1, 84, 84, 0.349); 
     --bg_secondary :rgb(251, 231, 213);
     --secondary_light :rgb(255, 164, 83);
     --secondary_light_soft :rgba(84, 49, 18, 0.295);
@@ -45,43 +58,42 @@ body[data-theme="dark"] {
     --secondary_darker : #fb8c00;
     --secondary_hard_dark :rgb(161, 76, 0);
     --secondary_hard_dark_soft :rgb(154, 117, 85);
-    
     --text : rgba(255, 245, 236, 0.95);
     --text_light : rgba(192, 187, 183, 0.956);
     --white_black : rgba(235, 230, 225, 0.944);
+    --white : rgb(234, 232, 232);
     --shadow : rgba(235, 230, 225, 0.073);
     --menu_link : rgb(6, 16, 29);
+    --yellow_star: rgb(234, 223, 14);
+    --star : rgb(52, 126, 210);
+    --primary_dark : rgb(203, 102, 12);
 
 
 
     //legacy
-    --primary_dark : rgb(203, 102, 12);
-    --primary : #fb8c00;
-
-    --primary_light : #ffbd45;
-    --primary_dark : #c25e00;
-    --button_loading : #414141db;
-    // --secondary : #0b0b0b;
-    --secondary_gradient : linear-gradient(180deg, #0b0b0bd9 0%,  #0b0b0b20 10%, #0b0b0b17  100%);
-    // --secondary_light : #484848;
-    --secondary_dark : #000000;
-    --error : rgba(227, 28, 28, 0.958);
-    --red_icon : rgb(219, 30, 30);
-    --yellow_star: rgb(234, 223, 14);
-    --nav_bg : rgba(21, 20, 20, 0.903);
+    // --primary : #fb8c00;
+    // --primary_light : #ffbd45;
+    // --primary_dark : #c25e00;
+    // --button_loading : #414141db;
+    // // --secondary : #0b0b0b;
+    // --secondary_gradient : linear-gradient(180deg, #0b0b0bd9 0%,  #0b0b0b20 10%, #0b0b0b17  100%);
+    // // --secondary_light : #484848;
+    // --secondary_dark : #000000;
+    // --error : rgba(227, 28, 28, 0.958);
+    // --red_icon : rgb(219, 30, 30);
+    // --nav_bg : rgba(21, 20, 20, 0.903);
     --nav_icon : rgba(208, 116, 19, 0.889);
-    --title : rgba(143, 88, 2, 1);
-    --blackbg : #121212;
-    --main-primary : rgba(231, 154, 33, 1);
-    --main-primary_light : rgba(231, 154, 33, 0.4);
-    // --menu_link : rgba(18, 17, 17, 0.8);
-    --menu_link_transparent : rgba(18, 17, 17, 0.2);
-    --input_bg : rgba(0,0,0,1);
-    --input_lock_color : rgba(255, 255, 255, 0.5);
-    --input_placeholder : rgba(218, 113, 21, 0.641);
-    --transparent_bg : rgba(0,0,0,0.2);
-    --border_list : rgba(255, 255, 255, 0.2);
-    --star : rgb(52, 126, 210);
+    // --title : rgba(143, 88, 2, 1);
+    // --blackbg : #121212;
+    // --main-primary : rgba(231, 154, 33, 1);
+    // --main-primary_light : rgba(231, 154, 33, 0.4);
+    // // --menu_link : rgba(18, 17, 17, 0.8);
+    // --menu_link_transparent : rgba(18, 17, 17, 0.2);
+    // --input_bg : rgba(0,0,0,1);
+    // --input_lock_color : rgba(255, 255, 255, 0.5);
+    // --input_placeholder : rgba(218, 113, 21, 0.641);
+    // --transparent_bg : rgba(0,0,0,0.2);
+    // --border_list : rgba(255, 255, 255, 0.2);
 
 }
 

@@ -2,8 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import PosterCard from "../../Cards/Poster/PosterCard";
 import LoaderUI from "../../Loader/LoaderUI";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavCarousel from "../NavCarousel";
 
 const HorizontalCarousel = ({ content, title }) => {
@@ -13,7 +11,6 @@ const HorizontalCarousel = ({ content, title }) => {
   const carousel = useRef();
 
   const innerCarousel = useRef();
-  const windowWidth = useRef([window.innerWidth]);
 
   const getScrollXPosition = (state) => {
     setScrollXValue(state);

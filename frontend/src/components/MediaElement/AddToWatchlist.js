@@ -7,9 +7,6 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { getLists } from "../../features/watchlists/Slice/lists.slice";
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
-
-import { ThemeProvider } from "@mui/material";
-import AppContext from "../../utils/Context/AppContextProvider";
 import Watchlist from "./Watchlist";
 import Blur from "../Overlay/Blur";
 import Button from "../Button/Button";
@@ -23,7 +20,6 @@ const AddToPlaylist = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { userID } = useContext(UserContext);
-  const { iconTheme } = useContext(AppContext);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

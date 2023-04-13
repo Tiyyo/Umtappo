@@ -1,36 +1,29 @@
-import React from "react";
-import { ThemeProvider } from "@mui/material/styles";
+import React, { useContext } from "react";
 import BrowserNotSupportedIcon from "@mui/icons-material/BrowserNotSupported";
-import { useContext } from "react";
+import { imagePath } from "../../../utils/function/image.path";
 import AppContext from "../../../utils/Context/AppContextProvider";
+import LazyLoad from "react-lazy-load";
 
 const BannerCard = ({ element: el }) => {
-  const { config, iconTheme } = useContext(AppContext);
-
-  const imageFormatUrl = (el, number) => {
-    return config.base_url + config.backdrop_sizes[number] + el.backdrop_path;
-  };
-
-  // number between 0 and 3 which represent the size of backdrop image
-  const sizeBackdrop = () => {
-    return 3;
-  };
+  const { config } = useContext(AppContext);
 
   return (
     <div className="banner-card">
       {el?.backdrop_path ? (
         <div className="banner-card__image-container">
-          <img
-            src={imageFormatUrl(el, sizeBackdrop())}
-            alt={"image of " + el.title || el.name}
-            className="banner-card__image-container__image"
-          />
+          <LazyLoad>
+            <img
+              src={imagePath(config, "backdrop", el, 3)}
+              alt={"image of " + el.title || el.name}
+              className="banner-card__image-container__image"
+            />
+          </LazyLoad>
           <h3 className="banner-card__image-container__title">
             {el.title || el.name}
           </h3>
         </div>
       ) : (
-        <ThemeProvider theme={iconTheme}>
+        <>
           <p className="message-error-img">Image content not avaiable</p>
           <BrowserNotSupportedIcon
             className="not-avaiable-icon"
@@ -38,7 +31,7 @@ const BannerCard = ({ element: el }) => {
             size="large"
           />
           <p className="title-error-img">{el.title || el.name}</p>
-        </ThemeProvider>
+        </>
       )}
     </div>
   );

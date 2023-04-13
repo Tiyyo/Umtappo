@@ -1,26 +1,15 @@
 import React from "react";
-import { StarOutline } from "@mui/icons-material";
-import StarIcon from "@mui/icons-material/Star";
-import { Button } from "@mui/material";
 import Rates from "./Rates";
+import { displayReleaseYear } from "../../utils/function/display.realease.year";
 
 const Attributes = ({ content, type }) => {
-  const displayReleaseYear = () => {
-    if (content.first_air_date) {
-      return content.first_air_date.substring(0, 4);
-    }
-    if (content.release_date) {
-      return content.release_date.substring(0, 4);
-    }
-  };
-
   return (
     <div className="modal-content__wrapper__media-element__infos">
       <div className="modal-content__wrapper__media-element__infos__type">
         {type === "movie" ? type : "TvShow"}
       </div>
       <div className="modal-content__wrapper__media-element__infos__release-year">
-        {displayReleaseYear()}
+        {displayReleaseYear(content)}
       </div>
       <div className="modal-content__wrapper__media-element__infos__genres">
         {content.genres.map((g, index) => {

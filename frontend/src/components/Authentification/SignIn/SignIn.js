@@ -33,6 +33,10 @@ function SignIn() {
     value: "",
   });
 
+  const goBack = () => {
+    return navigate("/Login");
+  };
+
   async function user(data) {
     await axios
       .post("http://localhost:5000/user/login", {
@@ -65,7 +69,6 @@ function SignIn() {
         },
       })
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           const userInfos = {
             username: res.data.username,
@@ -93,10 +96,6 @@ function SignIn() {
       })
       .catch((err) => console.log(err));
   }
-
-  const goBack = () => {
-    return navigate("/Login");
-  };
 
   let titleHeader = "Welcome Back !";
   let textHeader =

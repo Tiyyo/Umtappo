@@ -19,9 +19,9 @@ module.exports.getMoviesLiked = asyncHandler(async (req, res) => {
 });
 
 module.exports.likeMovie = asyncHandler(async (req, res) => {
-  const { user_id, media_type, content_id } = req.body;
+  const { user_id, media_type, content_id, genres, vote_average } = req.body;
 
-  let data = { id: content_id, media_type };
+  let data = { id: content_id, media_type, genres, vote_average };
 
   if (!user_id || !media_type || !content_id) {
     res.status(400).send("User id or media type or content id is missing");
@@ -102,10 +102,11 @@ module.exports.getTvshowsLiked = asyncHandler(async (req, res) => {
 });
 
 module.exports.likeShow = asyncHandler(async (req, res) => {
-  const { user_id, media_type, content_id } = req.body;
-  console.log(typeof content_id);
+  const { user_id, media_type, content_id, genres, vote_average } = req.body;
 
-  let data = { id: content_id, media_type };
+  console.log(genres);
+
+  let data = { id: content_id, media_type, genres, vote_average };
 
   if (!user_id || !media_type || !content_id) {
     res.status(400).send("User id or media type or content id is missing");
@@ -145,6 +146,7 @@ module.exports.dislikeShow = asyncHandler(async (req, res) => {
   const { user_id, content_id, media_type } = req.body;
   let refType = "tv";
 
+  console.log(user_id, content_id, media_type);
   if (!user_id || !content_id) {
     res.status(400).send("user_id or content_id is missing");
     throw new Error("user_id or content_id is missing");

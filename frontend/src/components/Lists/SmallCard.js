@@ -1,13 +1,14 @@
-import React, { useCallback, useContext, useState, useEffect } from "react";
-import AppContext from "../../utils/Context/AppContextProvider";
+import React, { useState, useEffect, useContext } from "react";
 import LoaderUI from "../Loader/LoaderUI";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { deleteList } from "../../features/watchlists/Slice/lists.slice";
+import { imagePath } from "../../utils/function/image.path";
+import AppContext from "../../utils/Context/AppContextProvider";
 
-const SmallCard = ({ typeList, list }) => {
+const SmallCard = ({ defaultImage, list, typeList }) => {
   const { content, name, _id } = list;
 
   const { config } = useContext(AppContext);
@@ -20,18 +21,6 @@ const SmallCard = ({ typeList, list }) => {
 
   let numOfContentPoster = filterContent?.length - 1;
   let randomNum = Math.floor(Math.random() * numOfContentPoster);
-  let sizePoster = 0;
-
-  const posterImage = useCallback(
-    (sizePoster, content) => {
-      return (
-        config.base_url +
-        config.poster_sizes[sizePoster] +
-        content[randomNum]?.poster_path
-      );
-    },
-    [content]
-  );
 
   const handleCloseIcon = (_id) => {
     if (_id === "1") {
@@ -66,11 +55,13 @@ const SmallCard = ({ typeList, list }) => {
         <div className="small-card__poster">
           {!content ? (
             <LoaderUI fixed={true} />
-          ) : (
+          ) : imagePath(config, "poster", content[randomNum], 1) ? (
             <img
-              src={posterImage(sizePoster, content)}
+              src={imagePath(config, "poster", content[randomNum], 1)}
               alt={"poster of " + name + " list"}
             />
+          ) : (
+            <div className="default-image">{defaultImage}</div>
           )}
         </div>
       </Link>

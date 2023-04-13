@@ -8,17 +8,13 @@ const MobileNav = ({ isOpen }) => {
       style={isOpen ? { left: "0" } : { left: "-100vw" }}
     >
       <NavLink to="/home">
-        {({ isActive, isPending }) => (
-          <li className={isActive ? "active" : ""}>Home</li>
-        )}
+        {({ isActive }) => <li className={isActive ? "active" : ""}>Home</li>}
       </NavLink>
       <NavLink to="/films">
-        {({ isActive, isPending }) => (
-          <li className={isActive ? "active" : ""}>Movies</li>
-        )}
+        {({ isActive }) => <li className={isActive ? "active" : ""}>Movies</li>}
       </NavLink>
       <NavLink to="/tvshow">
-        {({ isActive, isPending }) => (
+        {({ isActive }) => (
           <li className={isActive ? "active" : ""}>TvShows</li>
         )}
       </NavLink>
