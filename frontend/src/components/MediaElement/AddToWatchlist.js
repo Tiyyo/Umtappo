@@ -35,7 +35,7 @@ const AddToPlaylist = () => {
     let data = { listId: _id, content: content, content_id: contentId };
 
     axios
-      .put("https://umtappo.onrender.com/list", data)
+      .put("https://umtappo-api.onrender.com/list", data)
       .then((res) => {
         if (res.status === 200) {
           toast.success("Successfully added", {

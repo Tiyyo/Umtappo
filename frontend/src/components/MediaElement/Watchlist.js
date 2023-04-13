@@ -16,7 +16,7 @@ const Watchlist = ({ list, content }) => {
 
   const removeList = (_id) => {
     let objectID = { _id };
-    axios.delete("https://umtappo.onrender.com/list/" + _id);
+    axios.delete("https://umtappo-api.onrender.com/list/" + _id);
     dispatch(deleteList(objectID));
   };
 
@@ -26,7 +26,7 @@ const Watchlist = ({ list, content }) => {
     let data = { listId: _id, content: content, content_id: contentId };
 
     axios
-      .put("https://umtappo.onrender.com/list", data)
+      .put("https://umtappo-api.onrender.com/list", data)
       .then((res) => {
         if (res.status === 200) {
           toast.info("Successfully added", {

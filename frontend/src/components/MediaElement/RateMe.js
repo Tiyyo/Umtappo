@@ -25,7 +25,7 @@ const RateMe = ({ isOpen, close, title, media_type, id }) => {
 
     if (isRated) {
       const result = await axios
-        .patch("https://umtappo.onrender.com/rate/edit", {
+        .patch("https://umtappo-api.onrender.com/rate/edit", {
           _id: rateId,
           newRate: rate,
         })
@@ -33,7 +33,7 @@ const RateMe = ({ isOpen, close, title, media_type, id }) => {
         .catch((err) => console.log(err));
     } else {
       const result = await axios
-        .post("https://umtappo.onrender.com/rate/add", {
+        .post("https://umtappo-api.onrender.com/rate/add", {
           userRate,
           user_id: userID,
           id,

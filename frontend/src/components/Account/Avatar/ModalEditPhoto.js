@@ -81,7 +81,7 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    const endpoint = "https://umtappo.onrender.com/s3Url";
+    const endpoint = "https://umtappo-api.onrender.com/s3Url";
     const generateLink = axios.get(endpoint);
 
     const { urlCropImage, urlFullImage } = await axios
