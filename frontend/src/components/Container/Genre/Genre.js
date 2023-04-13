@@ -4,83 +4,19 @@ import { useContext } from "react";
 import AppContext from "../../../utils/Context/AppContextProvider";
 import UserContext from "../../../utils/Context/UserContextProvider";
 
-const Genre = (props) => {
-  const { dataToDisplay } = props;
+const Genre = ({ dataToDisplay, numberContainerToDisplay }) => {
+  const { recommendations } = useContext(AppContext);
+  const { scores, randomReco } = useContext(UserContext);
 
-  const {
-    genreListTv: genreTvList,
-    genreListMovie: genreMovieList,
-    recommendations,
-  } = useContext(AppContext);
-  const { scores } = useContext(UserContext);
-
-  let numberContainerToDisplay = 3;
   let movie = "movie";
   let tvshow = "tv";
   let both = "Both";
-
-  const randomValues = useRef([]);
-  const favoriteGenre = useRef([]);
-
-  const [favoriteGenres, setFavoriteGenres] = useState([]);
-  console.log(scores, recommendations, favoriteGenres);
-
-  const addType = (list, mediaType) => {
-    list.map((el) => (el.media_type = mediaType));
-    return list;
-  };
-
-  const flatData = () => {
-    let movieGenres = addType(genreMovieList, movie);
-    let tvshowGenres = addType(genreTvList, tvshow);
-    let flatGenres = [...movieGenres, ...tvshowGenres];
-    return flatGenres;
-  };
-
-  const choseRandomValues = (numberContainerToDisplay, referenceGenre) => {
-    let indexes = [];
-    while (indexes.length < numberContainerToDisplay) {
-      let randomNumber = Math.floor(Math.random() * referenceGenre.length);
-      if (indexes.includes(randomNumber)) {
-        continue;
-      } else {
-        indexes.push(randomNumber);
-      }
-    }
-    randomValues.current = indexes;
-  };
-
-  const matchIndexes = (referenceGenre) => {
-    let genreToDisplay = [];
-    randomValues.current.forEach((value) => {
-      genreToDisplay.push(referenceGenre[value]);
-    });
-    favoriteGenre.current = genreToDisplay;
-    return setFavoriteGenres(genreToDisplay);
-  };
-
-  useEffect(() => {
-    if (dataToDisplay === both) {
-      let flatGenres = flatData();
-      choseRandomValues(numberContainerToDisplay, flatGenres);
-      matchIndexes(flatGenres);
-    } else if (dataToDisplay === movie) {
-      let movieGenres = addType(genreMovieList, movie);
-      choseRandomValues(numberContainerToDisplay, movieGenres);
-      matchIndexes(movieGenres);
-    } else if (dataToDisplay === tvshow) {
-      let tvshowGenres = addType(genreTvList, tvshow);
-      choseRandomValues(numberContainerToDisplay, tvshowGenres);
-      matchIndexes(tvshowGenres);
-    }
-  }, []);
 
   return (
     <div className="favorite-genre">
       {recommendations && scores
         ? scores
             .filter((f) => {
-              console.log("recommendation on");
               if (dataToDisplay === movie) {
                 return f.media_type === movie;
               } else if (dataToDisplay === tvshow) {
@@ -95,12 +31,21 @@ const Genre = (props) => {
                 genre={genre}
               />
             ))
-        : favoriteGenres.map((genre, index) => (
-            <InfiniteHorizontalCarousel
-              key={genre.id + index.toString()}
-              genre={genre}
-            />
-          ))}
+        : randomReco
+            .filter((f) => {
+              if (dataToDisplay === movie) {
+                return f.media_type === movie;
+              } else if (dataToDisplay === tvshow) {
+                return f.media_type === tvshow;
+              } else return f;
+            })
+            .slice(0, numberContainerToDisplay)
+            .map((genre, index) => (
+              <InfiniteHorizontalCarousel
+                key={genre.id + index.toString()}
+                genre={genre}
+              />
+            ))}
     </div>
   );
 };

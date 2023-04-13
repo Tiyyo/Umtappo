@@ -1,4 +1,9 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import axios from "axios";
 
 export const UserContext = createContext(null);
@@ -12,6 +17,7 @@ export const UserContextProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [scores, setScore] = useState(null);
+  const [randomReco, setRandomReco] = useState(null);
 
   const value = {
     userID,
@@ -23,6 +29,7 @@ export const UserContextProvider = ({ children }) => {
     isLoggedIn,
     setIsLoggedIn,
     scores,
+    randomReco,
   };
 
   useEffect(() => {
@@ -30,13 +37,25 @@ export const UserContextProvider = ({ children }) => {
       await axios
         .get("http://localhost:5000/recommendations/genre/" + userID)
         .then((res) => {
-          console.log(res);
           setScore(res.data);
-        });
+        })
+        .catch((err) => console.log(err));
     };
     fetchGenreRecommend();
-    console.log("how many fire ?");
   }, [userID]);
+
+  useLayoutEffect(() => {
+    const fetchGenreRandom = async () => {
+      await axios
+        .get("http://localhost:5000/recommendations/genre/random")
+        .then((res) => {
+          setRandomReco(res.data);
+        })
+        .catch((err) => console.log(err));
+    };
+    fetchGenreRandom();
+  }, []);
+
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 

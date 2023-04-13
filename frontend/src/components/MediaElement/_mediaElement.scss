@@ -27,7 +27,7 @@
         width: 90%;
         max-width: 70rem;
         background-color: var(--bg_primary_soft_opacity);
-        border: 2px solid rgba(1, 84, 84, 0.349);
+        border: 2px solid var(--border_modal);
         border-radius: 12px;
         font-family: 'Lato', sans-serif;
         color: var(--text);
@@ -185,9 +185,10 @@
         &__synopsis--container  {
             display: inline-block;
             font-family: 'Lato', sans-serif;
-            color: rgb(192, 187, 183);
+            color: var(--text_light);
             text-align: justify;
             overflow: hidden;
+            font-weight: 300;
         }
         &__casting {
             display: flex;

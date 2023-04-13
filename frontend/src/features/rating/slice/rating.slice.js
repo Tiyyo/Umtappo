@@ -22,7 +22,6 @@ const ratingSlice = createSlice({
   initialState,
   reducers: {
     addRating: (state, { payload }) => {
-      console.log(payload);
       state.rates.push(payload);
     },
     deleteRating: (state, { payload }) => {},

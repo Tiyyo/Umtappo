@@ -202,7 +202,6 @@ module.exports.getUserRecommendations = asyncHandler(async (req, res) => {
         return { ...g, score: [], occurency: 0 };
       });
     }
-    console.log(allGenreWithScore);
     for (let i = 0; i < allGenreWithScore.length; i++) {
       for (let j = 0; j < genreList.length; j++) {
         if (allGenreWithScore[i].id === genreList[j].id) {
@@ -219,7 +218,7 @@ module.exports.getUserRecommendations = asyncHandler(async (req, res) => {
         return { ...g, score: +((sumScore / g.occurency) * 1.07).toFixed(3) };
       } else return g;
     });
-    res.json(userPreferedGenre);
+    res.status(200).json(userPreferedGenre);
   };
 
   isMediaAreDuplicate();
@@ -227,13 +226,36 @@ module.exports.getUserRecommendations = asyncHandler(async (req, res) => {
   addUserRateToData();
   addValues();
   sumScore();
-  //   res.json(allGenreWithScore);
-
-  //   res.json(data);
 });
 
 module.exports.getRandomRecommendations = asyncHandler(async (req, res) => {
-  const user_id = req.params.userId;
+  const genreUrls = [
+    "https://api.themoviedb.org/3/genre/tv/list?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=en-US",
+    "https://api.themoviedb.org/3/genre/movie/list?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=en-US",
+  ];
 
-  res.status(200).send("ok");
+  let genreList;
+
+  await axios.all(genreUrls.map((url) => axios.get(url))).then((resp) => {
+    resp[0].data.genres.map((g) => (g.media_type = "tv"));
+    resp[1].data.genres.map((g) => (g.media_type = "movie"));
+    genreList = [resp[0].data.genres, resp[1].data.genres].flat();
+  });
+
+  const shuffle = (arr) => {
+    let currentIndex = arr.length,
+      randomIndex;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [arr[currentIndex], arr[randomIndex]] = [
+        arr[randomIndex],
+        arr[currentIndex],
+      ];
+    }
+    return arr;
+  };
+
+  shuffle(genreList);
+  res.status(200).json(genreList);
 });

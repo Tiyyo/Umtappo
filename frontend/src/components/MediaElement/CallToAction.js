@@ -46,7 +46,6 @@ const CallToAction = ({ media_type, id, content }) => {
   }
 
   const addToLikes = async (media_type) => {
-    console.log(content);
     const data = {
       user_id: userID,
       content_id: id,
