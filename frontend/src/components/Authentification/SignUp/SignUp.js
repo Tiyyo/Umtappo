@@ -39,7 +39,7 @@ const SignUp = () => {
 
   const submitUser = async (data) => {
     await axios
-      .post("http://localhost:5000/user/register", {
+      .post("https://umtappo.onrender.com/user/register", {
         username: data?.username,
         email: data?.email,
         password: data?.password,

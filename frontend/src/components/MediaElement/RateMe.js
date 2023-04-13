@@ -25,7 +25,7 @@ const RateMe = ({ isOpen, close, title, media_type, id }) => {
 
     if (isRated) {
       const result = await axios
-        .patch("http://localhost:5000/rate/edit", {
+        .patch("https://umtappo.onrender.com/rate/edit", {
           _id: rateId,
           newRate: rate,
         })
@@ -33,7 +33,7 @@ const RateMe = ({ isOpen, close, title, media_type, id }) => {
         .catch((err) => console.log(err));
     } else {
       const result = await axios
-        .post("http://localhost:5000/rate/add", {
+        .post("https://umtappo.onrender.com/rate/add", {
           userRate,
           user_id: userID,
           id,

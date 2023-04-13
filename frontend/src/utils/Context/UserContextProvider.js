@@ -35,7 +35,7 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
     const fetchGenreRecommend = async () => {
       await axios
-        .get("http://localhost:5000/recommendations/genre/" + userID)
+        .get("https://umtappo.onrender.com/recommendations/genre/" + userID)
         .then((res) => {
           setScore(res.data);
         })

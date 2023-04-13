@@ -16,7 +16,7 @@ const Watchlist = ({ list, content }) => {
 
   const removeList = (_id) => {
     let objectID = { _id };
-    axios.delete("http://localhost:5000/list/" + _id);
+    axios.delete("https://umtappo.onrender.com/list/" + _id);
     dispatch(deleteList(objectID));
   };
 
@@ -26,7 +26,7 @@ const Watchlist = ({ list, content }) => {
     let data = { listId: _id, content: content, content_id: contentId };
 
     axios
-      .put("http://localhost:5000/list", data)
+      .put("https://umtappo.onrender.com/list", data)
       .then((res) => {
         if (res.status === 200) {
           toast.info("Successfully added", {
