@@ -32,7 +32,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev" : "nodemon ./server.js",
-    "install" : "npm install",
     "client": "cd frontend && npm start",
     "client-install": "cd frontend && npm install",
     "render-postbuild": "NPM_CONFIG_PRODUCTION=false cd frontend && npm install  && npm run build"
