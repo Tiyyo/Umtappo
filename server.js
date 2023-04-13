@@ -39,9 +39,11 @@ app.get("/s3Url", async (req, res) => {
   res.send({ url });
 });
 
-if(process.env.NODE_ENV === 'production') {
-  app.use(express.statis('client/build'))
-  app.get('*', (req,res) => res.sendFile(path.resolve(__dirname,"client", 'build', 'index.html' )))
+if (process.env.NODE_ENV === "production") {
+  app.use(express.status("client/build"));
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+  );
 }
 app.get("/*", (req, res) => {
   res.sendFile(path.join("../public/index.html"));
