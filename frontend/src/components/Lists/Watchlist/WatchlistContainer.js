@@ -23,7 +23,7 @@ const WatchlistContainer = () => {
   return (
     <>
       {!loadingListState === "idle" ? (
-        <LoaderUI fixed={true} />
+        <LoaderUI position={"fixed"} />
       ) : (
         <div className="favorite-resume__container__watchlists">
           <div className="favorite-resume__container__watchlists--header">

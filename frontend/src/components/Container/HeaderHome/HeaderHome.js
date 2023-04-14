@@ -50,13 +50,48 @@ const HeaderHome = React.forwardRef(({ content }, headerHome) => {
     <div className="header-home" ref={headerHome}>
       <div className="header-home__image-wrapper">
         <picture>
-          <source srcSet={imagePathPoster(3)} media="(max-width : 320px)" />
-          <source srcSet={imagePathPoster(4)} media="(max-width : 480px)" />
-          <source srcSet={imagePathPoster(5)} media="(max-width : 768px)" />
-          <source srcSet={imagePathPoster(6)} media="(max-width : 960px)" />
-          <source srcSet={imagePathBanner(2)} media="(max-width : 1200px)" />
-          <source srcSet={imagePathBanner(2)} media="(max-width : 1600px)" />
-          <img src={imagePathBanner(3)} ref={image} />
+          <source
+            srcSet={
+              imagePathPoster(3).slice(0, 4) + "s" + imagePathPoster(3).slice(4)
+            }
+            media="(max-width : 320px)"
+          />
+          <source
+            srcSet={
+              imagePathPoster(4).slice(0, 4) + "s" + imagePathPoster(4).slice(4)
+            }
+            media="(max-width : 480px)"
+          />
+          <source
+            srcSet={
+              imagePathPoster(5).slice(0, 4) + "s" + imagePathPoster(5).slice(4)
+            }
+            media="(max-width : 768px)"
+          />
+          <source
+            srcSet={
+              imagePathPoster(6).slice(0, 4) + "s" + imagePathPoster(6).slice(4)
+            }
+            media="(max-width : 960px)"
+          />
+          <source
+            srcSet={
+              imagePathBanner(2).slice(0, 4) + "s" + imagePathBanner(2).slice(4)
+            }
+            media="(max-width : 1200px)"
+          />
+          <source
+            srcSet={
+              imagePathBanner(2).slice(0, 4) + "s" + imagePathBanner(2).slice(4)
+            }
+            media="(max-width : 1600px)"
+          />
+          <img
+            src={
+              imagePathBanner(3).slice(0, 4) + "s" + imagePathBanner(3).slice(4)
+            }
+            ref={image}
+          />
         </picture>
       </div>
     </div>

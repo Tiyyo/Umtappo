@@ -11,13 +11,11 @@ const BannerCard = ({ element: el }) => {
     <div className="banner-card">
       {el?.backdrop_path ? (
         <div className="banner-card__image-container">
-          <LazyLoad>
-            <img
-              src={imagePath(config, "backdrop", el, 3)}
-              alt={"image of " + el.title || el.name}
-              className="banner-card__image-container__image"
-            />
-          </LazyLoad>
+          <img
+            src={imagePath(config, "backdrop", el, 3)}
+            alt={"image of " + el.title || el.name}
+            className="banner-card__image-container__image"
+          />
           <h3 className="banner-card__image-container__title">
             {el.title || el.name}
           </h3>

@@ -10,6 +10,7 @@ body[data-theme="light"] {
     --menu_link : rgb(249, 239, 226);
     --text_light : rgba(16, 16, 16, 0.956);
     --white_black : rgba(11, 11, 11, 0.944);
+    --shadow : rgba(235, 230, 225, 0.073);
 
     // --primary_hard_light : rgb(255, 214, 178);
     // --primary_light :rgb(255, 164, 83);
@@ -39,6 +40,7 @@ body[data-theme="light"] {
     --star : rgb(52, 126, 210);
     --border_modal : rgba(254, 171, 171, 0.349); 
     --nav_icon : rgba(31, 30, 29, 0.889);
+    --error : rgba(157, 36, 36, 0.958);
 
 
 
@@ -67,7 +69,8 @@ body[data-theme="dark"] {
     --yellow_star: rgb(234, 223, 14);
     --star : rgb(52, 126, 210);
     --primary_dark : rgb(203, 102, 12);
-
+    --nav_icon : rgba(208, 116, 19, 0.889);
+    --error : rgba(157, 36, 36, 0.958);
 
 
     //legacy
@@ -79,10 +82,9 @@ body[data-theme="dark"] {
     // --secondary_gradient : linear-gradient(180deg, #0b0b0bd9 0%,  #0b0b0b20 10%, #0b0b0b17  100%);
     // // --secondary_light : #484848;
     // --secondary_dark : #000000;
+    // --red_icon : rgb(219, 30, 30);
     --error : rgba(227, 28, 28, 0.958);
-    --red_icon : rgb(219, 30, 30);
     // --nav_bg : rgba(21, 20, 20, 0.903);
-    --nav_icon : rgba(208, 116, 19, 0.889);
     // --title : rgba(143, 88, 2, 1);
     // --blackbg : #121212;
     // --main-primary : rgba(231, 154, 33, 1);

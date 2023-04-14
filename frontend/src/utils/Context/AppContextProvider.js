@@ -63,6 +63,14 @@ export const AppContextProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    if (window.localStorage.recommendations) {
+      setRecommendations(window.localStorage.recommendations);
+    } else {
+      setRecommendations(false);
+    }
+  }, []);
+
+  useEffect(() => {
     const fetchConfig = async () => {
       const result = await axios
         .get(
