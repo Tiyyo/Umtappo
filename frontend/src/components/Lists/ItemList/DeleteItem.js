@@ -35,7 +35,7 @@ const DeleteItem = ({ content, openList, typeList, listID }) => {
   };
 
   const removeContent = async (contentId) => {
-    await axios.patch("http://localhost:5000/list", {
+    await axios.patch("https://umtappo-api.onrender.com/list", {
       list_id: listID,
       content_id: contentId,
     });

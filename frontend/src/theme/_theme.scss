@@ -25,7 +25,7 @@ body[data-theme="light"] {
     // --menu_link_transparent : rgba(253, 184, 55, 0.1);
     // --input_bg : rgba(255,255,255,1);
     // --input_lock_color : rgba(0, 0, 0, 0.5);
-    // --error : rgba(196, 15, 15, 0.871);
+    --error : rgba(196, 15, 15, 0.871);
     // --primary_dark : #c25e00;
     // --input_placeholder : rgba(218, 113, 21, 0.641);
     // --transparent_bg : rgba(255,255,255,0.2);
@@ -82,8 +82,8 @@ body[data-theme="dark"] {
     // --secondary_gradient : linear-gradient(180deg, #0b0b0bd9 0%,  #0b0b0b20 10%, #0b0b0b17  100%);
     // // --secondary_light : #484848;
     // --secondary_dark : #000000;
-    
     // --red_icon : rgb(219, 30, 30);
+    --error : rgba(227, 28, 28, 0.958);
     // --nav_bg : rgba(21, 20, 20, 0.903);
     // --title : rgba(143, 88, 2, 1);
     // --blackbg : #121212;
