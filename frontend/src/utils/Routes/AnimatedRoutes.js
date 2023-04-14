@@ -73,7 +73,7 @@ const AnimatedRoutes = () => {
   return (
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
-        {/* <Route element={<ProtectedRoutes />}> */}
+         <Route element={<ProtectedRoutes />}> 
         <Route path={"/"} element={<AppLayout />}>
           <Route path={""} element={<Navigate to="/Home" />} />
           <Route exact path={"Home"} element={<Home />}>
@@ -105,7 +105,7 @@ const AnimatedRoutes = () => {
             <Route path="Lists" element={<AccountWatchlist />} />
           </Route>
         </Route>
-        {/* </Route> */}
+         </Route> 
         <Route path={"/Login"} element={<LoginLayout />}>
           <Route path={""} element={<HomePage />} />
           <Route path="SignIn" element={<SignIn />} />
