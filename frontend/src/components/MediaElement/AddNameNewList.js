@@ -24,7 +24,7 @@ const AddNameNewList = ({ isOpen, getCloseState, content }) => {
     };
 
     axios
-      .post("https://umtappo-api.onrender.com/list", data)
+      .post("https://umtappo.onrender.com/list", data)
       .then((res) => {
         dispatch(createList(data));
         dispatch(getLists(userID));

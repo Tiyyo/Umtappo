@@ -12,7 +12,7 @@ export const getIdsTvshowsLiked = createAsyncThunk(
   "getIdsTvshowsLiked",
   async (arg, { dispatch, getState, rejectWithValue }) => {
     const result = await axios
-      .get("https://umtappo-api.onrender.com/like/tv/" + arg)
+      .get("https://umtappo.onrender.com/like/tv/" + arg)
       .then((res) => {
         let arr = [];
         res.data.tvshow_liked.map((r) => {

@@ -5,7 +5,7 @@ export const getRating = createAsyncThunk(
   "getRating",
   async (user_id, { rejectWithValue }) => {
     const result = await axios
-      .get("https://umtappo-api.onrender.com/rate/get/" + user_id)
+      .get("https://umtappo.onrender.com/rate/get/" + user_id)
       .then((res) => res.data.rates)
       .catch((err) => rejectWithValue(err.response.data));
     return result;

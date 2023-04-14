@@ -87,7 +87,7 @@ const Profile = () => {
     let data = { user_id: userID, newEmail: value.email };
 
     await axios
-      .patch("https://umtappo-api.onrender.com/user/email", data)
+      .patch("https://umtappo.onrender.com/user/email", data)
       .then((res) => {
         if (res.status === 200) {
           toast.success("Email has been succesfull updated");

@@ -12,7 +12,7 @@ export const getIdsMoviesLiked = createAsyncThunk(
   "getIdsMoviesLiked",
   async (user_id, { dispatch, getState, rejectWithValue }) => {
     const result = await axios
-      .get("https://umtappo-api.onrender.com/like/movie/" + user_id)
+      .get("https://umtappo.onrender.com/like/movie/" + user_id)
       .then((res) => {
         if (res.status === 200) {
           let arr = [];

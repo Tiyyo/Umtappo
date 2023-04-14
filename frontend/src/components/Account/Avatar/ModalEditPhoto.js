@@ -81,7 +81,7 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    const endpoint = "https://umtappo-api.onrender.com/s3Url";
+    const endpoint = "https://umtappo.onrender.com/s3Url";
     const generateLink = axios.get(endpoint);
 
     const { urlCropImage, urlFullImage } = await axios
@@ -123,7 +123,7 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
     const imgCropLink = splitGenerateLink(urlCropImage);
 
     await axios
-      .put("http://localhost:5000/user/image", {
+      .put("https://umtappo.onrender.com/user/image", {
         user_id: userID,
         imgFullLink,
         imgCropLink,

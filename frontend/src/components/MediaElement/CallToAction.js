@@ -54,7 +54,7 @@ const CallToAction = ({ media_type, id, content }) => {
       vote_average: content.vote_average,
     };
     const result = await axios
-      .post(`https://umtappo-api.onrender.com/like/${media_type}`, data)
+      .post(`https://umtappo.onrender.com/like/${media_type}`, data)
       .then((res) => {
         if (res.status === 200) {
           media_type === movieType
@@ -71,7 +71,7 @@ const CallToAction = ({ media_type, id, content }) => {
   const removeFromLikes = async (media_type) => {
     const data = { user_id: userID, content_id: id, media_type };
     const result = await axios
-      .patch(`https://umtappo-api.onrender.com/${media_type}`, data)
+      .patch(`https://umtappo.onrender.com/${media_type}`, data)
       .then((res) => {
         if (res.status === 200) {
           media_type === movieType
