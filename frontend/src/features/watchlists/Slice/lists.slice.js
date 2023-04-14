@@ -5,7 +5,7 @@ export const getLists = createAsyncThunk(
   "getLists",
   async (user_id, { dispatch, getState }) => {
     const result = await axios
-      .get("https://umtappo-api.onrender.com/list/" + user_id)
+      .get("https://umtappo.onrender.com/list/" + user_id)
       .then((res) => {
         return res.data;
       });

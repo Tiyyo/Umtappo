@@ -34,7 +34,7 @@ const SmallCard = ({ defaultImage, list, typeList }) => {
 
   const removeList = (_id) => {
     let objectID = { _id };
-    axios.delete("https://umtappo-api.onrender.com/list/" + _id);
+    axios.delete("https://umtappo.onrender.com/list/" + _id);
     dispatch(deleteList(objectID));
   };
 
