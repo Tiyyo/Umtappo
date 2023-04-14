@@ -39,6 +39,11 @@ const Preference = () => {
     return preferedTheme === "dark" ? "primary" : "white";
   };
 
+  const handleRecommmendations = (e) => {
+    setRecommendations(e.target.checked);
+    window.localStorage.setItem("recommendations", e.target.checked);
+  };
+
   const currentLanguage = useCurrentLanguage();
 
   return (
@@ -105,7 +110,7 @@ const Preference = () => {
           <span>OFF</span>
           <Switch
             checked={recommendations}
-            onChange={(e) => setRecommendations(e.target.checked)}
+            onChange={(e) => handleRecommmendations(e)}
             inputProps={{ "aria-label": "controlled" }}
             size="medium"
           />

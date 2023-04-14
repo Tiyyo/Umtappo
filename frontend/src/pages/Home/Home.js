@@ -121,19 +121,6 @@ const Home = () => {
     dispatch(getUserData(userID));
   }, []);
 
-  function repeat(text, n) {
-    let i = 0;
-    let response = "";
-    while (i < n) {
-      response += text;
-      i++;
-    }
-    console.log(response);
-    return response;
-  }
-
-  console.log(repeat("patate", 5));
-
   return (
     <HomeContextProvider>
       <Outlet />
