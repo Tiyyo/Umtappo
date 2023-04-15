@@ -40,7 +40,7 @@ if (process.env.NODE_ENV === "production") {
   );
 }
 app.get("/*", (req, res) => {
-  res.sendFile(path.join("../public/index.html"));
+  res.sendFile(path.join("./frontend/build/index.html"));
 });
 
 app.listen(port, () => console.log("server start at port " + port));
