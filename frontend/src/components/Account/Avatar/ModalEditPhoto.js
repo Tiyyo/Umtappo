@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { updatePictures } from "../../../features/user/slice/user.slice";
 import LoaderUI from "../../Loader/LoaderUI";
 import { splitGenerateLink } from "./split.link";
-// import useSelectedFiles from "./useSelectedFiles";
 
 const validFilesTypes = [
   "image/jpg",

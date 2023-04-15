@@ -7,7 +7,7 @@ const LoginLayout = () => {
   const { authIsLoading } = useContext(UserContext);
 
   return authIsLoading ? (
-    <LoaderUI />
+    <LoaderUI position={"fixed"} />
   ) : (
     <div className="log">
       <Outlet />
