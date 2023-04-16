@@ -6,6 +6,8 @@
     z-index: 5;
     background-color: rgba(108, 81, 81, 0.064);
 
+
+
     .blur  {
             position: absolute;
             top: 0;
@@ -24,7 +26,6 @@
         
         &__media-element {
         margin: 2.5em auto;
-        width: 90%;
         max-width: 70rem;
         background-color: var(--bg_primary_soft_opacity);
         border: 2px solid var(--border_modal);
@@ -33,6 +34,18 @@
         color: var(--text);
         line-height: 1.6;
         padding: 1em 0.5em 3em 0.5em;
+        opacity: 0;
+
+
+        &[data-closed="true"] {
+            opacity: 0;
+            transition: opacity 0.3s ease-in;
+        } 
+        &[data-closed="false"] {
+            opacity: 1;
+            width: 90%;
+            transition: opacity 0.3s ease-in;
+        }
 
         &::-webkit-scrollbar {
             display: none;
@@ -43,9 +56,10 @@
         @keyframes opacityIn {
             0% {
                 opacity: 0;
+                width: 0;
             }
             100% {
-                opacity: 100%;
+                opacity: 1;
             }
         }
 

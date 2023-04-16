@@ -1,20 +1,19 @@
 import React, { useCallback, useEffect, useState, useMemo } from "react";
 import PromotedCard from "../../Cards/Promoted/PromotedCard";
 import useWindowsSize from "../../../utils/hooks/useWindowSize";
+import usePromoted from "./usePromoted";
 
 const Promoted = ({ content }) => {
   const [randomIndexElement, setRandomIndex] = useState(0);
   const [numberElementDisplayed, setNumberElementDisplayed] = useState(1);
 
-  const filteredContent = content.filter((el) => el.backdrop_path);
+  // const filteredContent = content.filter((el) => el.backdrop_path);
 
   const { width: windowWidth } = useWindowsSize();
 
-  const pickRandomNumber = useCallback(() => {
-    return setRandomIndex(
-      Math.floor(Math.random() * (filteredContent.length - 1))
-    );
-  }, [content]);
+  // const pickRandomNumber = useCallback(() => {
+  //   return setRandomIndex(Math.floor(Math.random() * filteredContent.length));
+  // }, [content]);
 
   const controls = () => {
     if (randomIndexElement === -1) {
@@ -23,7 +22,7 @@ const Promoted = ({ content }) => {
   };
 
   useEffect(() => {
-    pickRandomNumber();
+    // pickRandomNumber();
     controls();
   }, [numberElementDisplayed]);
 
@@ -41,15 +40,25 @@ const Promoted = ({ content }) => {
     }
   }, [windowWidth]);
 
+  const nothing = usePromoted();
+
+  useEffect(() => {
+    console.log("how many fire promoted");
+  });
+
   return (
     <div className="promoted">
-      {filteredContent
-        .slice(randomIndexElement, randomIndexElement + numberElementDisplayed)
-        .map((el) => {
-          return (
-            <PromotedCard key={el.id + el.title || el.name} content={el} />
-          );
-        })}
+      {/* {filteredContent &&
+        filteredContent
+          .slice(
+            randomIndexElement,
+            randomIndexElement + numberElementDisplayed
+          )
+          .map((el) => {
+            return (
+              <PromotedCard key={el.id + el.title || el.name} content={el} />
+            );
+          })} */}
     </div>
   );
 };

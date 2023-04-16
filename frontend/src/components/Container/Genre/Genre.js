@@ -11,22 +11,34 @@ const Genre = ({ dataToDisplay, numberContainerToDisplay }) => {
 
   const isEnough = useIsEnough();
 
-  let movie = "movie";
-  let tvshow = "tv";
+  let both = "Both";
+
+  // create a function getUniqueValuesArray in the future
+  const uniqueScores = [
+    ...new Map(
+      scores?.map((el) => {
+        return [el.id, el];
+      })
+    ).values(),
+  ];
+
+  const uniqueRandomReco = [
+    ...new Map(
+      scores?.map((el) => {
+        return [el.id, el];
+      })
+    ).values(),
+  ];
 
   if (!scores && !randomReco) {
     return <div className="favorite-genre"></div>;
   } else if (recommendations && scores && isEnough) {
     return (
       <div className="favorite-genre">
-        {scores
-          .filter((f) => {
-            if (dataToDisplay === movie) {
-              return f.media_type === movie;
-            } else if (dataToDisplay === tvshow) {
-              return f.media_type === tvshow;
-            } else return f;
-          })
+        {uniqueScores
+          .filter((f) =>
+            dataToDisplay === both ? f : f.media_type === dataToDisplay
+          )
           .sort((a, b) => b.score - a.score)
           .slice(0, numberContainerToDisplay)
           .map((genre, index) => (
@@ -37,17 +49,13 @@ const Genre = ({ dataToDisplay, numberContainerToDisplay }) => {
           ))}
       </div>
     );
-  } else if (randomReco) {
+  } else if (uniqueRandomReco) {
     return (
       <div className="favorite-genre">
-        {randomReco
-          .filter((f) => {
-            if (dataToDisplay === movie) {
-              return f.media_type === movie;
-            } else if (dataToDisplay === tvshow) {
-              return f.media_type === tvshow;
-            } else return f;
-          })
+        {uniqueRandomReco
+          .filter((f) =>
+            dataToDisplay === both ? f : f.media_type === dataToDisplay
+          )
           .slice(0, numberContainerToDisplay)
           .map((genre, index) => (
             <InfiniteHorizontalCarousel

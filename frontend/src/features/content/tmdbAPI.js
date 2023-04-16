@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import axios from "axios";
 
 let currentDate = new Date();
 const date = currentDate.setMonth(-1);
@@ -80,10 +81,54 @@ export const tmdbAPI = createApi({
       },
       transformErrorResponse: (response, meta, arg) => response.status,
     }),
+    getAllPromotedMovies: builder.query({
+      queryFn: async (params, _queryApi, _extraOptions, fetchWithBQ) => {
+        const queries = params.page.map((p) => {
+          return `https://api.themoviedb.org/3/discover/movie?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${params.languages}&sort_by=vote_average.desc&include_adult=false&include_video=false&page=${p}&vote_count.gte=5000&vote_average.gte=8&with_watch_monetization_types=flatrate`;
+        });
+        let fetchData = [];
+        let error = null;
+        await axios
+          .all(queries.map((q) => axios.get(q)))
+          .then((res) => {
+            return res.map((r) => {
+              r.data.results.map((result) => (result.media_type = "tv"));
+              return fetchData.push(r.data.results.flat());
+            });
+          })
+          .catch((err) => (error = err.response.data));
+        return error
+          ? { isError: true, data: null }
+          : { data: [...fetchData].flat(), isError: false };
+      },
+    }),
+    getAllPromotedTvshow: builder.query({
+      queryFn: async (params, _queryApi, _extraOptions, fetchWithBQ) => {
+        const queries = params.page.map((p) => {
+          return `
+          https://api.themoviedb.org/3/discover/tv?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${params.languages}&sort_by=popularity.desc&page=${p}&vote_count.gte=1500&timezone=America%2FNew_York&vote_average.gte=7&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&with_status=0&with_type=`;
+        });
+        let fetchData = [];
+        let error = null;
+        await axios
+          .all(queries.map((q) => axios.get(q)))
+          .then((res) => {
+            return res.map((r) => {
+              r.data.results.map((result) => (result.media_type = "tv"));
+              return fetchData.push(r.data.results.flat());
+            });
+          })
+          .catch((err) => (error = err.response.data));
+        return error
+          ? { isError: true, data: null }
+          : { data: [...fetchData].flat(), isError: false };
+      },
+    }),
     getPromotedMovie: builder.query({
-      query: (languages, page) =>
-        `discover/movie?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${languages}&sort_by=vote_average.desc&include_adult=false&include_video=false&page=${page}&vote_count.gte=5000&vote_average.gte=8&with_watch_monetization_types=flatrate`,
+      query: (params) =>
+        `discover/movie?api_key=3e2abd7e10753ed410ed7439f7e1f93f&language=${params.languages}&sort_by=vote_average.desc&include_adult=false&include_video=false&page=${params.page}&vote_count.gte=5000&vote_average.gte=8&with_watch_monetization_types=flatrate`,
       transformResponse: (response, meta, data) => {
+        console.log(response, meta, data);
         response.results.map((r) => (r.media_type = movie));
         return response.results;
       },
@@ -186,4 +231,6 @@ export const {
   useGetCreditsQuery,
   useGetSimilarsQuery,
   useGetGenreQuery,
+  useGetAllPromotedMoviesQuery,
+  useGetAllPromotedTvshowQuery,
 } = tmdbAPI;

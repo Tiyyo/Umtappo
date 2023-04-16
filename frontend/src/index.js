@@ -15,6 +15,7 @@ import { tmdbAPI } from "./features/content/tmdbAPI";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import displayContentModalReducer from "./features/modal display content/modal.display.content";
 import { disableReactDevTools } from "@fvilers/disable-react-devtools";
+import promotedMediaReducer from "./features/promoted/slice/promoted.media.slice";
 
 if (process.env.NODE_ENV === "production") disableReactDevTools();
 const store = configureStore({
@@ -25,11 +26,12 @@ const store = configureStore({
     movieLiked: movieLikedReducer,
     tvshowLiked: tvshowLikedReducer,
     displayContentModal: displayContentModalReducer,
+    promotedMedia: promotedMediaReducer,
     [tmdbAPI.reducerPath]: tmdbAPI.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(tmdbAPI.middleware),
-  devTools: false,
+  // devTools: false,
 });
 
 setupListeners(store.dispatch);

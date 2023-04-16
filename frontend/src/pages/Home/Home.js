@@ -56,8 +56,8 @@ const Home = () => {
   const { data: trendingAll, isLoading: isLoadingAllTrends } =
     useGetAllTrendsQuery(languages);
 
-  const { data: promotedMovies, isLoading: isLoadingPromotedMovie } =
-    useGetPromotedMovieQuery(languages, promotedElementPageNumber);
+  // const { data: promotedMovies, isLoading: isLoadingPromotedMovie } =
+  //   useGetPromotedMovieQuery(languages, promotedElementPageNumber);
 
   const { data: promotedTvShows, isLoading: isLoadingPromotedTvshow } =
     useGetPromotedTvshowQuery(languages, promotedElementPageNumber);
@@ -80,7 +80,7 @@ const Home = () => {
       isLoadingTopRatedMovie,
       isLoadingTopRatedTvshow,
       isLoadingAllTrends,
-      isLoadingPromotedMovie,
+      // isLoadingPromotedMovie,
       isLoadingPromotedTvshow,
       isloadingLastReleaseMovie,
       isLoadingLastReleaseTvshow,
@@ -92,7 +92,7 @@ const Home = () => {
     isLoadingTopRatedMovie,
     isLoadingTopRatedTvshow,
     isLoadingAllTrends,
-    isLoadingPromotedMovie,
+    // isLoadingPromotedMovie,
     isLoadingPromotedTvshow,
     isloadingLastReleaseMovie,
     isLoadingLastReleaseTvshow,
@@ -152,9 +152,13 @@ const Home = () => {
                 content={[...topRatedMovies, ...topRatedShow]}
                 title="What users like the most"
               />
-              <Promoted content={[...promotedMovies, ...promotedTvShows]} />
+              <Promoted
+              // content={[...promotedMovies, ...promotedTvShows]}
+              />
               <Genre dataToDisplay="Both" numberContainerToDisplay={3} />
-              <Promoted content={[...promotedMovies, ...promotedTvShows]} />
+              <Promoted
+              //  content={[...promotedMovies, ...promotedTvShows]}
+              />
             </>
           )}
         </div>
