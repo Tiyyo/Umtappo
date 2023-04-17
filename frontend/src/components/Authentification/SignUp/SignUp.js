@@ -46,7 +46,6 @@ const SignUp = () => {
       })
       .then((res) => {
         if (res.status === 200) {
-          alert("You are now registered");
           toast.success("You are now registered", {
             position: "top-center",
             autoClose: 1000,

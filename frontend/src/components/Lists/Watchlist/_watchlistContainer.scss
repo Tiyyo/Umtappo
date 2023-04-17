@@ -44,10 +44,26 @@
       &[data-view="list"] {
         display: flex;
         flex-direction: row;
+        align-items: center;
         gap: 1rem;
         transition : all ease 0.2s;
         flex-wrap: nowrap;
         overflow-x: scroll;
+
+
+        .small-card  {
+         display: block;
+        }
+
+
+        a {
+          height: 70px;
+        }
+
+        img {
+          height: 100%;
+          width: auto;
+        }
   
       }
     }

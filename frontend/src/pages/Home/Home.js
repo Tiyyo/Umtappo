@@ -15,8 +15,6 @@ import {
   useGetPlayingNowMovieQuery,
   useGetPopularMovieQuery,
   useGetPopularTvshowQuery,
-  useGetPromotedMovieQuery,
-  useGetPromotedTvshowQuery,
   useGetTopRatedMovieQuery,
   useGetTopRatedTvshowQuery,
 } from "../../features/content/tmdbAPI";
@@ -24,16 +22,13 @@ import { Outlet } from "react-router-dom";
 import { getUserData } from "../../features/user/slice/user.slice";
 import UserContext from "../../utils/Context/UserContextProvider";
 import { useDispatch } from "react-redux";
+import PromotedMediaContext from "../../utils/Context/PromotedMediaProvider";
 
 const Home = () => {
   const { languages, setNavIsIntersect } = useContext(AppContext);
-
+  const { uniqueArraysIndexMovie, uniqueArraysIndexTvshow } =
+    useContext(PromotedMediaContext);
   const { userID } = useContext(UserContext);
-
-  const [promotedElementPageNumber, setPromotedElementPageNumber] = useState(1);
-  const [promotedShowElementPageNumber, setPromotedShowElementPageNumber] =
-    useState(1);
-
   const [mainIsLoading, setMainIsLoading] = useState(true);
 
   const dispatch = useDispatch();
@@ -56,22 +51,11 @@ const Home = () => {
   const { data: trendingAll, isLoading: isLoadingAllTrends } =
     useGetAllTrendsQuery(languages);
 
-  const { data: promotedMovies, isLoading: isLoadingPromotedMovie } =
-    useGetPromotedMovieQuery(languages, promotedElementPageNumber);
-
-  const { data: promotedTvShows, isLoading: isLoadingPromotedTvshow } =
-    useGetPromotedTvshowQuery(languages, promotedElementPageNumber);
-
   const { data: lastReleaseMovies, isLoading: isloadingLastReleaseMovie } =
     useGetLastReleaseMovieQuery(languages);
 
   const { data: lastReleaseTvShow, isLoading: isLoadingLastReleaseTvshow } =
     useGetLastReleaseTvshowQuery(languages);
-
-  useEffect(() => {
-    setPromotedElementPageNumber(Math.ceil(Math.random() * +1));
-    setPromotedShowElementPageNumber(1);
-  }, []);
 
   useEffect(() => {
     let arr = [
@@ -80,8 +64,6 @@ const Home = () => {
       isLoadingTopRatedMovie,
       isLoadingTopRatedTvshow,
       isLoadingAllTrends,
-      isLoadingPromotedMovie,
-      isLoadingPromotedTvshow,
       isloadingLastReleaseMovie,
       isLoadingLastReleaseTvshow,
     ];
@@ -92,8 +74,6 @@ const Home = () => {
     isLoadingTopRatedMovie,
     isLoadingTopRatedTvshow,
     isLoadingAllTrends,
-    isLoadingPromotedMovie,
-    isLoadingPromotedTvshow,
     isloadingLastReleaseMovie,
     isLoadingLastReleaseTvshow,
   ]);
@@ -152,9 +132,12 @@ const Home = () => {
                 content={[...topRatedMovies, ...topRatedShow]}
                 title="What users like the most"
               />
-              <Promoted content={[...promotedMovies, ...promotedTvShows]} />
+              <Promoted
+                indexes={uniqueArraysIndexMovie[0]}
+                mediaType={"movie"}
+              />
               <Genre dataToDisplay="Both" numberContainerToDisplay={3} />
-              <Promoted content={[...promotedMovies, ...promotedTvShows]} />
+              <Promoted indexes={uniqueArraysIndexTvshow[0]} mediaType={"tv"} />
             </>
           )}
         </div>

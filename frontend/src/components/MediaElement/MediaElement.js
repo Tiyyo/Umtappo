@@ -90,6 +90,7 @@ const MediaElement = () => {
               },
             }}
             className="modal-content__wrapper__media-element media-element"
+            data-closed={loading ? "true" : "false"}
           >
             {loading ? (
               <LoaderUI overlay={"false"} position={"fixed"} />

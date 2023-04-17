@@ -11,6 +11,10 @@ module.exports.addRates = asyncHandler(async (req, res) => {
     throw new Error("Rate, Id, User_id or media_type is missing");
   }
 
+  if (!isValidObjectId(user_id)) {
+    res.status(400).send("Please provide a correct Object Id");
+  }
+
   const user = await Users.findById(user_id);
 
   if (!user) {
@@ -79,6 +83,10 @@ module.exports.getRates = asyncHandler(async (req, res) => {
 
   if (!user_id) {
     res.status(400).send("No user_id is provided");
+  }
+
+  if (!isValidObjectId(user_id)) {
+    res.status(400).send("Please provide a correct Object Id");
   }
 
   const user = await Users.findById(user_id);

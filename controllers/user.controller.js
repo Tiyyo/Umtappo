@@ -7,7 +7,7 @@ const userModels = require("../models/user.models");
 const dotenv = require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const { createTokens } = require("./JWT");
-const { default: mongoose } = require("mongoose");
+const { default: mongoose, isValidObjectId } = require("mongoose");
 //@desc Register a User
 //@route POST /user/register
 //@acces public
@@ -89,6 +89,10 @@ module.exports.getUserInfos = asyncHandler(async (req, res) => {
   if (!user_id) {
     res.status(400).send("User id is missing");
     throw new Error("User id is missing");
+  }
+
+  if (!isValidObjectId(user_id)) {
+    res.status(400).send("Please provide a correct Object Id");
   }
   const user = await Users.findById(user_id);
 

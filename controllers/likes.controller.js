@@ -1,6 +1,6 @@
 const Users = require("../models/user.models");
 const asyncHandler = require("express-async-handler");
-const { default: mongoose } = require("mongoose");
+const { default: mongoose, isValidObjectId } = require("mongoose");
 
 module.exports.getMoviesLiked = asyncHandler(async (req, res) => {
   const user_id = req.params.id;
@@ -113,6 +113,9 @@ module.exports.likeShow = asyncHandler(async (req, res) => {
     throw new Error("User id or media type or content id is missing");
   }
 
+  if (!isValidObjectId(user_id)) {
+    res.status(400).send("Please provide a correct Object Id");
+  }
   if (media_type.toLowerCase() !== "tv") {
     res.status(400).send("media type must be Tv show");
     throw new Error("media type must be Tv show");

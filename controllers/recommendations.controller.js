@@ -9,6 +9,11 @@ module.exports.getUserRecommendations = asyncHandler(async (req, res) => {
   if (!user_id) {
     res.status(400).send("user_id is missing");
   }
+
+  if (!isValidObjectId(user_id)) {
+    res.status(400).send("Please provide a correct Object Id");
+  }
+
   let genreList;
   let lists;
   let rates;

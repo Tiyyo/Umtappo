@@ -12,15 +12,14 @@ import {
   useGetUpcomingMovieQuery,
 } from "../../features/content/tmdbAPI";
 import { Outlet } from "react-router";
+import PromotedMediaContext from "../../utils/Context/PromotedMediaProvider";
 
 const Films = () => {
-  const promotedElementPageNumber = useRef();
   const { languages, setNavIsIntersect } = useContext(AppContext);
+  const { uniqueArraysIndexMovie } = useContext(PromotedMediaContext);
 
   const [mainIsLoading, setMainIsLoading] = useState(true);
 
-  const { data: promotedMovies, isLoading: isLoadingPromotedMovie } =
-    useGetPromotedMovieQuery(languages, promotedElementPageNumber);
   const { data: lastReleaseMovies, isLoading: isloadingLastReleaseMovie } =
     useGetLastReleaseMovieQuery(languages);
   const { data: upcomingMovies, isLoading: isLoadingUpcomingMovie } =
@@ -31,7 +30,6 @@ const Films = () => {
   useEffect(() => {
     let arr = [
       isLoadingPopularMovies,
-      isLoadingPromotedMovie,
       isloadingLastReleaseMovie,
       isLoadingUpcomingMovie,
     ];
@@ -39,13 +37,8 @@ const Films = () => {
   }, [
     isLoadingPopularMovies,
     isLoadingUpcomingMovie,
-    isLoadingPromotedMovie,
     isloadingLastReleaseMovie,
   ]);
-
-  useEffect(() => {
-    promotedElementPageNumber.current = Math.floor(Math.random() * 6);
-  }, []);
 
   const mainDiv = useRef();
 
@@ -81,10 +74,10 @@ const Films = () => {
             content={lastReleaseMovies}
             title="What has been out lately"
           />
-          <Promoted content={promotedMovies} />
+          <Promoted indexes={uniqueArraysIndexMovie[1]} mediaType={"movie"} />
           <HorizontalCarousel content={popularMovies} title="Popular" />
           <Genre dataToDisplay="movie" numberContainerToDisplay={5} />
-          <Promoted content={promotedMovies} />
+          <Promoted indexes={uniqueArraysIndexMovie[2]} mediaType={"movie"} />
         </div>
       )}
     </div>

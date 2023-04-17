@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { lightIconTheme } from "../../theme/IconTheme";
 import { darkIconTheme } from "../../theme/IconTheme";
+
 export const AppContext = createContext(null);
 
 export const AppContextProvider = ({ children }) => {
