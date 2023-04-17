@@ -16,6 +16,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import displayContentModalReducer from "./features/modal display content/modal.display.content";
 import { disableReactDevTools } from "@fvilers/disable-react-devtools";
 import promotedMediaReducer from "./features/promoted/slice/promoted.media.slice";
+import { PromotedMediaContextProvider } from "./utils/Context/PromotedMediaProvider";
 
 if (process.env.NODE_ENV === "production") disableReactDevTools();
 const store = configureStore({
@@ -42,7 +43,9 @@ root.render(
   <AppContextProvider>
     <UserContextProvider>
       <Provider store={store}>
-        <App />
+        <PromotedMediaContextProvider>
+          <App />
+        </PromotedMediaContextProvider>
       </Provider>
     </UserContextProvider>
   </AppContextProvider>

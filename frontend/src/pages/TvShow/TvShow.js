@@ -7,20 +7,18 @@ import AppContext from "../../utils/Context/AppContextProvider";
 import LoaderUI from "../../components/Loader/LoaderUI";
 import {
   useGetLastReleaseTvshowQuery,
-  useGetPromotedTvshowQuery,
   useGetTrendsTvshowQuery,
   useGetTvshowOnAirQuery,
 } from "../../features/content/tmdbAPI";
 import { Outlet } from "react-router";
+import PromotedMediaContext from "../../utils/Context/PromotedMediaProvider";
 
 const TvShow = () => {
-  let promotedElementPageNumber = 1;
   const { languages, setNavIsIntersect } = useContext(AppContext);
+  const { uniqueArraysIndexTvshow } = useContext(PromotedMediaContext);
 
   const [mainIsLoading, setMainIsLoading] = useState(true);
 
-  const { data: promotedTvShows, isLoading: isLoadingPromotedTvshow } =
-    useGetPromotedTvshowQuery(languages, promotedElementPageNumber);
   const { data: lastReleaseTvShow, isLoading: isLoadingLastReleaseTvshow } =
     useGetLastReleaseTvshowQuery(languages);
   const { data: tvShowOnAir, isLoading: isLoadingTvshowOnAir } =
@@ -30,18 +28,12 @@ const TvShow = () => {
 
   useEffect(() => {
     let arr = [
-      isLoadingPromotedTvshow,
       isLoadingLastReleaseTvshow,
       isLoadingTvshowOnAir,
       isLoadingTrendTvshow,
     ];
     setMainIsLoading(arr.some((l) => l));
-  }, [
-    isLoadingPromotedTvshow,
-    isLoadingLastReleaseTvshow,
-    isLoadingTvshowOnAir,
-    isLoadingTrendTvshow,
-  ]);
+  }, [isLoadingLastReleaseTvshow, isLoadingTvshowOnAir, isLoadingTrendTvshow]);
 
   const mainDiv = useRef();
 
@@ -81,9 +73,9 @@ const TvShow = () => {
               content={trendingTvShows}
               title={"What is Trending now"}
             />
-            <Promoted content={promotedTvShows} />
+            <Promoted indexes={uniqueArraysIndexTvshow[1]} mediaType={"tv"} />
             <Genre dataToDisplay="tv" numberContainerToDisplay={5} />
-            <Promoted content={promotedTvShows} />
+            <Promoted indexes={uniqueArraysIndexTvshow[2]} mediaType={"tv"} />
           </div>
         )}
       </div>

@@ -1,34 +1,19 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-  useMemo,
-} from "react";
-import {
-  useGetAllPromotedMoviesQuery,
-  useGetAllPromotedTvshowQuery,
-} from "../../../features/content/tmdbAPI";
-import AppContext from "../../../utils/Context/AppContextProvider";
+import { useEffect, useState } from "react";
 
-const usePromoted = () => {
-  const { languages } = useContext(AppContext);
+const usePromoted = (
+  numMaxOfContentToDisplay,
+  numMaxCardsForContainer,
+  max
+) => {
   const [array, setArray] = useState([]);
-  let numMaxOfContentToDisplay = 12;
-  let numMaxCardsForContainer = 4;
-
-  //   const params = { languages: languages, page: [1, 2, 3, 4, 5, 6] };
-
-  //   const { data: essai } = useGetAllPromotedMoviesQuery(params);
-
-  //   const { data: shows } = useGetAllPromotedTvshowQuery(params);
+  const [splitArray, setSplitArray] = useState([]);
 
   const generateRandomNumber = () => {
-    return Math.floor(Math.random() * 105);
+    return Math.floor(Math.random() * max);
   };
 
   const generateUniqueIndex = (arr) => {
-    const randomNumber = generateRandomNumber(105);
+    const randomNumber = generateRandomNumber();
     if (!arr.includes(randomNumber) || arr.length === 0) {
       pushToArray(arr, randomNumber);
     } else {
@@ -61,22 +46,18 @@ const usePromoted = () => {
     return splitValues;
   };
 
-  const memoized = useCallback(
-    generateArraysIndexMovies(
-      array,
-      numMaxOfContentToDisplay,
-      numMaxCardsForContainer
-    ),
-    [languages]
-  );
+  useEffect(() => {
+    if (max) {
+      const splits = generateArraysIndexMovies(
+        array,
+        numMaxOfContentToDisplay,
+        numMaxCardsForContainer
+      );
+      setSplitArray(splits);
+    }
+  }, [max]);
 
-  console.log(memoized);
-
-  return generateArraysIndexMovies(
-    array,
-    numMaxOfContentToDisplay,
-    numMaxCardsForContainer
-  );
+  return splitArray;
 };
 
 export default usePromoted;

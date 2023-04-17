@@ -1,30 +1,24 @@
-import React, { useCallback, useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import PromotedCard from "../../Cards/Promoted/PromotedCard";
 import useWindowsSize from "../../../utils/hooks/useWindowSize";
-import usePromoted from "./usePromoted";
+import {
+  useGetAllPromotedMoviesQuery,
+  useGetAllPromotedTvshowQuery,
+} from "../../../features/content/tmdbAPI";
+import AppContext from "../../../utils/Context/AppContextProvider";
 
-const Promoted = ({ content }) => {
-  const [randomIndexElement, setRandomIndex] = useState(0);
+const Promoted = ({ indexes, mediaType }) => {
+  const [content, setContent] = useState(null);
   const [numberElementDisplayed, setNumberElementDisplayed] = useState(1);
 
-  // const filteredContent = content.filter((el) => el.backdrop_path);
+  const { languages } = useContext(AppContext);
+
+  const params = { languages, page: [1, 2, 3, 4, 5, 6] };
+
+  const { data: promotedMovies } = useGetAllPromotedMoviesQuery(params);
+  const { data: promotedTvshows } = useGetAllPromotedTvshowQuery(params);
 
   const { width: windowWidth } = useWindowsSize();
-
-  // const pickRandomNumber = useCallback(() => {
-  //   return setRandomIndex(Math.floor(Math.random() * filteredContent.length));
-  // }, [content]);
-
-  const controls = () => {
-    if (randomIndexElement === -1) {
-      setRandomIndex(0);
-    }
-  };
-
-  useEffect(() => {
-    // pickRandomNumber();
-    controls();
-  }, [numberElementDisplayed]);
 
   useEffect(() => {
     if (windowWidth < 340) {
@@ -40,25 +34,24 @@ const Promoted = ({ content }) => {
     }
   }, [windowWidth]);
 
-  const nothing = usePromoted();
-
   useEffect(() => {
-    console.log("how many fire promoted");
-  });
+    if (mediaType === "movie") {
+      let extractContent = indexes.map((i) => promotedMovies[i]);
+      setContent(extractContent);
+    } else if (mediaType === "tv") {
+      let extractContent = indexes.map((i) => promotedTvshows[i]);
+      setContent(extractContent);
+    }
+  }, [promotedMovies, promotedTvshows, numberElementDisplayed]);
 
   return (
     <div className="promoted">
-      {/* {filteredContent &&
-        filteredContent
-          .slice(
-            randomIndexElement,
-            randomIndexElement + numberElementDisplayed
-          )
-          .map((el) => {
-            return (
-              <PromotedCard key={el.id + el.title || el.name} content={el} />
-            );
-          })} */}
+      {content &&
+        content.slice(0, numberElementDisplayed).map((el) => {
+          return (
+            <PromotedCard key={el.id + el.title || el.name} content={el} />
+          );
+        })}
     </div>
   );
 };

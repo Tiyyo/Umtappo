@@ -3,12 +3,6 @@ const [array, setArray] = useState([]);
 let numMaxOfContentToDisplay = 12;
 let numMaxCardsForContainer = 4;
 
-//   const params = { languages: languages, page: [1, 2, 3, 4, 5, 6] };
-
-//   const { data: essai } = useGetAllPromotedMoviesQuery(params);
-
-//   const { data: shows } = useGetAllPromotedTvshowQuery(params);
-
 const generateRandomNumber = () => {
   return Math.floor(Math.random() * 105);
 };
@@ -35,28 +29,28 @@ function splitMainArray(arr, parts) {
   return result;
 }
 
-const generateArraysIndexMovies = (
-  arr,
-  numMaxOfContentToDisplay,
-  numMaxCardsForContainer
-) => {
-  while (arr.length < numMaxOfContentToDisplay) {
-    generateUniqueIndex(arr);
-  }
-  const splitValues = splitMainArray(arr, numMaxCardsForContainer);
-  return splitValues;
-};
+// const generateArraysIndexMovies = (
+//   arr,
+//   numMaxOfContentToDisplay,
+//   numMaxCardsForContainer
+// ) => {
+//   while (arr.length < numMaxOfContentToDisplay) {
+//     generateUniqueIndex(arr);
+//   }
+//   const splitValues = splitMainArray(arr, numMaxCardsForContainer);
+//   return splitValues;
+// };
 
-const memoized = useCallback(
-  generateArraysIndexMovies(
-    array,
-    numMaxOfContentToDisplay,
-    numMaxCardsForContainer
-  ),
-  [languages]
-);
+// const memoized = useCallback(
+//   generateArraysIndexMovies(
+//     array,
+//     numMaxOfContentToDisplay,
+//     numMaxCardsForContainer
+//   ),
+//   [languages]
+// );
 
-console.log(memoized);
+// console.log(memoized);
 
 return generateArraysIndexMovies(
   array,

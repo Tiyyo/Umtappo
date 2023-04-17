@@ -92,7 +92,7 @@ export const tmdbAPI = createApi({
           .all(queries.map((q) => axios.get(q)))
           .then((res) => {
             return res.map((r) => {
-              r.data.results.map((result) => (result.media_type = "tv"));
+              r.data.results.map((result) => (result.media_type = "movie"));
               return fetchData.push(r.data.results.flat());
             });
           })
@@ -233,4 +233,6 @@ export const {
   useGetGenreQuery,
   useGetAllPromotedMoviesQuery,
   useGetAllPromotedTvshowQuery,
+  useLazyGetAllPromotedMoviesQuery,
+  useLazyGetAllPromotedTvshowQuery,
 } = tmdbAPI;
