@@ -79,6 +79,7 @@ module.exports.loginUser = asyncHandler(async (req, res) => {
 module.exports.currentUser = asyncHandler(async (req, res) => {
   let email = req.user.email;
   const user = await Users.findOne({ email });
+
   res.json({
     id: user.id,
     username: user.username,

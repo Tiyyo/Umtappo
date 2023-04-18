@@ -34,12 +34,12 @@ if (process.env.NODE_ENV === "production") {
   app.use(
     express.static(path.join(__dirname, "/frontend", "public", "index.html"))
   );
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "/frontend", "public", "index.html"))
+  app.get("/*", (req, res) =>
+    res.sendFile(path.join(__dirname, "/frontend/public/index.html"))
   );
 }
-app.get("/*", (req, res) => {
-  res.sendFile(path.join("./frontend/public/index.html"));
-});
+// app.get("/*", (req, res) => {
+//   res.sendFile(path.join("./frontend/public/index.html"));
+// });
 
 app.listen(port, () => console.log("server start at port " + port));
