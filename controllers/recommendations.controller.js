@@ -1,7 +1,7 @@
 const Users = require("../models/user.models");
 const Rates = require("../models/rates.models");
 const asyncHandler = require("express-async-handler");
-const { default: mongoose } = require("mongoose");
+const { default: mongoose, isValidObjectId } = require("mongoose");
 const axios = require("axios");
 
 module.exports.getUserRecommendations = asyncHandler(async (req, res) => {

@@ -6,7 +6,6 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 const port = process.env.PORT || 5000;
 const s3 = require("./controllers/s3");
-const allowedOrigins = require("./config/allowedOrigins");
 const corsOptions = require("./config/corsOptions");
 
 connectDB();
