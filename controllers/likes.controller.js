@@ -8,6 +8,11 @@ module.exports.getMoviesLiked = asyncHandler(async (req, res) => {
   if (!user_id) {
     res.status(400).send("user_id is mandatory");
   }
+
+  if (!isValidObjectId(user_id)) {
+    res.status(400).send("Please provide a correct Object Id");
+  }
+
   const user = await Users.findById(user_id);
   console.log(user);
 
@@ -26,6 +31,10 @@ module.exports.likeMovie = asyncHandler(async (req, res) => {
   if (!user_id || !media_type || !content_id) {
     res.status(400).send("User id or media type or content id is missing");
     throw new Error("User id or media type or content id is missing");
+  }
+
+  if (!isValidObjectId(user_id)) {
+    res.status(400).send("Please provide a correct Object Id");
   }
 
   if (media_type.toLowerCase() !== "movie") {
@@ -66,6 +75,10 @@ module.exports.dislikeMovie = asyncHandler(async (req, res) => {
     throw new Error("user_id or content_id is missing");
   }
 
+  if (!isValidObjectId(user_id)) {
+    res.status(400).send("Please provide a correct Object Id");
+  }
+
   if (media_type !== refType) {
     res.status(400).send("Media type be movie");
     throw new Error("Media type must be movie");
@@ -92,6 +105,11 @@ module.exports.getTvshowsLiked = asyncHandler(async (req, res) => {
   if (!user_id) {
     res.status(400).send("user_id is mandatory");
   }
+
+  if (!isValidObjectId(user_id)) {
+    res.status(400).send("Please provide a correct Object Id");
+  }
+
   const user = await Users.findById(user_id);
 
   if (user) {
@@ -103,8 +121,6 @@ module.exports.getTvshowsLiked = asyncHandler(async (req, res) => {
 
 module.exports.likeShow = asyncHandler(async (req, res) => {
   const { user_id, media_type, content_id, genres, vote_average } = req.body;
-
-  console.log(genres);
 
   let data = { id: content_id, media_type, genres, vote_average };
 
@@ -149,10 +165,13 @@ module.exports.dislikeShow = asyncHandler(async (req, res) => {
   const { user_id, content_id, media_type } = req.body;
   let refType = "tv";
 
-  console.log(user_id, content_id, media_type);
   if (!user_id || !content_id) {
     res.status(400).send("user_id or content_id is missing");
     throw new Error("user_id or content_id is missing");
+  }
+
+  if (!isValidObjectId(user_id)) {
+    res.status(400).send("Please provide a correct Object Id");
   }
 
   if (media_type !== refType) {

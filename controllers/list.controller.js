@@ -1,7 +1,7 @@
 const Users = require("../models/user.models");
 const List = require("../models/lists.model");
 const asyncHandler = require("express-async-handler");
-const { default: mongoose } = require("mongoose");
+const { default: mongoose, isValidObjectId } = require("mongoose");
 
 module.exports.createList = asyncHandler(async (req, res) => {
   const { name, content, user_id } = req.body;
@@ -50,6 +50,10 @@ module.exports.getLists = asyncHandler(async (req, res) => {
 
   if (!user_id) {
     res.status(400).send("No user_id is provided");
+  }
+
+  if (!isValidObjectId(user_id)) {
+    res.status(400).send("Please provide a correct Object Id");
   }
 
   const user = await Users.findById(user_id);

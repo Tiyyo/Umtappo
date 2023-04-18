@@ -1,7 +1,7 @@
 const Users = require("../models/user.models");
 const Rates = require("../models/rates.models");
 const asyncHandler = require("express-async-handler");
-const { default: mongoose } = require("mongoose");
+const { default: mongoose, isValidObjectId } = require("mongoose");
 
 module.exports.addRates = asyncHandler(async (req, res) => {
   const { userRate, id, user_id, media_type } = req.body;
