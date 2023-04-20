@@ -19,6 +19,10 @@ module.exports.createUser = asyncHandler(async (req, res) => {
     throw new Error("All fields are required ! ");
   }
 
+  if (!isValidObjectId(user_id)) {
+    res.status(400).send("Please provide a correct Object Id");
+  }
+
   const userAvailable = await Users.findOne({ email });
   if (userAvailable) {
     res.status(400).send("User already registered ! PLease Login");
@@ -75,6 +79,7 @@ module.exports.loginUser = asyncHandler(async (req, res) => {
 module.exports.currentUser = asyncHandler(async (req, res) => {
   let email = req.user.email;
   const user = await Users.findOne({ email });
+
   res.json({
     id: user.id,
     username: user.username,
@@ -118,6 +123,10 @@ module.exports.patchUsername = asyncHandler(async (req, res) => {
     throw new Error("a new username or an user id is missing");
   }
 
+  if (!isValidObjectId(user_id)) {
+    res.status(400).send("Please provide a correct Object Id");
+  }
+
   if (newUsername.length < 4 || newUsername.length > 20) {
     res
       .status(400)
@@ -157,6 +166,10 @@ module.exports.patchEmail = asyncHandler(async (req, res) => {
     throw new Error("New Email or user_id is missing");
   }
 
+  if (!isValidObjectId(user_id)) {
+    res.status(400).send("Please provide a correct Object Id");
+  }
+
   const isExistEmail = await Users.findOne({ email: newEmail });
 
   if (isExistEmail) {
@@ -190,11 +203,13 @@ module.exports.patchEmail = asyncHandler(async (req, res) => {
 module.exports.patchPassword = asyncHandler(async (req, res) => {
   const { user_id, newPassword, password } = req.body;
 
-  console.log(password, newPassword);
-
   if (!user_id || !newPassword || !password) {
     res.status(400).send("User id, newPassword or password is missing");
     throw new Error("User id, newPassword or password is missing");
+  }
+
+  if (!isValidObjectId(user_id)) {
+    res.status(400).send("Please provide a correct Object Id");
   }
 
   const user = await Users.findById(user_id);
@@ -233,6 +248,10 @@ module.exports.addProfileImage = asyncHandler(async (req, res) => {
   if (!user_id || !imgCropLink || !imgFullLink) {
     res.status(400).send("An UserId or Images Links are missing");
     throw new Error("An UserId or Images Links are missing");
+  }
+
+  if (!isValidObjectId(user_id)) {
+    res.status(400).send("Please provide a correct Object Id");
   }
 
   const user = await Users.findById(user_id);
