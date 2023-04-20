@@ -36,7 +36,7 @@ const AnimatedRoutes = () => {
 
   const auth = async (token) => {
     await axios
-      .get("https://umtappo.onrender.com/user/current", {
+      .get("http://localhost:5000/user/current", {
         headers: {
           "Authorization ": `Bearer ${token}`,
         },

@@ -1,12 +1,12 @@
 const Users = require("../models/user.models");
 const Rates = require("../models/rates.models");
 const asyncHandler = require("express-async-handler");
-const { default: mongoose } = require("mongoose");
+const { default: mongoose, isValidObjectId } = require("mongoose");
 const axios = require("axios");
 
 module.exports.getUserRecommendations = asyncHandler(async (req, res) => {
   const user_id = req.params.userId;
-  if (!user_id) {
+  if (!user_id && user_id === null) {
     res.status(400).send("user_id is missing");
   }
 

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Navigation from "../components/Navigation/Navigation";
+// import { MemoizedNavigation } from "../components/Navigation/Navigation";
 import SearchBar from "../components/SearchBar/SearchBar";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import BackIcon from "../components/Navigation/BackIcon";
@@ -8,7 +9,6 @@ import AppContext from "../utils/Context/AppContextProvider";
 import Button from "../components/Button/Button";
 import Hamburger from "../components/hamburger/Hamburger";
 import Footer from "../components/Footer/Footer";
-
 import AvatarNavLink from "../components/Navigation/AvatarNavLink";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import MobileNav from "../components/Navigation/MobileNav";
@@ -84,6 +84,7 @@ const AppLayout = () => {
           </div>
           <Hamburger getHamburgerState={getHamburgerState}></Hamburger>
           <Navigation />
+          {/* <MemoizedNavigation /> */}
           <SearchBar
             getInputValue={getInputValue}
             getSearchState={getSearchState}

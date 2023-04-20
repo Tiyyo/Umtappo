@@ -33,7 +33,7 @@ const ChangePassword = ({ isOpen, getCloseState }) => {
       user_id: userID,
     };
     await axios
-      .patch("https://umtappo.onrender.com/user/password", body)
+      .patch("http://localhost:5000/user/password", body)
       .then((res) => {
         if (res.status === 200) {
           toast.success(res.data, {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 const Navigation = () => {
@@ -29,3 +29,5 @@ const Navigation = () => {
 };
 
 export default Navigation;
+
+// export const MemoizedNavigation = memo(Navigation);

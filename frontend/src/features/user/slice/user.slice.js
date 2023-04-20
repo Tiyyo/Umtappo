@@ -5,7 +5,7 @@ export const getUserData = createAsyncThunk(
   "getUserData",
   async (userID, { rejectWithValue }) => {
     const result = await axios
-      .get("https://umtappo.onrender.com/user/" + userID)
+      .get("http://localhost:5000/user/" + userID)
       .then((res) => {
         return res.data;
       })
