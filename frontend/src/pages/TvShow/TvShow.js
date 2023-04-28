@@ -51,7 +51,7 @@ const TvShow = () => {
       );
       observer.observe(mainDiv.current);
     }
-  }, [mainDiv.current]);
+  }, []);
 
   return (
     <>

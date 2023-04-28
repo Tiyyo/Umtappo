@@ -61,7 +61,7 @@ const Profile = () => {
     let data = { user_id: userID, newUsername: value.username };
 
     await axios
-      .patch("http://localhost:5000/user/username", data)
+      .patch("https://umtappo.onrender.com/user/username", data)
       .then((res) => {
         if (res.status === 200) {
           dispatch(editUsername(value.username));
@@ -87,7 +87,7 @@ const Profile = () => {
     let data = { user_id: userID, newEmail: value.email };
 
     await axios
-      .patch("http://localhost:5000/user/email", data)
+      .patch("https://umtappo.onrender.com/user/email", data)
       .then((res) => {
         if (res.status === 200) {
           toast.success("Email has been succesfull updated");
@@ -117,7 +117,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    dispatch(getUserData());
+    dispatch(getUserData(userID));
   }, []);
 
   return (

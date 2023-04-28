@@ -1,10 +1,21 @@
 
 .inputWrapper {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0.8rem 0;
     // width: 100%;
     .input {
         @include input;
 
+    }
+
+    label {
+        position: absolute;
+        top: -1rem;
+        left: 0;
+        font-size: 0.6em;
     }
     .inputError  {
         display: flex;
@@ -28,10 +39,17 @@
             justify-content: flex-start;
             padding: 20px 0;
             font-weight: 700;
-            font-size: 1em;
+            font-size: 0.9em;
+            position: relative;
+
+            width: fit-content;
+            text-align: center;
 
             svg {
-                flex: 1 1 auto;
+                position: absolute;
+                top: 50%;
+                left: -30px;
+                transform: translateY(-50%);
 
             }
 
@@ -63,7 +81,7 @@
         position: relative;
     }
 
-    margin: 0.4em 0 ;
+    
 }
 
 .social-auth  {

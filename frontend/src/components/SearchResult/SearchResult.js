@@ -44,7 +44,9 @@ const SearchResult = () => {
         <div className="search--result__wrapper">
           {elements.map((content, index) => {
             content.type = content.media_type;
-            if (content.type === "person") return;
+            if (content.type === "person") {
+              return;
+            }
             if (index === elements.length - 1 && content) {
               return (
                 <Link

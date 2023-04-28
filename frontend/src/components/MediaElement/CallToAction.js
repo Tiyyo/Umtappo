@@ -101,11 +101,9 @@ const CallToAction = ({ media_type, id, content }) => {
         </Link>
       </div>
       <div className="modal-content__wrapper__media-element__call-to-action__share">
-        <Link to={"modal"}>
-          <Button>
-            <ShareIcon />
-          </Button>
-        </Link>
+        <Button>
+          <ShareIcon />
+        </Button>
       </div>
     </div>
   );

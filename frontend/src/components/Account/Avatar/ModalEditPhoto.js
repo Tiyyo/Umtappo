@@ -38,6 +38,7 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
   const [completeCrop, setCompleteCrop] = useState(null);
   const [errorType, setErrorType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   const [file, setFile] = useState(null);
 
   const handleSelectFile = (e) => {
@@ -128,7 +129,6 @@ const ModalEditPhoto = ({ isOpen, getStateModal }) => {
         imgCropLink,
       })
       .then(() => {
-        console.log("end");
         setIsLoading(false);
         getStateModal(false);
       })

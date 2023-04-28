@@ -4,7 +4,7 @@ import LoaderUI from "../../components/Loader/LoaderUI";
 import UserContext from "../Context/UserContextProvider";
 
 const ProtectedRoutes = () => {
-  const { isAuth, isLoggedIn } = useContext(UserContext);
+  const { isAuth } = useContext(UserContext);
 
   if (isAuth === null) return <LoaderUI />;
 

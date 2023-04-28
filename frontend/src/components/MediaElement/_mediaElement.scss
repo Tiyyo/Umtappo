@@ -20,7 +20,7 @@
             background-color: rgba(0, 0, 0, 0.476);
             backdrop-filter: blur(7px);
             filter: blur(0);
-            animation: opacityIn 400ms ease-in 1;
+            // animation: opacityIn 400ms ease-in 1;
 
         }
         
@@ -39,18 +39,19 @@
 
         &[data-closed="true"] {
             opacity: 0;
-            transition: opacity 0.3s ease-in;
+
         } 
         &[data-closed="false"] {
             opacity: 1;
             width: 90%;
             transition: opacity 0.3s ease-in;
+            transition-delay  : 0.2s
         }
 
         &::-webkit-scrollbar {
             display: none;
         }
-        animation: opacityIn 400ms ease-in 1;
+        // animation: opacityIn 400ms ease-in 1;
 
 
         @keyframes opacityIn {

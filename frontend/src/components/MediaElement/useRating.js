@@ -10,7 +10,7 @@ const useRating = (id, media_type) => {
 
   useEffect(() => {
     if (loading === "idle") {
-      rates?.map((el) => {
+      rates?.forEach((el) => {
         if (el.id === id && el.media_type === media_type) {
           setIsRated(true);
           setRateId(el._id);

@@ -8,7 +8,6 @@ import AppContext from "../../utils/Context/AppContextProvider";
 import {
   useGetLastReleaseMovieQuery,
   useGetPopularMovieQuery,
-  useGetPromotedMovieQuery,
   useGetUpcomingMovieQuery,
 } from "../../features/content/tmdbAPI";
 import { Outlet } from "react-router";
@@ -56,7 +55,7 @@ const Films = () => {
       );
       observer.observe(mainDiv.current);
     }
-  }, [mainDiv.current]);
+  }, []);
 
   return (
     <div className="app">

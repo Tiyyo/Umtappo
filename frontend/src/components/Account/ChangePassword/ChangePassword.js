@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
 import UserContext from "../../../utils/Context/UserContextProvider";
@@ -15,7 +15,8 @@ const ChangePassword = ({ isOpen, getCloseState }) => {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, errors },
+    reset,
+    formState: { isSubmitting, errors, isSubmitSuccessful },
   } = useForm({
     mode: "onSubmit",
     resolvers: yupResolver(passwordSchema),
@@ -25,15 +26,14 @@ const ChangePassword = ({ isOpen, getCloseState }) => {
     },
   });
 
-  const submitPasswords = async (data, e) => {
-    e.preventDefault();
+  const submitPasswords = async (data) => {
     let body = {
       password: data?.password,
       newPassword: data?.newPassword,
       user_id: userID,
     };
     await axios
-      .patch("http://localhost:5000/user/password", body)
+      .patch("https://umtappo.onrender.com/user/password", body)
       .then((res) => {
         if (res.status === 200) {
           toast.success(res.data, {
@@ -63,6 +63,12 @@ const ChangePassword = ({ isOpen, getCloseState }) => {
       });
   };
 
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset({ password: "", newPassword: "" });
+    }
+  }, [isSubmitSuccessful, reset]);
+
   return (
     <div
       className="change-password"
@@ -84,7 +90,7 @@ const ChangePassword = ({ isOpen, getCloseState }) => {
         </div>
       </div>
       <form
-        onSubmit={handleSubmit(submitPasswords())}
+        onSubmit={handleSubmit(submitPasswords)}
         className="change-password__form"
       >
         <InputPassword
@@ -92,12 +98,14 @@ const ChangePassword = ({ isOpen, getCloseState }) => {
           name="password"
           errrorMessage={errors?.password}
           register={register}
+          label={"Type your old password"}
         />
         <InputPassword
           icon={true}
           name="newPassword"
           errorMessage={errors?.newPassword}
           register={register}
+          label={"Type your new password"}
         />
         <InputSubmit value={"confirm"} isSubmitting={isSubmitting} />
       </form>

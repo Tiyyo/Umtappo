@@ -13,7 +13,7 @@ const AvatarNavLink = () => {
       <div className="nav-avatar__wrapper">
         <img
           src={userProfileImage ? userProfileImage : defaultAvatar}
-          alt="user profile picture or default avatar"
+          alt="Link to profile "
         />
       </div>
     </NavLink>

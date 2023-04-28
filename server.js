@@ -23,7 +23,7 @@ app.use("/like", require("./routes/likes.routes"));
 app.use("/rate", require("./routes/rates.routes"));
 app.use("/recommendations", require("./routes/recommendations.routes"));
 app.use(
-  express.static(path.join(__dirname, "/frontend", "public", "index.html"))
+  express.static(path.join(__dirname, "/frontend", "/public", "/index.html"))
 );
 app.get("/s3Url", async (req, res) => {
   const url = await s3.generateUploadURL();
@@ -31,11 +31,9 @@ app.get("/s3Url", async (req, res) => {
 });
 
 if (process.env.NODE_ENV === "production") {
-  app.use(
-    express.static(path.join(__dirname, "/frontend", "public", "index.html"))
-  );
-  app.get("/*", (req, res) =>
-    res.sendFile(path.join(__dirname, "/frontend/public/index.html"))
+  app.use(express.static(__dirname + "/frontend/public/index.html"));
+  app.get("*", (req, res) =>
+    res.sendFile(__dirname + "/frontend/public/index.html")
   );
 }
 // app.get("/*", (req, res) => {

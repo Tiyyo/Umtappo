@@ -34,7 +34,7 @@ body[data-theme="light"] {
     // --secondary_gradient : linear-gradient(180deg, rgb(238, 228, 222, 1) 0%,  rgb(238, 228, 222, 0.4) 30%, rgb(238, 228, 222, 0.15)  100%);
     // --nav_icon : black;
     // --text_light : rgb(80, 78, 77);
-    // --border_list : rgba(54, 54, 54, 0.2);
+    --border_list : rgba(54, 54, 54, 0.2);
     // --button_loading : #414141db;
     --white : rgb(234, 232, 232);
     --star : rgb(52, 126, 210);
@@ -94,8 +94,8 @@ body[data-theme="dark"] {
     // --input_bg : rgba(0,0,0,1);
     // --input_lock_color : rgba(255, 255, 255, 0.5);
     // --input_placeholder : rgba(218, 113, 21, 0.641);
-    // --transparent_bg : rgba(0,0,0,0.2);
-    // --border_list : rgba(255, 255, 255, 0.2);
+    --transparent_bg : rgba(0,0,0,0.2);
+    --border_list : rgba(255, 255, 255, 0.2);
 
 }
 

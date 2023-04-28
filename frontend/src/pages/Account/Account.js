@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import UserContext from "../../utils/Context/UserContextProvider";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
-import AppContext from "../../utils/Context/AppContextProvider";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser, getUserData } from "../../features/user/slice/user.slice";

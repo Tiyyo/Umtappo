@@ -1,5 +1,5 @@
 .log  {
-    font-family: 'Lato', serif;
+    font-family: 'Lato', sans-serif; 
     min-height: 100vh;
     background-color: var(--bg_primary);
     position: relative;
@@ -12,6 +12,7 @@
         h1 {
             font-family: 'Evermore' , Arial , Roboto, sans-serif;
             font-size: 5vw;
+            font-display: fallback ;
             color: var(--secondary_hard_dark);
 
             @include respond-to('medium-large')  {

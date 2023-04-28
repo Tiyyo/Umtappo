@@ -20,17 +20,8 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const [backendError, setBackendError] = useState("");
-  const [isVisible, setIsVisible] = useState(false);
 
   const { iconTheme } = useContext(AppContext);
-
-  const showPassword = () => {
-    setIsVisible(true);
-  };
-
-  const hidePassword = () => {
-    setIsVisible(false);
-  };
 
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(userSchema),

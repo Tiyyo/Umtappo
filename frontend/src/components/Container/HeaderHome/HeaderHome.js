@@ -44,8 +44,6 @@ const HeaderHome = React.forwardRef(({ content }, headerHome) => {
     return () => clearInterval(changeImage);
   }, [numberOfContent, delayBetweenContent]);
 
-  let link = "http://image.tmdb.org/t/p/w342/ieyUpr5ES9QEz1cn4clCnBf9XJl.jpg";
-  const placeSecureMark = link.split();
   return (
     <div className="header-home" ref={headerHome}>
       <div className="header-home__image-wrapper">
@@ -90,6 +88,7 @@ const HeaderHome = React.forwardRef(({ content }, headerHome) => {
             src={
               imagePathBanner(3).slice(0, 4) + "s" + imagePathBanner(3).slice(4)
             }
+            alt="On air Movies "
             ref={image}
           />
         </picture>

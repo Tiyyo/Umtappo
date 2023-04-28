@@ -3,6 +3,7 @@ import React from "react";
 const Casts = ({ credits }) => {
   let director = "Director";
   let directorAlternative = "Storyboard Artist";
+  let directing = "Directing";
 
   const displayCastsActors = () => {
     if (credits.cast.length > 0) {
@@ -30,6 +31,13 @@ const Casts = ({ credits }) => {
         if (crew[i].job === director || crew[i].job === directorAlternative) {
           mainDirector.push(crew[i]);
         }
+      }
+      if (mainDirector.length === 0) {
+        credits.crew.forEach((member) => {
+          if (member.known_for_department === directing) {
+            mainDirector.push(member);
+          }
+        });
       }
       mainDirector = [...new Set(mainDirector)];
       return (

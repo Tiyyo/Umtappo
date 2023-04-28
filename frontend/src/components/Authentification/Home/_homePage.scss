@@ -39,7 +39,7 @@
         @include baseButton;
         background-color: var(--bg_secondary);
         border: 2px solid var(--text_primary_hard);
-        color: var(--text_primary_light);
+        color: var(--text_primary_hard);
         box-shadow: 1px 3px 14px 3px rgba(255,255,255,0.2);
         width: 50vw;
         transition: 0.2s ease-in;

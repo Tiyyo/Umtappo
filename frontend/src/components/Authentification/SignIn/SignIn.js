@@ -39,7 +39,7 @@ function SignIn() {
 
   async function user(data) {
     await axios
-      .post("http://localhost:5000/user/login", {
+      .post("https://umtappo.onrender.com/user/login", {
         email: data?.email,
         password: data?.password,
       })
@@ -52,11 +52,20 @@ function SignIn() {
         }
       })
       .catch((err) => {
-        if (err.response.status === 401 || 400) {
-          setError({ ...error, isError: true, value: err.response.data });
-          setIsAuth(false);
+        console.log(err, "log de erreur");
+        if (!err.response) {
+          return;
         } else {
-          setError({ ...error, isError: true, value: err.response.statusText });
+          if (err.response.status === 401 || 400) {
+            setError({ ...error, isError: true, value: err.response.data });
+            setIsAuth(false);
+          } else {
+            setError({
+              ...error,
+              isError: true,
+              value: err.response?.statusText,
+            });
+          }
         }
       });
   }

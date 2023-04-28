@@ -1,11 +1,10 @@
-import React, { memo } from "react";
+import React from "react";
 import TmdbLogo from "../Logo/TmdbLogo";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import IconLink from "./IconLink";
 
 const Footer = () => {
-  console.log("did i render", "footer");
   return (
     <div className="footer">
       <div className="credits">

@@ -9,6 +9,7 @@ import Spacer from "../../components/Container/HeaderHome/Spacer";
 import { HomeContextProvider } from "../../utils/Context/HomeContextProvider";
 import AppContext from "../../utils/Context/AppContextProvider";
 import {
+  useGetAllPromotedMoviesQuery,
   useGetAllTrendsQuery,
   useGetLastReleaseMovieQuery,
   useGetLastReleaseTvshowQuery,
@@ -95,11 +96,11 @@ const Home = () => {
       observer.observe(headerHome.current);
       return () => observer.disconnect(headerHome.current);
     }
-  }, [headerHome.current]);
+  }, []);
 
   useEffect(() => {
     dispatch(getUserData(userID));
-  }, []);
+  }, [userID]);
 
   return (
     <HomeContextProvider>

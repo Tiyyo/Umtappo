@@ -5,7 +5,7 @@ const usePromoted = (
   numMaxCardsForContainer,
   max
 ) => {
-  const [array, setArray] = useState([]);
+  let array = [];
   const [splitArray, setSplitArray] = useState([]);
 
   const generateRandomNumber = () => {

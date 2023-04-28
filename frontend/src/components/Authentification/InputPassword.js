@@ -3,7 +3,14 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import ErrorIcon from "@mui/icons-material/Error";
 
-const InputPassword = ({ name, placeholder, register, icon, errorMessage }) => {
+const InputPassword = ({
+  name,
+  placeholder,
+  register,
+  icon,
+  errorMessage,
+  label,
+}) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const showPassword = () => {
@@ -16,6 +23,7 @@ const InputPassword = ({ name, placeholder, register, icon, errorMessage }) => {
 
   return (
     <div className="inputWrapper">
+      <label>{label}</label>
       <input
         type={isVisible ? "text" : "password"}
         name={name}

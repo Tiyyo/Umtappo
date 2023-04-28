@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import BrowserNotSupportedIcon from "@mui/icons-material/BrowserNotSupported";
 import { imagePath } from "../../../utils/function/image.path";
 import AppContext from "../../../utils/Context/AppContextProvider";
-import LazyLoad from "react-lazy-load";
 
 const BannerCard = ({ element: el }) => {
   const { config } = useContext(AppContext);
