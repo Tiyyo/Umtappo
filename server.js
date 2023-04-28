@@ -31,9 +31,9 @@ app.get("/s3Url", async (req, res) => {
 });
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(__dirname + "/frontend/public/index.html"));
+  app.use(express.static(path.join(__dirname + "/frontend/public/index.html")));
   app.get("https://umtappo-d6u1.onrender.com/*", (req, res) =>
-    res.sendFile(__dirname + "/frontend/public/index.html")
+    res.sendFile(path.join(__dirname + "/frontend/public/index.html"))
   );
 }
 // app.get("/*", (req, res) => {
