@@ -45,7 +45,7 @@
                 padding-left: 35px;
                 background-color: var(--transparent_bg);
                 @media screen and (max-width : 420px) {
-                    max-width: 150px;
+                    max-width: 65vw;
                 }
 
                 @include respond-to ('medium-large')  {

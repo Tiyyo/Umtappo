@@ -19,7 +19,7 @@ import UserContext from "../../utils/Context/UserContextProvider";
 import Button from "../Button/Button";
 
 const CallToAction = ({ media_type, id, content }) => {
-  const { userID } = useContext(UserContext);
+  const { userID, isAuth } = useContext(UserContext);
 
   const [isLiked, setIsLiked] = useState(false);
 
@@ -53,8 +53,9 @@ const CallToAction = ({ media_type, id, content }) => {
       genres: content.genres,
       vote_average: content.vote_average,
     };
+
     const result = await axios
-      .post(`http://localhost:5000/like/${media_type}`, data)
+      .post(`https://umptappo.onrender.com/like/${media_type}`, data)
       .then((res) => {
         if (res.status === 200) {
           media_type === movieType
@@ -71,7 +72,7 @@ const CallToAction = ({ media_type, id, content }) => {
   const removeFromLikes = async (media_type) => {
     const data = { user_id: userID, content_id: id, media_type };
     const result = await axios
-      .patch(`http://localhost:5000/${media_type}`, data)
+      .patch(`https://umptappo.onrender.com/like/${media_type}`, data)
       .then((res) => {
         if (res.status === 200) {
           media_type === movieType
@@ -86,26 +87,34 @@ const CallToAction = ({ media_type, id, content }) => {
   };
 
   return (
-    <div className="modal-content__wrapper__media-element__call-to-action">
-      <div
-        className="modal-content__wrapper__media-element__call-to-action__favorite"
-        onClick={handleClick}
-      >
-        <Button>{isLiked ? <BookmarkIcon /> : <BookmarkBorderIcon />}</Button>
-      </div>
-      <div className="modal-content__wrapper__media-element__call-to-action__add-to">
-        <Link to="add_to_playlist" state={{ content }}>
-          <Button>
-            <AddIcon />
-          </Button>
-        </Link>
-      </div>
-      <div className="modal-content__wrapper__media-element__call-to-action__share">
-        <Button>
-          <ShareIcon />
-        </Button>
-      </div>
-    </div>
+    <>
+      {isAuth ? (
+        <div className="modal-content__wrapper__media-element__call-to-action">
+          <div
+            className="modal-content__wrapper__media-element__call-to-action__favorite"
+            onClick={handleClick}
+          >
+            <Button>
+              {isLiked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+            </Button>
+          </div>
+          <div className="modal-content__wrapper__media-element__call-to-action__add-to">
+            <Link to="add_to_playlist" state={{ content }}>
+              <Button>
+                <AddIcon />
+              </Button>
+            </Link>
+          </div>
+          <div className="modal-content__wrapper__media-element__call-to-action__share">
+            <Button>
+              <ShareIcon />
+            </Button>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 

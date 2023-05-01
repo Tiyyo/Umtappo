@@ -29,7 +29,7 @@ const Home = () => {
   const { languages, setNavIsIntersect } = useContext(AppContext);
   const { uniqueArraysIndexMovie, uniqueArraysIndexTvshow } =
     useContext(PromotedMediaContext);
-  const { userID } = useContext(UserContext);
+  const { userID, isAuth } = useContext(UserContext);
   const [mainIsLoading, setMainIsLoading] = useState(true);
 
   const dispatch = useDispatch();
@@ -99,8 +99,10 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getUserData(userID));
-  }, [userID]);
+    if (isAuth) {
+      dispatch(getUserData(userID));
+    }
+  }, [userID, isAuth]);
 
   return (
     <HomeContextProvider>

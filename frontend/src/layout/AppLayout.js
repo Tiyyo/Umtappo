@@ -13,6 +13,7 @@ import AvatarNavLink from "../components/Navigation/AvatarNavLink";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import MobileNav from "../components/Navigation/MobileNav";
 import { useSelector } from "react-redux";
+import UserContext from "../utils/Context/UserContextProvider";
 
 const AppLayout = () => {
   const body = document.querySelector("body");
@@ -23,6 +24,7 @@ const AppLayout = () => {
 
   const { pathname } = useLocation();
   const { iconTheme, navIsIntersect } = useContext(AppContext);
+  const { isAuth } = useContext(UserContext);
 
   const hideAccountIcon = () => {
     switch (pathname) {
@@ -90,9 +92,13 @@ const AppLayout = () => {
             getSearchState={getSearchState}
           />
           <AvatarNavLink />
-          <NavLink to="/Favorites" className="favorites-link_mobile">
-            <BookmarkBorderIcon />
-          </NavLink>
+          {isAuth ? (
+            <NavLink to="/Favorites" className="favorites-link_mobile">
+              <BookmarkBorderIcon />
+            </NavLink>
+          ) : (
+            ""
+          )}
           <MobileNav isOpen={openMenu} />
           <Button>{shouldHide ? "" : <BackIcon color="primary" />}</Button>
         </div>

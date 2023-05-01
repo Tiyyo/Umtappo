@@ -48,5 +48,23 @@
             background-color: var(--secondary_hard_dark);
         }
     }
+    &__link-to-home {
+        color: var(--text_light);
+        font-size: 0.8em;
+        transition: 0.2s ease-in;
+        text-align: center;
+
+        &:hover {
+            color: var(--secondary_hard_dark);
+            transition: 0.4s ease-out;
+        }
+    }
+    &__demo-credentials {
+        color: var(--text_light);
+        text-align: center;
+        line-height: 1.6;
+        font-size: 0.8em;
+        margin-top: 5vh;
+    }
 
 }

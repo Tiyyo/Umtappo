@@ -37,7 +37,7 @@ const MediaElement = () => {
   const { media_type, id } = content;
 
   const { languages } = useContext(AppContext);
-  const { userID } = useContext(UserContext);
+  const { userID, isAuth } = useContext(UserContext);
 
   const params = { id, media_type, languages };
 
@@ -68,10 +68,12 @@ const MediaElement = () => {
   }, [isLoadingMain, isLoadingCredits, isLoadingSimilars]);
 
   useEffect(() => {
-    dispatch(getIdsMoviesLiked(userID));
-    dispatch(getIdsTvshowsLiked(userID));
-    dispatch(getRating(userID));
-  }, [userID]);
+    if (isAuth) {
+      dispatch(getIdsMoviesLiked(userID));
+      dispatch(getIdsTvshowsLiked(userID));
+      dispatch(getRating(userID));
+    }
+  }, [userID, isAuth]);
 
   useLayoutEffect(() => {
     dispatch(openModal(true));

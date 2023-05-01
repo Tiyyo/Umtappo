@@ -145,6 +145,7 @@
                 align-items: center;
                 align-content: center;
                 flex-wrap: wrap;
+           
     
                 &--users  {
                     padding: 5px 0;
@@ -153,9 +154,9 @@
                     align-items: center;
                     justify-content: center;
                     flex-shrink: 0;
-                    row-gap: 0.5rem;
-                    
-                    font-size: 0.9rem;
+                    row-gap: 0.5rem;                  
+                    font-size: 0.7rem;
+        
                     
                     span  {
                         color: var(--text_light);
@@ -170,6 +171,7 @@
                     justify-content: center;
                     flex-shrink: 0;
                     cursor: pointer;
+                    font-size: 0.7rem;
     
                     
                     button  {

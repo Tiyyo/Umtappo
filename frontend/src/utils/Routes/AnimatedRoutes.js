@@ -73,34 +73,41 @@ const AnimatedRoutes = () => {
   return (
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
-        <Route element={<ProtectedRoutes />}>
-          <Route path={"/"} element={<AppLayout />}>
-            <Route path={""} element={<Navigate to="/Home" />} />
-            <Route exact path={"Home"} element={<Home />}>
-              <Route path={":id"} element={<MediaElement />}></Route>
+        <Route path={"/"} element={<AppLayout />}>
+          <Route path={""} element={<Navigate to="/Home" />} />
+          <Route exact path={"Home"} element={<Home />}>
+            <Route path={":id"} element={<MediaElement />} />
+            <Route element={<ProtectedRoutes />}>
               <Route
                 path={":id/add_to_playlist"}
                 element={<AddToWatchlist />}
               />
             </Route>
+          </Route>
+          <Route element={<ProtectedRoutes />}>
             <Route exact path="Favorites" element={<Favorites />}>
               <Route path={""} element={<FavoritesResume />} />
               <Route path={":listName"} element={<Watchlist />} />
             </Route>
-            <Route exact path="Films" element={<Films />}>
-              <Route path={":id"} element={<MediaElement />} />
-            </Route>
+          </Route>
+          <Route exact path="Films" element={<Films />}>
+            <Route path={":id"} element={<MediaElement />} />
+          </Route>
 
-            <Route eaxct path="TvShow" element={<TvShow />}>
-              <Route path={":id"} element={<MediaElement />} />
-            </Route>
-            <Route exact path="Search" element={<SearchResult />}>
-              <Route path={":id"} element={<MediaElement />} />
-            </Route>
+          <Route eaxct path="TvShow" element={<TvShow />}>
+            <Route path={":id"} element={<MediaElement />} />
+          </Route>
+          <Route exact path="Search" element={<SearchResult />}>
+            <Route path={":id"} element={<MediaElement />} />
+          </Route>
+
+          <Route element={<ProtectedRoutes />}>
             <Route
               path={":id/:id/add_to_playlist"}
               element={<AddToWatchlist />}
             />
+          </Route>
+          <Route element={<ProtectedRoutes />}>
             <Route path="Account" element={<Account />}>
               <Route path={""} element={<Menu />} />
               <Route path="Profile" element={<Profile />} />

@@ -7,7 +7,7 @@ import useIsEnough from "./useIsEnough";
 
 const Genre = ({ dataToDisplay, numberContainerToDisplay }) => {
   const { recommendations } = useContext(AppContext);
-  const { scores, randomReco } = useContext(UserContext);
+  const { scores, randomReco, isAuth } = useContext(UserContext);
 
   const isEnough = useIsEnough();
 
@@ -24,7 +24,7 @@ const Genre = ({ dataToDisplay, numberContainerToDisplay }) => {
 
   const uniqueRandomReco = [
     ...new Map(
-      scores?.map((el) => {
+      randomReco?.map((el) => {
         return [el.id, el];
       })
     ).values(),
@@ -32,7 +32,7 @@ const Genre = ({ dataToDisplay, numberContainerToDisplay }) => {
 
   if (!scores && !randomReco) {
     return <div className="favorite-genre"></div>;
-  } else if (recommendations && scores && isEnough) {
+  } else if (recommendations && scores && isEnough && isAuth) {
     return (
       <div className="favorite-genre">
         {uniqueScores
@@ -49,7 +49,7 @@ const Genre = ({ dataToDisplay, numberContainerToDisplay }) => {
           ))}
       </div>
     );
-  } else if (uniqueRandomReco) {
+  } else {
     return (
       <div className="favorite-genre">
         {uniqueRandomReco
