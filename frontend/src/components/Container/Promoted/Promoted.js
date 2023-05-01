@@ -35,14 +35,14 @@ const Promoted = ({ indexes, mediaType }) => {
   }, [windowWidth]);
 
   useEffect(() => {
-    if (mediaType === "movie") {
+    if (mediaType === "movie" && indexes) {
       let extractContent = indexes.map((i) => promotedMovies[i]);
       setContent(extractContent);
-    } else if (mediaType === "tv") {
+    } else if (mediaType === "tv" && indexes) {
       let extractContent = indexes.map((i) => promotedTvshows[i]);
       setContent(extractContent);
     }
-  }, [promotedMovies, promotedTvshows, numberElementDisplayed]);
+  }, [promotedMovies, promotedTvshows, numberElementDisplayed, indexes]);
 
   return (
     <div className="promoted">
