@@ -42,7 +42,7 @@ const SearchBar = ({ getInputValue, getSearchState }) => {
 
   return (
     <ThemeProvider theme={iconTheme}>
-      <div className="search__container">
+      {/* <div className="search__container">
         <Link to="/Search">
           <button className="search">
             <div
@@ -90,7 +90,7 @@ const SearchBar = ({ getInputValue, getSearchState }) => {
             />
           </button>
         </Link>
-      </div>
+      </div> */}
     </ThemeProvider>
   );
 };
