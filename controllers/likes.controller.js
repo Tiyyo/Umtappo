@@ -14,7 +14,6 @@ module.exports.getMoviesLiked = asyncHandler(async (req, res) => {
   }
 
   const user = await Users.findById(user_id);
-  console.log(user);
 
   if (user) {
     res.status(200).send({ movie_liked: user.movie_liked });

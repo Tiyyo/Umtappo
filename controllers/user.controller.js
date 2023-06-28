@@ -1,13 +1,15 @@
 const Users = require("../models/user.models");
 const List = require("../models/lists.model");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
-const userModels = require("../models/user.models");
-const dotenv = require("dotenv").config();
+// const userModels = require("../models/user.models");
+// const dotenv = require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const { createTokens } = require("./JWT");
 const { default: mongoose, isValidObjectId } = require("mongoose");
+
+
 //@desc Register a User
 //@route POST /user/register
 //@acces public
@@ -20,7 +22,7 @@ module.exports.createUser = asyncHandler(async (req, res) => {
   }
 
   if (!isValidObjectId(user_id)) {
-    res.status(400).send("Please provide a correct Object Id");
+    return res.status(400).send("Please provide a correct Object Id");
   }
 
   const userAvailable = await Users.findOne({ email });
@@ -124,7 +126,7 @@ module.exports.patchUsername = asyncHandler(async (req, res) => {
   }
 
   if (!isValidObjectId(user_id)) {
-    res.status(400).send("Please provide a correct Object Id");
+    return res.status(400).send("Please provide a correct Object Id");
   }
 
   if (newUsername.length < 4 || newUsername.length > 20) {

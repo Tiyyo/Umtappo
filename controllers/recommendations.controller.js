@@ -13,7 +13,7 @@ module.exports.getUserRecommendations = asyncHandler(async (req, res) => {
   }
 
   if (!isValidObjectId(user_id)) {
-    res.status(400).send("Please provide a correct Object Id");
+    return res.status(400).send("Please provide a correct Object Id");
   }
 
   let genreList;

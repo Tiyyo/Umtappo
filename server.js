@@ -1,6 +1,6 @@
 const express = require("express");
 const connectDB = require("./config/db");
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const path = require("path");
@@ -25,17 +25,17 @@ app.use("/recommendations", require("./routes/recommendations.routes"));
 app.use(
   express.static(path.join(__dirname, "/frontend", "/public", "/index.html"))
 );
-app.get("/s3Url", async (req, res) => {
-  const url = await s3.generateUploadURL();
-  res.send({ url });
-});
-
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname + "/frontend/public/index.html")));
   app.get("https://umtappo-d6u1.onrender.com/*", (req, res) =>
     res.sendFile(path.join(__dirname + "/frontend/public/index.html"))
   );
 }
+app.get("/s3Url", async (req, res) => {
+  const url = await s3.generateUploadURL();
+  res.send({ url });
+});
+
 // app.get("/*", (req, res) => {
 //   res.sendFile(path.join("./frontend/public/index.html"));
 // });
