@@ -62,6 +62,13 @@ const MediaElement = () => {
     navigate(-1);
   };
 
+  const handleCloseModalByClickOnBackground = (state) => {
+    if (!state) {
+      dispatch(closeModal(false));
+      navigate(-1);
+    }
+  };
+
   useEffect(() => {
     let arr = [isLoadingMain, isLoadingCredits, isLoadingSimilars];
     setLoading(arr.some((l) => l));
@@ -81,7 +88,7 @@ const MediaElement = () => {
 
   return (
     <div className="modal-content__wrapper">
-      <Blur>
+      <Blur onClick={handleCloseModalByClickOnBackground}>
         <AnimatePresence>
           <motion.div
             key="modal_media"

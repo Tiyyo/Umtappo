@@ -42,7 +42,7 @@ const SearchBar = ({ getInputValue, getSearchState }) => {
 
   return (
     <ThemeProvider theme={iconTheme}>
-      {/* <div className="search__container">
+      <div className="search__container">
         <Link to="/Search">
           <button className="search">
             <div
@@ -85,12 +85,13 @@ const SearchBar = ({ getInputValue, getSearchState }) => {
               defaultValue={lastSearchValue}
               placeholder={searchActive ? "Search" : ""}
               onChange={(e) => getInputValue(e.target.value)}
-              autoFocus
+              // desactivate autoFocus cause open keyboard on mobile   
+              name="search"
               style={searchActive ? { opacity: "1" } : { opacity: "0" }}
             />
           </button>
         </Link>
-      </div> */}
+      </div>
     </ThemeProvider>
   );
 };
