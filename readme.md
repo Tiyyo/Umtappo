@@ -31,6 +31,6 @@ $ npm run start
 This will run the website at http://localhost:3000.
 
 ## Stack
-*Express
-*React
-*MongoDB
+* Express
+* React
+* MongoDB
