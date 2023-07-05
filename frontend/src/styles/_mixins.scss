@@ -75,8 +75,8 @@
     }
 
     @include respond-to('large') {
-        height: 56px;
-        font-size: 1rem;
+        height: 48px;
+        font-size: 0.8rem;
     }
 }
 
@@ -109,7 +109,7 @@
     align-items: center;
     flex-direction: column;
     max-width: 80vw;
-    row-gap: 3vh;
+    row-gap: 1vh;
     padding: 2vh 0;
 
     &__title {

@@ -1,5 +1,6 @@
 .signup  {
     max-width: 900px;
+    padding-top: 15vh;
 
     @include respond-to('large') {
         font-size: 130%;
