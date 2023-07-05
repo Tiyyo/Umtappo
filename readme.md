@@ -1,7 +1,7 @@
 ## Presentation
 
 <br />
-<p align=center ><img src="https://github.com/Tiyyo/Umptappo/umptappo_prez.gif" /></p>
+<p align=center ><img src="umtappo_prez.gif" /></p>
 <br />
 
 ([Link to the website](https://umtappo-d6u1.onrender.com/Home))
