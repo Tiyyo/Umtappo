@@ -1,4 +1,9 @@
 ## Presentation
+
+<br />
+<p align=center ><img src="https://github.com/Tiyyo/Umptappo/umptappo_prez.gif" /></p>
+<br />
+
 ([Link to the website](https://umtappo-d6u1.onrender.com/Home))
 
 ## Features
@@ -24,3 +29,5 @@ $ npm i
 $ npm run start
 ```
 This will run the website at http://localhost:3000.
+
+## Stack
