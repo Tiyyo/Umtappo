@@ -3,7 +3,12 @@
 
 ## Features
 
-
+* Authentication
+* Create watchlist
+* Like and rating
+* Content display based on your likes and ratings
+* Edit profile name, email, password or photo
+* Switch theme, languages or recommendations
 
 ## Development
 
