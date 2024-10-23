@@ -7,6 +7,8 @@ const {
 } = require("../controllers/rates.controller");
 const router = express.Router();
 
+//console.log('ok')
+
 router.post("/add", addRates);
 router.get("/get/:user_id", getRates);
 router.patch("/remove", removeRates);
